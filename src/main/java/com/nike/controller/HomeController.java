@@ -36,4 +36,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("myPage")
+	public String myPage() {
+		return "myPage";
+	}
+	
 }
