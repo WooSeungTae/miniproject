@@ -35,7 +35,7 @@ public class HomeController {
 		
 		return "home";
 	}
-<<<<<<< HEAD
+
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";
@@ -51,7 +51,7 @@ public class HomeController {
 	@RequestMapping("order_care")
 	public String order_care() {
 		return "order_care";
-=======
+	}
 	
 	@RequestMapping("myPage")
 	public String myPage() {
@@ -97,6 +97,5 @@ public class HomeController {
 	@RequestMapping("reviewintro")
 	public String reviewintro() {
 		return "myPage/myPageReviewintro";
->>>>>>> branch 'master' of https://github.com/WooSeungTae/miniproject.git
 	}
 }
