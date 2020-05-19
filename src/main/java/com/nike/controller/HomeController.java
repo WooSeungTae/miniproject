@@ -38,7 +38,47 @@ public class HomeController {
 	
 	@RequestMapping("myPage")
 	public String myPage() {
-		return "myPage";
+		return "myPage/myPage";
+	}
+	@RequestMapping("aside")
+	public String aside() {
+		return "myPage/myPageAside";
+	}
+	@RequestMapping("orders")
+	public String myOrder() {
+		return "myPage/myPageOrderDelivery";
 	}
 	
+	@RequestMapping("returnable")
+	public String myPageReturn() {
+		return "myPage/myPageReturn";
+	}
+	@RequestMapping("mileage")
+	public String mileage() {
+		return "myPage/myPageMileage";
+	}
+	
+	@RequestMapping("account")
+	public String account() {
+		return "myPage/myPageAccount";
+	}
+	
+	@RequestMapping("password")
+	public String password() {
+		return "myPage/myPagePassword";
+	}
+	
+	@RequestMapping("withdrawal")
+	public String withdrawal() {
+		return "myPage/myPageWithdrawal";
+	}
+	@RequestMapping("cart")
+	public String cart() {
+		return "cart";
+	}
+	
+	@RequestMapping("reviewintro")
+	public String reviewintro() {
+		return "myPage/myPageReviewintro";
+	}
 }
