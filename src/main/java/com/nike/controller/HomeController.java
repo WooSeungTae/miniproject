@@ -35,6 +35,7 @@ public class HomeController {
 		
 		return "home";
 	}
+<<<<<<< HEAD
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";
@@ -50,5 +51,52 @@ public class HomeController {
 	@RequestMapping("order_care")
 	public String order_care() {
 		return "order_care";
+=======
+	
+	@RequestMapping("myPage")
+	public String myPage() {
+		return "myPage/myPage";
+	}
+	@RequestMapping("aside")
+	public String aside() {
+		return "myPage/myPageAside";
+	}
+	@RequestMapping("orders")
+	public String myOrder() {
+		return "myPage/myPageOrderDelivery";
+	}
+	
+	@RequestMapping("returnable")
+	public String myPageReturn() {
+		return "myPage/myPageReturn";
+	}
+	@RequestMapping("mileage")
+	public String mileage() {
+		return "myPage/myPageMileage";
+	}
+	
+	@RequestMapping("account")
+	public String account() {
+		return "myPage/myPageAccount";
+	}
+	
+	@RequestMapping("password")
+	public String password() {
+		return "myPage/myPagePassword";
+	}
+	
+	@RequestMapping("withdrawal")
+	public String withdrawal() {
+		return "myPage/myPageWithdrawal";
+	}
+	@RequestMapping("cart")
+	public String cart() {
+		return "cart";
+	}
+	
+	@RequestMapping("reviewintro")
+	public String reviewintro() {
+		return "myPage/myPageReviewintro";
+>>>>>>> branch 'master' of https://github.com/WooSeungTae/miniproject.git
 	}
 }
