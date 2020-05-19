@@ -35,5 +35,20 @@ public class HomeController {
 		
 		return "home";
 	}
-	
+	@RequestMapping("product_management")
+	public String product_management() {
+		return "product_management";
+	}
+	@RequestMapping("customer_care")
+	public String customer_care() {
+		return "customer_care";
+	}
+	@RequestMapping("board_care")
+	public String board_care() {
+		return "board_care";
+	}
+	@RequestMapping("order_care")
+	public String order_care() {
+		return "order_care";
+	}
 }
