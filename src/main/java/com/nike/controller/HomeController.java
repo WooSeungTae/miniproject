@@ -35,5 +35,8 @@ public class HomeController {
 		
 		return "home";
 	}
-	
+	@RequestMapping(value="productdetail")
+	public String productdetail() {
+		return "jsj/product_detail";
+	}
 }
