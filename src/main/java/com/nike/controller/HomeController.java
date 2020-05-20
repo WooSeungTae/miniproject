@@ -35,6 +35,7 @@ public class HomeController {
 		
 		return "home";
 	}
+<<<<<<< HEAD
 
 	@RequestMapping("product_management")
 	public String product_management() {
@@ -63,6 +64,23 @@ public class HomeController {
 	@RequestMapping("orders")
 	public String myOrder() {
 		return "myPage/myPageOrderDelivery";
+=======
+	@RequestMapping("memberJoin")
+	public String memberJoin() {
+		return "member/memberJoin";
+	}
+	@RequestMapping("loginPage")
+	public String loginPage() {
+		return "member/loginPage";
+	}
+	@RequestMapping("TestMainPage")
+	public String TestMainPage() {
+		return "member/TestMainPage";
+	}
+	@RequestMapping("userReset")
+	public String userReset() {
+		return "member/userReset";
+>>>>>>> refs/heads/sungjoon
 	}
 	
 	@RequestMapping("returnable")
