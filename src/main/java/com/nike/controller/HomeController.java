@@ -36,6 +36,17 @@ public class HomeController {
 		return "home";
 	}
 
+
+	@RequestMapping("/productdetail")
+	public String productdetail() {
+		return "jsj/product_detail";
+	}
+	
+	@RequestMapping("/catalog")
+	public String catalog() {
+		return "jsj/catalog";
+	}
+
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";
@@ -104,13 +115,17 @@ public class HomeController {
 	public String withdrawal() {
 		return "myPage/myPageWithdrawal";
 	}
-	@RequestMapping("cart")
-	public String cart() {
-		return "cart";
-	}
 	
 	@RequestMapping("reviewintro")
 	public String reviewintro() {
 		return "myPage/myPageReviewintro";
+	}
+	@RequestMapping("cart")
+	public String cart() {
+		return "purchase/cart";
+	}
+	@RequestMapping("checkout")
+	public String checkOut() {
+		return "purchase/checkOut";
 	}
 }
