@@ -26,58 +26,48 @@
 		
 		.img-detail_product_n{
 			position:relative;
-			width:calc(100% - 449px);
+			width:40%;
+			display:inline-block;
 			padding:0 54px;
 			text-align:center;
-		}
-		
-		.uk-grid{
-			list-style:none;
-		}
-		
-		.uk-grid > * {
-			padding-left:20px;
-			flex:none;
 			float:left;
+			height:700px;
 		}
 		
-		.product-gallery-wrap{
-			position:realtive;
+		
+	
+		.img-detail-list{
+			display:inline-block;
+			width:450px;
+			height:230px;
 		}
 		
-		.img-detail_product_n .img-detail-list{
-			margin-left:-12px;
-		}
+		.image-list{
+			display:inline;
+			width:220px;
+			height:230px;
+			overflow:0 auto;
 		
-		.img-detail_product_n .img-detail-list li{
-			position:relative;
-			padding-left:12px;
-			padding-bottom:12x;
 		}
-		
-		.uk-width-large-1-2{
-			width:50%;
-		}
-		
 		.prd-gutter{
 			background:#f5f5f5;
+			width:200px;
+			margin:5px;
+			height:230px;
 		}
 		
 		.info-wrap_product_n{
-			width:449px;
+			position:relative;
+			float:right;
+			width:45%;
 			padding:0 54px 0 10px;
 			color:#606060;
 			box-sizing:border-box;
 			text-align:left;
+			
 		}
-		
-		.info-wrap_product_n .product-option-container{
-			width:385px;
-		}
-		
-		.uk-position-relative{
-			position:relative;
-		}
+	
+	
 		
 		.info-wrap_product_n .price-wrap{
 			display:inline-block;
@@ -85,6 +75,19 @@
 			letter-spacing:0.1px;
 			color:#00000;
 		
+		}
+		
+		.product-option-container{
+			position:relative;
+			float:right;
+		}
+		
+		.quantity{
+			margin-bottom:10px;
+		}
+		
+		.order-wrap{
+			margin-bottom:10px;
 		}
 	</style>
 <meta charset="UTF-8">
@@ -96,49 +99,52 @@
 
 	</header>
 	<section class="wrapper">
-		<section class="content-area">
+		<section class="content-area" style="height:80%;">
 			<section>
 				<article>
 					<article class="contents margin-small pt_product-detail">
-						<div class="img-detail_product_n uk-width-medium-1-1 uk-width-large-3-5">
-							<div class="product-gallery-wrap bottom" data-component-gallery="{sort:230}">
-								<ul id="product-gallery" class="uk-grid img-detail-list">
-									<li class="uk-width-1-1 uk-width-large-1-2 image-list" href="#0">
+						<div class="img-detail_product_n">
+								<ul id="product-gallery" class="img-detail-list">
+									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
 											<a href="#0">
 												<img data-product-imgae="">
 											</a>
 										</div>
 									</li>
-									<li class="uk-width-1-1 uk-width-large-1-2 image-list" href="#1">
+									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#1">
 												<img data-product-imgae="">
 											</a>
 										</div>
 									</li>
-									<li class="uk-width-1-1 uk-width-large-1-2 image-list" href="#2">
+								</ul>
+								<ul class="img-detail-list">
+									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
 											<a href="#2">
 												<img data-product-imgae="">
 											</a>
 										</div>
 									</li>
-									<li class="uk-width-1-1 uk-width-large-1-2 image-list" href="#3">
+									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#3">
 												<img data-product-imgae="">
 											</a>
 										</div>
 									</li>
-									<li class="uk-width-1-1 uk-width-large-1-2 image-list" href="#4">
+								</ul>
+								<ul class="img-detail-list">
+									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
 											<a href="#4">
 												<img data-product-imgae="">
 											</a>
 										</div>
 									</li>
-									<li class="uk-width-1-1 uk-width-large-1-2 image-list" href="#5">
+									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#5">
 												<img data-product-imgae="">
@@ -147,7 +153,6 @@
 									</li>
 								</ul>
 							</div>
-						</div>
 						<div class="info-wrap_product_n">
 						<div class="product-option-container">
 							<div class="uk-hidden-small uk-position-relative">
@@ -261,6 +266,7 @@
 														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="330" id="FW_SIZE1" name="SIZE" value="48">
 													</span>
 												</div>
+											</div>
 												<div class="option-guide">
 													<div>
 														<a href="#" class="sky-blue">사이즈 가이드</a>
@@ -289,9 +295,11 @@
 														<a class="btn-link xlarge btn-order width-max" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="buy now" id="btn-buy" href="#">
 															<span>바로구매</span>
 														</a>
+														&nbsp;&nbsp;
 														<a class="btn-link line width-max xlarge btn-cart" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="add to cart" action-type="add" href="#">
 															<span>장바구니</span>
 														</a>
+														&nbsp;&nbsp;
 														<button class="wish-btn line btn-link sky-blue noraml btn-wishlist radius">
 															위시리스트
 															<i class="icon-wishlist">♡</i>
@@ -634,7 +642,7 @@
 										</div>
 									</div>
 								</form>
-							</div>
+						</div>
 						</div>
 						</div>
 					</article>
