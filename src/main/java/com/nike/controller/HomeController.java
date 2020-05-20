@@ -36,6 +36,17 @@ public class HomeController {
 		return "home";
 	}
 
+
+	@RequestMapping("/productdetail")
+	public String productdetail() {
+		return "jsj/product_detail";
+	}
+	
+	@RequestMapping("/catalog")
+	public String catalog() {
+		return "jsj/catalog";
+	}
+
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";
@@ -52,7 +63,6 @@ public class HomeController {
 	public String order_care() {
 		return "order_care";
 	}
-	
 	@RequestMapping("myPage")
 	public String myPage() {
 		return "myPage/myPage";
@@ -64,6 +74,22 @@ public class HomeController {
 	@RequestMapping("orders")
 	public String myOrder() {
 		return "myPage/myPageOrderDelivery";
+	}
+	@RequestMapping("memberJoin")
+	public String memberJoin() {
+		return "member/memberJoin";
+	}
+	@RequestMapping("loginPage")
+	public String loginPage() {
+		return "member/loginPage";
+	}
+	@RequestMapping("TestMainPage")
+	public String TestMainPage() {
+		return "member/TestMainPage";
+	}
+	@RequestMapping("userReset")
+	public String userReset() {
+		return "member/userReset";
 	}
 	
 	@RequestMapping("returnable")
