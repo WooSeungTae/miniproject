@@ -35,8 +35,14 @@ public class HomeController {
 		
 		return "home";
 	}
-	@RequestMapping(value="productdetail")
+	@RequestMapping("/productdetail")
 	public String productdetail() {
 		return "jsj/product_detail";
 	}
+	
+	@RequestMapping("/catalog")
+	public String catalog() {
+		return "jsj/catalog";
+	}
+	
 }
