@@ -52,6 +52,10 @@ public class HomeController {
 	public String order_care() {
 		return "order_care";
 	}
+	@RequestMapping("inventory")
+	public String inventory() {
+		return "inventory";
+	}
 	@RequestMapping("myPage")
 	public String myPage() {
 		return "myPage/myPage";
