@@ -35,5 +35,21 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping("memberJoin")
+	public String memberJoin() {
+		return "member/memberJoin";
+	}
+	@RequestMapping("loginPage")
+	public String loginPage() {
+		return "member/loginPage";
+	}
+	@RequestMapping("TestMainPage")
+	public String TestMainPage() {
+		return "member/TestMainPage";
+	}
+	@RequestMapping("userReset")
+	public String userReset() {
+		return "member/userReset";
+	}
 	
 }
