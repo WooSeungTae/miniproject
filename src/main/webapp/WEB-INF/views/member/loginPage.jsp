@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +17,7 @@
 	
 	<header>
 		<div>
-			<img class="minilogo" src="<spring:url value='/resources/img/nikelogo.jpg'/>">
+			<img class="minilogo" src="image/nike.jpg">
 			<h2>나이키 로그인</h2>		
 		</div>
 	</header>

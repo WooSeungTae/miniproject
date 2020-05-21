@@ -21,7 +21,7 @@
 			 <font color="gray">계정에 연결된 이메일이나 전화번호를 입력하시면<br>아이디 조회와 비밀번호를 재설정 하실 수 있습니다.</font>
 		</div><br>
 		<!-- 아무것도 입력 안하고 다음 클릭 시 필수항목으로 작성해야함 로직 만들어야함  -->
-		<input type="text" name="emailAndTel" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" placeholder="이메일 또는 전화번호를 입력해 주세요.">
+		<input type="text" name="emailAndTel" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" placeholder="이메일 또는 전화번호를 입력해 주세요."><br>
 		<!-- 경로 설정해주기  로직 만들어야함 -->
 		<button onclick="location=''" style=" width: 430px; margin 20px; padding: 10px; background-color: black; color: white; text-align: center;">다음</button><br>
 		<div style="margin: 20px;">
