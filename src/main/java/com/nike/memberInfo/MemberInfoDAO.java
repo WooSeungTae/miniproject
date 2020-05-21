@@ -1,5 +1,10 @@
 package com.nike.memberInfo;
 
-public class MemberInfoDAO {
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
+public class MemberInfoDAO {
+	private static final String namespace = "com.care.mybatis.mapper";
+	@Autowired
+	private SqlSession sqlSession;
 }
