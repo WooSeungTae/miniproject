@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body style="width: 60%; margin: auto; padding-top: 80px;">
+<body>
+<div  style="width: 60%; margin: auto; padding-top: 80px;">
 <c:import url="/aside"></c:import>
 <h2>비밀번호 변경</h2>
 <form action="">
@@ -19,5 +20,6 @@
 <input type="text" placeholder="새 비밀번호 확인"><br><br>
 <input type="submit" value="변경하기">
 </form>
+</div>
 </body>
 </html>
