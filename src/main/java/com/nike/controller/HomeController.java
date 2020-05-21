@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,7 +36,6 @@ public class HomeController {
 		
 		return "home";
 	}
-
 
 	@RequestMapping("/productdetail")
 	public String productdetail() {
@@ -131,5 +131,26 @@ public class HomeController {
 	@RequestMapping("checkout")
 	public String checkOut() {
 		return "purchase/checkOut";
+	}
+	@RequestMapping("myreviewlistall")
+	public String myreviewlistall() {
+		return "myPage/myPagemyReviewlistall";
+	}
+	
+	@RequestMapping("towritelistall")
+	public String myPageTowritelistall() {
+		return "myPage/myPageTowritelistall";
+	}
+	@RequestMapping("header")
+	public String header() {
+		return "sminj/header";
+	}
+	@RequestMapping("footer")
+	public String footer() {
+		return "sminj/footer";
+	}
+	@RequestMapping("main")
+	public String main() {
+		return "sminj/main";
 	}
 }
