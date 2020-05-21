@@ -6,21 +6,12 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style type="text/css">
-	.wrapper{min-height: 100%; max-width: 960px; margin: 20px; text-align: left; }
+	.wrapper{min-height: 100%; max-width: 100%; margin: 20px; text-align: center; }
 	.section{display: block;}
 	.contentBox{box-sizing: content-box; padding: 10px;}
 	input{height: 20px; margin: 10px; padding: 10px;}
 	.button_01{margin-bottom: 10px !important; box-sizing: border-box;}
 	button{color:white; background-color: black; width: 270px; height: 40px; padding: }
-	.uk-grid{max-width: 768px; display: flex; flex-wrap: wrap;}
-	.uk-grid:before,
-	.uk-grid:after{
-		content: "";
-		display: block;
-		overflow: hidden;
-		clear: both;
-	}
-	.uk-width-1-1{width: 100%; box-sizing: border-box; display: block;}
 	td{max-width: 100px;} 
 </style>
 </head>
@@ -30,7 +21,7 @@
 </header>
 	<form action="" method="post">
 		<section class="wrapper">
-			<h2>회원가입</h2>
+			<h3>회원가입</h3>
 			<span><hr style="width:150px; display:inline-block;"></span>
 			<span> OR </span>
 			<span><hr style="width:150px; display:inline-block;"></span><br><br>
@@ -40,27 +31,16 @@
 			<input type="text" name="name" placeholder="이름을  입력해 주세요." size="40"><br>
 			<input type="text" name="phonenumber" placeholder="휴대폰 번호 '-'표 없이  입력해 주세요." size="40"><br>
 			<input type="text" name="id" placeholder="생년월일 예)2020.01.01" size="40"><br>
-			<input type="radio" class="button_01" name="gender" value="남성">남성 
-			<input type="radio" class="button_01" name="gender" value="여성">여성 <br>
+			<input type="radio" class="button_01" name="gender" value="man">남성 
+			<input type="radio" class="button_01" name="gender" value="woman">여성 <br>
 			<div>
 				<font size="2" style="padding: 0 270px 0 0;"><b>이용약관</b></font><br>
 				<textarea rows="7" cols="52" style="font-size: 12px;" >나이키 이용약관 (추후 업뎃)
 				</textarea>	<br>
 			</div>
 			<input type="checkbox" name="agree" value="agree">[필수] 약관에 동의 합니다.
-			<!--  
-			<div class="uk-grid">
-				<div class="uk-width-1-1">
-					<table>
-						<caption>
-							<strong>개인정보 수집·이용동의 안내 목록</strong>
-						</caption>
-					</table>
-				</div>
-			</div>
-			-->
 			<div>			
-				<table style=" text-align: center; font-size:10; width: 330px; font-size: 11px;" border="1">
+				<table style=" text-align: center; margin:auto; font-size:10; width: 330px; font-size: 11px;" border="1">
 					<tr><td>일시</td><td>수집항목</td><td>수집목적</td><th>보유기간</th></tr>
 					<tr><td>가입시</td><td>아이디,이메일,비밀번호,이름,휴대폰 번호,성별,생년월일</td><td>회원식별 및 연락</td><th>회원탈퇴시까지</th></tr>
 					<tr><td>최초 구매시</td><td>성별,생년월일,휴대폰 번호,DI</td><td>본인확인</td><th>회원탈퇴시까지</th></tr>
@@ -86,10 +66,10 @@
 			</div>		
 			<div>
 				<font size="1">※ 선택 항목으로 동의하지 않아도 불이익을 받지 않습니다.</font>
-			</div>	
+			</div><br>	
 			<div>
 				<font>만 14세  미만은 회원가입 및 서비스 이용이 불가합니다.</font>
-			</div>
+			</div><br>
 			<div style="margin: 10px; ">
 				<button type="submit" style="width: 200px;">회원가입하기 (만14세 이상)</button>
 				<button type="button" onclick="location='loginPage'" style="width: 200px;">취소</button>
