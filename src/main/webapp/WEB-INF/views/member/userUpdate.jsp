@@ -16,9 +16,9 @@
 	</header>
 	<div class="wrapper">
 		<!-- 아무것도 입력 안하고 다음 클릭 시 필수항목으로 작성해야함 로직 만들어야함  -->
-		<input type="text" name="id" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" value="아이디 "><br>
-		<input type="text" name="tel" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" value="전화번호 "><br>
-		<input type="text" name="question" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" value="좋아하는 색은?"><br>
+		<input type="text" name="id" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" value="${id } "><br>
+		<input type="text" name="tel" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" value="${tel }"><br>
+		<input type="text" name="question" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" value="${question }"><br>
 		<input type="text" name="answer" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" placeholder="질문에 대한 답을 입력하세요"><br>
 		<input type="text" name="pwd" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" placeholder="새로운 비밀번호를 입력하세요"><br>
 		<input type="text" name="pwdcheck" style="margin : 20px; padding: 10px; width: 400px; height: 15px;" placeholder="비밀번호 확인"><br>
