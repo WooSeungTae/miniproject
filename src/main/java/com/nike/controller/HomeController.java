@@ -128,4 +128,13 @@ public class HomeController {
 	public String checkOut() {
 		return "purchase/checkOut";
 	}
+	@RequestMapping("myreviewlistall")
+	public String myreviewlistall() {
+		return "myPage/myPagemyReviewlistall";
+	}
+	
+	@RequestMapping("towritelistall")
+	public String myPageTowritelistall() {
+		return "myPage/myPageTowritelistall";
+	}
 }
