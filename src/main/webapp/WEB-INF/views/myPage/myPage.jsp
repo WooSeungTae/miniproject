@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body style="width: 60%; margin: auto; padding-top: 80px;">
+<body>
+<div  style="width: 60%; margin: auto; padding-top: 80px;">
 	<c:import url="/aside"></c:import>
 	<!--  마이페이지 상단  -->
 	<div>
@@ -18,7 +19,7 @@
 	<!-- 최근 등록 주문 내역 -->
 	<section>
 	<br><br><br><br><br>
-	
+	<img src="image/nike.jpg">
 	
 	
 	<hr>
@@ -27,6 +28,6 @@
 	<!-- 가운데 부분 -->
 	
 	
-	
+</div>
 </body>
 </html>
