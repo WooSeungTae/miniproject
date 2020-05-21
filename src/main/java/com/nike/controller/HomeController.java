@@ -95,12 +95,18 @@ public class HomeController {
 	public String loginPage() {
 		return "member/loginPage";
 	}
-	@RequestMapping("userUpdate")
-	public String userUpdate(Model model, HttpServletRequest request) {
-		service.searchId(model, request);
+	@RequestMapping("userSearch")
+	public String userSearch(Model model, HttpServletRequest request) {
+		String idtel = request.getParameter("idtel");
+		service.searchId(model,idtel);
 		return "member/userUpdate";
 	}
-
+	@RequestMapping("userUpdate")
+	public String userUpdate(MemberInfoDTO dto) {
+		service.pwdUpdate(dto);
+		return "member/loginPage";
+	}
+	
 	@RequestMapping("TestMainPage")
 	public String TestMainPage() {
 		return "member/TestMainPage";

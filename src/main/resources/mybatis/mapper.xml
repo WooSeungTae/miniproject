@@ -4,7 +4,11 @@
 
 <mapper namespace="com.care.mybatis.myMapper">
 	<select id="searchId" resultType="dto">
-		select * from memberInfo where id=#{id} or tel=${id}
+		select * from memberInfo where id=#{id} or tel=#{id}
 	</select>
+	<update id="pwdUpdate" parameterType="dto" >
+		update memberInfo set pwd=#{pwd} where id=#{id}
+	</update>
+		
 
 </mapper>
