@@ -1,7 +1,9 @@
-package com.nike.memberDTO;
+package com.nike.memberInfo;
 
-public class MemberDTO {
+import java.sql.Date;
 
+public class MemberInfoDTO {
+	
 	private String id;
 	private String pwd;
 	private String name;
@@ -10,9 +12,11 @@ public class MemberDTO {
 	private String gender;
 	private int mile;
 	private String question;
-	private String answer;
+	private String answer; 
 	private String address;
-	private String joinDate;
+	private Date joindate;
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -73,12 +77,14 @@ public class MemberDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getJoinDate() {
-		return joinDate;
+	public Date getJoindate() {
+		return joindate;
 	}
-	public void setJoinDate(String joinDate) {
-		this.joinDate = joinDate;
+	public void setJoindate(Date joindate) {
+		this.joindate = joindate;
 	}
+	
+	
 	
 	
 }

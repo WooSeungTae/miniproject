@@ -8,24 +8,32 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div  style="width: 60%; margin: auto; padding-top: 80px;">
-<c:import url="/aside"></c:import>
-<h2>회원정보 수정</h2>
-<form action="">
-아이디<br><br>
-<input type="text" placeholder="com.nike.controller 접속 ID"><br><br>
-이름<br><br>
-<input type="text" placeholder="김개똥 이름"><br><br>
-이메일<br><br>
-<input type="text" placeholder="com.nike.controller 이메일"><br><br>
-주소<br><br>
-<input type="text" placeholder="주소 수정랑"><br><br>
-휴대폰<br><br>
-<input type="text" placeholder="휴대폰 번호"><br><br>
-<input type="checkbox"> 이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다.(선택)<br><br>
-<input type="checkbox"> 휴대폰을 통한 상품 및 할인쿠폰 등의 정보 수신에 동의합니다.(선택)<br><br>
-<input type="submit" value="수정하기">
-</form>
-</div>
+	<div  style="width: 60%; margin: auto; padding-top: 80px;">
+		<c:import url="/aside"></c:import>
+		<h2 class="title">회원정보 수정</h2>	
+		<form action="memberinfoModify">
+			<div>
+				<div class="uk-grid">
+				아이디<br><br>
+				<input type="text" placeholder="com.nike.controller 접속 ID"><br><br>
+				이름<br><br>
+				<input type="text" placeholder="김개똥 이름"><br><br>
+				이메일<br><br>
+				<input type="text" placeholder="com.nike.controller 이메일"><br><br>
+				주소<br><br>
+				<input type="text" placeholder="주소 수정랑"><br><br>
+				휴대폰<br><br>
+				<input type="text" placeholder="휴대폰 번호"><br><br>
+				<input type="checkbox"> 이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다.(선택)<br><br>
+				<input type="checkbox"> 휴대폰을 통한 상품 및 할인쿠폰 등의 정보 수신에 동의합니다.(선택)<br><br>
+				<input type="submit" value="수정하기">
+				</div>
+			</div>
+		</form>
+	</div>
+	<footer>
+		<c:import url="/footer">
+		</c:import>
+	</footer>
 </body>
 </html>

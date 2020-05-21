@@ -42,7 +42,11 @@
 	
 	/* 기본 설정 */
 	hr{	border:solid 0.5px #808080;	}
-	.all{background-color: black; height: 520px;}
+	.all{background-color: black; height: 520px;
+		position:static; 
+		bottom: 0px;
+		margin-top: 200px;
+	}
 	
 
 </style>
