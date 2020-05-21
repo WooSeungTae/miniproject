@@ -1,8 +1,8 @@
-package com.nike.memberInfo;
+package com.nike.service;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class MemberInfoDAO {
-	
+public class MemberService {
+
 }

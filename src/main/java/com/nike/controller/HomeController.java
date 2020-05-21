@@ -87,6 +87,11 @@ public class HomeController {
 	public String loginPage() {
 		return "member/loginPage";
 	}
+	@RequestMapping("userUpdate")
+	public String userUpdate() {
+		return "member/userUpdate";
+	}
+
 	@RequestMapping("TestMainPage")
 	public String TestMainPage() {
 		return "member/TestMainPage";
