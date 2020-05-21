@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,6 @@
 			<label><H4>월~일 : 오전 9시 ~ 오후 8시</H4><br></label><hr>
 		</div>
 		</aside>
-
+<c:import url="/footer"></c:import>
 </body>
 </html>
