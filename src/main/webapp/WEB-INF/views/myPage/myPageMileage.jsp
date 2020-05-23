@@ -11,7 +11,7 @@
 			height:550px;
 		}
 		.milecontent{
-			height:20px; width:70%; background-color: #F5F5F5; padding: 25px 20px; border:1px solid #dedfda;
+			border-radius:2px; height:20px; width:70%; background-color: #F5F5F5; padding: 25px 20px; border:1px solid #dedfda;
 		}
 		.mile{
 			float:left; font-size:15px; margin-left: 10px;
