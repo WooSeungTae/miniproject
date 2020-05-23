@@ -37,7 +37,7 @@
 			<h2>MiLE 현황</h2>
 			<div class="milecontent">
 				<span class="mile">현재 보유 MiLE</span> 
-				<span class="reserveMile"><label class="milelabel"></label>MiLE</span>
+				<span class="reserveMile"><label class="milelabel" value="${mile}"></label>MiLE</span>
 			</div>	
 		</div>
 	</section>

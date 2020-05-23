@@ -12,5 +12,7 @@
 	<update id="memberinfoModify" parameterType="dto">
 		update memberInfo set address=#{address}, tel=#{tel} where id=#{id}
 	</update>
-
+	<select id="mileage" parameterType="String">
+		select mile from memberInfo where id=#{id}
+	</select>
 </mapper>

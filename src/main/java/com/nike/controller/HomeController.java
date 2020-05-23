@@ -121,7 +121,8 @@ public class HomeController {
 		return "myPage/myPageReturn";
 	}
 	@RequestMapping("mileage")
-	public String mileage() {
+	public String mileage(Model model) {
+		model.addAttribute(service.mileage());
 		return "myPage/myPageMileage";
 	}
 	

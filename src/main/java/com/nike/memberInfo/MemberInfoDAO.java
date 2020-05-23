@@ -29,4 +29,9 @@ public class MemberInfoDAO {
 	public void memberinfoModify(MemberInfoDTO dto) {
 		int result = sqlSession.update(namespace+".memberinfoModify", dto);
 	}
+
+	public String mileage() {
+		String mileage = sqlSession.selectOne(namespace+".mileage");
+		return mileage;
+	}
 }

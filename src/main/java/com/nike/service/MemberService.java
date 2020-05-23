@@ -35,5 +35,10 @@ public class MemberService {
 	public void memberinfoModify(MemberInfoDTO dto, Model model) {
 		dao.memberinfoModify(dto);
 	}
+
+	public String mileage() {
+		return dao.mileage();
+		
+	}
 	
 }
