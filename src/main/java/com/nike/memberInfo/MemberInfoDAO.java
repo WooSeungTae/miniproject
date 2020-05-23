@@ -4,5 +4,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MemberInfoDAO {
+
+	public void memberinfoModify(MemberInfoDTO dto) {
+		
+		
+		
+	}
 	
 }
