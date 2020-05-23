@@ -10,6 +10,15 @@
 			color:#111;
 			height:550px;
 		}
+		.milecontent{
+			height:20px; width:70%; background-color: #F5F5F5; padding: 25px 20px; border:1px solid #dedfda;
+		}
+		.mile{
+			float:left; font-size:15px; margin-left: 10px;
+		}
+		.reserveMile{
+			float:right; font-size:15px; margin-right:20px;
+		}
 	</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -26,9 +35,9 @@
 		</aside>
 		<div style="width: 75%; margin: auto; padding-top: 80px; float:right;">	
 			<h2>MiLE 현황</h2>
-			<div class="현재 보유 Mile" style="display: flex; background-color: #F5F5F5; padding: 25px 20px;">
-			<span style="margin-left: 10px;"><b> 현재 보유 MiLE </b></span> 
-			<span style="padding-left: 400px;">MiLE</span>
+			<div class="milecontent">
+				<span class="mile">현재 보유 MiLE</span> 
+				<span class="reserveMile"><label class="milelabel"></label>MiLE</span>
 			</div>	
 		</div>
 	</section>
