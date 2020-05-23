@@ -9,6 +9,8 @@
 	<update id="pwdUpdate" parameterType="dto" >
 		update memberInfo set pwd=#{pwd} where id=#{id}
 	</update>
-		
+	<update id="memberinfoModify" parameterType="dto">
+		update memberInfo set address=#{address}, tel=#{tel} where id=#{id}
+	</update>
 
 </mapper>

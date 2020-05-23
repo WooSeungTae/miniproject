@@ -9,7 +9,7 @@
 </head>
 <body>
 	<!--  왼쪽 사이드바 부분 -->
-	<aside style="float: left; margin: 0px 20px 0px 0px; height: auto; width:15%;">
+	<aside style="float: left; margin: 0px 20px 0px 0px; height: auto; width:20%;">
 		<div class="MyPage"><h1>MY PAGE</h1><hr></div>
 		<div class="회원이름"><h3>회원이름</h3><hr></div>
 		<div class="쇼핑정보">

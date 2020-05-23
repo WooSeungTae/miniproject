@@ -18,16 +18,9 @@ import com.nike.memberInfo.MemberInfoDTO;
 
 @Service
 public class MemberService {
-<<<<<<< HEAD
 
-	public void memberinfoModify(MemberInfoDTO dto) {
-		
-		MemberInfoDAO dao = new MemberInfoDAO();
-		dao.memberinfoModify(dto);
-		
-	}
 
-=======
+
 	@Autowired
 	private MemberInfoDAO dao;
 	public void searchId(Model model,String idtel) {
@@ -38,5 +31,9 @@ public class MemberService {
 		dao.pwdUpdate(dto);
 		System.out.println(dto.getPwd());
 	}
->>>>>>> refs/heads/master
+
+	public void memberinfoModify(MemberInfoDTO dto, Model model) {
+		dao.memberinfoModify(dto);
+	}
+	
 }

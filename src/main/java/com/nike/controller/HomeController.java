@@ -126,7 +126,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping("account")
-	public String account() {
+	public String account(Model model) {
+		
 		return "myPage/myPageAccount";
 	}
 	
@@ -176,8 +177,7 @@ public class HomeController {
 	
 	@RequestMapping("memberinfoModify")
 	public String memberinfoModify(MemberInfoDTO dto, Model model) {
-		MemberService ms = new MemberService();
-		ms.memberinfoModify(dto);
+		service.memberinfoModify(dto, model);
 		return "redirect:account";
 	}
 }

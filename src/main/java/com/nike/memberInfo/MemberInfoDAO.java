@@ -11,18 +11,12 @@ import org.springframework.ui.Model;
 
 @Service
 public class MemberInfoDAO {
-<<<<<<< HEAD
 
-	public void memberinfoModify(MemberInfoDTO dto) {
-		
-		
-		
-	}
-=======
+	
 	private static final String namespace = "com.care.mybatis.myMapper";
+	
 	@Autowired
 	private SqlSession sqlSession;
->>>>>>> refs/heads/master
 	
 	public MemberInfoDTO searchId(String idtel) {
 		return sqlSession.selectOne(namespace+".searchId",idtel);
@@ -30,5 +24,9 @@ public class MemberInfoDAO {
 	
 	public void pwdUpdate(MemberInfoDTO dto) {
 		int result = sqlSession.update(namespace+".pwdUpdate",dto);
+	}
+	
+	public void memberinfoModify(MemberInfoDTO dto) {
+		int result = sqlSession.update(namespace+".memberinfoModify", dto);
 	}
 }
