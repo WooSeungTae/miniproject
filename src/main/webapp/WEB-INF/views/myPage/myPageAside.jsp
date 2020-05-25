@@ -9,7 +9,7 @@
 </head>
 <body>
 	<!--  왼쪽 사이드바 부분 -->
-	<aside style="float: left; margin: 0px 30px 0px 0px; height: auto;">
+	<aside style="float: left; margin: 0px 20px 0px 0px; height: auto; width:20%;">
 		<div class="MyPage"><h1>MY PAGE</h1><hr></div>
 		<div class="회원이름"><h3>회원이름</h3><hr></div>
 		<div class="쇼핑정보">
@@ -34,6 +34,5 @@
 			<label><H4>월~일 : 오전 9시 ~ 오후 8시</H4><br></label><hr>
 		</div>
 		</aside>
-<c:import url="/footer"></c:import>
 </body>
 </html>
