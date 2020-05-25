@@ -25,7 +25,7 @@
 		update memberInfo set address=#{address}, tel=#{tel} where id=#{id}
 	</update>
 	<select id="mileage" parameterType="string">
-		select mile from memberInfo where id=#{id}
+		select mile from memberInfo where id=#{id} and pwd=#{pwd}
 	</select>
 
 		

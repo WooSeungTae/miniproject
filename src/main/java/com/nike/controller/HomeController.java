@@ -58,7 +58,7 @@ public class HomeController {
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
-			return "loginPage";
+			return "member/loginPage";
 		}else {
 			HttpSession mySession = request.getSession();
 			mySession.setAttribute("id", dto.getId());
