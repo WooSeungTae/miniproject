@@ -8,7 +8,7 @@
 	<insert id="saveUserInfo" parameterType="dto">
 		insert into memberinfo(id,pwd,name,tel,birth) values(#{id},#{pwd},#{name},#{tel},#{birth})
 	</insert>
-	
+	<!-- 로그인 check 하기  -->
 	<select id="loginChk" parameterType="dto" resultType="dto">
 		select * from memberinfo where id=#{id} and pwd=#{pwd}
 	</select>
