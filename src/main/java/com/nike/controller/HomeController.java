@@ -12,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nike.service.MemberService;
+
+import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.service.MemberService;
 
 import com.nike.memberInfo.MemberInfoDTO;
@@ -29,6 +31,9 @@ import com.nike.service.MemberService;
 public class HomeController {
 	@Autowired
 	MemberService service;
+	
+	@Autowired
+	MemberService memberservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -47,6 +52,24 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+	}
+	
+	
+	@RequestMapping("loginChk")
+	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
+		if(memberservice.loginChk(dto)==0) {
+			return "loginPage";
+		}else {
+			HttpSession mySession = request.getSession();
+			mySession.setAttribute("id", dto.getId());
+			return "sminj/main";
+		}
+	}
+	
+	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
+	public String saveUserInfo(MemberInfoDTO dto) {
+		memberservice.saveUserInfo(dto);
+		return "redirect:loginPage";
 	}
 
 	@RequestMapping("/productdetail")

@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import com.nike.memberInfo.MemberInfoDAO;
+import com.nike.memberInfo.MemberInfoDTO;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nike.memberInfo.MemberInfoDAO;
@@ -23,7 +26,20 @@ public class MemberService {
 
 
 	@Autowired
-	private MemberInfoDAO dao;
+	MemberInfoDAO dao;
+	
+	public void saveUserInfo(MemberInfoDTO dto) {
+		dao.saveUserInfo(dto);
+	}
+
+	public int loginChk(MemberInfoDTO dto) {
+		if(dao.loginChk(dto)==0) {
+			return 0;
+		}else{
+			return 1;
+		}
+		
+}
 	public void searchId(Model model,String idtel) {
 		model.addAttribute("searchId", dao.searchId(idtel));
 	}
