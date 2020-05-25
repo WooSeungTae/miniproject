@@ -73,5 +73,9 @@ public class MemberInfoDAO {
 		sqlSession.delete(namespace+".memberdelete",id);
 	}
 
+	public MemberInfoDTO account(String id) {
+		return sqlSession.selectOne(namespace +".account", id);
+	}
+
 
 }

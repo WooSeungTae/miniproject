@@ -72,5 +72,9 @@ public class MemberService {
 		return dao.mileage();
 		
 	}
+
+	public MemberInfoDTO account(String id) {
+		return dao.account(id);
+	}
 	
 }

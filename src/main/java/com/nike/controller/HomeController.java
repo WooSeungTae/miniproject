@@ -173,9 +173,9 @@ public class HomeController {
 	
 	@RequestMapping("account")
 	public String account(Model model, HttpServletRequest request) {
-		HttpSession mySession = null;
-		mySession.setAttribute("mySession", request.getParameter("id"));
-		
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		service.account(id);
 		return "myPage/myPageAccount";
 	}
 	
