@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>아이디/비밀번호 찾기</title>
 <style type="text/css">
-
+/* 배경 뿌옇게 하기 */
 .userResetback {
 position: absolute;
 background-color : #BDBDBD;
@@ -18,6 +18,7 @@ top : 0;
 left : 0;
 opacity: 0.3;
 }
+/* 아이디or전화번호 입력 창 전체 크기 흰색배경*/
 .userResetTable{
 	position: relative;
 	z-index: 100;
@@ -28,14 +29,14 @@ opacity: 0.3;
 	opacity: 1;
 	
 }
-
+/* userResetTable 안에 내용*/
 .userReset {
 	max-width: 100%;
 	height: 100%;
 	padding: 10px;
 	text-align: center;
 }
-
+/*해더 제목*/
 .userResetHeader {
 	margin: 30px;
 	padding: 10px;
@@ -82,18 +83,23 @@ input#write[type=text] {
 </style>
 </head>
 <body >
+
+<!--  전체적인 회색 공간 배경  -->
 <div class="userResetback"></div>
 	<c:import url="/header"></c:import>
+	<!-- 아이디or전화번호 입력 창 전체 크기 흰색배경 -->
 	<section class="userResetTable">
 	<form action="userSearch" method="post">
+	<!-- 해더 제목 -->
 		<header class="userResetHeader">
 			<h2>아이디 찾기 . 비밀번호 재설정</h2>
 			<font class="userRestExplanation">카카오 로그인을 연동하시면<br>아이디,
 				비밀번호를 찾을 필요 없이
 			</font><br>나이키 닷컴을 이용 하실 수 있습니다.<br>
 		</header>
+		<!--  userResetTable 안에 내용 -->
 		<div class="userReset">
-			<!--api만들어야함  -->
+			<!--  API 추구 업뎃 -->
 			<div class="userResetDiv">카카오계정 로그인 (API추후업뎃)</div>
 			<div>
 				<font class="userRestExplanation">계정에 연결된 이메일이나 전화번호를 입력하시면<br>아이디
@@ -101,12 +107,11 @@ input#write[type=text] {
 				</font>
 			</div>
 			<br>
-			<!-- 아무것도 입력 안하고 다음 클릭 시 필수항목으로 작성해야함 로직 만들어야함  -->
+			
 			<input id="write" type="text" name="idtel"
 				placeholder="아이디 또는 전화번호를 입력해 주세요."><br>
-			<!-- 경로 설정해주기  로직 만들어야함 -->
-			<button class="sub">Click Here!</button>
-			<br>
+			
+			<button class="sub">Click Here!</button><br>
 	<div style="margin: 20px; position: relative; line-height: inherit; text-align: center;">
 				<a href="loginPage" style="color: black; font-size: 15px;  vertical-align: inherit; "  >로그인 </a><font
 					color="gray"  >으로돌아가기</font>

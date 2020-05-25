@@ -23,6 +23,5 @@ public class MemberService {
 	
 	public void pwdUpdate(MemberInfoDTO dto) {
 		dao.pwdUpdate(dto);
-		System.out.println(dto.getPwd());
 	}
 }
