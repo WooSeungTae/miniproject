@@ -28,7 +28,7 @@
 <header>
 	<hr>
 		<div class="div1" align="right">
-			<a href="#" id="top">회원가입</a>/<a href="#" id="top">로그인</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">장바구니</a>
+			<a href="myPage">마이페이지</a>&nbsp;&nbsp;&nbsp;<a href="memberJoin" id="top">회원가입</a>/<a href="loginPage" id="top">로그인</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">장바구니</a>
 		</div>
 	<hr>	
 </header>
