@@ -12,15 +12,7 @@
 	.wrapper{max-width: 100%; max-height: 100%; display: block; text-align: center;}
 	.input01{height: 15px; width: 330px; margin: 10px; padding: 10px;}
 </style>
-<script type="text/javascript">
-	function loginChk() {
-		if(document.checklogin.id.value ){
-			if(document.checkLogin.pwd.value}){
-			}
-					
-		}
-	}
-</script>
+
 </head>
 <body >
 	
@@ -30,7 +22,7 @@
 			<h2>나이키 로그인</h2>		
 		</div>
 	</header>
-	<form action="loginChk" method="post" name="checkLogin" onsubmit="return loginChk()">
+	<form action="loginChk" method="post">
 		<div class="wrapper">
 			<input class="input01" type="text" name="id" placeholder="아이디"><br>
 			<input class="input01" type="password" name="pwd" placeholder="비밀번호"><br>
