@@ -14,6 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.nike.service.MemberService;
+
+import com.nike.memberInfo.MemberInfoDTO;
+import com.nike.service.MemberService;
 
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.service.MemberService;
@@ -23,6 +29,8 @@ import com.nike.service.MemberService;
  */
 @Controller
 public class HomeController {
+	@Autowired
+	MemberService service;
 	
 	@Autowired
 	MemberService memberservice;
@@ -48,11 +56,11 @@ public class HomeController {
 	
 	
 	@RequestMapping("loginChk")
-	public String loginChk(MemberInfoDTO dto, HttpServletRequest request) {
+	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
-			return "loginPage";
+			return "member/loginPage";
 		}else {
-			HttpSession mySession = null;
+			HttpSession mySession = request.getSession();
 			mySession.setAttribute("id", dto.getId());
 			return "sminj/main";
 		}
@@ -73,23 +81,41 @@ public class HomeController {
 	public String catalog() {
 		return "jsj/catalog";
 	}
-
+	/*상품 등록*/
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";
 	}
+	/*고객관리*/
 	@RequestMapping("customer_care")
-	public String customer_care() {
+	public String customer_care(Model model) {
+		service.memberlist(model);
 		return "customer_care";
 	}
+	/*고객관리 페이지 검색기능*/
+	@RequestMapping("memberserch")
+	public String memberserch(Model model,HttpServletRequest request) {
+		model.addAttribute("request",request);
+		service.memberserchlist(model);
+		return "customer_care2";
+	}
+	/*고객관리 페이지 삭제기능*/
+	@RequestMapping("memberdelete")
+	public String memberdelete(@RequestParam("id") String id) {
+		service.memberdelete(id);
+		return "redirect:customer_care";
+	}
+	/*게시판관리*/
 	@RequestMapping("board_care")
 	public String board_care() {
 		return "board_care";
 	}
+	/*주문관리*/
 	@RequestMapping("order_care")
 	public String order_care() {
 		return "order_care";
 	}
+	/*상품관리*/
 	@RequestMapping("inventory")
 	public String inventory() {
 		return "inventory";
@@ -114,11 +140,18 @@ public class HomeController {
 	public String loginPage() {
 		return "member/loginPage";
 	}
-	@RequestMapping("userUpdate")
-	public String userUpdate() {
+	@RequestMapping("userSearch")
+	public String userSearch(Model model, HttpServletRequest request) {
+		String idtel = request.getParameter("idtel");
+		service.searchId(model,idtel);
 		return "member/userUpdate";
 	}
-
+	@RequestMapping("userUpdate")
+	public String userUpdate(MemberInfoDTO dto) {
+		service.pwdUpdate(dto);
+		return "member/loginPage";
+	}
+	
 	@RequestMapping("TestMainPage")
 	public String TestMainPage() {
 		return "member/TestMainPage";
@@ -133,12 +166,16 @@ public class HomeController {
 		return "myPage/myPageReturn";
 	}
 	@RequestMapping("mileage")
-	public String mileage() {
+	public String mileage(Model model) {
+		model.addAttribute(service.mileage());
 		return "myPage/myPageMileage";
 	}
 	
 	@RequestMapping("account")
-	public String account() {
+	public String account(Model model, HttpServletRequest request) {
+		HttpSession mySession = null;
+		mySession.setAttribute("mySession", request.getParameter("id"));
+		
 		return "myPage/myPageAccount";
 	}
 	
@@ -184,5 +221,11 @@ public class HomeController {
 	@RequestMapping("main")
 	public String main() {
 		return "sminj/main";
+	}
+	
+	@RequestMapping("memberinfoModify")
+	public String memberinfoModify(MemberInfoDTO dto, Model model) {
+		service.memberinfoModify(dto, model);
+		return "redirect:account";
 	}
 }
