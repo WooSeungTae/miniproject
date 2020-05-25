@@ -82,25 +82,25 @@
 										<div class="uk-form-row">
 											<label class="uk-form-label">아이디</label>
 											<div class="input-textfield">
-												<input class="text1" type="text" id="id" name="id" readonly="readonly" value="${id }">
+												<input class="text1" type="text" id="id" name="id" readonly="readonly" value="${dto.id }">
 											</div>
 										</div>
 										<div class="uk-form-row">
 											<label class="uk-form-label">이름</label>
 											<div class="input-textfield">
-												<input class="text1" type="text" id="name" name="name" readonly="readonly" value="${name }">
+												<input class="text1" type="text" id="name" name="name" readonly="readonly" value="${dto.name }">
 											</div>
 										</div>
 										<div class="uk-form-row">
 											<label class="uk-form-label">주소</label>
 											<div class="input-textfield">
-												<input class="text2" type="text" id="address" name="address" value="${address }">
+												<input class="text2" type="text" id="address" name="address" value="${dto.address }">
 											</div>
 										</div>
 										<div class="uk-form-row">
 											<label class="uk-form-label">휴대폰</label>
 											<div class="input-textfield">
-												<input class="text2" type="text" id="tel" name="tel" value="${tel }">
+												<input class="text2" type="text" id="tel" name="tel" value="${dto.tel }">
 											</div>
 										</div>
 										<div class="uk-form-row">

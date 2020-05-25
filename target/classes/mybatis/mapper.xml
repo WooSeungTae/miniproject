@@ -20,10 +20,12 @@
 	<update id="pwdUpdate" parameterType="dto" >
 		update memberInfo set pwd=#{pwd} where id=#{id}
 	</update>
-
+	
+	<!-- 회원정보 수정 -->
 	<update id="memberinfoModify" parameterType="dto">
 		update memberInfo set address=#{address}, tel=#{tel} where id=#{id}
 	</update>
+	<!-- 마일리지 조회 -->
 	<select id="mileage" parameterType="string">
 		select mile from memberInfo where id=#{id} and pwd=#{pwd}
 	</select>
@@ -43,7 +45,9 @@
 		delete from memberinfo where id=#{id}
 	</delete>
 
-
-
+	<!-- 회원정보수정을 위한 회원정보조회 -->
+	<select id="account" parameterType="String">
+		select * from memberinfo where id=#{id}
+	</select>
 </mapper>
 

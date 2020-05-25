@@ -50,12 +50,13 @@ public class MemberInfoDAO {
 		int result = sqlSession.update(namespace+".pwdUpdate",dto);
 	}
 
-	
+	/*회원정보 수정*/
 	public void memberinfoModify(MemberInfoDTO dto) {
 		int result = sqlSession.update(namespace+".memberinfoModify", dto);
 	}
-
-	public String mileage() {
+	
+	/*마일리지 - 마이페이지조회*/
+	public String mileage(String id) {
 		String mileage = sqlSession.selectOne(namespace+".mileage");
 		return mileage;
 	}
@@ -72,7 +73,8 @@ public class MemberInfoDAO {
 	public void memberdelete(String id) {
 		sqlSession.delete(namespace+".memberdelete",id);
 	}
-
+	
+	/*회원정보 조회*/
 	public MemberInfoDTO account(String id) {
 		return sqlSession.selectOne(namespace +".account", id);
 	}

@@ -68,8 +68,8 @@ public class MemberService {
 		dao.memberinfoModify(dto);
 	}
 
-	public String mileage() {
-		return dao.mileage();
+	public String mileage(String id) {
+		return dao.mileage(id);
 		
 	}
 

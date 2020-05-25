@@ -166,8 +166,10 @@ public class HomeController {
 		return "myPage/myPageReturn";
 	}
 	@RequestMapping("mileage")
-	public String mileage(Model model) {
-		model.addAttribute(service.mileage());
+	public String mileage(Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		model.addAttribute(service.mileage(id));
 		return "myPage/myPageMileage";
 	}
 	
@@ -175,7 +177,7 @@ public class HomeController {
 	public String account(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
-		service.account(id);
+		model.addAttribute("dto", service.account(id));
 		return "myPage/myPageAccount";
 	}
 	
