@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,7 +128,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping("account")
-	public String account(Model model) {
+	public String account(Model model, HttpServletRequest request) {
+		HttpSession mySession = null;
+		mySession.setAttribute("mySession", request.getParameter("id"));
 		
 		return "myPage/myPageAccount";
 	}
