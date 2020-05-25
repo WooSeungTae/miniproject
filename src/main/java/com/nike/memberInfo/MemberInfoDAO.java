@@ -30,7 +30,7 @@ public class MemberInfoDAO {
 	public void pwdUpdate(MemberInfoDTO dto) {
 		int result = sqlSession.update(namespace+".pwdUpdate",dto);
 	}
-<<<<<<< HEAD
+
 	
 	public void memberinfoModify(MemberInfoDTO dto) {
 		int result = sqlSession.update(namespace+".memberinfoModify", dto);
@@ -40,7 +40,7 @@ public class MemberInfoDAO {
 		String mileage = sqlSession.selectOne(namespace+".mileage");
 		return mileage;
 	}
-=======
+
 	/*모든 회원목록 출력*/
 	public List<MemberInfoDTO> memberlists(){
 		return sqlSession.selectList(namespace+".memberlists");
@@ -54,5 +54,5 @@ public class MemberInfoDAO {
 		sqlSession.delete(namespace+".memberdelete",id);
 	}
 
->>>>>>> refs/heads/master
+
 }
