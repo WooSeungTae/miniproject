@@ -15,7 +15,7 @@
 
 </head>
 <body >
-	
+	<c:import url="/header"></c:import>
 	<header>
 		<div>
 			<img class="minilogo" src="image/nike.jpg">
@@ -39,5 +39,6 @@
 			<a href=""><font size="2" color="gray">비회원 주문 조회</font></a>
 		</div>
 	</form>
+		<c:import url="/footer"></c:import>
 </body>
 </html>
