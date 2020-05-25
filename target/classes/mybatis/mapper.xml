@@ -10,13 +10,8 @@
 	</insert>
 	
 	<select id="loginChk" parameterType="dto" resultType="dto">
-<<<<<<< HEAD
 		select * from memberinfo where id=#{id} and pwd=#{pwd}
-=======
-		select * from memberinfo where id=#{id}
->>>>>>> refs/heads/master
 	</select>
-
 
 	<select id="searchId" resultType="dto">
 		select * from memberInfo where id=#{id} or tel=#{id}
