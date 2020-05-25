@@ -45,6 +45,18 @@
 	</delete>
 
 
+	<!-- 회원정보 수정 -->
+	<update id="memberinfoModify" parameterType="dto">
+		update memberInfo set address=#{address}, tel=#{tel} where id=#{id}
+	</update>
+	<!-- 마일리지 조회 -->
+	<select id="mileage" parameterType="string" resultType="String">
+		select mile from memberInfo where id=#{id}
+	</select>
 
+	<!-- 회원정보수정을 위한 회원정보조회 -->
+	<select id="account" parameterType="String" resultType="dto">
+		select * from memberinfo where id=#{id}
+	</select>
 </mapper>
 
