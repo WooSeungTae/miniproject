@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 
 @Service
 public class MemberInfoDAO {
-	private static final String namespace = "com.care.mybatis.myMapper";
+	private static final String namespace = "com.care.mybatis.memberMapper.memberMapper";
 	@Autowired
 	private SqlSession sqlSession;
 	
