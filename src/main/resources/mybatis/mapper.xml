@@ -9,7 +9,7 @@
 		insert into memberinfo(id,pwd,name,tel,birth) values(#{id},#{pwd},#{name},#{tel},#{birth})
 	</insert>
 	
-	<select id="loginChk" parameterType="dto">
-		select * from memberinfo where id=#{id}
+	<select id="loginChk" parameterType="dto" resultType="dto">
+		select * from memberinfo where id=#{id} and pwd=#{pwd}
 	</select>
 </mapper>
