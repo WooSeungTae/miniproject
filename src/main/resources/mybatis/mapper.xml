@@ -3,4 +3,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.myMapper">
+ 
+ 	<!-- 회원가입 정보 입력 받기 -->
+	<insert id="saveUserInfo" parameterType="dto">
+		insert into memberinfo(id,pwd,name,tel,birth) values(#{id},#{pwd},#{name},#{tel},#{birth})
+	</insert>
+	
+	<select id="loginChk" parameterType="dto">
+		select * from memberinfo where id=#{id}
+	</select>
 </mapper>

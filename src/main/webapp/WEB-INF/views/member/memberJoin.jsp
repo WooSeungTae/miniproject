@@ -9,36 +9,75 @@
 	.wrapper{min-height: 100%; max-width: 100%; margin: 20px; text-align: center; }
 	.section{display: block;}
 	.contentBox{box-sizing: content-box; padding: 10px;}
-	input{height: 20px; margin: 10px; padding: 10px;}
+	input{height: 20px; margin: 10px; padding: 7px;}
 	.button_01{margin-bottom: 10px !important; box-sizing: border-box;}
-	button{color:white; background-color: black; width: 270px; height: 40px; padding: }
+	button{color:white; background-color: black; width: 270px; height: 40px; padding: 10px;}
 	td{max-width: 100px;} 
 </style>
+
+<script type="text/javascript">
+	//필수 정보 입력되었는지  확인하는 함수 
+	function checkValue() {
+		if(!document.memberInfo.id.value){
+			alert("아이디를 입력하세요.");	//memberinfo table에서 id칼럼이 primary key라서 창이 안뜸 해결방법 찾아야함
+			return false;
+		}
+		if(!document.memberInfo.pwd.value){
+			alert("비밀번호를 입력하세요.")
+			return false;
+		}
+		if(!document.memberInfo.name.value){
+			alert("이름을 입력하세요.")
+			return false;
+		}
+		if(!document.memberInfo.tel.value){
+			alert("휴대폰 번호를 입력하세요.")
+			return false;
+		}
+		if(!document.memberInfo.birth.value){
+			alert("생년월일을  입력하세요.")
+			return false;
+		}
+		if(!document.memberInfo.gender.value){
+			alert("성별을  체크하세요.")
+			return false;
+		}
+		if(!document.memberInfo.agree.checked){
+			alert("이용약관에 동의해 주세요.")
+			return false;
+		}
+		if(!document.memberInfo.chkPrivacy.checked){
+			alert("개인정보 수집 및 이용에 동의해 주세요.")
+			return false;
+		}
+	}
+</script>
 </head>
 <body>
 <header>
 
 </header>
-	<form action="" method="post">
+	<form action="saveUserInfo" name="memberInfo" onsubmit="return checkValue()"> 
 		<section class="wrapper">
 			<h3>회원가입</h3>
-			<span><hr style="width:150px; display:inline-block;"></span>
+			<!-- 카카오 계정 , 페이스북 계정으로 로그인 하기 API 추가 해야함 -->
+			<span><hr style="width:180px; display:inline-block;"></span>
 			<span> OR </span>
-			<span><hr style="width:150px; display:inline-block;"></span><br><br>
-			<input type="text" name="id" placeholder="아이디를 입력해 주세요." size="40"><br>
-			<input type="password" name="pwd" placeholder="패스워드를 입력해 주세요." size="40"><br>
-			<input type="password" name="pwdChk" placeholder="패스워드를  다시 입력해 주세요." size="40"><br>
-			<input type="text" name="name" placeholder="이름을  입력해 주세요." size="40"><br>
-			<input type="text" name="phonenumber" placeholder="휴대폰 번호 '-'표 없이  입력해 주세요." size="40"><br>
-			<input type="text" name="id" placeholder="생년월일 예)2020.01.01" size="40"><br>
-			<input type="radio" class="button_01" name="gender" value="man">남성 
+			<span><hr style="width:180px; display:inline-block;"></span><br><br>
+			<input type="text" name="id" placeholder="사용하실 ID를 입력해주세요.(수신 가능 E-mail)" size="50"><br>
+			<input type="password" name="pwd" placeholder="영문+숫자+특수문자 8~16자리(특수문자 괄호()는 사용불가)" size="50"><br>
+			<input type="password" name="chkpwd" placeholder="패스워드를 다시 입력해 주세요." size="50"><br>
+			<input type="text" name="name" placeholder="이름을  입력해 주세요." size="50"><br>
+			<input type="text" name="tel" placeholder="휴대폰 번호 '-'표 없이  입력해 주세요." size="50"><br>
+			<input type="text" name="birth" placeholder="생년월일 예)2020.01.01" size="50"><br>
+			<input type="radio" class="button_01" name="gender" value="man" >남성 		<!-- 버튼 이미지 변경 및 박스 만들어줘야함 -->
 			<input type="radio" class="button_01" name="gender" value="woman">여성 <br>
 			<div>
 				<font size="2" style="padding: 0 270px 0 0;"><b>이용약관</b></font><br>
-				<textarea rows="7" cols="52" style="font-size: 12px;" >나이키 이용약관 (추후 업뎃)
+				<textarea rows="10" cols="62" style="font-size: 12px;" >나이키 이용약관 (추후 업뎃)
 				</textarea>	<br>
 			</div>
-			<input type="checkbox" name="agree" value="agree">[필수] 약관에 동의 합니다.
+			<input type="checkbox" name="agree" value="agree">[필수] 약관에 동의 합니다.<br>
 			<div>			
 				<table style=" text-align: center; margin:auto; font-size:10; width: 330px; font-size: 11px;" border="1">
 					<tr><td>일시</td><td>수집항목</td><td>수집목적</td><th>보유기간</th></tr>
@@ -48,7 +87,7 @@
 				</table>
 			</div>
 			<div>
-				<input type="checkbox" name="chkprivacy" value="agreeprivacy">[필수] 개인정보 수집.이용동의  
+				<input type="checkbox" name="chkPrivacy" value="privacy">[필수] 개인정보 수집.이용동의  
 			</div>
 			<div>
 				<font size="1" >
@@ -71,8 +110,7 @@
 				<font>만 14세  미만은 회원가입 및 서비스 이용이 불가합니다.</font>
 			</div><br>
 			<div style="margin: 10px; ">
-				<button type="submit" style="width: 200px;">회원가입하기 (만14세 이상)</button>
-				<button type="button" onclick="location='loginPage'" style="width: 200px;">취소</button>
+				<input type="submit" value="회원가입하기 (만14세 이상)" style=" padding:10px; width: 370px; height:50px; background-color: black; color: white;"><br>
 			</div>
 		</section>
 	</form>
