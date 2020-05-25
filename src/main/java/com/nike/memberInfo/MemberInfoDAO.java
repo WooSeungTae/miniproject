@@ -24,11 +24,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MemberInfoDAO {
 
-	
-	private static final String namespace = "com.care.mybatis.myMapper";
-	
+	private static final String namespace = "com.care.mybatis.memberMapper.memberMapper";
 	@Autowired
-	private SqlSession sqlSession;	
+	private SqlSession sqlSession;
 	
 	public void saveUserInfo(MemberInfoDTO dto) {
 		sqlSession.insert(namespace+".saveUserInfo",dto);
@@ -42,10 +40,13 @@ public class MemberInfoDAO {
 			return 1;
 		}
 	}
+	
+	/*비밀번호 모를경우 재설정 , 아이디 or 번호로 검색 */
 	public MemberInfoDTO searchId(String idtel) {
 		return sqlSession.selectOne(namespace+".searchId",idtel);
 	}
 	
+	/*비밀번호 재설정*/
 	public void pwdUpdate(MemberInfoDTO dto) {
 		int result = sqlSession.update(namespace+".pwdUpdate",dto);
 	}
