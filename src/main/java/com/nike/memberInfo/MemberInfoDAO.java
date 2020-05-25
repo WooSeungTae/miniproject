@@ -57,7 +57,7 @@ public class MemberInfoDAO {
 	
 	/*마일리지 - 마이페이지조회*/
 	public String mileage(String id) {
-		String mileage = sqlSession.selectOne(namespace+".mileage");
+		String mileage = sqlSession.selectOne(namespace+".mileage",id);
 		return mileage;
 	}
 

@@ -26,8 +26,8 @@
 		update memberInfo set address=#{address}, tel=#{tel} where id=#{id}
 	</update>
 	<!-- 마일리지 조회 -->
-	<select id="mileage" parameterType="string">
-		select mile from memberInfo where id=#{id} and pwd=#{pwd}
+	<select id="mileage" parameterType="string" resultType="String">
+		select mile from memberInfo where id=#{id}
 	</select>
 
 		
@@ -46,7 +46,7 @@
 	</delete>
 
 	<!-- 회원정보수정을 위한 회원정보조회 -->
-	<select id="account" parameterType="String">
+	<select id="account" parameterType="String" resultType="dto">
 		select * from memberinfo where id=#{id}
 	</select>
 </mapper>

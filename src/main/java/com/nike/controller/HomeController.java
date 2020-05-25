@@ -169,7 +169,9 @@ public class HomeController {
 	public String mileage(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
-		model.addAttribute(service.mileage(id));
+		model.addAttribute("mile", service.mileage(id));
+		System.out.println("======================="+service.mileage(id));
+		
 		return "myPage/myPageMileage";
 	}
 	
