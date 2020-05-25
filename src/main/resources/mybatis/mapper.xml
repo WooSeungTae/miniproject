@@ -3,7 +3,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.myMapper">
-<<<<<<< HEAD
  
  	<!-- 회원가입 정보 입력 받기 -->
 	<insert id="saveUserInfo" parameterType="dto">
@@ -13,8 +12,8 @@
 	<select id="loginChk" parameterType="dto">
 		select * from memberinfo where id=#{id}
 	</select>
-</mapper>
-=======
+
+
 	<select id="searchId" resultType="dto">
 		select * from memberInfo where id=#{id} or tel=#{id}
 	</select>
@@ -36,4 +35,3 @@
 		delete from memberinfo where id=#{id}
 	</delete>
 </mapper>
->>>>>>> branch 'master' of https://github.com/WooSeungTae/miniproject.git

@@ -1,18 +1,14 @@
+
 package com.nike.memberInfo;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-=======
 import java.util.Map;
->>>>>>> branch 'master' of https://github.com/WooSeungTae/miniproject.git
 
-<<<<<<< HEAD
-=======
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,19 +20,12 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
->>>>>>> branch 'master' of https://github.com/WooSeungTae/miniproject.git
 
 @Repository
 public class MemberInfoDAO {
 	private static final String namespace = "com.care.mybatis.myMapper";
 	@Autowired
-	private SqlSession sqlSession;
-	
-<<<<<<< HEAD
-	private static final String namespace = "com.care.mybatis.myMapper";
-	
-	@Autowired
-	private SqlSession sqlSession;
+	private SqlSession sqlSession;	
 	
 	public void saveUserInfo(MemberInfoDTO dto) {
 		sqlSession.insert(namespace+".saveUserInfo",dto);
@@ -50,7 +39,6 @@ public class MemberInfoDAO {
 			return 1;
 		}
 	}
-=======
 	public MemberInfoDTO searchId(String idtel) {
 		return sqlSession.selectOne(namespace+".searchId",idtel);
 	}
@@ -71,5 +59,4 @@ public class MemberInfoDAO {
 		sqlSession.delete(namespace+".memberdelete",id);
 	}
 
->>>>>>> branch 'master' of https://github.com/WooSeungTae/miniproject.git
 }

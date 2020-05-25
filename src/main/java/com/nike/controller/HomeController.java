@@ -5,10 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
-=======
->>>>>>> branch 'master' of https://github.com/WooSeungTae/miniproject.git
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
