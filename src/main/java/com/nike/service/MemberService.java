@@ -63,16 +63,23 @@ public class MemberService {
 	public void memberdelete(String id) {
 		dao.memberdelete(id);
 	}
-
+	
+	/*회원정보 수정*/
 	public void memberinfoModify(MemberInfoDTO dto, Model model) {
 		dao.memberinfoModify(dto);
 	}
+<<<<<<< HEAD
 
+=======
+	
+	/*마일리지 조회*/
+>>>>>>> refs/heads/master
 	public String mileage(String id) {
 		return dao.mileage(id);
 		
 	}
-
+	
+	/*회원정보 수정을 위한 회원정보 조회*/
 	public MemberInfoDTO account(String id) {
 		return dao.account(id);
 	}

@@ -165,22 +165,34 @@ public class HomeController {
 	public String myPageReturn() {
 		return "myPage/myPageReturn";
 	}
+	
+	/*마일리지 조회*/
 	@RequestMapping("mileage")
 	public String mileage(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("mile", service.mileage(id));
+<<<<<<< HEAD
 		System.out.println("======================="+service.mileage(id));
 		
+=======
+>>>>>>> refs/heads/master
 		return "myPage/myPageMileage";
 	}
 	
+	/*회원정보 수정을 위한 회원정보 조회*/
 	@RequestMapping("account")
 	public String account(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("dto", service.account(id));
 		return "myPage/myPageAccount";
+	}
+	/*회원정보 수정*/
+	@RequestMapping("memberinfoModify")
+	public String memberinfoModify(MemberInfoDTO dto, Model model) {
+		service.memberinfoModify(dto, model);
+		return "redirect:account";
 	}
 	
 	@RequestMapping("password")
@@ -227,9 +239,4 @@ public class HomeController {
 		return "sminj/main";
 	}
 	
-	@RequestMapping("memberinfoModify")
-	public String memberinfoModify(MemberInfoDTO dto, Model model) {
-		service.memberinfoModify(dto, model);
-		return "redirect:account";
-	}
 }

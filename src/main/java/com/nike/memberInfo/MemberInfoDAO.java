@@ -56,12 +56,22 @@ public class MemberInfoDAO {
 		int result = sqlSession.update(namespace+".memberinfoModify", dto);
 	}
 	
+<<<<<<< HEAD
 	/*마일리지 - 마이페이지조회*/
 	public String mileage(String id) {
 		String mileage = sqlSession.selectOne(namespace+".mileage",id);
+=======
+	/*마일리지 조회*/
+	public String mileage(String id) {
+		String mileage = sqlSession.selectOne(namespace+".mileage", id);
+>>>>>>> refs/heads/master
 		return mileage;
 	}
 
+	/*회원정보 수정을 위한 회원정보 조회*/
+	public MemberInfoDTO account(String id) {
+		return sqlSession.selectOne(namespace +".account", id);
+	}
 	/*모든 회원목록 출력*/
 	public List<MemberInfoDTO> memberlists(){
 		return sqlSession.selectList(namespace+".memberlists");
@@ -74,11 +84,15 @@ public class MemberInfoDAO {
 	public void memberdelete(String id) {
 		sqlSession.delete(namespace+".memberdelete",id);
 	}
+<<<<<<< HEAD
 	
 	/*회원정보 조회*/
 	public MemberInfoDTO account(String id) {
 		return sqlSession.selectOne(namespace +".account", id);
 	}
+=======
+
+>>>>>>> refs/heads/master
 
 
 }
