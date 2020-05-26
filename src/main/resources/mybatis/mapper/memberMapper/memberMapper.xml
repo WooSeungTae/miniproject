@@ -23,15 +23,21 @@
 	<select id="loginChk" parameterType="dto" resultType="dto">
 		select * from memberinfo where id=#{id}
 	</select>
-
+	
+	<!-- 회원정보 수정 -->
 	<update id="memberinfoModify" parameterType="dto">
-		update memberInfo set address=#{address}, tel=#{tel} where id=#{id}
+		update memberInfo set address=#{address}, tel=#{tel} where id=#{id} 
 	</update>
-	<select id="mileage" parameterType="string">
-		select mile from memberInfo where id=#{id} and pwd=#{pwd}
+
+	<!-- 마일리지 조회 -->
+	<select resultType="String" id="mileage" parameterType="String">
+		select mile from memberInfo where id=#{id} 
 	</select>
 
-		
+	<!-- 회원정보수정을 위한 회원정보조회 -->
+	<select resultType="dto" id="account" parameterType="String">
+		select * from memberinfo where id=#{id} 
+	</select>
 
 	<!-- 모든 회원정보 -->
 	<select id="memberlists" resultType="dto">
