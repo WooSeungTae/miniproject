@@ -57,16 +57,60 @@ public class HomeController {
 	@RequestMapping("/catalogMen")
 	public String catalogMen(Model model) {
 		Pservice.allListMen(model);
-		return "jsj/catalogMen";
+		return "jsj/Men/catalogMen";
 	}
+	@RequestMapping("/catalogMenRun")
+	public String catalogMenRun(Model model) {
+		Pservice.allListMenRun(model);
+		return "jsj/Men/catalogMenRun";
+	}
+	@RequestMapping("/catalogMenBasket")
+	public String catalogMenBasket(Model model) {
+		Pservice.allListMenBasket(model);
+		return "jsj/Men/catalogMenBasket";
+	}
+	@RequestMapping("/catalogMenSoccer")
+	public String catalogMenSoccer(Model model) {
+		Pservice.allListMenSoccer(model);
+		return "jsj/Men/catalogMenSoccer";
+	}
+	
 	@RequestMapping("/catalogWomen")
 	public String catalogWomen() {
-		return "jsj/catalogWomen";
+		return "jsj/Women/catalogWomen";
 	}
+	
+	@RequestMapping("/catalogWomenRun")
+	public String catalogWomenRun() {
+		return "jsj/Women/catalogWomenRun";
+		
+	}	@RequestMapping("/catalogWomenBasket")
+	public String catalogWomenBasket() {
+		return "jsj/Women/catalogWomenBasket";
+		
+	}	@RequestMapping("/catalogWomenSoccer")
+	public String catalogWomenSoccer() {
+		return "jsj/Women/catalogWomenSoccer";
+	}
+	
 	@RequestMapping("/catalogKids")
 	public String catalogKids() {
-		return "jsj/catalogKids";
+		return "jsj/Kids/catalogKids";
 	}
+	
+	@RequestMapping("/catalogKidsRun")
+	public String catalogKidsRun() {
+		return "jsj/Kids/catalogKidsRun";
+	}
+	@RequestMapping("/catalogKidsBasket")
+	public String catalogKidsBasket() {
+		return "jsj/Kids/catalogKidsBasket";
+	}
+	@RequestMapping("/catalogKidsSoccer")
+	public String catalogKidsSoccer() {
+		return "jsj/Kids/catalogKidsSoccer";
+	}
+	
 	
 
 	@RequestMapping("product_management")

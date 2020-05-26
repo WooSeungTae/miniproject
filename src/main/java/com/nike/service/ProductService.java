@@ -14,4 +14,17 @@ public class ProductService {
 	public void allListMen(Model model) {
 		model.addAttribute("AllListMen", Pdao.allListMen());
 	}
+	
+	public void allListMenRun(Model model) {
+		model.addAttribute("AllListMenRun", Pdao.allListMenRun());
+	}
+	
+	public void allListMenBasket(Model model) {
+		model.addAttribute("AllListMenBasket", Pdao.allListMenBasket());
+	}
+	
+	public void allListMenSoccer(Model model) {
+		model.addAttribute("AllListMenSoccer", Pdao.allListMenSoccer());
+	}
+	
 }

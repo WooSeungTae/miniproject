@@ -3,13 +3,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
-	<!-- ID 혹은 전화번호로 검색-->
+	<!--  남자 신발 전체 검색 -->
 	<select id="AllListMen" resultType="Pdto">
-		select * from product where gender='남자' or gender='공용'
+		select * from product where gender='남자' or gender='공용' ORDER BY joindate, codename  
 	</select>
-	<!--  비밀번호 수정 -->
-	<update id="pwdUpdate" parameterType="dto" >
-		update memberInfo set pwd=#{pwd} where id=#{id}
-	</update>
+	<!--  남자 러닝 신발 전체 검색 -->
+		<select id="AllListMenRun" resultType="Pdto">
+		select * from product where gender='남자' and category='run' or gender='공용' and category='run' ORDER BY joindate, codename
+	</select>
+	<!--  남자 농구 신발 전체 검색 -->
+		<select id="AllListMenBasket" resultType="Pdto">
+		select * from product where gender='남자' and category='basket' or  gender='공용' and category='basket' ORDER BY joindate, codename  
+	</select>
+	<!--  남자 축구 신발 전체 검색 -->
+		<select id="AllListMenSoccer" resultType="Pdto">
+		select * from product where gender='남자' and category='soccer'  or gender='공용' and category='soccer' ORDER BY joindate, codename   
+	</select>
+	
 </mapper>
 

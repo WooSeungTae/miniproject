@@ -103,6 +103,7 @@
 	height: 420px;
 	width: 420px;
 	background-color: #f5f5f5;
+	vertical-align: middle;
 }
 
 .a-product-info {
@@ -181,13 +182,13 @@
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="All">신발 전체</a></li>
+											style="padding-left: 14px;"><a href="catalogMen">신발 전체</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="run">러닝</a></li>
+											style="padding-left: 14px;"><a href="catalogMenRun">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="basket">농구</a></li>
+											style="padding-left: 14px;"><a href="catalogMenBasket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="soccer">축구</a></li>
+											style="padding-left: 14px;"><a href="catalogMenSoccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -206,10 +207,12 @@
 												<div class="a-product-image-wrapper">
 													<div class="a-image">
 													<c:choose>
-														<c:when test="${AllListMen.image1==null }"></c:when>
+														<c:when test="${AllListMen.image1==null }">
+															<c:set var =></c:set>				
+														</c:when>
 													
 													</c:choose>
-													<img src="${AllListMen.image1 }"></div>
+													<img style="width:420px; margin:auto;" src="${AllListMen.image1 } "></div>												
 												</div>
 											</a>
 										</div>
