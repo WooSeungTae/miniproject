@@ -153,17 +153,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-<<<<<<< HEAD
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-war-plugin</artifactId>
-               <version>2.4</version>
-               <configuration>
-                  <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                  <warName>sample</warName>
-                  <failOnMissingWebXml>false</failOnMissingWebXml>
-               </configuration>
-            </plugin>
-=======
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
 					<version>2.4</version>
@@ -172,17 +161,13 @@
 						<warName>sample</warName>
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
-				</plugin>
->>>>>>> refs/heads/master
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.5.1</version>
 				<configuration>
-<<<<<<< HEAD
-=======
 					<failOnMissingWebXml>false</failOnMissingWebXml>
->>>>>>> refs/heads/master
 					<source>1.8</source>
 					<target>1.8</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
