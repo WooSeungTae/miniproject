@@ -4,8 +4,8 @@
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
 	<!-- ID 혹은 전화번호로 검색-->
-	<select id="searchId" resultType="dto">
-		select * from memberInfo where id=#{id} or tel=#{id}
+	<select id="AllListMen" resultType="Pdto">
+		select * from product where gender='남자' or gender='공용'
 	</select>
 	<!--  비밀번호 수정 -->
 	<update id="pwdUpdate" parameterType="dto" >

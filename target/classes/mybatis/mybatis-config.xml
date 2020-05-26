@@ -6,5 +6,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.nike.memberInfo.MemberInfoDTO" alias="dto"/>
+		<typeAlias type="com.nike.product.ProductDTO" alias="Pdto"/>
 	</typeAliases>
 </configuration>

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nike.memberInfo.MemberInfoDTO;
+import com.nike.product.ProductDTO;
 import com.nike.service.MemberService;
+import com.nike.service.ProductService;
 
 /**
  * Handles requests for the application home page.
@@ -25,6 +27,8 @@ import com.nike.service.MemberService;
 public class HomeController {
 	@Autowired
 	MemberService service;
+	@Autowired
+	ProductService Pservice;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -50,10 +54,20 @@ public class HomeController {
 		return "jsj/product_detail";
 	}
 	
-	@RequestMapping("/catalog")
-	public String catalog() {
-		return "jsj/catalog";
+	@RequestMapping("/catalogMen")
+	public String catalogMen(Model model) {
+		Pservice.allListMen(model);
+		return "jsj/catalogMen";
 	}
+	@RequestMapping("/catalogWomen")
+	public String catalogWomen() {
+		return "jsj/catalogWomen";
+	}
+	@RequestMapping("/catalogKids")
+	public String catalogKids() {
+		return "jsj/catalogKids";
+	}
+	
 
 	@RequestMapping("product_management")
 	public String product_management() {
