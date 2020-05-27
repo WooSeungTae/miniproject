@@ -1,5 +1,6 @@
 package com.nike.product;
 
+
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ProductDAO {
+
 
 	private final String nameSpace="com.care.mybatis.productMapper.productMapper";
 	@Autowired
@@ -27,6 +29,13 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".AllListMenSoccer");
 	}
 
+
+
+
+	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
+		// TODO Auto-generated method stub
+
+	}
 
 
 }

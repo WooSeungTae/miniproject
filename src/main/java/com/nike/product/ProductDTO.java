@@ -1,6 +1,9 @@
 package com.nike.product;
 
+
 import java.sql.Date;
+
+
 
 public class ProductDTO {
 	private String code;
@@ -26,6 +29,7 @@ public class ProductDTO {
 	public void setJoindate(Date joindate) {
 		this.joindate = joindate;
 	}
+
 	public String getCode() {
 		return code;
 	}
