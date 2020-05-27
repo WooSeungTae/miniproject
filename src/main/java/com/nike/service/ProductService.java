@@ -27,4 +27,7 @@ public class ProductService {
 		model.addAttribute("AllListMenSoccer", Pdao.allListMenSoccer());
 	}
 	
+	
+	
+	
 }

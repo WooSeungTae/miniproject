@@ -148,19 +148,6 @@
 	white-space: nowrap;
 }
 </style>
-<script type="text/javascript">
-	function chageSrc(obj){
-	var imgId = obj.id;
-	var imgName =obj.src;
-	imgName = imgName.toLowerCase();
-	var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
-	var lastName = imgName.substring(imgName.indexOf('.') + 1);
-	lastName = lastName.toUpperCase();
-	var changeName = firstName + lastName;
-	document.getElementById(imgId).src = changeName;
-	}
-</script>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -212,29 +199,33 @@
 				<div class="contents-body" style="min-height: 937px">
 					<div class="ncss-container">
 						<div class="item-list-wrap">
-							<c:forEach var="AllListMen" items="${AllListMen }">
+							<c:forEach var="basket" items="${AllListMenBasket }">
 								<div class="ncss-col">
 									<div class="a-product">
 										<div class="a-product-image">
-											<a href="${AllListMen.code}">
+											<a href="${basket.code}">
 												<div class="a-product-image-wrapper">
 													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="chageSrc(this)"></div>												
-											</div>
+													<c:choose>
+														<c:when test="${basket.image1==null }"></c:when>
+													
+													</c:choose>
+													<img style="width:420px; margin:auto;" src="${basket.image1 } "></div>												
+												</div>
 											</a>
 										</div>
 										<div class="a-product-info">
 											<div class="product-display">
 												<div class="product-info">
 													<p class="product-display-name">
-														<span class="item-title">${AllListMen.codename }</span>
+														<span class="item-title">${basket.codename }</span>
 													</p>
 													<div class="product-subtitle">
-														<span>${AllListMen.gender }  
+														<span>${basket.gender }  
 														<c:choose>
-															<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-															<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-															<c:when test="${AllListMen.category=='basket' }">농구</c:when>														</c:choose>
+															<c:when test="${basket.category=='run' }">런닝</c:when>
+															<c:when test="${basket.category=='soccer' }">축구</c:when>
+															<c:when test="${basket.category=='basket' }">농구</c:when>														</c:choose>
 														 신발</span>
 													</div>
 													<div id="item-color-opt" class="product-colorways-number">
@@ -242,7 +233,7 @@
 													</div>
 												</div>
 												<div class="product-price">
-													<p class="product-display-price">${AllListMen.price } 원</p>
+													<p class="product-display-price">${basket.price }</p>
 												</div>
 											</div>
 										</div>

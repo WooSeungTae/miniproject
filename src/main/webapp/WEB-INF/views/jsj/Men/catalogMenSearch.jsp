@@ -160,7 +160,6 @@
 	document.getElementById(imgId).src = changeName;
 	}
 </script>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -219,8 +218,11 @@
 											<a href="${AllListMen.code}">
 												<div class="a-product-image-wrapper">
 													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="chageSrc(this)"></div>												
-											</div>
+														<img id="${AllListMen.code }"
+															style="width: 420px; margin: auto;"
+															src="${AllListMen.image1 }" onerror="chageSrc(this)">
+													</div>
+												</div>
 											</a>
 										</div>
 										<div class="a-product-info">
@@ -230,19 +232,19 @@
 														<span class="item-title">${AllListMen.codename }</span>
 													</p>
 													<div class="product-subtitle">
-														<span>${AllListMen.gender }  
-														<c:choose>
-															<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-															<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-															<c:when test="${AllListMen.category=='basket' }">농구</c:when>														</c:choose>
-														 신발</span>
+														<span>${AllListMen.gender } <c:choose>
+																<c:when test="${AllListMen.category=='run' }">런닝</c:when>
+																<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
+																<c:when test="${AllListMen.category=='basket' }">농구</c:when>
+															</c:choose> 신발
+														</span>
 													</div>
 													<div id="item-color-opt" class="product-colorways-number">
 														<span class="text-color-secondary">1 컬러</span>
 													</div>
 												</div>
 												<div class="product-price">
-													<p class="product-display-price">${AllListMen.price } 원</p>
+													<p class="product-display-price">${AllListMen.price }</p>
 												</div>
 											</div>
 										</div>

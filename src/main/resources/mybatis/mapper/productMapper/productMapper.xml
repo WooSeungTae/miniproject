@@ -20,5 +20,7 @@
 		select * from product where gender='남자' and category='soccer'  or gender='공용' and category='soccer' ORDER BY joindate, codename   
 	</select>
 	
+	<!--  전체 총 페이지 -->
+	
 </mapper>
 

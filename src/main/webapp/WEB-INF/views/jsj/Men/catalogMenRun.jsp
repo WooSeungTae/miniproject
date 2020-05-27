@@ -160,7 +160,6 @@
 	document.getElementById(imgId).src = changeName;
 	}
 </script>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -212,7 +211,7 @@
 				<div class="contents-body" style="min-height: 937px">
 					<div class="ncss-container">
 						<div class="item-list-wrap">
-							<c:forEach var="AllListMen" items="${AllListMen }">
+							<c:forEach var="AllListMen" items="${AllListMenRun }">
 								<div class="ncss-col">
 									<div class="a-product">
 										<div class="a-product-image">
@@ -220,7 +219,7 @@
 												<div class="a-product-image-wrapper">
 													<div class="a-image">
 													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="chageSrc(this)"></div>												
-											</div>
+												</div>
 											</a>
 										</div>
 										<div class="a-product-info">
@@ -242,7 +241,7 @@
 													</div>
 												</div>
 												<div class="product-price">
-													<p class="product-display-price">${AllListMen.price } 원</p>
+													<p class="product-display-price">${AllListMen.price }</p>
 												</div>
 											</div>
 										</div>
