@@ -131,6 +131,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:import url="/header"></c:import>
 	<header>
 		<c:import url="../sminj/header.jsp">
 		</c:import>
