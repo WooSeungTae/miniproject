@@ -39,5 +39,12 @@ public class MemberInfoDAO {
 	public void memberdelete(String id) {
 		sqlSession.delete(namespace+".memberdelete",id);
 	}
-
+	/*멤버 수 반환*/
+	public int countBoard() {
+		return sqlSession.selectOne(namespace+".countmember");
+	}
+	/*모든 회원목록 출력 일정량만*/
+	public List<MemberInfoDTO> selectBoard(MemberInfo_PagingVO vo){
+		return sqlSession.selectList(namespace+".selectmember",vo);
+	}
 }

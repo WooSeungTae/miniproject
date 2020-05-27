@@ -1,9 +1,11 @@
 package com.nike.controller;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -15,10 +17,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nike.service.MemberService;
-
+import com.nike.service.ProductService;
+import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
+import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.product.ProductDTO;
+import com.nike.product.Product_sizeDTO;
 import com.nike.service.MemberService;
 
 /**
@@ -28,6 +36,11 @@ import com.nike.service.MemberService;
 public class HomeController {
 	@Autowired
 	MemberService service;
+	@Autowired
+	ProductService Pservice;
+	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -57,15 +70,37 @@ public class HomeController {
 	public String catalog() {
 		return "jsj/catalog";
 	}
+	
+	@RequestMapping("product_input")
+	public String product_input(Product_sizeDTO sizedto, ProductDTO dto) throws Exception{
+		Pservice.product_input(sizedto,dto);
+		
+		return "";
+	}
+	
 	/*상품 등록*/
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";
 	}
 	/*고객관리*/
-	@RequestMapping("customer_care")
-	public String customer_care(Model model) {
-		service.memberlist(model);
+	@GetMapping("customer_care")
+	public String customer_care(MemberInfo_PagingVO vo, Model model
+								, @RequestParam(value="nowPage", required=false)String nowPage
+								, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = service.countBoard();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new MemberInfo_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging",vo);
+		System.out.println(vo);
+		model.addAttribute("viewAll",service.selectBoard(vo));
 		return "customer_care";
 	}
 	/*고객관리 페이지 검색기능*/
