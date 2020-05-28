@@ -10,14 +10,18 @@
 			color:#111;
 			padding-top:108px;
 			min-height:100%;
+			height:1800px;
 		}
-		
+		.content-area{
+			height:80%;
+		}
 		.contents{
 			box-sizing:border-box;
 		}
 		
 		.contents.margin-small{
 			margin-top:30px;
+			height:75%;
 		}
 		
 		.pt_product-detail{
@@ -26,41 +30,43 @@
 		}
 		
 		.img-detail_product_n{
-			position:relative;
-			width:40%;
+			width:60%;
 			display:inline-block;
 			padding:0 54px;
 			text-align:center;
 			float:left;
-			height:700px;
+			height:70%;
+			margin-left:-200px;
 		}
 		
 		
 	
 		.img-detail-list{
 			display:inline-block;
-			width:450px;
+			width:90%;
 			height:230px;
+			height:370px;
 		}
 		
 		.image-list{
 			display:inline;
-			width:220px;
-			height:230px;
+			width:350px;
+			height:350px;
 			overflow:0 auto;
+			margin-bottom:10px;
 		
 		}
 		.prd-gutter{
 			background:#f5f5f5;
-			width:200px;
+			width:350px;
 			margin:5px;
-			height:230px;
+			height:350px;
+			margin-bottom:10px;
 		}
 		
 		.info-wrap_product_n{
-			position:relative;
 			float:right;
-			width:45%;
+			width:40%;
 			padding:0 54px 0 10px;
 			color:#606060;
 			box-sizing:border-box;
@@ -90,6 +96,12 @@
 		.order-wrap{
 			margin-bottom:10px;
 		}
+		
+		.product-image{
+			width:100%;
+			height:100%;
+			margin:0 hidden;
+		}
 	</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -100,23 +112,22 @@
 		</c:import>
 	</header>
 	<section class="wrapper">
-		<section class="content-area" style="height:80%;">
+		<section class="content-area">
 			<section>
-				<article>
 					<article class="contents margin-small pt_product-detail">
 						<div class="img-detail_product_n">
 								<ul id="product-gallery" class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
 											<a href="#0">
-												<img data-product-imgae="">
+												<img class="product-image" src="image/pd1-1.png">
 											</a>
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#1">
-												<img data-product-imgae="">
+												<img class="product-image" src="image/pd1-2.png">
 											</a>
 										</div>
 									</li>
@@ -125,14 +136,14 @@
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
 											<a href="#2">
-												<img data-product-imgae="">
+												<img class="product-image" src="image/pd1-3.png">
 											</a>
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#3">
-												<img data-product-imgae="">
+												<img class="product-image" src="image/pd2-1.png">
 											</a>
 										</div>
 									</li>
@@ -141,14 +152,14 @@
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
 											<a href="#4">
-												<img data-product-imgae="">
+												<img class="product-image" src="image/pd2-2.png">
 											</a>
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#5">
-												<img data-product-imgae="">
+												<img class="product-image" src="image/pd2-3.png">
 											</a>
 										</div>
 									</li>
@@ -643,8 +654,8 @@
 										</div>
 									</div>
 								</form>
-						</div>
-						</div>
+							</div>
+							</div>
 						</div>
 					</article>
 				</article>
