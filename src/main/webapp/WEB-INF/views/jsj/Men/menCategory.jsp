@@ -70,7 +70,6 @@
 	max-width: 80%;
 	width: 85%;
 	align: center;
-	margin: auto;
 }
 
 .ncss-container {
@@ -151,6 +150,7 @@
 	white-space: nowrap;
 }
 </style>
+
 <script type="text/javascript">
 	function chageSrc(obj) {
 		var imgId = obj.id;
@@ -163,7 +163,6 @@
 		document.getElementById(imgId).src = changeName;
 	}
 </script>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -218,10 +217,10 @@
 
 				<div class="contents-body" style="min-height: 937px">
 					<c:choose>
-						<c:when test="${AllListMen.size()!=0}">
+						<c:when test="${AllListMenCategory.size()!=0}">
 							<div class="ncss-container">
 								<div class="item-list-wrap">
-									<c:forEach var="AllListMen" items="${AllListMen }">
+									<c:forEach var="AllListMen" items="${AllListMenCategory }">
 										<div class="ncss-col">
 											<div class="a-product">
 												<div class="a-product-image">
@@ -255,14 +254,13 @@
 															</div>
 														</div>
 														<div class="product-price">
-															<p class="product-display-price">${AllListMen.price }원</p>
+															<p class="product-display-price">${AllListMen.price }</p>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</c:forEach>
-
 								</div>
 							</div>
 						</c:when>
@@ -276,11 +274,6 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-					<div style="text-align: center;">
-						<c:forEach var="paging" items="">
-							<a href="catalogMen?page="></a>
-						</c:forEach>
-					</div>
 				</div>
 			</article>
 		</section>

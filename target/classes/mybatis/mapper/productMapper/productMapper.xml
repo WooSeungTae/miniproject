@@ -7,8 +7,8 @@
 	<select id="AllListMen" resultType="Pdto">
 		select * from product where (gender='남자' or gender='공용') ORDER BY joindate, codename  
 	</select>
-	<!--  남자 러닝 신발 전체 검색 -->
-		<select id="AllListMenCategoly" resultType="Pdto">
+	<!--  남자 카테고리별 신발 전체 검색 -->
+		<select id="AllListMenCategory" resultType="Pdto">
 		select * from product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate, codename
 	</select>
 	<!--  전체 총 페이지 -->
@@ -16,10 +16,29 @@
 		select count(*) from product;		
 		</select>
 		
-	<!--  신발 검색 -->
+	<!-- 신발 검색 -->
 		<select id="searchCode" resultType="Pdto">
 		select * from product where codename like '%'|| #{codename} ||'%'		
 		</select>
 		
+	<!-- 여자 신발 전체 검색 -->
+	<select id="AllListWomen" resultType="Pdto">
+		select * from product where (gender='여자' or gender='공용') ORDER BY joindate, codename  
+	</select>
+		
+	<!-- 여자 카테고리별 신발 전체 검색 -->
+		<select id="AllListWomenCategory" resultType="Pdto">
+		select * from product where (gender='여자'or gender='공용') and category=#{category} ORDER BY joindate, codename
+	</select>
+	
+	<!-- Kids 신발 전체 검색 -->
+	<select id="AllListKids" resultType="Pdto">
+		select * from product where gender='키즈' ORDER BY joindate, codename  
+	</select>
+		
+	<!-- Kids 카테고리별 신발 전체 검색 -->
+		<select id="AllListKidsCategory" resultType="Pdto">
+		select * from product where gender='키즈' and category=#{category} ORDER BY joindate, codename
+	</select>
 </mapper>
 

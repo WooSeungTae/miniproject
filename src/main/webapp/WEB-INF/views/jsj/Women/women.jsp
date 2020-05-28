@@ -70,6 +70,7 @@
 	max-width: 80%;
 	width: 85%;
 	align: center;
+	margin: auto;
 }
 
 .ncss-container {
@@ -150,20 +151,19 @@
 	white-space: nowrap;
 }
 </style>
-
 <script type="text/javascript">
-function chageSrc(obj){
-var imgId = obj.id;
-var imgName =obj.src;
-imgName = imgName.toLowerCase();
-var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
-var lastName = imgName.substring(imgName.indexOf('.') + 1);
-lastName = lastName.toUpperCase();
-var changeName = firstName + lastName;
-document.getElementById(imgId).src = changeName;
-}
-
+	function chageSrc(obj) {
+		var imgId = obj.id;
+		var imgName = obj.src;
+		imgName = imgName.toLowerCase();
+		var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
+		var lastName = imgName.substring(imgName.indexOf('.') + 1);
+		lastName = lastName.toUpperCase();
+		var changeName = firstName + lastName;
+		document.getElementById(imgId).src = changeName;
+	}
 </script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -175,9 +175,9 @@ document.getElementById(imgId).src = changeName;
 			<div class="section-header">
 				<div class="section-title">
 					<div class="section-broadcomb" style="display: block">
-						<a href="/nike/Men">Men</a>
+						<a href="/nike/Women">Women</a>
 					</div>
-					<h1 class="text-color-primary-dart">Men's 신발</h1>
+					<h1 class="text-color-primary-dart">Women's 신발</h1>
 					<div class="section-title-sub">
 						<br>
 					</div>
@@ -198,13 +198,17 @@ document.getElementById(imgId).src = changeName;
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men">신발 전체</a></li>
+											style="padding-left: 14px;"><a href="/nike/Women">신발
+												전체</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men/categoly?categoly=run">러닝</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Women/category?category=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men/categoly?categoly=basket">농구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Women/category?category=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men/categoly?categoly=soccer">축구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Women/category?category=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -213,47 +217,72 @@ document.getElementById(imgId).src = changeName;
 				</form>
 
 				<div class="contents-body" style="min-height: 937px">
-					<div class="ncss-container">
-						<div class="item-list-wrap">
-							<c:forEach var="AllListMen" items="${AllListMenCategoly }">
-								<div class="ncss-col">
-									<div class="a-product">
-										<div class="a-product-image">
-											<a href="productdetail?code=${AllListMen.code}">
-												<div class="a-product-image-wrapper">
-													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="/nike/${AllListMen.image1 }" onerror="this.onerror=null; chageSrc(this)"></div>												
+					<c:choose>
+						<c:when test="${allListWomen.size()!=0}">
+							<div class="ncss-container">
+								<div class="item-list-wrap">
+									<c:forEach var="AllListWomen" items="${allListWomen }">
+										<div class="ncss-col">
+											<div class="a-product">
+												<div class="a-product-image">
+													<a href="productdetail?code=${AllListWomen.code}">
+														<div class="a-product-image-wrapper">
+															<div class="a-image">
+																<img id="${AllListWomen.code }"
+																	style="width: 420px; margin: auto;"
+																	src="/nike/${AllListWomen.image1 }"
+																	onerror="this.onerror=null; chageSrc(this)">
+															</div>
+														</div>
+													</a>
 												</div>
-											</a>
-										</div>
-										<div class="a-product-info">
-											<div class="product-display">
-												<div class="product-info">
-													<p class="product-display-name">
-														<span class="item-title">${AllListMen.codename }</span>
-													</p>
-													<div class="product-subtitle">
-														<span>${AllListMen.gender }  
-														<c:choose>
-															<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-															<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-															<c:when test="${AllListMen.category=='basket' }">농구</c:when>														</c:choose>
-														 신발</span>
+												<div class="a-product-info">
+													<div class="product-display">
+														<div class="product-info">
+															<p class="product-display-name">
+																<span class="item-title">${AllListWomen.codename }</span>
+															</p>
+															<div class="product-subtitle">
+																<span>${AllListWomen.gender } <c:choose>
+																		<c:when test="${AllListWomen.category=='run' }">런닝</c:when>
+																		<c:when test="${AllListWomen.category=='soccer' }">축구</c:when>
+																		<c:when test="${AllListWomen.category=='basket' }">농구</c:when>
+																	</c:choose> 신발
+																</span>
+															</div>
+															<div id="item-color-opt" class="product-colorways-number">
+																<span class="text-color-secondary">1 컬러</span>
+															</div>
+														</div>
+														<div class="product-price">
+															<p class="product-display-price">${AllListWomen.price }
+																원</p>
+														</div>
 													</div>
-													<div id="item-color-opt" class="product-colorways-number">
-														<span class="text-color-secondary">1 컬러</span>
-													</div>
-												</div>
-												<div class="product-price">
-													<p class="product-display-price">${AllListMen.price }</p>
 												</div>
 											</div>
 										</div>
-									</div>
+									</c:forEach>
+
 								</div>
-							</c:forEach>
-						</div>
-					</div>
+							</div>
+
+							<div style="text-align: center;">
+								<c:forEach var="paging" items="">
+									<a href="catalogMen?page="></a>
+								</c:forEach>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="noneProduct">
+								<hr align="left" style="color: gray; width: 85%; border: 5;">
+								<br>
+								<h2>상품을 준비 중입니다.</h2>
+								<br>
+								<hr align="left" style="color: gray; width: 85%; border: 5;">
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</article>
 		</section>

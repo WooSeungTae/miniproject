@@ -175,9 +175,9 @@
 			<div class="section-header">
 				<div class="section-title">
 					<div class="section-broadcomb" style="display: block">
-						<a href="/nike/Men">Men</a>
+						<a href="/nike/Kids">Kids</a>
 					</div>
-					<h1 class="text-color-primary-dart">Men's 신발</h1>
+					<h1 class="text-color-primary-dart">Kids's 신발</h1>
 					<div class="section-title-sub">
 						<br>
 					</div>
@@ -198,17 +198,17 @@
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men">신발
+											style="padding-left: 14px;"><a href="/nike/Kids">신발
 												전체</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/category?category=run">러닝</a></li>
+											href="/nike/Kids/category?category=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/category?category=basket">농구</a></li>
+											href="/nike/Kids/category?category=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/category?category=soccer">축구</a></li>
+											href="/nike/Kids/category?category=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -218,19 +218,19 @@
 
 				<div class="contents-body" style="min-height: 937px">
 					<c:choose>
-						<c:when test="${AllListMen.size()!=0}">
+						<c:when test="${AllListKidsCategory.size()!=0}">
 							<div class="ncss-container">
 								<div class="item-list-wrap">
-									<c:forEach var="AllListMen" items="${AllListMen }">
+									<c:forEach var="AllListKids" items="${AllListKidsCategory }">
 										<div class="ncss-col">
 											<div class="a-product">
 												<div class="a-product-image">
-													<a href="productdetail?code=${AllListMen.code}">
+													<a href="productdetail?code=${AllListKids.code}">
 														<div class="a-product-image-wrapper">
 															<div class="a-image">
-																<img id="${AllListMen.code }"
+																<img id="${AllListKids.code }"
 																	style="width: 420px; margin: auto;"
-																	src="/nike/${AllListMen.image1 }"
+																	src="/nike/${AllListKids.image1 }"
 																	onerror="this.onerror=null; chageSrc(this)">
 															</div>
 														</div>
@@ -240,13 +240,13 @@
 													<div class="product-display">
 														<div class="product-info">
 															<p class="product-display-name">
-																<span class="item-title">${AllListMen.codename }</span>
+																<span class="item-title">${AllListKids.codename }</span>
 															</p>
 															<div class="product-subtitle">
-																<span>${AllListMen.gender } <c:choose>
-																		<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-																		<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-																		<c:when test="${AllListMen.category=='basket' }">농구</c:when>
+																<span>${AllListKids.gender } <c:choose>
+																		<c:when test="${AllListKids.category=='run' }">런닝</c:when>
+																		<c:when test="${AllListKids.category=='soccer' }">축구</c:when>
+																		<c:when test="${AllListKids.category=='basket' }">농구</c:when>
 																	</c:choose> 신발
 																</span>
 															</div>
@@ -255,14 +255,14 @@
 															</div>
 														</div>
 														<div class="product-price">
-															<p class="product-display-price">${AllListMen.price }원</p>
+															<p class="product-display-price">${AllListKids.price }
+																원</p>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</c:forEach>
-
 								</div>
 							</div>
 						</c:when>

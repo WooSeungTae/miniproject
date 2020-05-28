@@ -262,9 +262,6 @@ document.getElementById(imgId).src = changeName;
 				<div class="contents-body" style="min-height: 937px">
 					<c:choose>
 						<c:when test="${searchCode.size()!=0}">
-							<script type="text/javascript">
-							console.log(${searchCode})
-							</script>
 							<div class="ncss-container">
 								<div class="item-list-wrap">
 									<c:forEach var="search" items="${searchCode }">
@@ -313,8 +310,7 @@ document.getElementById(imgId).src = changeName;
 						</c:when>
 						<c:otherwise>
 							<div class="noneProduct">
-							
-								<hr align="left" style="color:gray;  width: 85%;border: 5; ">
+					        	<hr align="left" style="color:gray;  width: 85%;border: 5; ">
 								<br>
 								<h2>검색하신 물품은 존재하지 않습니다.</h2>
 								<br>
