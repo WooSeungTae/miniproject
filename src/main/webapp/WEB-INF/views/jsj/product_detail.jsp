@@ -141,36 +141,36 @@
 								<ul id="product-gallery" class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<img class="product-image" src="image/${image1 }">
+											<img class="product-image" src="image/${image1 }" alt="사진없음">
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
-											<img class="product-image" src="image/${image2 }">
+											<img class="product-image" src="image/${image2 }"  alt="사진없음">
 										</div>
 									</li>
 								</ul>
 								<ul class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<img class="product-image" src="image/${image3 }">
+											<img class="product-image" src="image/${image3 }"  alt="사진없음">
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
-											<img class="product-image" src="/image/${image4 }">
+											<img class="product-image" src="/image/${image4 }"  alt="사진없음">
 										</div>
 									</li>
 								</ul>
 								<ul class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<img class="product-image" src="image/${image5 }">
+											<img class="product-image" src="image/${image5 }"  alt="사진없음">
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
-											<img class="product-image" src="image/${image6 }">
+											<img class="product-image" src="image/${image6 }"  alt="사진없음">
 										</div>
 									</li>
 								</ul>

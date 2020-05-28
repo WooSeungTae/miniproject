@@ -23,20 +23,20 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".AllListMenCategoly",category);
 	}
 
-<<<<<<< HEAD
+
 	/*세부 상품 조회*/
 	public ProductDTO productdetail(String code) {
 		return sqlSession.selectOne(nameSpace+".productdetail", code);
 	}
 
 
-=======
+
 	/* 신발 검색 */
 	public List<ProductDTO> searchCode(String codename) {
 		return sqlSession.selectList(nameSpace+".searchCode",codename);
 	}
 	
->>>>>>> refs/heads/master
+
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		// TODO Auto-generated method stub
 
