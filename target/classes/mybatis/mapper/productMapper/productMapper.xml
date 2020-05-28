@@ -5,27 +5,30 @@
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
 	<!--  남자 신발 전체 검색 -->
 	<select id="AllListMen" resultType="Pdto">
-		select * from product where gender='남자' or gender='공용' ORDER BY joindate, codename  
+		select * from product where (gender='남자' or gender='공용') ORDER BY joindate, codename  
 	</select>
 	<!--  남자 러닝 신발 전체 검색 -->
-		<select id="AllListMenRun" resultType="Pdto">
-		select * from product where gender='남자' and category='run' or gender='공용' and category='run' ORDER BY joindate, codename
+		<select id="AllListMenCategoly" resultType="Pdto">
+		select * from product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate, codename
 	</select>
-	<!--  남자 농구 신발 전체 검색 -->
-		<select id="AllListMenBasket" resultType="Pdto">
-		select * from product where gender='남자' and category='basket' or  gender='공용' and category='basket' ORDER BY joindate, codename  
-	</select>
-	<!--  남자 축구 신발 전체 검색 -->
-		<select id="AllListMenSoccer" resultType="Pdto">
-		select * from product where gender='남자' and category='soccer'  or gender='공용' and category='soccer' ORDER BY joindate, codename   
-	</select>
-	
 	<!--  전체 총 페이지 -->
+<<<<<<< HEAD
 	
 	
 	<!-- 세부상품 페이지 조회  -->
 	<select id="productdetail" resultType="Pdto" parameterType="String">
 		select * from product where code=#{code}
 	</select>
+=======
+		<select id="countProduct" resultType="int">
+		select count(*) from product;		
+		</select>
+		
+	<!--  신발 검색 -->
+		<select id="searchCode" resultType="Pdto">
+		select * from product where codename like %#{codename}%		
+		</select>
+		
+>>>>>>> refs/heads/master
 </mapper>
 

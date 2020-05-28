@@ -17,22 +17,21 @@ import com.nike.product.Product_sizeDTO;
 public class ProductService {
 	@Autowired
 	private ProductDAO Pdao;
-
+	/*남자 신발 전체 검색*/
 	public void allListMen(Model model) {
 		model.addAttribute("AllListMen", Pdao.allListMen());
 	}
-
-	public void allListMenRun(Model model) {
-		model.addAttribute("AllListMenRun", Pdao.allListMenRun());
+	/*남자 신발 카테고리별 전체 검색*/
+	public void allListMenCategoly(Model model,String category) {
+		model.addAttribute("AllListMenCategoly", Pdao.allListMenCategoly(category));
 	}
-
-	public void allListMenBasket(Model model) {
-		model.addAttribute("AllListMenBasket", Pdao.allListMenBasket());
+	
+	/*신발 전체 검색*/
+	public void searchCode(Model model,String codename) {
+		model.addAttribute("searchCode", Pdao.searchCode(codename));
 	}
-
-	public void allListMenSoccer(Model model) {
-		model.addAttribute("AllListMenSoccer", Pdao.allListMenSoccer());
-	}
+	
+	
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		Pdao.product_input(sizedto,dto);
 	}

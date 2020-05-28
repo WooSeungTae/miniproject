@@ -67,8 +67,10 @@
 	display: inline-block;
 	float: right;
 	min-height: 3876px;
+	max-width: 80%;
 	width: 85%;
 	align: center;
+	margin: auto;
 }
 
 .ncss-container {
@@ -108,6 +110,7 @@
 
 .a-product-info {
 	text-align: left;
+	vertical-align: middle;
 }
 
 .product-display {
@@ -195,13 +198,13 @@
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMen">신발 전체</a></li>
+											style="padding-left: 14px;"><a href="Men">신발 전체</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMenRun">러닝</a></li>
+											style="padding-left: 14px;"><a href="Men/categoly?categoly=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMenBasket">농구</a></li>
+											style="padding-left: 14px;"><a href="Men/categoly?categoly=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMenSoccer">축구</a></li>
+											style="padding-left: 14px;"><a href="Men/categoly?categoly=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -216,7 +219,7 @@
 								<div class="ncss-col">
 									<div class="a-product">
 										<div class="a-product-image">
-											<a href="${AllListMen.code}">
+											<a href="productdetail?code=${AllListMen.code}">
 												<div class="a-product-image-wrapper">
 													<div class="a-image">
 													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="chageSrc(this)"></div>												
@@ -249,7 +252,14 @@
 									</div>
 								</div>
 							</c:forEach>
+
 						</div>
+					</div>
+					
+					<div style="text-align: center;">
+						<c:forEach var="paging" items="">
+							<a href="catalogMen?page="></a>
+						</c:forEach>
 					</div>
 				</div>
 			</article>

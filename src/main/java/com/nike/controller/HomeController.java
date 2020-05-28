@@ -98,33 +98,32 @@ public class HomeController {
 	}
 	
 	/*남자 신발 전체목록*/
-	@RequestMapping("/catalogMen")
+	@RequestMapping("Men")
 	public String catalogMen(Model model) {
 		Pservice.allListMen(model);
-		return "jsj/Men/catalogMen";
+		return "jsj/Men/men";
 	}
 	
-	/*남자 신발 런닝화 전체*/
-	@RequestMapping("/catalogMenRun")
-	public String catalogMenRun(Model model) {
-		Pservice.allListMenRun(model);
-		return "jsj/Men/catalogMenRun";
+	/*남자 신발 카테코리별 전체*/
+	@RequestMapping("Men/categoly")
+	public String catalogMenCategoly(Model model,@RequestParam("categoly") String category) {
+		Pservice.allListMenCategoly(model,category);
+		return "jsj/Men/menCategoly";
+	}
+	/*전체 신발 검색*/
+	@RequestMapping("search")
+	public String serchCheck() {
+		return "jsj/search";
 	}
 	
-	/*남자 신발 농구화 전체*/
-	@RequestMapping("/catalogMenBasket")
-	public String catalogMenBasket(Model model) {
-		Pservice.allListMenBasket(model);
-		return "jsj/Men/catalogMenBasket";
+	
+	@RequestMapping("searchCheck")
+	public String catalogMenSearch(Model model,@RequestParam("codename") String codename) {
+		Pservice.searchCode(model,codename);
+		return "redirect:search";
 	}
 	
-	/*남자 신발 축구화 전체*/
-	@RequestMapping("/catalogMenSoccer")
-	public String catalogMenSoccer(Model model) {
-		Pservice.allListMenSoccer(model);
-		return "jsj/Men/catalogMenSoccer";
-	}
-	
+
 	/*여자 신발 전체*/
 	@RequestMapping("/catalogWomen")
 	public String catalogWomen() {
