@@ -33,15 +33,15 @@
 	} 
 	
 	/* 전체 a태그 기본 설정 */
-	a{
+	.all a{
 	text-decoration:none; 
 	color:#808080; 
 	font-size:12px;
 	}
-	a:hover{color:white;}
+	.all a:hover{color:white;}
 	
 	/* 기본 설정 */
-	hr{	border:solid 0.5px #808080;	}
+	.all hr{	border:solid 0.5px #808080;	}
 	.all{background-color: black; height: 520px;
 		position:static; 
 		bottom: 0px;
@@ -51,7 +51,7 @@
 
 </style>
 </head>
-<body>
+<body class="footer">
 	<footer class="all">
 		<div align="center">
 		<div id="btn1">

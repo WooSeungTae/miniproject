@@ -20,7 +20,7 @@
 	<!-- 최근 등록 주문 내역 -->
 	<section>
 	<br><br><br><br><br>
-	<img src="image/nike.jpg">
+	<img src="/nike/image/nike.jpg">
 	
 	
 	<hr>

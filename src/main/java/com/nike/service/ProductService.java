@@ -30,6 +30,7 @@ public class ProductService {
 	public void searchCode(Model model,String codename) {
 		model.addAttribute("searchCode", Pdao.searchCode(codename));
 	}
+		
 	
 	/*여자 신발 전체 검색*/
 	public void allListWomen(Model model) {

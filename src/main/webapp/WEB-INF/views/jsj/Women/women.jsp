@@ -10,12 +10,12 @@
 		Helevtica, Arial, sans-serif;
 	color: #111;
 }
-
+/*성별 표시 공간 's 신발'*/
 .section-header {
 	display: table;
 	width: 100%;
 	justify-content: space-between;
-	padding: 40px 48px 30px 48px;
+	padding: 40px 48px 0px 35px;
 }
 
 .section-header .section-title {
@@ -32,25 +32,27 @@
 	font-size: 12px;
 	line-height: 16px;
 }
-
+/*필터*/
 .section-control {
 	vertical-align: bottom;
 	font-size: 15px;
 	text-align: right;
 	font-weight: 500;
 	float: right;
-	margin-right: 13%;
+	margin-right: 8%;
+	margin-top: 28px;
 }
-
+/*왼쪽 사이드 공간*/
 .contents {
 	overflow: hidden;
 }
-
+/*왼쪽 사이드 공간*/
 .contents-side {
 	display: inline-block;
 	transition: left 0.3s;
 	height: 400px;
 	width: 13%;
+	min-width : 200px;
 	margin-right: 5px;
 	float: left;
 }
@@ -150,6 +152,46 @@
 .product-display-price {
 	white-space: nowrap;
 }
+
+/*왼쪽 사이드 성별 태그*/
+.section-broadcomb a:link {
+	list-style: none;
+	font-size: 15px;
+	font-weight: 800;
+	text-decoration: none;
+		color: black;
+}
+.section-broadcomb a:visited {
+	list-style: none;
+	font-size: 15px;
+	font-weight: 800;
+	text-decoration: none;
+		color: black;
+}
+
+/*왼쪽 사이드바 ul (러닝 농구 축구 css)*/
+.f-category ul {
+	list-style: none;
+	padding-left: 0px;
+}
+
+.f-category ul li {
+	margin-top: 20px;
+}
+
+.f-category ul li a:link {
+	text-decoration: none;
+	color: black;
+	font-size: 20px;
+	font-weight: 800;
+}
+
+.f-category ul li a:visited {
+	text-decoration: none;
+	color: black;
+	font-size: 20px;
+	font-weight: 800;
+}
 </style>
 <script type="text/javascript">
 	function chageSrc(obj) {
@@ -190,6 +232,7 @@
 					<a><span class="currentOpt">신상품순</span></a>
 				</div>
 			</div>
+			<hr align="left" style="border:solid 0.5px #e8ebed; width :90%; margin-left: 2%; ">
 			<article class="contents">
 				<form method="get">
 					<div class="contents-side">
@@ -255,8 +298,11 @@
 															</div>
 														</div>
 														<div class="product-price">
-															<p class="product-display-price">${AllListWomen.price }
-																원</p>
+															<p class="product-display-price">
+															<script type="text/javascript">
+																var price = ${AllListWomen.price};
+																document.write(price.toLocaleString()+' 원');
+															</script></p>
 														</div>
 													</div>
 												</div>
@@ -287,6 +333,6 @@
 			</article>
 		</section>
 	</section>
-	<footer> </footer>
+<c:import url="/footer"></c:import>
 </body>
 </html>
