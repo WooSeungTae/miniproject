@@ -68,12 +68,8 @@ public class MemberService {
 	public void memberinfoModify(MemberInfoDTO dto, Model model) {
 		dao.memberinfoModify(dto);
 	}
-<<<<<<< HEAD
-
-=======
 	
 	/*마일리지 조회*/
->>>>>>> refs/heads/master
 	public String mileage(String id) {
 		return dao.mileage(id);
 		
