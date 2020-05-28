@@ -22,5 +22,10 @@
 	
 	<!--  전체 총 페이지 -->
 	
+	
+	<!-- 세부상품 페이지 조회  -->
+	<select id="productdetail" resultType="Pdto" parameterType="String">
+		select * from product where code=#{code}
+	</select>
 </mapper>
 

@@ -36,5 +36,9 @@ public class ProductService {
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		Pdao.product_input(sizedto,dto);
 	}
-
+	/*세부 상품 조회*/
+	public ProductDTO productdetail(String code) {
+		return Pdao.productdetail(code);
+	}
+	
 }

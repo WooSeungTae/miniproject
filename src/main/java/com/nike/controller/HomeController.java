@@ -89,9 +89,11 @@ public class HomeController {
 		memberservice.saveUserInfo(dto);
 		return "redirect:loginPage";
 	}
-
+	
+	/*세부 상품 조회*/
 	@RequestMapping("/productdetail")
-	public String productdetail() {
+	public String productdetail(Model model, HttpServletRequest request) {
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
 	

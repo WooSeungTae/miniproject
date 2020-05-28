@@ -29,7 +29,10 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".AllListMenSoccer");
 	}
 
-
+	/*세부 상품 조회*/
+	public ProductDTO productdetail(String code) {
+		return sqlSession.selectOne(nameSpace+".productdetail", code);
+	}
 
 
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {

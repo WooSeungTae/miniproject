@@ -102,6 +102,28 @@
 			height:100%;
 			margin:0 hidden;
 		}
+		
+		.price-wrap{
+			width:90%;
+		}
+		
+		.tit{
+			display:block;
+			margin-top:10px;
+			font-size:25px;
+			
+		}
+		.similar-item{
+			display:inline-block;
+		}
+		
+		.similar-items{
+			height:80px;
+		}
+		
+		.tit2{
+			font-size:13x;
+		}
 	</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -119,48 +141,36 @@
 								<ul id="product-gallery" class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<a href="#0">
-												<img class="product-image" src="image/pd1-1.png">
-											</a>
+											<img class="product-image" src="image/${image1 }">
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
-											<a href="#1">
-												<img class="product-image" src="image/pd1-2.png">
-											</a>
+											<img class="product-image" src="image/${image2 }">
 										</div>
 									</li>
 								</ul>
 								<ul class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<a href="#2">
-												<img class="product-image" src="image/pd1-3.png">
-											</a>
+											<img class="product-image" src="image/${image3 }">
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
-											<a href="#3">
-												<img class="product-image" src="/image/pd6-1.jpg">
-											</a>
+											<img class="product-image" src="/image/${image4 }">
 										</div>
 									</li>
 								</ul>
 								<ul class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<a href="#4">
-												<img class="product-image" src="image/pd4-2.png">
-											</a>
+											<img class="product-image" src="image/${image5 }">
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
-											<a href="#5">
-												<img class="product-image" src="image/pd4-3.png">
-											</a>
+											<img class="product-image" src="image/${image6 }">
 										</div>
 									</li>
 								</ul>
@@ -169,129 +179,57 @@
 						<div class="product-option-container">
 							<div class="uk-hidden-small uk-position-relative">
 								<div class="price-wrap uk-width-1-1 uk-margin-small-bottom">
-									<div class="uk-float-left">
+									<div class="uk-float-left" style="float:left;">
 										<div class="product-subtitle">
-											<span class="text-color-secondary">성인 공용 신발 러닝</span>
+											<span class="text-color-secondary">${category }</span>
 										</div>
 									</div>
-									<div class="uk-float-right">
+									<div class="uk-float-right" style="float:right;">
 										<span class="price">
-											<strong data-price="129000">129,000원</strong>
+											<strong data-price="129000">${price }원</strong>
 										</span>
 									</div>
 								</div>
 								<h1 class="title-wrap">
-									<span class="tit" data-name="나이키 프리 런 5.0 2020">나이키 프리 런 5.0 2020</span>
+									<span class="tit" data-name="나이키 프리 런 5.0 2020">${codename }</span>
 								</h1>
+							</div>
+							<div class="similar-items">
+								<ul id="" class="similar-item">
+									<c:forEach items="" var="">
+										<li>
+											<a href="#">
+												<div>
+													<img></img>
+												</div>		
+											</a>
+										</li>
+									</c:forEach>
+								</ul>
 							</div>
 							<div class="pinfo-item-box">
 								<form method="POST" action="#">
 									<div class="option-wrap">
 										<div class="size-grid-type padding radius">
 											<a class="btn-option">
-												<strong class="tit">사이즈 선택</strong>
+												<strong class="tit2">사이즈 선택</strong>
 											</a>
-											<div class="product-option_radio square">
-												<div class="opt-list">
-													<span class="input-radio" typename="230">
-														<label class="sd-out">230</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="230" id="FW_SIZE1" name="SIZE" value="28">
-													</span>
-													<span class="input-radio" typename="235">
-														<label class="sd-out">235</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="235" id="FW_SIZE1" name="SIZE" value="29">
-													</span>
-													<span class="input-radio" typename="240">
-														<label class="sd-out">240</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="240" id="FW_SIZE1" name="SIZE" value="30">
-													</span>
-													<span class="input-radio" typename="245">
-														<label class="sd-out">245</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="245" id="FW_SIZE1" name="SIZE" value="31">
-													</span>
-													<span class="input-radio" typename="250">
-														<label class="sd-out">250</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="250" id="FW_SIZE1" name="SIZE" value="32">
-													</span>
-													<span class="input-radio" typename="255">
-														<label class="sd-out">255</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="255" id="FW_SIZE1" name="SIZE" value="33">
-													</span>
-													<span class="input-radio" typename="260">
-														<label class="sd-out">260</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="260" id="FW_SIZE1" name="SIZE" value="34">
-													</span>
-													<span class="input-radio" typename="265">
-														<label class="sd-out">265</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="265" id="FW_SIZE1" name="SIZE" value="35">
-													</span>
-													<span class="input-radio" typename="270">
-														<label class="sd-out">270</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="270" id="FW_SIZE1" name="SIZE" value="36">
-													</span>
-													<span class="input-radio" typename="275">
-														<label class="sd-out">275</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="275" id="FW_SIZE1" name="SIZE" value="37">
-													</span>
-													<span class="input-radio" typename="280">
-														<label class="sd-out">280</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="280" id="FW_SIZE1" name="SIZE" value="38">
-													</span>
-													<span class="input-radio" typename="285">
-														<label class="sd-out">285</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="285" id="FW_SIZE1" name="SIZE" value="39">
-													</span>
-													<span class="input-radio" typename="290">
-														<label class="sd-out">290</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="290" id="FW_SIZE1" name="SIZE" value="40">
-													</span>
-													<span class="input-radio" typename="295">
-														<label class="sd-out">295</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="295" id="FW_SIZE1" name="SIZE" value="41">
-													</span>
-													<span class="input-radio" typename="300">
-														<label class="sd-out">300</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="300" id="FW_SIZE1" name="SIZE" value="42">
-													</span>
-													<span class="input-radio" typename="305">
-														<label class="sd-out">305</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="305" id="FW_SIZE1" name="SIZE" value="43">
-													</span>
-													<span class="input-radio" typename="310">
-														<label class="sd-out">310</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="310" id="FW_SIZE1" name="SIZE" value="44">
-													</span>
-													<span class="input-radio" typename="315">
-														<label class="sd-out">315</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="315" id="FW_SIZE1" name="SIZE" value="45">
-													</span>
-													<span class="input-radio" typename="320">
-														<label class="sd-out">320</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="320" id="FW_SIZE1" name="SIZE" value="46">
-													</span>
-													<span class="input-radio" typename="325">
-														<label class="sd-out">325</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="325" id="FW_SIZE1" name="SIZE" value="47">
-													</span>
-													<span class="input-radio" typename="330">
-														<label class="sd-out">330</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="330" id="FW_SIZE1" name="SIZE" value="48">
-													</span>
+											<c:forEach var="i" begin="220" end="330" step="10">
+												<div class="product-option_radio square">
+													<div class="opt-list">
+														<span class="input-radio">
+															<label class="sd-out">${i }</label>
+															<input type="radio" name="SIZE" value="${i }">
+														</span>
+													</div>
 												</div>
-											</div>
-												<div class="option-guide">
-													<div>
-														<a href="#" class="sky-blue">사이즈 가이드</a>
- 													</div>
-												</div>
-											</div>
-											<div class="stocked-wrap line" id="set-restock-alarm" style="display:block">
-											</div>
+											</c:forEach>
 											<div class="quantity" data-component-quantity="{maxQuantity:10, msg:개까지 구매가능 합니다., quantityStateMst:상품의 수량이 없습니다.}">
-												<h2 class="tit">
+												<h2>
 													<span>수량</span>
 													<span class="msg"></span>
 												</h2>
+												<hr>
 												<span class="btn-qy">
 													<input name="quantity" class="label" type="text" value="1">
 													<button class="btn minus">
@@ -304,25 +242,11 @@
 											<div>
 												<div class="status-wrap btn-wrap radius" data-add-item>
 													<div class="order-wrap">
-														<a class="btn-link xlarge btn-order width-max" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="buy now" id="btn-buy" href="#">
-															<span>바로구매</span>
-														</a>
-														&nbsp;&nbsp;
-														<a class="btn-link line width-max xlarge btn-cart" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="add to cart" action-type="add" href="#">
-															<span>장바구니</span>
-														</a>
-														&nbsp;&nbsp;
+														<input type="submit" value="바로구매">
+														&nbsp;&nbsp;														
 														<button class="wish-btn line btn-link sky-blue noraml btn-wishlist radius">
-															위시리스트
-															<i class="icon-wishlist">♡</i>
+															장바구니
 														</button>
-													</div>
-												</div>
-												<div class="store-reserve-wrap radius">
-													<span class="ns-store icon"></span>
-													<span class="btn-storereserve">배송보다 빠른, 매장픽업 서비스</span>
-													<div class="store-reserve-info">
-														<span>지금 주문하고, 매장에서 바로 픽업하세요.</span>
 													</div>
 												</div>
 												<div class="discription-wrap uk-accordian" data-uk-accordian="{collapse:true}">
@@ -330,16 +254,12 @@
 														<div class="description conTab" id="pdp-description-summary" data-info-height="{outerHeight:456, infoType:product-detail}"></div>
 														<div class="description-preview">
 															<p>
-																<b>유연하고 자유롭게.</b>
-															</p>
-															<p>
-																<b>나이키 프리 RN 5.0 2020은 프리의 진화에 있어 획기적인 도약과도 같습니다. 이전 버전보다 가볍고 지면에 더 밀착되어, '맨발'로 달리는 듯한 자연스러운 착화감을 선사합니다."</b>
+																<b>${contents }</b>
 															</p>
 															<br>
 														</div> 
 														<span class="style-color">현재 컬러 : 써밋 화이트/레이저 오렌지/블랙<br></span>
 														<span class="style-code" data-model="CV9305-100">스타일 : CV9305-100<br></span>
-														<a href="#" class="sky-blue btn-more-pop" data-click-area="pdp" data-click-name="product_learn more detail">더 보기</a>
 													</div>
 													<h2 class="pop-detail-title uk-accordian-title uk-active" data-click-toggle-on="off" data-click-area="pdp" data-click-name="review_learn more">
 														리뷰
@@ -658,7 +578,6 @@
 							</div>
 						</div>
 					</article>
-				</article>
 			</section>
 		</section>
 	</section>

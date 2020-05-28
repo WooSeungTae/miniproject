@@ -6,7 +6,7 @@ import java.sql.Date;
 
 
 public class ProductDTO {
-	private String code;
+	private String code;   
 	private String codename; 
 	private String codecolor; 
 	private String category; 
