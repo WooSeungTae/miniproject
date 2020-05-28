@@ -1,5 +1,6 @@
 package com.nike.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
-
+import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.memberInfo.MemberInfoDAO;
 
 import com.nike.memberInfo.MemberInfoDAO;
@@ -50,6 +51,14 @@ public class MemberService {
 	/*모든 회원목록 출력*/
 	public void memberlist(Model model) {
 		model.addAttribute("memberlists",dao.memberlists());
+	}
+	/*멤버 수 반환*/
+	public int countBoard() {
+		return dao.countBoard();
+	}
+	/*모든 회원목록 출력 일정량만*/
+	public List<MemberInfoDTO> selectBoard(MemberInfo_PagingVO vo){
+		return dao.selectBoard(vo);
 	}
 	/*아이디를 토대로 검색 회원목록 출력*/
 	public void memberserchlist(Model model) {
