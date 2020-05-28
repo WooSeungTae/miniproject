@@ -108,17 +108,13 @@ public class HomeController {
 		Pservice.allListMenCategoly(model,category);
 		return "jsj/Men/menCategoly";
 	}
+
+	
 	/*전체 신발 검색*/
-	@RequestMapping("search")
-	public String serchCheck() {
-		return "jsj/search";
-	}
-	
-	
 	@RequestMapping("searchCheck")
 	public String catalogMenSearch(Model model,@RequestParam("codename") String codename) {
 		Pservice.searchCode(model,codename);
-		return "redirect:search";
+		return "jsj/search";
 	}
 	
 

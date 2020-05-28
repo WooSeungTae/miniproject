@@ -18,7 +18,7 @@
 		
 	<!--  신발 검색 -->
 		<select id="searchCode" resultType="Pdto">
-		select * from product where codename like %#{codename}%		
+		select * from product where codename like '%'|| #{codename} ||'%'		
 		</select>
 		
 </mapper>

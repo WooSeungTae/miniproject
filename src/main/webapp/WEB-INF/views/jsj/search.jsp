@@ -149,6 +149,12 @@
 .product-display-price {
 	white-space: nowrap;
 }
+
+.noneProduct {
+	color: black;
+	text-align: left;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -175,9 +181,9 @@ document.getElementById(imgId).src = changeName;
 			<div class="section-header">
 				<div class="section-title">
 					<div class="section-broadcomb" style="display: block">
-						<a href="catalogMen">Men</a>
+						<a href="/nike/main"><h1>나이키</h1></a>
 					</div>
-					<h1 class="text-color-primary-dart">Men's 신발</h1>
+
 					<div class="section-title-sub">
 						<br>
 					</div>
@@ -198,13 +204,16 @@ document.getElementById(imgId).src = changeName;
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men">Men</a></li>
+											style="padding-left: 14px;"><a href="/nike/Men">Men</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=run">러닝</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=basket">농구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=soccer">축구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -213,13 +222,17 @@ document.getElementById(imgId).src = changeName;
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men">Women </a></li>
+											style="padding-left: 14px;"><a href="/nike/Men">Women
+										</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=run">러닝</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=basket">농구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=soccer">축구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -228,13 +241,16 @@ document.getElementById(imgId).src = changeName;
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men">Kids</a></li>
+											style="padding-left: 14px;"><a href="/nike/Men">Kids</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=run">러닝</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=basket">농구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="../Men/categoly?categoly=soccer">축구</a></li>
+											style="padding-left: 14px;"><a
+											href="/nike/Men/categoly?categoly=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -244,47 +260,68 @@ document.getElementById(imgId).src = changeName;
 				</form>
 
 				<div class="contents-body" style="min-height: 937px">
-					<div class="ncss-container">
-						<div class="item-list-wrap">
-							<c:forEach var="search" items="${searchCode }">
-								<div class="ncss-col">
-									<div class="a-product">
-										<div class="a-product-image">
-											<a href="${search.code}">
-												<div class="a-product-image-wrapper">
-													<div class="a-image">
-													<img id = "${search.code }"style="width:420px; margin:auto;" src="../${search.image1 }" onerror="chageSrc(this)"></div>												
+					<c:choose>
+						<c:when test="${searchCode.size()!=0}">
+							<script type="text/javascript">
+							console.log(${searchCode})
+							</script>
+							<div class="ncss-container">
+								<div class="item-list-wrap">
+									<c:forEach var="search" items="${searchCode }">
+										<div class="ncss-col">
+											<div class="a-product">
+												<div class="a-product-image">
+													<a href="${search.code}">
+														<div class="a-product-image-wrapper">
+															<div class="a-image">
+																<img id="${search.code }"
+																	style="width: 420px; margin: auto;"
+																	src="/nike/${search.image1 }"
+																	onerror="this.onerror=null; chageSrc(this)">
+															</div>
+														</div>
+													</a>
 												</div>
-											</a>
-										</div>
-										<div class="a-product-info">
-											<div class="product-display">
-												<div class="product-info">
-													<p class="product-display-name">
-														<span class="item-title">${search.codename }</span>
-													</p>
-													<div class="product-subtitle">
-														<span>${search.gender }  
-														<c:choose>
-															<c:when test="${search.category=='run' }">런닝</c:when>
-															<c:when test="${search.category=='soccer' }">축구</c:when>
-															<c:when test="${search.category=='basket' }">농구</c:when>														</c:choose>
-														 신발</span>
+												<div class="a-product-info">
+													<div class="product-display">
+														<div class="product-info">
+															<p class="product-display-name">
+																<span class="item-title">${search.codename }</span>
+															</p>
+															<div class="product-subtitle">
+																<span>${search.gender } <c:choose>
+																		<c:when test="${search.category=='run' }">런닝</c:when>
+																		<c:when test="${search.category=='soccer' }">축구</c:when>
+																		<c:when test="${search.category=='basket' }">농구</c:when>
+																	</c:choose> 신발
+																</span>
+															</div>
+															<div id="item-color-opt" class="product-colorways-number">
+																<span class="text-color-secondary">1 컬러</span>
+															</div>
+														</div>
+														<div class="product-price">
+															<p class="product-display-price">${search.price }</p>
+														</div>
 													</div>
-													<div id="item-color-opt" class="product-colorways-number">
-														<span class="text-color-secondary">1 컬러</span>
-													</div>
-												</div>
-												<div class="product-price">
-													<p class="product-display-price">${search.price }</p>
 												</div>
 											</div>
 										</div>
-									</div>
+									</c:forEach>
 								</div>
-							</c:forEach>
-						</div>
-					</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="noneProduct">
+							
+								<hr align="left" style="color:gray;  width: 85%;border: 5; ">
+								<br>
+								<h2>검색하신 물품은 존재하지 않습니다.</h2>
+								<br>
+								<hr align="left" style="color:gray; width: 85%; border: 5; ">
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</article>
 		</section>

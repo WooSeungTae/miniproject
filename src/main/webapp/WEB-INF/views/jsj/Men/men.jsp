@@ -175,7 +175,7 @@
 			<div class="section-header">
 				<div class="section-title">
 					<div class="section-broadcomb" style="display: block">
-						<a href="catalogMen">Men</a>
+						<a href="/nike/Men">Men</a>
 					</div>
 					<h1 class="text-color-primary-dart">Men's 신발</h1>
 					<div class="section-title-sub">
@@ -198,13 +198,13 @@
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="Men">신발 전체</a></li>
+											style="padding-left: 14px;"><a href="/nike/Men">신발 전체</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="Men/categoly?categoly=run">러닝</a></li>
+											style="padding-left: 14px;"><a href="/nike/Men/categoly?categoly=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="Men/categoly?categoly=basket">농구</a></li>
+											style="padding-left: 14px;"><a href="/nike/Men/categoly?categoly=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="Men/categoly?categoly=soccer">축구</a></li>
+											style="padding-left: 14px;"><a href="/nike/Men/categoly?categoly=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -222,7 +222,7 @@
 											<a href="productdetail?code=${AllListMen.code}">
 												<div class="a-product-image-wrapper">
 													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="chageSrc(this)"></div>												
+													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="/nike/${AllListMen.image1 }" onerror="this.onerror=null; chageSrc(this)"></div>												
 											</div>
 											</a>
 										</div>

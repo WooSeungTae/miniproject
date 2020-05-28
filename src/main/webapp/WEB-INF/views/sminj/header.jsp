@@ -151,9 +151,9 @@
    
    function goSearch(){
 	   
-	var searchp = document.getElementById('searchProduct').value;
+	var searchCodeName = document.getElementById('searchProduct').value;
 
-	location.href="searchCheck?codename="+searchp;
+	location.href="/nike/searchCheck?codename="+searchCodeName;
    
    }
    </script>
@@ -173,9 +173,9 @@
 						<li class="menu">
 							<img src="image/user.png" class="user_img"/><a>이름이</a>
 							<ul class="hide">
-								<li><a href="myPage">마이페이지</a></li>
-								<li><a href="account">회원정보관리</a></li>
-								<li><a href="main">로그아웃</a></li>
+								<li><a href="/nike/myPage">마이페이지</a></li>
+								<li><a href="/nike/account">회원정보관리</a></li>
+								<li><a href="/nike/main">로그아웃</a></li>
 							</ul>
 						</li>
 					</ul>
