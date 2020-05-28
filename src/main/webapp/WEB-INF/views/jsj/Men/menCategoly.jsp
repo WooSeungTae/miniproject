@@ -67,6 +67,7 @@
 	display: inline-block;
 	float: right;
 	min-height: 3876px;
+	max-width: 80%;
 	width: 85%;
 	align: center;
 }
@@ -108,6 +109,7 @@
 
 .a-product-info {
 	text-align: left;
+	vertical-align: middle;
 }
 
 .product-display {
@@ -148,17 +150,19 @@
 	white-space: nowrap;
 }
 </style>
+
 <script type="text/javascript">
-	function chageSrc(obj){
-	var imgId = obj.id;
-	var imgName =obj.src;
-	imgName = imgName.toLowerCase();
-	var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
-	var lastName = imgName.substring(imgName.indexOf('.') + 1);
-	lastName = lastName.toUpperCase();
-	var changeName = firstName + lastName;
-	document.getElementById(imgId).src = changeName;
-	}
+function chageSrc(obj){
+var imgId = obj.id;
+var imgName =obj.src;
+imgName = imgName.toLowerCase();
+var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
+var lastName = imgName.substring(imgName.indexOf('.') + 1);
+lastName = lastName.toUpperCase();
+var changeName = firstName + lastName;
+document.getElementById(imgId).src = changeName;
+}
+
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -194,13 +198,13 @@
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMen">신발 전체</a></li>
+											style="padding-left: 14px;"><a href="../Men">신발 전체</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMenRun">러닝</a></li>
+											style="padding-left: 14px;"><a href="../Men/categoly?categoly=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMenBasket">농구</a></li>
+											style="padding-left: 14px;"><a href="../Men/categoly?categoly=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="catalogMenSoccer">축구</a></li>
+											style="padding-left: 14px;"><a href="../Men/categoly?categoly=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -211,14 +215,14 @@
 				<div class="contents-body" style="min-height: 937px">
 					<div class="ncss-container">
 						<div class="item-list-wrap">
-							<c:forEach var="AllListMen" items="${AllListMenRun }">
+							<c:forEach var="AllListMen" items="${AllListMenCategoly }">
 								<div class="ncss-col">
 									<div class="a-product">
 										<div class="a-product-image">
-											<a href="${AllListMen.code}">
+											<a href="productdetail?code=${AllListMen.code}">
 												<div class="a-product-image-wrapper">
 													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="chageSrc(this)"></div>												
+													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="../${AllListMen.image1 }" onerror="chageSrc(this)"></div>												
 												</div>
 											</a>
 										</div>

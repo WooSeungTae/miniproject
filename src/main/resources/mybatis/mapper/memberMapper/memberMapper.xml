@@ -51,7 +51,23 @@
 	<delete id="memberdelete" parameterType="String">
 		delete from memberinfo where id=#{id}
 	</delete>
-
+<select id="countmember" resultType="int">
+		SELECT COUNT(*) FROM memberinfo
+	</select>
+	
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="selectmember" resultType="dto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM memberinfo 
+							ORDER BY id DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
 
 
 </mapper>

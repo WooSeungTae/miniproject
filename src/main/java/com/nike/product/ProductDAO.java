@@ -14,24 +14,20 @@ public class ProductDAO {
 	private final String nameSpace="com.care.mybatis.productMapper.productMapper";
 	@Autowired
 	private SqlSession sqlSession;
-
+	/*남자 전체신발 조회*/
 	public List<ProductDTO> allListMen() {
 		return sqlSession.selectList(nameSpace+".AllListMen");
 	}
-
-	public List<ProductDTO> allListMenRun() {
-		return sqlSession.selectList(nameSpace+".AllListMenRun");
-	}
-	public List<ProductDTO> allListMenBasket() {
-		return sqlSession.selectList(nameSpace+".AllListMenBasket");
-	}
-	public List<ProductDTO> allListMenSoccer() {
-		return sqlSession.selectList(nameSpace+".AllListMenSoccer");
+	/*남자 카테고리별 전체신발 조회*/
+	public List<ProductDTO> allListMenCategoly(String category) {
+		return sqlSession.selectList(nameSpace+".AllListMenCategoly",category);
 	}
 
-
-
-
+	/* 신발 검색 */
+	public List<ProductDTO> searchCode(String codename) {
+		return sqlSession.selectList(nameSpace+".searchCode",codename);
+	}
+	
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		// TODO Auto-generated method stub
 
