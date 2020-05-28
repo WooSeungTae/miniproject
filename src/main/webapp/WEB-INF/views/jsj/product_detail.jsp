@@ -143,7 +143,7 @@
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#3">
-												<img class="product-image" src="image/pd2-1.png">
+												<img class="product-image" src="/image/pd6-1.jpg">
 											</a>
 										</div>
 									</li>
@@ -152,14 +152,14 @@
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
 											<a href="#4">
-												<img class="product-image" src="image/pd2-2.png">
+												<img class="product-image" src="image/pd4-2.png">
 											</a>
 										</div>
 									</li>
 									<li class="image-list" style="float:right;">
 										<div class="prd-gutter">
 											<a href="#5">
-												<img class="product-image" src="image/pd2-3.png">
+												<img class="product-image" src="image/pd4-3.png">
 											</a>
 										</div>
 									</li>
