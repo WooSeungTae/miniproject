@@ -203,7 +203,9 @@
 		lastName = lastName.toUpperCase();
 		var changeName = firstName + lastName;
 		document.getElementById(imgId).src = changeName;
+		console.log(changeName);
 	}
+	
 </script>
 
 <meta charset="UTF-8">
@@ -211,7 +213,6 @@
 </head>
 <body>
 	<c:import url="/header"></c:import>
-	<header> </header>
 	<section class="wrapper">
 		<section class="content-area">
 			<div class="section-header">
@@ -294,7 +295,13 @@
 																</span>
 															</div>
 															<div id="item-color-opt" class="product-colorways-number">
-																<span class="text-color-secondary">1 컬러</span>
+																<span class="text-color-secondary">
+																<c:forEach var ="num" items="${codeNameList }">
+																	<c:if test="${num.key==AllListMen.codename}">
+																		${num.value } 컬러
+																	</c:if>													
+																</c:forEach>
+																</span>
 															</div>
 														</div>
 														<div class="product-price">

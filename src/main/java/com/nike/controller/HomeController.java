@@ -71,8 +71,7 @@ public class HomeController {
 		
 		return "home";
 	}
-	
-	
+
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
@@ -99,6 +98,7 @@ public class HomeController {
 	@RequestMapping("Men")
 	public String catalogMen(Model model) {
 		Pservice.allListMen(model);
+		
 		return "jsj/Men/men";
 	}
 	
