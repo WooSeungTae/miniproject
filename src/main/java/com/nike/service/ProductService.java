@@ -16,6 +16,7 @@ import com.nike.product.ProductDAO;
 
 import com.nike.product.ProductDAO;
 import com.nike.product.ProductDTO;
+import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
 
 
@@ -23,15 +24,21 @@ import com.nike.product.Product_sizeDTO;
 public class ProductService {
 	@Autowired
 	private ProductDAO Pdao;
+	/*gender별 신발 전체 개수*/
+	public int genderAll(String gender) {
+		return Pdao.genderTotal(gender);
+	}
+	
+	
 	/*남자 신발 전체 검색 및 컬러 조회*/
-	public void allListMen(Model model) {
-		model.addAttribute("AllListMen", Pdao.allListMen());
+	public void allListMen(Model model,Product_PagingVO vo) {
+		model.addAttribute("AllListMen", Pdao.allListMen(vo));
 		HashSet<String> hs = new HashSet<String>();
 		ArrayList<String> al = new ArrayList<String>();
 		HashMap<String, Integer> hm = new LinkedHashMap<String, Integer>();
-		for(int i =0 ; i<Pdao.allListMen().size();i++) {
-			hs.add(Pdao.allListMen().get(i).getCodename());
-			al.add(Pdao.allListMen().get(i).getCodename());
+		for(int i =0 ; i<Pdao.allList().size();i++) {
+			hs.add(Pdao.allList().get(i).getCodename());
+			al.add(Pdao.allList().get(i).getCodename());
 		}
 		ArrayList<String> plist = new ArrayList<String>(hs);
 		for(int i =0;i<plist.size();i++) {
@@ -47,17 +54,19 @@ public class ProductService {
 						
 			}
 		}
+		model.addAttribute("pagin", vo);
 		model.addAttribute("codeNameList", hm);
 	}
+	
 	/*남자 신발 카테고리별 전체 검색*/
 	public void allListMenCategory(Model model,String category) {
 		model.addAttribute("AllListMenCategory", Pdao.allListMenCategoly(category));
 		HashSet<String> hs = new HashSet<String>();
 		ArrayList<String> al = new ArrayList<String>();
 		HashMap<String, Integer> hm = new LinkedHashMap<String, Integer>();
-		for(int i =0 ; i<Pdao.allListMenCategoly(category).size();i++) {
-			hs.add(Pdao.allListMenCategoly(category).get(i).getCodename());
-			al.add(Pdao.allListMenCategoly(category).get(i).getCodename());
+		for(int i =0 ; i<Pdao.allList().size();i++) {
+			hs.add(Pdao.allList().get(i).getCodename());
+			al.add(Pdao.allList().get(i).getCodename());
 		}
 		System.out.println(al);
 		ArrayList<String> plist = new ArrayList<String>(hs);
@@ -78,15 +87,17 @@ public class ProductService {
 		model.addAttribute("codeNameList", hm);
 	}
 	
+	
+	
 	/*신발 전체 검색*/
 	public void searchCode(Model model,String codename) {
-		model.addAttribute("searchCode", Pdao.searchCode(codename));
+		model.addAttribute("searchCode", Pdao.searchCode(codename.toUpperCase()));
 		HashSet<String> hs = new HashSet<String>();
 		ArrayList<String> al = new ArrayList<String>();
 		HashMap<String, Integer> hm = new LinkedHashMap<String, Integer>();
-		for(int i =0 ; i<Pdao.searchCode(codename).size();i++) {
-			hs.add(Pdao.searchCode(codename).get(i).getCodename());
-			al.add(Pdao.searchCode(codename).get(i).getCodename());
+		for(int i =0 ; i<Pdao.allList().size();i++) {
+			hs.add(Pdao.allList().get(i).getCodename());
+			al.add(Pdao.allList().get(i).getCodename());
 		}
 		ArrayList<String> plist = new ArrayList<String>(hs);
 		for(int i =0;i<plist.size();i++) {
@@ -106,15 +117,17 @@ public class ProductService {
 	}
 		
 	
+	
+	
 	/*여자 신발 전체 검색*/
 	public void allListWomen(Model model) {
 		model.addAttribute("allListWomen", Pdao.allListWomen());
 		HashSet<String> hs = new HashSet<String>();
 		ArrayList<String> al = new ArrayList<String>();
 		HashMap<String, Integer> hm = new LinkedHashMap<String, Integer>();
-		for(int i =0 ; i<Pdao.allListWomen().size();i++) {
-			hs.add(Pdao.allListWomen().get(i).getCodename());
-			al.add(Pdao.allListWomen().get(i).getCodename());
+		for(int i =0 ; i<Pdao.allList().size();i++) {
+			hs.add(Pdao.allList().get(i).getCodename());
+			al.add(Pdao.allList().get(i).getCodename());
 		}
 		ArrayList<String> plist = new ArrayList<String>(hs);
 		for(int i =0;i<plist.size();i++) {
@@ -139,9 +152,9 @@ public class ProductService {
 		HashSet<String> hs = new HashSet<String>();
 		ArrayList<String> al = new ArrayList<String>();
 		HashMap<String, Integer> hm = new LinkedHashMap<String, Integer>();
-		for(int i =0 ; i<Pdao.allListWomenCategoly(category).size();i++) {
-			hs.add(Pdao.allListWomenCategoly(category).get(i).getCodename());
-			al.add(Pdao.allListWomenCategoly(category).get(i).getCodename());
+		for(int i =0 ; i<Pdao.allList().size();i++) {
+			hs.add(Pdao.allList().get(i).getCodename());
+			al.add(Pdao.allList().get(i).getCodename());
 		}
 		ArrayList<String> plist = new ArrayList<String>(hs);
 		for(int i =0;i<plist.size();i++) {
@@ -166,9 +179,9 @@ public class ProductService {
 		HashSet<String> hs = new HashSet<String>();
 		ArrayList<String> al = new ArrayList<String>();
 		HashMap<String, Integer> hm = new LinkedHashMap<String, Integer>();
-		for(int i =0 ; i<Pdao.allListKids().size();i++) {
-			hs.add(Pdao.allListKids().get(i).getCodename());
-			al.add(Pdao.allListKids().get(i).getCodename());
+		for(int i =0 ; i<Pdao.allList().size();i++) {
+			hs.add(Pdao.allList().get(i).getCodename());
+			al.add(Pdao.allList().get(i).getCodename());
 		}
 		ArrayList<String> plist = new ArrayList<String>(hs);
 		for(int i =0;i<plist.size();i++) {
@@ -193,9 +206,9 @@ public class ProductService {
 		HashSet<String> hs = new HashSet<String>();
 		ArrayList<String> al = new ArrayList<String>();
 		HashMap<String, Integer> hm = new LinkedHashMap<String, Integer>();
-		for(int i =0 ; i<Pdao.allListKidsCategoly(category).size();i++) {
-			hs.add(Pdao.allListKidsCategoly(category).get(i).getCodename());
-			al.add(Pdao.allListKidsCategoly(category).get(i).getCodename());
+		for(int i =0 ; i<Pdao.allList().size();i++) {
+			hs.add(Pdao.allList().get(i).getCodename());
+			al.add(Pdao.allList().get(i).getCodename());
 		}
 		ArrayList<String> plist = new ArrayList<String>(hs);
 		for(int i =0;i<plist.size();i++) {

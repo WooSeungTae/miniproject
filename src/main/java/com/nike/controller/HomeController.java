@@ -27,6 +27,7 @@ import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.product.ProductDTO;
+import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
 import com.nike.service.MemberService;
 
@@ -96,9 +97,20 @@ public class HomeController {
 	
 	/*남자 신발 전체목록*/
 	@RequestMapping("Men")
-	public String catalogMen(Model model) {
-		Pservice.allListMen(model);
-		
+	public String catalogMen(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage ) {
+		int total = Pservice.genderAll("남자");
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "6";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "6";
+		}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		Pservice.allListMen(model,vo);
 		return "jsj/Men/men";
 	}
 	

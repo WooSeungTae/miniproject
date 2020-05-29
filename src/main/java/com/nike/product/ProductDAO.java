@@ -14,9 +14,16 @@ public class ProductDAO {
 	private final String nameSpace="com.care.mybatis.productMapper.productMapper";
 	@Autowired
 	private SqlSession sqlSession;
+	
+	/*신발 전체 조회*/
+	public List<ProductDTO> allList(){
+		return sqlSession.selectList(nameSpace+".AllList");
+	}
+		
 	/*남자 전체신발 조회*/
-	public List<ProductDTO> allListMen() {
-		return sqlSession.selectList(nameSpace+".AllListMen");
+	public List<ProductDTO> allListMen(Product_PagingVO vo) {
+		System.out.println(vo.getNowPage());
+		return sqlSession.selectList(nameSpace+".AllListMen",vo);
 	}
 	/*남자 카테고리별 전체신발 조회*/
 	public List<ProductDTO> allListMenCategoly(String category) {
@@ -47,6 +54,15 @@ public class ProductDAO {
 	public List<ProductDTO> allListKidsCategoly(String category) {
 		return sqlSession.selectList(nameSpace+".AllListKidsCategory",category);
 	}
+	
+	
+	/* ======== 갯수  ========== */
+	/*gender별 신발 전체 개수*/
+	public int genderTotal(String gender) {
+		return sqlSession.selectOne(nameSpace+".countProduct",gender);
+	}
+	
+	
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		// TODO Auto-generated method stub
 
