@@ -229,6 +229,8 @@
 	<hr class="header_hr">
 </nav>
 
-${name}
+<c:forEach items="${memberlists }" var="dto">
+${dto.name}
+</c:forEach>
 </body>
 </html>
