@@ -261,37 +261,6 @@
 				</form>
 
 				<div class="contents-body" style="min-height: 937px">
-
-					<div class="ncss-container">
-						<div class="item-list-wrap">
-							<c:forEach var="AllListMen" items="${AllListMen }">
-								<div class="ncss-col">
-									<div class="a-product">
-										<div class="a-product-image">
-											<a href="productdetail?code=${AllListMen.code}">
-												<div class="a-product-image-wrapper">
-													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="this.onerror=null; chageSrc(this)"></div>												
-											</div>
-											</a>
-										</div>
-										<div class="a-product-info">
-											<div class="product-display">
-												<div class="product-info">
-													<p class="product-display-name">
-														<span class="item-title">${AllListMen.codename }</span>
-													</p>
-													<div class="product-subtitle">
-														<span>${AllListMen.gender }  
-														<c:choose>
-															<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-															<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-															<c:when test="${AllListMen.category=='basket' }">농구</c:when>														</c:choose>
-														 신발</span>
-													</div>
-													<div id="item-color-opt" class="product-colorways-number">
-														<span class="text-color-secondary">1 컬러</span>
-													</div>
 					<c:choose>
 						<c:when test="${AllListMen.size()!=0}">
 							<div class="ncss-container">
