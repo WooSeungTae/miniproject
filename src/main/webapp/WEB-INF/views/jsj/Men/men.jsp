@@ -261,7 +261,7 @@
 				</form>
 
 				<div class="contents-body" style="min-height: 937px">
-<<<<<<< HEAD
+
 					<div class="ncss-container">
 						<div class="item-list-wrap">
 							<c:forEach var="AllListMen" items="${AllListMen }">
@@ -292,7 +292,6 @@
 													<div id="item-color-opt" class="product-colorways-number">
 														<span class="text-color-secondary">1 컬러</span>
 													</div>
-=======
 					<c:choose>
 						<c:when test="${AllListMen.size()!=0}">
 							<div class="ncss-container">
@@ -311,7 +310,6 @@
 															</div>
 														</div>
 													</a>
->>>>>>> refs/heads/master
 												</div>
 												<div class="a-product-info">
 													<div class="product-display">

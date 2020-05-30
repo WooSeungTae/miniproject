@@ -36,9 +36,7 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".searchCode",codename);
 	}
 	
-<<<<<<< HEAD
 
-=======
 	/*여자 전체신발 조회*/
 	public List<ProductDTO> allListWomen() {
 		return sqlSession.selectList(nameSpace+".AllListWomen");
@@ -58,7 +56,7 @@ public class ProductDAO {
 	public List<ProductDTO> allListKidsCategoly(String category) {
 		return sqlSession.selectList(nameSpace+".AllListKidsCategory",category);
 	}
->>>>>>> refs/heads/master
+
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		// TODO Auto-generated method stub
 
