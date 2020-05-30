@@ -72,7 +72,26 @@ public class HomeController {
 		return "home";
 	}
 	
-	
+	//관리자 상품관리(수정)
+		@RequestMapping("productUpdate")
+		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
+			return null;
+		}
+		
+		//관리자 상품관리(삭제)
+		@RequestMapping("productDelete")
+		public String productDelete(@RequestParam("code") String code) {
+			Pservice.productDelete(code);
+			return "productUpdate_Delete/productSelect";
+		}
+		
+		//관리자 상품 목록 수정, 삭제를 위한 조회
+		@RequestMapping("productSelect")
+		public String productSelect(ProductDTO pdto , Model model) {
+			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
+			return "productUpdate_Delete/productSelect";
+		}
+		
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
@@ -102,74 +121,52 @@ public class HomeController {
 	@RequestMapping("Men")
 	public String catalogMen(Model model) {
 		Pservice.allListMen(model);
+		
 		return "jsj/Men/men";
 	}
 	
-	/*남자 신발 카테코리별 전체*/
-	@RequestMapping("Men/categoly")
-	public String catalogMenCategoly(Model model,@RequestParam("categoly") String category) {
-		Pservice.allListMenCategoly(model,category);
-		return "jsj/Men/menCategoly";
+	/*남자 신발 카테코리별 전체조회*/
+	@RequestMapping("Men/category")
+	public String catalogMenCategory(Model model,@RequestParam("category") String category) {
+		Pservice.allListMenCategory(model,category);
+		return "jsj/Men/menCategory";
 	}
+
+	
 	/*전체 신발 검색*/
-	@RequestMapping("search")
-	public String serchCheck() {
-		return "jsj/search";
-	}
-	
-	
 	@RequestMapping("searchCheck")
 	public String catalogMenSearch(Model model,@RequestParam("codename") String codename) {
 		Pservice.searchCode(model,codename);
-		return "redirect:search";
+		return "jsj/search";
 	}
 	
 
 	/*여자 신발 전체*/
-	@RequestMapping("/catalogWomen")
-	public String catalogWomen() {
-		return "jsj/Women/catalogWomen";
+	@RequestMapping("/Women")
+	public String catalogWomen(Model model) {
+		Pservice.allListWomen(model);
+		return "jsj/Women/women";
 	}
 	
-	/*여자 신발 런닝화 전체*/
-	@RequestMapping("/catalogWomenRun")
-	public String catalogWomenRun() {
-		return "jsj/Women/catalogWomenRun";
-	}
-	
-	/*여자 신발 농구화 전체*/
-	@RequestMapping("/catalogWomenBasket")
-	public String catalogWomenBasket() {
-		return "jsj/Women/catalogWomenBasket";
-	}
-	/*여자 신발 축구화 전체*/
-	@RequestMapping("/catalogWomenSoccer")
-	public String catalogWomenSoccer() {
-		return "jsj/Women/catalogWomenSoccer";
+	/*여자 신발 카테고리별 전체조회*/
+	@RequestMapping("/Women/category")
+	public String catalogWomenCategory(Model model,@RequestParam("category") String category) {
+		Pservice.allListWomenCategory(model,category);
+		return "jsj/Women/womenCategory";
 	}
 
 	/*아동 신발 전체*/
-	@RequestMapping("/catalogKids")
-	public String catalogKids() {
-		return "jsj/Kids/catalogKids";
+	@RequestMapping("/Kids")
+	public String catalogKids(Model model) {
+		Pservice.allListKids(model);
+		return "jsj/Kids/kids";
 	}
 	
-	/*아동 신발 런닝화 전체*/
-	@RequestMapping("/catalogKidsRun")
-	public String catalogKidsRun() {
-		return "jsj/Kids/catalogKidsRun";
-	}
-	
-	/*아동 신발 농구화 전체*/
-	@RequestMapping("/catalogKidsBasket")
-	public String catalogKidsBasket() {
-		return "jsj/Kids/catalogKidsBasket";
-	}
-	
-	/*아동 신발 축구화 전체*/
-	@RequestMapping("/catalogKidsSoccer")
-	public String catalogKidsSoccer() {
-		return "jsj/Kids/catalogKidsSoccer";
+	/*아동 신발 카체고리별 전체조회*/
+	@RequestMapping("/Kids/category")
+	public String catalogKidsCategory(Model model,@RequestParam("category") String category) {
+		Pservice.allListKidsCategory(model,category);
+		return "jsj/Kids/kidsCategory";
 	}
 
 
@@ -350,15 +347,15 @@ public class HomeController {
 	public String myPageTowritelistall() {
 		return "myPage/myPageTowritelistall";
 	}
-	@RequestMapping("header")
+	@RequestMapping("/header")
 	public String header() {
 		return "sminj/header";
 	}
-	@RequestMapping("footer")
+	@RequestMapping("/footer")
 	public String footer() {
 		return "sminj/footer";
 	}
-	@RequestMapping("main")
+	@RequestMapping("/main")
 	public String main() {
 		return "sminj/main";
 	}

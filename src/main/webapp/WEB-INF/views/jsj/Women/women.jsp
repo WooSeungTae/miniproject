@@ -203,9 +203,7 @@
 		lastName = lastName.toUpperCase();
 		var changeName = firstName + lastName;
 		document.getElementById(imgId).src = changeName;
-		console.log(changeName);
 	}
-	
 </script>
 
 <meta charset="UTF-8">
@@ -213,14 +211,15 @@
 </head>
 <body>
 	<c:import url="/header"></c:import>
+	<header> </header>
 	<section class="wrapper">
 		<section class="content-area">
 			<div class="section-header">
 				<div class="section-title">
 					<div class="section-broadcomb" style="display: block">
-						<a href="/nike/Men">Men</a>
+						<a href="/nike/Women">Women</a>
 					</div>
-					<h1 class="text-color-primary-dart">Men's 신발</h1>
+					<h1 class="text-color-primary-dart">Women's 신발</h1>
 					<div class="section-title-sub">
 						<br>
 					</div>
@@ -233,7 +232,7 @@
 					<a><span class="currentOpt">신상품순</span></a>
 				</div>
 			</div>
-				<hr align="left" style="border:solid 0.5px #e8ebed; width :90%; margin-left: 2%; ">
+			<hr align="left" style="border:solid 0.5px #e8ebed; width :90%; margin-left: 2%; ">
 			<article class="contents">
 				<form method="get">
 					<div class="contents-side">
@@ -242,17 +241,17 @@
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men">신발
+											style="padding-left: 14px;"><a href="/nike/Women">신발
 												전체</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/category?category=run">러닝</a></li>
+											href="/nike/Women/category?category=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/category?category=basket">농구</a></li>
+											href="/nike/Women/category?category=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/category?category=soccer">축구</a></li>
+											href="/nike/Women/category?category=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -261,86 +260,47 @@
 				</form>
 
 				<div class="contents-body" style="min-height: 937px">
-<<<<<<< HEAD
-					<div class="ncss-container">
-						<div class="item-list-wrap">
-							<c:forEach var="AllListMen" items="${AllListMen }">
-								<div class="ncss-col">
-									<div class="a-product">
-										<div class="a-product-image">
-											<a href="productdetail?code=${AllListMen.code}">
-												<div class="a-product-image-wrapper">
-													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="this.onerror=null; chageSrc(this)"></div>												
-											</div>
-											</a>
-										</div>
-										<div class="a-product-info">
-											<div class="product-display">
-												<div class="product-info">
-													<p class="product-display-name">
-														<span class="item-title">${AllListMen.codename }</span>
-													</p>
-													<div class="product-subtitle">
-														<span>${AllListMen.gender }  
-														<c:choose>
-															<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-															<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-															<c:when test="${AllListMen.category=='basket' }">농구</c:when>														</c:choose>
-														 신발</span>
-													</div>
-													<div id="item-color-opt" class="product-colorways-number">
-														<span class="text-color-secondary">1 컬러</span>
-													</div>
-=======
 					<c:choose>
-						<c:when test="${AllListMen.size()!=0}">
+						<c:when test="${allListWomen.size()!=0}">
 							<div class="ncss-container">
 								<div class="item-list-wrap">
-									<c:forEach var="AllListMen" items="${AllListMen }">
+									<c:forEach var="AllListWomen" items="${allListWomen }">
 										<div class="ncss-col">
 											<div class="a-product">
 												<div class="a-product-image">
-													<a href="productdetail?code=${AllListMen.code}">
+													<a href="productdetail?code=${AllListWomen.code}">
 														<div class="a-product-image-wrapper">
 															<div class="a-image">
-																<img id="${AllListMen.code }"
+																<img id="${AllListWomen.code }"
 																	style="width: 420px; margin: auto;"
-																	src="/nike/${AllListMen.image1 }"
+																	src="/nike/${AllListWomen.image1 }"
 																	onerror="this.onerror=null; chageSrc(this)">
 															</div>
 														</div>
 													</a>
->>>>>>> refs/heads/master
 												</div>
 												<div class="a-product-info">
 													<div class="product-display">
 														<div class="product-info">
 															<p class="product-display-name">
-																<span class="item-title">${AllListMen.codename }</span>
+																<span class="item-title">${AllListWomen.codename }</span>
 															</p>
 															<div class="product-subtitle">
-																<span>${AllListMen.gender } <c:choose>
-																		<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-																		<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-																		<c:when test="${AllListMen.category=='basket' }">농구</c:when>
+																<span>${AllListWomen.gender } <c:choose>
+																		<c:when test="${AllListWomen.category=='run' }">런닝</c:when>
+																		<c:when test="${AllListWomen.category=='soccer' }">축구</c:when>
+																		<c:when test="${AllListWomen.category=='basket' }">농구</c:when>
 																	</c:choose> 신발
 																</span>
 															</div>
 															<div id="item-color-opt" class="product-colorways-number">
-																<span class="text-color-secondary">
-																<c:forEach var ="num" items="${codeNameList }">
-																	<c:if test="${num.key==AllListMen.codename}">
-																		${num.value } 컬러
-																	</c:if>													
-																</c:forEach>
-																</span>
+																<span class="text-color-secondary">1 컬러</span>
 															</div>
 														</div>
 														<div class="product-price">
 															<p class="product-display-price">
 															<script type="text/javascript">
-																var price = ${AllListMen.price};
+																var price = ${AllListWomen.price};
 																document.write(price.toLocaleString()+' 원');
 															</script></p>
 														</div>
@@ -351,6 +311,12 @@
 									</c:forEach>
 
 								</div>
+							</div>
+
+							<div style="text-align: center;">
+								<c:forEach var="paging" items="">
+									<a href="catalogMen?page="></a>
+								</c:forEach>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -363,11 +329,6 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-					<div style="text-align: center;">
-						<c:forEach var="paging" items="">
-							<a href="catalogMen?page="></a>
-						</c:forEach>
-					</div>
 				</div>
 			</article>
 		</section>

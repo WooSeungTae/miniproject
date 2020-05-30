@@ -193,6 +193,7 @@
 	font-weight: 800;
 }
 </style>
+
 <script type="text/javascript">
 	function chageSrc(obj) {
 		var imgId = obj.id;
@@ -203,16 +204,14 @@
 		lastName = lastName.toUpperCase();
 		var changeName = firstName + lastName;
 		document.getElementById(imgId).src = changeName;
-		console.log(changeName);
 	}
-	
 </script>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<c:import url="/header"></c:import>
+	<header> </header>
 	<section class="wrapper">
 		<section class="content-area">
 			<div class="section-header">
@@ -233,7 +232,7 @@
 					<a><span class="currentOpt">신상품순</span></a>
 				</div>
 			</div>
-				<hr align="left" style="border:solid 0.5px #e8ebed; width :90%; margin-left: 2%; ">
+			<hr align="left" style="border:solid 0.5px #e8ebed; width :90%; margin-left: 2%; ">
 			<article class="contents">
 				<form method="get">
 					<div class="contents-side">
@@ -261,43 +260,11 @@
 				</form>
 
 				<div class="contents-body" style="min-height: 937px">
-<<<<<<< HEAD
-					<div class="ncss-container">
-						<div class="item-list-wrap">
-							<c:forEach var="AllListMen" items="${AllListMen }">
-								<div class="ncss-col">
-									<div class="a-product">
-										<div class="a-product-image">
-											<a href="productdetail?code=${AllListMen.code}">
-												<div class="a-product-image-wrapper">
-													<div class="a-image">
-													<img id = "${AllListMen.code }"style="width:420px; margin:auto;" src="${AllListMen.image1 }" onerror="this.onerror=null; chageSrc(this)"></div>												
-											</div>
-											</a>
-										</div>
-										<div class="a-product-info">
-											<div class="product-display">
-												<div class="product-info">
-													<p class="product-display-name">
-														<span class="item-title">${AllListMen.codename }</span>
-													</p>
-													<div class="product-subtitle">
-														<span>${AllListMen.gender }  
-														<c:choose>
-															<c:when test="${AllListMen.category=='run' }">런닝</c:when>
-															<c:when test="${AllListMen.category=='soccer' }">축구</c:when>
-															<c:when test="${AllListMen.category=='basket' }">농구</c:when>														</c:choose>
-														 신발</span>
-													</div>
-													<div id="item-color-opt" class="product-colorways-number">
-														<span class="text-color-secondary">1 컬러</span>
-													</div>
-=======
 					<c:choose>
-						<c:when test="${AllListMen.size()!=0}">
+						<c:when test="${AllListMenCategory.size()!=0}">
 							<div class="ncss-container">
 								<div class="item-list-wrap">
-									<c:forEach var="AllListMen" items="${AllListMen }">
+									<c:forEach var="AllListMen" items="${AllListMenCategory }">
 										<div class="ncss-col">
 											<div class="a-product">
 												<div class="a-product-image">
@@ -311,7 +278,6 @@
 															</div>
 														</div>
 													</a>
->>>>>>> refs/heads/master
 												</div>
 												<div class="a-product-info">
 													<div class="product-display">
@@ -349,7 +315,6 @@
 											</div>
 										</div>
 									</c:forEach>
-
 								</div>
 							</div>
 						</c:when>
@@ -363,11 +328,6 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-					<div style="text-align: center;">
-						<c:forEach var="paging" items="">
-							<a href="catalogMen?page="></a>
-						</c:forEach>
-					</div>
 				</div>
 			</article>
 		</section>

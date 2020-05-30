@@ -128,7 +128,7 @@
 	margin-top: -22px; 
 	text-indent:50px; 
 	font-size:14px;
-	background-image: url('image/search.png'); 
+	background-image: url('/nike/image/search.png'); 
 	background-repeat: no-repeat; 
 	background-position: 15px center;
 	}
@@ -151,9 +151,9 @@
    
    function goSearch(){
 	   
-	var searchp = document.getElementById('searchProduct').value;
+	var searchCodeName = document.getElementById('searchProduct').value;
 
-	location.href="searchCheck?codename="+searchp;
+	location.href="/nike/searchCheck?codename="+searchCodeName;
    
    }
    </script>
@@ -171,29 +171,29 @@
 				<div class="user_name">
 					<ul class="menu2">
 						<li class="menu">
-							<img src="image/user.png" class="user_img"/><a>이름이</a>
+							<img src="/nike/image/user.png" class="user_img"/><a>이름이</a>
 							<ul class="hide">
-								<li><a href="myPage">마이페이지</a></li>
-								<li><a href="account">회원정보관리</a></li>
-								<li><a href="main">로그아웃</a></li>
+								<li><a href="/nike/myPage">마이페이지</a></li>
+								<li><a href="/nike/account">회원정보관리</a></li>
+								<li><a href="/nike/main">로그아웃</a></li>
 							</ul>
 						</li>
 					</ul>
 				</div>
-			</span><div class="header_div">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a><span class="basket_input"><a href="cart"><input type="image" src="image/basket.png" style="margin-right: 10px;"></a></span></div>
+			</span><div class="header_div">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a><span class="basket_input"><a href="/nike/cart"><input type="image" src="/nike/image/basket.png" style="margin-right: 10px;"></a></span></div>
 		</div>
 	</c:if>
 	<c:if test = '${id == null }'>
 		<div class="div1" align="right">
-			<a href="memberJoin" id="top">회원가입</a>/<a href="loginPage" id="top">로그인</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a>&nbsp;&nbsp;&nbsp;<span class="basket_input"><a href="cart"><input type="image" src="image/basket.png"></a></span>
+			<a href="memberJoin" id="top">회원가입</a>/<a href="loginPage" id="top">로그인</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a>&nbsp;&nbsp;&nbsp;<span class="basket_input"><a href="/nike/cart"><input type="image" src="/nike/image/basket.png"></a></span>
 		</div>
 	</c:if>
 	<hr class="header_hr">	
 </header>
 <nav>
 	<div class="div2" align="center">
-		<span class="swoosh_span"><input type="image" class="swoosh_input" src="image/nike.jpg" onclick="location.href='main'"></span>
-		<a href="Men" class="nav_a">MEN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="nav_a">WOMEN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="nav_a">KIDS</a>
+		<span class="swoosh_span"><input type="image" class="swoosh_input" src="/nike/image/nike.jpg" onclick="location.href='main'"></span>
+		<a href="/nike/Men" class="nav_a">MEN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/nike/Women" class="nav_a">WOMEN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/nike/Kids" class="nav_a">KIDS</a>
 		<span class="search_span"><input id="searchProduct" onkeypress="if( event.keyCode==13 ){goSearch()}" type="search" class="search_input" placeholder="검색" ></span>
 	</div>
 	<hr class="header_hr">

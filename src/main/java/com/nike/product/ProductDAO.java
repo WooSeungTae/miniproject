@@ -20,7 +20,7 @@ public class ProductDAO {
 	}
 	/*남자 카테고리별 전체신발 조회*/
 	public List<ProductDTO> allListMenCategoly(String category) {
-		return sqlSession.selectList(nameSpace+".AllListMenCategoly",category);
+		return sqlSession.selectList(nameSpace+".AllListMenCategory",category);
 	}
 
 
@@ -36,11 +36,43 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".searchCode",codename);
 	}
 	
+<<<<<<< HEAD
 
+=======
+	/*여자 전체신발 조회*/
+	public List<ProductDTO> allListWomen() {
+		return sqlSession.selectList(nameSpace+".AllListWomen");
+	}
+	
+	/*여자 카테고리별 전체신발 조회*/
+	public List<ProductDTO> allListWomenCategoly(String category) {
+		return sqlSession.selectList(nameSpace+".AllListWomenCategory",category);
+	}
+	
+	/*Kids 전체신발 조회*/
+	public List<ProductDTO> allListKids() {
+		return sqlSession.selectList(nameSpace+".AllListKids");
+	}
+	
+	/*Kids 카테고리별 전체신발 조회*/
+	public List<ProductDTO> allListKidsCategoly(String category) {
+		return sqlSession.selectList(nameSpace+".AllListKidsCategory",category);
+	}
+>>>>>>> refs/heads/master
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		// TODO Auto-generated method stub
 
 	}
 
+
+	//관리자 상품 목록 수정, 삭제를 위한 조회
+	public ProductDTO productSelect(String code) {
+		return sqlSession.selectOne(nameSpace+".productSelect", code);
+	}
+	//관리자 상품 삭제하기 위한 기능
+	public void productDelete(String code) {
+		
+		sqlSession.delete(nameSpace+".productDelete", code);		
+	}
 
 }
