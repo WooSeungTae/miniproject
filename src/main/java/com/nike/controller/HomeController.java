@@ -71,7 +71,27 @@ public class HomeController {
 		
 		return "home";
 	}
-
+	
+	//관리자 상품관리(수정)
+		@RequestMapping("productUpdate")
+		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
+			return null;
+		}
+		
+		//관리자 상품관리(삭제)
+		@RequestMapping("productDelete")
+		public String productDelete(@RequestParam("code") String code) {
+			Pservice.productDelete(code);
+			return "productUpdate_Delete/productSelect";
+		}
+		
+		//관리자 상품 목록 수정, 삭제를 위한 조회
+		@RequestMapping("productSelect")
+		public String productSelect(ProductDTO pdto , Model model) {
+			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
+			return "productUpdate_Delete/productSelect";
+		}
+		
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
