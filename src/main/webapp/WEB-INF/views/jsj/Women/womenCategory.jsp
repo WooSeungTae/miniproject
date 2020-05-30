@@ -334,6 +334,26 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
+					<div style="display: block; text-align: center;">
+						<c:if test="${paging.startPage != 1 }">
+							<a href="Women?nowPage=${paging.startPage - 1 }">이전</a>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+							var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<a href="Women?nowPage=${p }">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<a
+								href="Women?nowPage=${paging.endPage+1 }">다음</a>
+						</c:if>
+					</div>
 				</div>
 			</article>
 		</section>

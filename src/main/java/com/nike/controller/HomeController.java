@@ -98,65 +98,85 @@ public class HomeController {
 	/*남자 신발 전체목록*/
 	@RequestMapping("Men")
 	public String catalogMen(Product_PagingVO vo, Model model
-			, @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage ) {
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
 		int total = Pservice.genderAll("남자");
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "6";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "6";
-		}
-		vo = new Product_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
 		Pservice.allListMen(model,vo);
 		return "jsj/Men/men";
 	}
 	
+	/*여자 신발 전체목록*/
+	@RequestMapping("/Women")
+	public String catalogWomen(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("여자");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListWomen(model,vo);
+		return "jsj/Women/women";
+	}
+	
+	/*아동 신발 전체목록*/
+	@RequestMapping("/Kids")
+	public String catalogKids(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("키즈");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListKids(model,vo);
+		return "jsj/Kids/kids";
+	}
+	
 	/*남자 신발 카테코리별 전체조회*/
 	@RequestMapping("Men/category")
-	public String catalogMenCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListMenCategory(model,category);
+	public String catalogMenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+				, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("남자", category);
+		System.out.println("남자신발 토탈 번호 : " + total);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListMenCategory(model,vo);
 		return "jsj/Men/menCategory";
 	}
 
+	/*여자 신발 카테고리별 전체조회*/
+	@RequestMapping("/Women/category")
+	public String catalogWomenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("여자", category);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListWomenCategory(model,vo);
+		return "jsj/Women/womenCategory";
+	}
+	
+	
+	/*아동 신발 카체고리별 전체조회*/
+	@RequestMapping("/Kids/category")
+	public String catalogKidsCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("키즈", category);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListKidsCategory(model,vo);
+		return "jsj/Kids/kidsCategory";
+	}
 	
 	/*전체 신발 검색*/
 	@RequestMapping("searchCheck")
-	public String catalogMenSearch(Model model,@RequestParam("codename") String codename) {
-		Pservice.searchCode(model,codename);
+	public String catalogMenSearch(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="codename", required=false) String codename) {
+		Double total = (double)Pservice.searchShose(codename);
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total,Integer.parseInt(nowPage),codename);
+		Pservice.searchCode(model,vo);
 		return "jsj/search";
 	}
 	
 
-	/*여자 신발 전체*/
-	@RequestMapping("/Women")
-	public String catalogWomen(Model model) {
-		Pservice.allListWomen(model);
-		return "jsj/Women/women";
-	}
 	
-	/*여자 신발 카테고리별 전체조회*/
-	@RequestMapping("/Women/category")
-	public String catalogWomenCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListWomenCategory(model,category);
-		return "jsj/Women/womenCategory";
-	}
-
-	/*아동 신발 전체*/
-	@RequestMapping("/Kids")
-	public String catalogKids(Model model) {
-		Pservice.allListKids(model);
-		return "jsj/Kids/kids";
-	}
-	
-	/*아동 신발 카체고리별 전체조회*/
-	@RequestMapping("/Kids/category")
-	public String catalogKidsCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListKidsCategory(model,category);
-		return "jsj/Kids/kidsCategory";
-	}
 
 
 	@RequestMapping("product_input")
