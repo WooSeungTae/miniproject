@@ -301,11 +301,11 @@
 											<strong class="tit">사이즈 선택</strong>
 											<div class="product-option_radio square">
 												<div class="opt-list">
-													<input type="hidden" id="ordersize" class="ordersize" name="ordersize" value="${size }">
-													<c:forEach var="size" begin="230" end="330" step="10">
-														<input type="button" class="button5" name="size" value="${size}" id="${size}" onclick="sizebuttonclick(this.id)">
-														<input type="radio" id="${size*10 }" name="size" value="${size }" hidden="">
-														<c:if test="${size%270 eq 0 || size%320 eq 0}">
+													<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
+													<c:forEach var="ordersize" begin="230" end="330" step="10">
+														<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick(this.id)">
+														<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="">
+														<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
 														<br>
 														</c:if>
 													</c:forEach>
@@ -331,17 +331,12 @@
 												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
 														<input class="directorder" type="submit" value="바로구매">
+														<button type="button" class="shoppingcart" onclick="location.href='cart?code=${pdto.code}&size=${ordersize }&count=${count }'">장바구니</button>
 													</div>
 												</div>
 											</div>
 										</div>
 									</form>
-									<div>
-										<div>
-											<div>
-												<div>
-													<button class="shoppingcart" onclick="location.href='cart?code=${pdto.code}&&count=${count }'">장바구니</button>
-												</div>
 												</div>
 												<div class="store-reserve-wrap radius">
 													<span class="ns-store icon"></span>
