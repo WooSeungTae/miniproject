@@ -160,9 +160,7 @@
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 	function sizebuttonclick(clicked_id){
-		console.log(clicked_id)
 		var radio = clicked_id*10;
-		console.log(radio);
 		document.getElementById("230").className = "button5";
 		document.getElementById("240").className = "button5";
 		document.getElementById("250").className = "button5";
@@ -184,6 +182,7 @@
 	}
 	</script>
 	<script type="text/javascript">
+	
    		function chageSrc(obj){
   			var imgId = obj.id;
   			var imgName =obj.src;
@@ -197,7 +196,6 @@
    		
    		function clickminus(){
    			var count = document.getElementById("count")
-   			console.log(count.value)
    			if(count.value<=0){
    				alert('수량은 1개 이상부터 구입할 수 있습니다.')
    			}else{
@@ -207,13 +205,15 @@
    		
    		function clickplus(){
    			var count = document.getElementById("count")
-   			console.log(count.value)
    			if(count.value>=3){
    				alert('수량은 3개 이상 구입할 수 없습니다.')
    			}else{
    				count.value++;
    			}
    		}
+   		
+   		
+   		
 	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -237,7 +237,8 @@
 									</li>
 									<li class="image-list" style="float:right; margin-right:100px;">
 										<div class="prd-gutter">
-											<img id ="${pdto.image2 }" class="product-image" src="${pdto.image2 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">										</div>
+											<img id ="${pdto.image2 }" class="product-image" src="${pdto.image2 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">										
+										</div>
 									</li>
 								</ul>
 								<ul class="img-detail-list">
@@ -294,7 +295,7 @@
 								</h1>
 							</div>
 							<div class="pinfo-item-box">
-								<form method="GET" action="checkout">
+								<form name="fo" method="GET" >
 									<input type="hidden" name="code" value="${pdto.code }">
 									<div class="option-wrap">
 										<div class="size-grid-type padding radius">
@@ -304,11 +305,12 @@
 													<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
 													<c:forEach var="ordersize" begin="230" end="330" step="10">
 														<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick(this.id)">
-														<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="">
+														<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
 														<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
 														<br>
 														</c:if>
 													</c:forEach>
+													
 												</div>
 											</div>
 											</div>
@@ -330,8 +332,8 @@
 											<div>
 												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
-														<input class="directorder" type="submit" value="바로구매">
-														<button type="button" class="shoppingcart" onclick="location.href='cart?code=${pdto.code}&size=${ordersize }&count=${count }'">장바구니</button>
+														<input class="directorder" type="submit" value="바로구매" formaction="checkout" >
+														<input type="submit" class="shoppingcart" value="장바구니" formaction="cart">
 													</div>
 												</div>
 											</div>
