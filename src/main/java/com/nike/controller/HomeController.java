@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -26,6 +28,8 @@ import com.nike.service.ProductService;
 import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.order.OrderDTO;
+import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
@@ -343,10 +347,23 @@ public class HomeController {
 		return "purchase/cart";
 	}
 	/*구매*/
-	@RequestMapping("checkout")
-	public String checkOut() {
+	@RequestMapping("checkoutQuick")
+	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
+			,@Param("ordersize") String ordersize
+			,@Param("count") String count) {
+		service.searchId(model, id);
+		Pservice.codeSearch(model, code);
+		model.addAttribute("ordersize", ordersize);
+		model.addAttribute("count", count);
 		return "purchase/checkOut";
 	}
+	
+	/*구매후 등록*/
+	public String productBuy(Model model,OrderDTO Odto) {
+		
+		return "/nike/main";
+	}
+	
 	@RequestMapping("myreviewlistall")
 	public String myreviewlistall() {
 		return "myPage/myPagemyReviewlistall";

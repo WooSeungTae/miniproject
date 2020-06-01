@@ -85,7 +85,11 @@
 		codename =#{codename}
 	</select>
 
-
+	<!-- 페이징 없이 코드로 품목 검색 -->
+	<select id="codeSearch" resultType="Pdto">
+	select * from product where code=#{code}
+	</select>
+	
 
 	<!-- ===========Paging========= -->
 	<!-- gender별 페이지수 -->
@@ -100,6 +104,7 @@
 	<select id="searchProduct" resultType="int">
 		select count(*) from product where upper(codename) like '%'||#{codename}||'%'
 	</select>
+
 
 </mapper>
 

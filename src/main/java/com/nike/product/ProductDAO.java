@@ -57,7 +57,7 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".searchCode",vo);
 	}
 	
-	
+
 	
 	
 	/* ======== 갯수  ========== */
@@ -74,6 +74,12 @@ public class ProductDAO {
 	/*신발 검색 전체 개수*/
 	public int searchShose(String codename) {
 		return sqlSession.selectOne(nameSpace+".searchProduct",codename);
+	}
+	
+	/*신발 코드로 검색 전체*/
+	
+	public ProductDTO codeSearch(String code){
+		return sqlSession.selectOne(nameSpace+".codeSearch",code);		
 	}
 	
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {

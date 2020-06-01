@@ -175,6 +175,8 @@
 							</div>
 							<div class="pinfo-item-box">
 								<form method="POST" action="#">
+								<!-- 세션 임의 생성 -->
+								<c:set var="id" value="hong" scope="session"/> 
 									<div class="option-wrap">
 										<div class="size-grid-type padding radius">
 											<a class="btn-option">
@@ -293,7 +295,7 @@
 											<div>
 												<div class="status-wrap btn-wrap radius" data-add-item>
 													<div class="order-wrap">
-														<a class="btn-link xlarge btn-order width-max" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="buy now" id="btn-buy" href="#">
+														<a class="btn-link xlarge btn-order width-max" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="buy now" id="btn-buy" href="/nike/checkoutQuick?code=CD4374-003&ordersize=250&count=2">
 															<span>바로구매</span>
 														</a>
 														&nbsp;&nbsp;

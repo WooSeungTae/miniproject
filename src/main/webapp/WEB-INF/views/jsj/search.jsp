@@ -306,7 +306,7 @@ document.getElementById(imgId).src = changeName;
 										<div class="ncss-col">
 											<div class="a-product">
 												<div class="a-product-image">
-													<a href="${search.code}">
+													<a href="/nike/productdetail?code=${search.code}">
 														<div class="a-product-image-wrapper">
 															<div class="a-image">
 																<img id="${search.code }"

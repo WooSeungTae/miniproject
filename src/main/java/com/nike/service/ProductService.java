@@ -26,6 +26,9 @@ import com.nike.product.Product_sizeDTO;
 public class ProductService {
 	@Autowired
 	private ProductDAO Pdao;
+	
+	
+	
 	/*gender별 신발 전체 개수*/
 	public int genderAll(String gender) {
 		return Pdao.genderTotal(gender);
@@ -247,6 +250,11 @@ public class ProductService {
 		model.addAttribute("codeNameList", hm);
 	}
 
+	/*신발 코드로 검색*/
+	public void codeSearch(Model model,String code) {
+		model.addAttribute("quickProduct", Pdao.codeSearch(code));
+	}
+	
 
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		Pdao.product_input(sizedto,dto);
