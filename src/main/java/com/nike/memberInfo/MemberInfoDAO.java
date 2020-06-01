@@ -15,6 +15,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import com.nike.product.ProductDTO;
+
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -88,4 +91,6 @@ public class MemberInfoDAO {
 	public List<MemberInfoDTO> selectBoard(MemberInfo_PagingVO vo){
 		return sqlSession.selectList(namespace+".selectmember",vo);
 	}
+
+	
 }

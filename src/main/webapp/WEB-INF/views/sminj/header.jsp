@@ -174,10 +174,17 @@
            $(this).next("ul").toggleClass("hide");
        });
    });
-   
+   </script>
+   <script>
    function goSearch(){
+	   
+	var searchCodeName = document.getElementById('searchProduct').value;
+
+	location.href="/nike/searchCheck?codename="+searchCodeName;
+   
 	var searchCodeName = document.getElementById('searchProduct').value;
 	location.href="/nike/searchCheck?codename="+searchCodeName;
+
    }
    </script>
 </head>
@@ -214,6 +221,7 @@
 		</div>
 	</c:if>
 	<c:if test = '${id == null }'>
+		<div class="div1" align="right">
 		<div class="right_top_div" align="right">
 			<a href="memberJoin" id="top">회원가입</a>/<a href="loginPage" id="top">로그인</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a>&nbsp;&nbsp;&nbsp;<span class="basket_input"><a href="/nike/cart"><input type="image" src="/nike/image/basket.png"></a></span>
 		</div>

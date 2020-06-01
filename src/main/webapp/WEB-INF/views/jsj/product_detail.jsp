@@ -10,14 +10,21 @@
 			color:#111;
 			padding-top:108px;
 			min-height:100%;
+			height:1800px;
 		}
 		
+		.contents-area{
+			height:80%;
+		}
 		.contents{
 			box-sizing:border-box;
+			height:100%;
+			overflow:0 auto;
 		}
 		
 		.contents.margin-small{
 			margin-top:30px;
+			height:70%;
 		}
 		
 		.pt_product-detail{
@@ -26,41 +33,52 @@
 		}
 		
 		.img-detail_product_n{
-			position:relative;
-			width:40%;
+			width:55%;
 			display:inline-block;
-			padding:0 54px;
+			padding:0 30px;
 			text-align:center;
 			float:left;
-			height:700px;
+			height:70%;
+			margin-left:20px;
 		}
 		
 		
 	
 		.img-detail-list{
 			display:inline-block;
-			width:450px;
-			height:230px;
+			width:95%;
+			height:420px;
+			overflow:0 hidden;
 		}
 		
 		.image-list{
 			display:inline;
-			width:220px;
-			height:230px;
-			overflow:0 auto;
+			width:400px;
+			height:400px;
+			overflow:0 hidden;
+			margin-bottom:10px;
 		
 		}
 		.prd-gutter{
 			background:#f5f5f5;
-			width:200px;
+			width:400px;
 			margin:5px;
-			height:230px;
+			height:400px;
+			overflow:0 hidden;
+			margin-bottom:10px;
+		}
+		
+		.product-image{
+			width:100%;
+			height:100%;
+			margin:0 hidden;
+			overflow:0 hidden;
 		}
 		
 		.info-wrap_product_n{
 			position:relative;
 			float:right;
-			width:45%;
+			width:40%;
 			padding:0 54px 0 10px;
 			color:#606060;
 			box-sizing:border-box;
@@ -80,7 +98,8 @@
 		
 		.product-option-container{
 			position:relative;
-			float:right;
+			float:left;
+	
 		}
 		
 		.quantity{
@@ -90,7 +109,112 @@
 		.order-wrap{
 			margin-bottom:10px;
 		}
+		.button5 {
+	 		background-color: white;
+	  		color: black;
+	  		padding: 16px 32px;
+	  		text-align: center;
+	  		text-decoration: none;
+	  		display: inline-block;
+	  		font-size: 16px;
+	  		margin: 4px 2px;
+	  		transition-duration: 0.4s;
+	  		cursor: pointer;
+	  		border: 2px solid #555555;
+		}
+	
+		.button6{
+	  		background-color: #555555;
+	  		color: white;
+	  		padding: 16px 32px;
+	  		text-align: center;
+	  		text-decoration: none;
+	  		display: inline-block;
+	  		font-size: 16px;
+	  		margin: 4px 2px;
+	  		transition-duration: 0.4s;
+	  		cursor: pointer;
+	  		border: 2px solid #555555;
+		}
+		
+		.directorder{
+			background-color:#000;
+			color:white;
+			width:350px;
+			height:45px;
+			border:0px;
+			border-radius:30px;
+			margin-bottom:10px;
+		}
+		
+		.shoppingcart{
+			background-color:#fff;
+			color:#000;
+			border:1px solid #000;
+			width:350px;
+			height:45px;
+			border-radius:30px;
+			margin-bottom:10px;
+		}
 	</style>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+	function sizebuttonclick(clicked_id){
+		console.log(clicked_id)
+		var radio = clicked_id*10;
+		console.log(radio);
+		document.getElementById("230").className = "button5";
+		document.getElementById("240").className = "button5";
+		document.getElementById("250").className = "button5";
+		document.getElementById("260").className = "button5";
+		document.getElementById("270").className = "button5";
+		document.getElementById("280").className = "button5";
+		document.getElementById("290").className = "button5";
+		document.getElementById("300").className = "button5";
+		document.getElementById("310").className = "button5";
+		document.getElementById("320").className = "button5";
+		document.getElementById("330").className = "button5";
+		if(document.getElementById(clicked_id).className == "button5"){
+			document.getElementById(clicked_id).className = "button6";
+			document.getElementById(radio).checked = true;
+		}else if(document.getElementById(clicked_id).className == "button6"){
+			document.getElementById(clicked_id).className = "button5";
+		}
+	
+	}
+	</script>
+	<script type="text/javascript">
+   		function chageSrc(obj){
+  			var imgId = obj.id;
+  			var imgName =obj.src;
+   			imgName = imgName.toLowerCase();
+   			var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
+   			var lastName = imgName.substring(imgName.indexOf('.') + 1);
+   			lastName = lastName.toUpperCase();
+   			var changeName = firstName + lastName;
+   			document.getElementById(imgId).src = changeName;
+   		}
+   		
+   		function clickminus(){
+   			var count = document.getElementById("count")
+   			console.log(count.value)
+   			if(count.value<=0){
+   				alert('수량은 1개 이상부터 구입할 수 있습니다.')
+   			}else{
+   				count.value--;
+   			}
+   		}
+   		
+   		function clickplus(){
+   			var count = document.getElementById("count")
+   			console.log(count.value)
+   			if(count.value>=3){
+   				alert('수량은 3개 이상 구입할 수 없습니다.')
+   			}else{
+   				count.value++;
+   			}
+   		}
+	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -103,53 +227,40 @@
 		<section class="content-area" style="height:80%;">
 			<section>
 				<article>
-					<article class="contents margin-small pt_product-detail">
+					<article class="contents-area contents">
 						<div class="img-detail_product_n">
 								<ul id="product-gallery" class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<a href="#0">
-												<img data-product-imgae="">
-											</a>
+											<img id ="${pdto.image1 }" class="product-image" src="${pdto.image1 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">
 										</div>
 									</li>
-									<li class="image-list" style="float:right;">
+									<li class="image-list" style="float:right; margin-right:100px;">
 										<div class="prd-gutter">
-											<a href="#1">
-												<img data-product-imgae="">
-											</a>
+											<img id ="${pdto.image2 }" class="product-image" src="${pdto.image2 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">										</div>
+									</li>
+								</ul>
+								<ul class="img-detail-list">
+									<li class="image-list" style="float:left;">
+										<div class="prd-gutter">
+											<img id ="${pdto.image3 }" class="product-image" src="${pdto.image3 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">
+										</div>
+									</li>
+									<li class="image-list" style="float:right; margin-right:100px;">
+										<div class="prd-gutter">
+											<img id ="${pdto.image4 }" class="product-image" src="${pdto.image4 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">
 										</div>
 									</li>
 								</ul>
 								<ul class="img-detail-list">
 									<li class="image-list" style="float:left;">
 										<div class="prd-gutter">
-											<a href="#2">
-												<img data-product-imgae="">
-											</a>
+											<img id ="${pdto.image5 }" class="product-image" src="${pdto.image5 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">
 										</div>
 									</li>
-									<li class="image-list" style="float:right;">
+									<li class="image-list" style="float:right; margin-right:100px;">
 										<div class="prd-gutter">
-											<a href="#3">
-												<img data-product-imgae="">
-											</a>
-										</div>
-									</li>
-								</ul>
-								<ul class="img-detail-list">
-									<li class="image-list" style="float:left;">
-										<div class="prd-gutter">
-											<a href="#4">
-												<img data-product-imgae="">
-											</a>
-										</div>
-									</li>
-									<li class="image-list" style="float:right;">
-										<div class="prd-gutter">
-											<a href="#5">
-												<img data-product-imgae="">
-											</a>
+											<img id ="${pdto.image6 }" class="product-image" src="${pdto.image6 }" alt="등록된 사진이 없습니다." onerror="this.onerror=null; chageSrc(this)">
 										</div>
 									</li>
 								</ul>
@@ -157,155 +268,80 @@
 						<div class="info-wrap_product_n">
 						<div class="product-option-container">
 							<div class="uk-hidden-small uk-position-relative">
-								<div class="price-wrap uk-width-1-1 uk-margin-small-bottom">
-									<div class="uk-float-left">
+								<div class="price-wrap">
+									<div class="uk-float-left" style="display:inline-block; float:left;">
 										<div class="product-subtitle">
-											<span class="text-color-secondary">성인 공용 신발 러닝</span>
+											<span class="text-color-secondary" style="font-size:15px; color:#111;">
+												<c:if test="${pdto.category=='run' }">런닝</c:if>
+												<c:if test="${pdto.category=='soccer' }">축구</c:if>
+												<c:if test="${pdto.category=='basket' }">농구</c:if>
+											</span>
 										</div>
 									</div>
-									<div class="uk-float-right">
+									<div class="uk-float-right" style="display:inline-block; margin-left:300px;">
 										<span class="price">
-											<strong data-price="129000">129,000원</strong>
+											<strong>
+												<script type="text/javascript">
+													var price = ${pdto.price};
+													document.write(price.toLocaleString()+' 원');
+												</script>
+											</strong>
 										</span>
 									</div>
 								</div>
 								<h1 class="title-wrap">
-									<span class="tit" data-name="나이키 프리 런 5.0 2020">나이키 프리 런 5.0 2020</span>
+									<span class="tit" style="font-size:30px; color:#000;">${pdto.codename }</span>
 								</h1>
 							</div>
 							<div class="pinfo-item-box">
-								<form method="POST" action="#">
+								<form method="GET" action="checkout">
+									<input type="hidden" name="code" value="${pdto.code }">
 									<div class="option-wrap">
 										<div class="size-grid-type padding radius">
-											<a class="btn-option">
-												<strong class="tit">사이즈 선택</strong>
-											</a>
+											<strong class="tit">사이즈 선택</strong>
 											<div class="product-option_radio square">
 												<div class="opt-list">
-													<span class="input-radio" typename="230">
-														<label class="sd-out">230</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="230" id="FW_SIZE1" name="SIZE" value="28">
-													</span>
-													<span class="input-radio" typename="235">
-														<label class="sd-out">235</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="235" id="FW_SIZE1" name="SIZE" value="29">
-													</span>
-													<span class="input-radio" typename="240">
-														<label class="sd-out">240</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="240" id="FW_SIZE1" name="SIZE" value="30">
-													</span>
-													<span class="input-radio" typename="245">
-														<label class="sd-out">245</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="245" id="FW_SIZE1" name="SIZE" value="31">
-													</span>
-													<span class="input-radio" typename="250">
-														<label class="sd-out">250</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="250" id="FW_SIZE1" name="SIZE" value="32">
-													</span>
-													<span class="input-radio" typename="255">
-														<label class="sd-out">255</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="255" id="FW_SIZE1" name="SIZE" value="33">
-													</span>
-													<span class="input-radio" typename="260">
-														<label class="sd-out">260</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="260" id="FW_SIZE1" name="SIZE" value="34">
-													</span>
-													<span class="input-radio" typename="265">
-														<label class="sd-out">265</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="265" id="FW_SIZE1" name="SIZE" value="35">
-													</span>
-													<span class="input-radio" typename="270">
-														<label class="sd-out">270</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="270" id="FW_SIZE1" name="SIZE" value="36">
-													</span>
-													<span class="input-radio" typename="275">
-														<label class="sd-out">275</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="275" id="FW_SIZE1" name="SIZE" value="37">
-													</span>
-													<span class="input-radio" typename="280">
-														<label class="sd-out">280</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="280" id="FW_SIZE1" name="SIZE" value="38">
-													</span>
-													<span class="input-radio" typename="285">
-														<label class="sd-out">285</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="285" id="FW_SIZE1" name="SIZE" value="39">
-													</span>
-													<span class="input-radio" typename="290">
-														<label class="sd-out">290</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="290" id="FW_SIZE1" name="SIZE" value="40">
-													</span>
-													<span class="input-radio" typename="295">
-														<label class="sd-out">295</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="295" id="FW_SIZE1" name="SIZE" value="41">
-													</span>
-													<span class="input-radio" typename="300">
-														<label class="sd-out">300</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="300" id="FW_SIZE1" name="SIZE" value="42">
-													</span>
-													<span class="input-radio" typename="305">
-														<label class="sd-out">305</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="305" id="FW_SIZE1" name="SIZE" value="43">
-													</span>
-													<span class="input-radio" typename="310">
-														<label class="sd-out">310</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="310" id="FW_SIZE1" name="SIZE" value="44">
-													</span>
-													<span class="input-radio" typename="315">
-														<label class="sd-out">315</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="315" id="FW_SIZE1" name="SIZE" value="45">
-													</span>
-													<span class="input-radio" typename="320">
-														<label class="sd-out">320</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="320" id="FW_SIZE1" name="SIZE" value="46">
-													</span>
-													<span class="input-radio" typename="325">
-														<label class="sd-out">325</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="325" id="FW_SIZE1" name="SIZE" value="47">
-													</span>
-													<span class="input-radio" typename="330">
-														<label class="sd-out">330</label>
-														<input type="radio" data-attributename="FW_SIZE" data-id="0" data-friendly-name="330" id="FW_SIZE1" name="SIZE" value="48">
-													</span>
+													<input type="hidden" id="ordersize" class="ordersize" name="ordersize" value="${size }">
+													<c:forEach var="size" begin="230" end="330" step="10">
+														<input type="button" class="button5" name="size" value="${size}" id="${size}" onclick="sizebuttonclick(this.id)">
+														<input type="radio" id="${size*10 }" name="size" value="${size }" hidden="">
+														<c:if test="${size%270 eq 0 || size%320 eq 0}">
+														<br>
+														</c:if>
+													</c:forEach>
 												</div>
 											</div>
-												<div class="option-guide">
-													<div>
-														<a href="#" class="sky-blue">사이즈 가이드</a>
- 													</div>
-												</div>
 											</div>
 											<div class="stocked-wrap line" id="set-restock-alarm" style="display:block">
 											</div>
-											<div class="quantity" data-component-quantity="{maxQuantity:10, msg:개까지 구매가능 합니다., quantityStateMst:상품의 수량이 없습니다.}">
+											<div class="quantity" style="margin-bottom:15px;">
 												<h2 class="tit">
 													<span>수량</span>
 													<span class="msg"></span>
 												</h2>
 												<span class="btn-qy">
-													<input name="quantity" class="label" type="text" value="1">
-													<button class="btn minus">
-														<i class="icon-plus"></i>
-													</button>
+													<input id="count" name="count" class="label" type="text" value="1">
+													<button type="button" class="btn-minus" style="width:20px; border:1px solid #EAEAEA; background-color:#EAEAEA; font-size:15px;" onclick="clickminus()">-</button>
+													<button type="button" class="btn-plus" style="width:20px; border:1px solid #EAEAEA; background-color:#EAEAEA; font-size:15px;" onclick="clickplus()">+</button>
 												</span>
 											</div>
 										</div>
 										<div class="btn-group-box line type2">
 											<div>
-												<div class="status-wrap btn-wrap radius" data-add-item>
+												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
-														<a class="btn-link xlarge btn-order width-max" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="buy now" id="btn-buy" href="#">
-															<span>바로구매</span>
-														</a>
-														&nbsp;&nbsp;
-														<a class="btn-link line width-max xlarge btn-cart" data-carbtn action-type="redirect" data-click-area="pdp" data-click-name="add to cart" action-type="add" href="#">
-															<span>장바구니</span>
-														</a>
-														&nbsp;&nbsp;
-														<button class="wish-btn line btn-link sky-blue noraml btn-wishlist radius">
-															위시리스트
-															<i class="icon-wishlist">♡</i>
-														</button>
+														<input class="directorder" type="submit" value="바로구매">
 													</div>
+												</div>
+											</div>
+										</div>
+									</form>
+									<div>
+										<div>
+											<div>
+												<div>
+													<button class="shoppingcart" onclick="location.href='cart?code=${pdto.code}&&count=${count }'">장바구니</button>
+												</div>
 												</div>
 												<div class="store-reserve-wrap radius">
 													<span class="ns-store icon"></span>
@@ -319,16 +355,12 @@
 														<div class="description conTab" id="pdp-description-summary" data-info-height="{outerHeight:456, infoType:product-detail}"></div>
 														<div class="description-preview">
 															<p>
-																<b>유연하고 자유롭게.</b>
-															</p>
-															<p>
-																<b>나이키 프리 RN 5.0 2020은 프리의 진화에 있어 획기적인 도약과도 같습니다. 이전 버전보다 가볍고 지면에 더 밀착되어, '맨발'로 달리는 듯한 자연스러운 착화감을 선사합니다."</b>
+																<b>${pdto.contents }</b>
 															</p>
 															<br>
 														</div> 
-														<span class="style-color">현재 컬러 : 써밋 화이트/레이저 오렌지/블랙<br></span>
-														<span class="style-code" data-model="CV9305-100">스타일 : CV9305-100<br></span>
-														<a href="#" class="sky-blue btn-more-pop" data-click-area="pdp" data-click-name="product_learn more detail">더 보기</a>
+														<span class="style-color">현재 컬러 : ${pdto.codecolor }<br></span>
+														<span class="style-code">스타일 : ${pdto.code }<br></span>
 													</div>
 													<h2 class="pop-detail-title uk-accordian-title uk-active" data-click-toggle-on="off" data-click-area="pdp" data-click-name="review_learn more">
 														리뷰
@@ -339,217 +371,8 @@
 															</span>
 														</div>
 													</h2>
-													<div data-wrapper="true" class="accordion-wrapper" aria-expanded="false" style="height:0px; overflow:hidden;">
-														<div class="pop-detail-content uk-accordian-content">
-															<div class="detail-review" id="detail-review">
-																<div data-module-review="">
-																	<div class="uk-grid detail-review-summary">
-																		<div class="uk-width-large-1-3 summary-sect">
-																			<div class="star-total-info">
-																				<p class="star-average">
-																					<span class="like">
-																						<i class="icon-star5 per" style="width:85.0%">☆☆☆☆☆</i>
-																						<i class="icon-star5 star-default-bg"></i>
-																					</span>
-																					<span class="total-star-point">4.2점</span>
-																				</p>
-																				<a href="#" class="review-write-btn" data-successmsg="완료되었습니다." data-click-area="pdp" data-click-name="review_write a review" data-productid="10000030545">리뷰 작성하기</a>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="detail-reviewlist-summary">
-																		<div class="n-review-read">
-																			<ul id="review-summary">
-																				<li data-reviewid="10981785">
-																					<div class="uk-grid">
-																						<div class="read-list uk-width-arge-2-3">
-																							<p class="read-subject">프리런 5.0굿</p>
-																							<p class="user-info">
-																								<span class="review-filter star like" data-productid="1000030545">
-																									<i class="brz-icon-star_small star-5 per" style="width:60.0%">★★★★☆</i>
-																									<i class="brn-icon-star_small"></i>
-																								</span>
-																							</p>
-																							<div class="user-name">
-																								<span>황*식 - </span>
-																							</div>
-																							<span class="write-date" date="2020-05-08 23:41:41.0">2020.05.08</span>
-																							<p></p>
-																							<p class="read-comment shorten-txt">배송도 빠른편이고 좋아요</p>
-																							<p class="review-img-info">
-																								<span class="append-img">
-																									<a href="#"><img src=""></a>
-																								</span>
-																								<span class="append-img">
-																									<a href="#"><img src=""></a>
-																								</span> 
-																								<span class="append-img">
-																									<a href="#"><img src=""></a>
-																								</span>
-																							</p>
-																							<div class="review-help"></div>
-																							
-																						</div>
-																						<div class="uk-width-large-1-3 pc-only opt-value-w">
-																							<div class="opt-value-wrap">
-																								<div class="opt-value-list">
-																									<div class="opt-value-list">
-																										<span class="opt-value-title">편안함</span>
-																									</div>
-																									<div class="opt-value-box">
-																										<div class="opt-value-gage">
-																											<span class="opt-value-dot per active" style="left:100%"></span>
-																											<span class="opt-value-dot"></span>
-																										</div>
-																										<div class="opt-value-txtbox">
-																											<span class="opt-value-txt left">편하지 않은</span>
-																											<span class="opt-value-txt right">편안한</span>
-																										</div>
-																									</div>
-																								</div>
-																							</div>
-																						<div class="opt-value-list">
-																							<div class="opt-value-list">
-																								<span class="opt-value-title">사이즈</span>
-																								<div class="opt-value-box">
-																									<div class="opt-value-gage">
-																										<span class="opt-value-dot per active" style="left:60%"></span>
-																										<span class="opt-value-dot"></span>	
-																									</div>
-																									<div class="opt-value-txtbox">
-																										<span class="opt-value-txt left">작은</span>
-																										<span class="opt-value-txt right">큰</span>
-																									</div>
-																								</div>
-																							</div>
-																						</div>
-																						<div class="opt-value-list">
-																							<div class="opt-value-list">
-																								<span class="opt-value-title">내구성</span>
-																								<div class="opt-value-box">
-																									<div class="opt-value-gage">
-																										<span class="opt-value-dot per active" style="left:55%"></span>
-																										<span class="opt-value-dot"></span>
-																									</div>
-																									<div class="opt-value-txtbox">
-																										<span class="opt-value-text left">내구성이 없는</span>
-																										<span class="opt-value-text right">내구성이 있는</span>
-																									</div>
-																								</div>
-																							</div>
-																						</div>
-																						<div class="opt-value-list">
-																							<div class="opt-value-list">
-																								<span class="opt-value-title">폭</span>
-																								<div class="opt-value-box">
-																									<div class="opt-value-gage">
-																										<span class="opt-value-dot per active" style="left:40%"></span>
-																										<span class="opt-value-dot"></span>
-																									</div>
-																									<div class="opt-value-txtbox">
-																										<span class="opt-value-txt left">좁은</span>
-																										<span class="opt-value-txt right">넓은</span>
-																									</div>
-																								</div>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																			</li>
-																			<li data-reviewid="10976851">
-																				<div class="uk-grid">
-																					<div class="read-list uk-width-large-2-3">
-																						<p class="read-subject">런닝화 가볍고 편해서 좋네요~</p>
-																						<p class="user-info">
-																							<span class="review-filter star like" data-productid="1000003045">
-																								<i class="brz-icon-star_small star-5 per" style="width:80.0%"></i>
-																								<i class="brz-icon-star_small"></i>
-																							</span>
-																						</p>
-																						<div class="user-name">
-																							<span>조*형 - </span>
-																						</div>
-																						<span class="write-date" date="2020-05-06 12:06:25.0">2020.05.06</span>
-																						<p></p>
-																						<p class="read-comment shorten-txt">
-																							신발 예뻐요~ 봄여름 신기에 딱 좋네요. 발볼이 좀 넓은 편이라 반 사이즈 크게 신으니 좀 압박감있는 정도에요. 불편한 정도는 아니구요. 널널하게 신으실 분들은 한사이즈 크게 신으셔야 할것 같네요"
-																						</p>
-																						<p class="review-img-info"></p>
-																						<div class="review-help"></div>
-																					</div>
-																					<div class="uk-width-large-1-3 pc-only opt-value-w">
-																						<div class="opt-value-wrap">
-																							<div class="opt-value-list">
-																								<span class="opt-value-title">편안함</span>
-																							<div class="opt-value-box">
-																								<div class="opt-value-gage">
-																									<span class="opt-value-dot per active" style="left:100%"></span>
-																									<span class="opt-value-dot"></span>
-																								</div>
-																							<div class="opt-value-txtbox">
-																								<span class="opt-value-txt left">편하지 않은</span>
-																								<span class="opt-value-txt right">편안한</span>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="opt-value-list">
-																					<div class="opt-value-list">
-																						<span class="opt-value-title">사이즈</span>
-																						<div class="opt-value-box">
-																							<div class="opt-value-gage">
-																								<span class="opt-value-dot per active" style="left:50%"></span>
-																								<span class="opt-value-dot"></span>
-																							</div>
-																							<div class="opt-value-txtbox">
-																								<span class="opt-value-txt left">작은</span>
-																								<span class="opt-value-txt right">큰</span>
-																							</div>
-																						</div>
-																					</div>
-																				</div>																						
-																				<div class="opt-value-list">
-																					<div class="opt-value-list">
-																						<span class="opt-value-title">내구성</span>
-																						<div class="opt-value-box">
-																							<div class="opt-value-gage">
-																								<span class="opt-value-dot per active" style="left:75%"></span>
-																								<span class="opt-value-dot"></span>
-																								
-																							</div>
-																							<div class="opt-value-txtbox">
-																								<span class="opt-value-txt left">내구성이 없는</span>
-																								<span class="opt-value-txt right">내구성이 있는</span>
-																							</div>
-																						</div>
-																					</div>
-																				</div>
-																				<div class="opt-value-list">
-																					<div class="opt-value-list">
-																						<span class="opt-value-title">폭</span>
-																						<div class="opt-value-box">
-																							<div class="opt-value-gage">
-																								<span class="opt-value-dot per active" style="left:25%"></span>
-																								<span class="opt-value-dot"></span>
-																							</div>
-																							<div class="opt-value-txtbox">
-																								<span class="opt-value-txt left">좁은</span>
-																								<span class="opt-value-txt right">넓은</span>
-																							</div>
-																						</div>
-																					</div>
-																				</div>	
-																			</div>
-																		</div>
-																	</li>
-																</ul>
-															</div>
-															<a href="#" class="btn-more-review uk-margin-top" data-click-area="pdp" data-click-name="review_see more review" data-prductid="10000030545">더 많은 리뷰 보기</a>
-														</div>
-													</div>
 												</div>
 											</div>
-										</div>
 										<h2 class="pop-detail-title uk-accordian-title" data-click-toggle-on="off" data-click-area="pdp" data-click-name="delivery_learn_more">
 											배송
 											<span class="sub-title-wrap">일반배송 / 오늘도착</span>
@@ -601,7 +424,6 @@
 												<ul class="detail-content-list">
 													<li>상품의 구매금액에 상관없이 무료반품서비스를 제공하고 있습니다.</li>
 												</ul>
-												<a href="#" target="_blank">자세히 보기</a>
 												<h3 class="detail-content-title">매장 반품 접수</h3>
 												<ul>
 													<li>
@@ -624,15 +446,13 @@
 														색상/사이즈 불만족, 고객 변심 반품의 경우, 오늘도착 서비스 (배송)비용에 대한 배송비는 환불되지 않음을 유의해 주시기 바랍니다.
 													</li>
 												</ul>
-												<a href="#" class="sky-blue btn-more-pop">자세히 보기</a>
 												<h3 class="detail-content-title">AS 안내</h3>
 												<ul class="detail-content-list">
 													<li>
 														나이키닷컴에서 구매하신 제품에 대해 A/S 접수를 원하실 경우에는
-														<a href="#">1:1 이메일 문의</a>와 나이키닷컴 고객센터(TEL : 080-022-0182)를 이용해주세요.
+														1:1 이메일 문의와 나이키닷컴 고객센터(TEL : 080-022-0182)를 이용해주세요.
 													</li>
 												</ul>
-												<a href="#" class="sky-blue btn-more-pop" data-click-area="pdp" data-click-name="read more A/S policy">자세히 보기</a>
 												<h3 class="detail-content-title">미성년자 권리보호 안내</h3>
 												<ul class="detail-content-list">
 													<li>
@@ -642,9 +462,8 @@
 											</div>
 										</div>
 									</div>
-								</form>
-						</div>
-						</div>
+								</div>
+							</div>
 						</div>
 					</article>
 				</article>

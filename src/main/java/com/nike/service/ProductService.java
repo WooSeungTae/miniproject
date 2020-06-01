@@ -218,6 +218,16 @@ public class ProductService {
 		Pdao.product_input(sizedto,dto);
 	}
 	
+	
+		
+	
+	/*세부 상품 조회*/
+	public ProductDTO productdetail(String code) {
+		return Pdao.productdetail(code);
+	}
+	
+
+	
 	//관리자 상품 목록 수정, 삭제를 위한 조회
 	public ProductDTO productSelect(String code) {
 		return Pdao.productSelect(code);
@@ -227,5 +237,6 @@ public class ProductService {
 	public void productDelete(String code) {		
 		Pdao.productDelete(code);	
 	}
+
 
 }
