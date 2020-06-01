@@ -201,7 +201,7 @@
 				<div class="user_name">
 					<ul class="menu2">
 						<li class="menu">
-							<img src="/nike/image/user.png" class="user_img"/><a>이름이</a>
+							<img src="/nike/image/user.png" class="user_img"/><a>${dto.name }</a>
 							<ul class="hide">
 								<li><a href="/nike/myPage">마이페이지</a></li>
 								<li><a href="/nike/account">회원정보관리</a></li>

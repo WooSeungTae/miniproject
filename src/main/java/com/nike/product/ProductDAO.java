@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class ProductDAO {
 
 
-	private final String nameSpace="com.care.mybatis.productMapper.productMapper";
+	private final String nameSpace="com.nike.mybatis.productMapper.productMapper";
 	@Autowired
 	private SqlSession sqlSession;
 	/*남자 전체신발 조회*/

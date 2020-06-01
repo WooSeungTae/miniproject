@@ -309,12 +309,12 @@ public class HomeController {
 		service.memberinfoModify(dto, model);
 		return "redirect:account";
 	}
-	
+	/* 회원비밀번호 변경 */
 	@RequestMapping("password")
 	public String password() {
 		return "myPage/myPagePassword";
 	}
-	
+	/* 회원탈퇴 */
 	@RequestMapping("withdrawal")
 	public String withdrawal() {
 		return "myPage/myPageWithdrawal";

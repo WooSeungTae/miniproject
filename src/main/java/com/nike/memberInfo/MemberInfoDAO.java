@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MemberInfoDAO {
 
-	private static final String namespace = "com.care.mybatis.memberMapper.memberMapper";
+	private static final String namespace = "com.nike.mybatis.memberMapper.memberMapper";
 	@Autowired
 	private SqlSession sqlSession;
 
