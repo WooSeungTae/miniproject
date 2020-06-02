@@ -22,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nike.service.MemberService;
+import com.nike.service.OrderService;
 import com.nike.service.ProductService;
 import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_sizeDTO;
 import com.nike.service.MemberService;
@@ -46,7 +48,9 @@ public class HomeController {
 	ProductService Pservice;
 	@Autowired
 	MemberService memberservice;
-
+	@Autowired
+	OrderService orderservice;
+	
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
@@ -71,7 +75,27 @@ public class HomeController {
 		
 		return "home";
 	}
-
+	
+	//관리자 상품관리(수정)
+		@RequestMapping("productUpdate")
+		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
+			return null;
+		}
+		
+		//관리자 상품관리(삭제)
+		@RequestMapping("productDelete")
+		public String productDelete(@RequestParam("code") String code) {
+			Pservice.productDelete(code);
+			return "productUpdate_Delete/productSelect";
+		}
+		
+		//관리자 상품 목록 수정, 삭제를 위한 조회
+		@RequestMapping("productSelect")
+		public String productSelect(ProductDTO pdto , Model model) {
+			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
+			return "productUpdate_Delete/productSelect";
+		}
+		
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
@@ -88,9 +112,12 @@ public class HomeController {
 		memberservice.saveUserInfo(dto);
 		return "redirect:loginPage";
 	}
-
+	
+	/*세부 상품 조회*/
 	@RequestMapping("/productdetail")
-	public String productdetail() {
+	public String productdetail(Model model, HttpServletRequest request) {
+		System.out.println("===============================" + request.getParameter("code"));
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
 	
@@ -307,7 +334,8 @@ public class HomeController {
 	
 	/*장바구니*/
 	@RequestMapping("cart")
-	public String cart() {
+	public String cart(ShoppingCartDTO sdto) {
+		
 		return "purchase/cart";
 	}
 	/*구매*/

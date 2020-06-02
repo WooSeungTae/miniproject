@@ -23,6 +23,14 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".AllListMenCategory",category);
 	}
 
+
+	/*세부 상품 조회*/
+	public ProductDTO productdetail(String code) {
+		return sqlSession.selectOne(nameSpace+".productdetail", code);
+	}
+
+
+
 	/* 신발 검색 */
 	public List<ProductDTO> searchCode(String codename) {
 		return sqlSession.selectList(nameSpace+".searchCode",codename);
@@ -47,10 +55,23 @@ public class ProductDAO {
 	public List<ProductDTO> allListKidsCategoly(String category) {
 		return sqlSession.selectList(nameSpace+".AllListKidsCategory",category);
 	}
+
+	
+	
 	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
 		// TODO Auto-generated method stub
 
 	}
 
+
+	//관리자 상품 목록 수정, 삭제를 위한 조회
+	public ProductDTO productSelect(String code) {
+		return sqlSession.selectOne(nameSpace+".productSelect", code);
+	}
+	//관리자 상품 삭제하기 위한 기능
+	public void productDelete(String code) {
+		
+		sqlSession.delete(nameSpace+".productDelete", code);		
+	}
 
 }

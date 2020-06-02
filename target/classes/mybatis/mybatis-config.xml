@@ -7,5 +7,7 @@
 	<typeAliases>
 		<typeAlias type="com.nike.memberInfo.MemberInfoDTO" alias="dto"/>
 		<typeAlias type="com.nike.product.ProductDTO" alias="Pdto"/>
+		<typeAlias type="com.nike.order.OrderDTO" alias="Odto"/>
+		<typeAlias type="com.nike.order.ShoppingCartDTO" alias="Sdto"/>
 	</typeAliases>
 </configuration>
