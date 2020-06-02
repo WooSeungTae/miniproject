@@ -4,7 +4,7 @@ public class ShoppingCartDTO {
 	private String id;
 	private String code;
 	private int count;
-	private String size;
+	private String ordersize;
 	
 	public String getId() {
 		return id;
@@ -24,12 +24,13 @@ public class ShoppingCartDTO {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public String getSize() {
-		return size;
+	public String getOrdersize() {
+		return ordersize;
 	}
-	public void setSize(String size) {
-		this.size = size;
+	public void setOrdersize(String ordersize) {
+		this.ordersize = ordersize;
 	}
+	
 	
 	
 }
