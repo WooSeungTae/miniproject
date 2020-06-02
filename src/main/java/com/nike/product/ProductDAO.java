@@ -47,10 +47,17 @@ public class ProductDAO {
 	public List<ProductDTO> allListKidsCategoly(String category) {
 		return sqlSession.selectList(nameSpace+".AllListKidsCategory",category);
 	}
-	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
-		// TODO Auto-generated method stub
-
+	/*상품등록 기본정보*/
+	public void product_input(ProductDTO pdto) {
+		sqlSession.insert(nameSpace+".productinput",pdto);
 	}
-
-
+	/*상품등록 사이즈별 수량*/
+	public void product_size(Product_sizeDTO sizedto) {
+		sqlSession.insert(nameSpace+".sizeinput",sizedto);
+	}
+	/*신발 코드로 검색 전체*/   
+	public ProductDTO codeSearch(String code){
+	    return sqlSession.selectOne(nameSpace+".codeSearch",code);      
+	}	
+	
 }

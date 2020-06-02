@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품등록</title>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	function genderbuttonclick(clicked_id){
@@ -36,7 +36,7 @@
 			document.getElementById(clicked_id).classList.add('button6');
 			document.getElementById(clicked_id).classList.remove('button5');
 			document.getElementById(gender).checked = true;
-			size.innerHTML += "<label id='"+clicked_id+2+"'>"+clicked_id+" </label>"
+			size.innerHTML += "<label class='subtitle' id='"+clicked_id+2+"'>"+clicked_id+" 사이즈 수량</label>"
 			size.innerHTML += "<input id='"+clicked_id+3+"' name='size"+clicked_id+"' type='text'><br id='"+clicked_id+4+"'>"
 		}
 		else{
@@ -50,22 +50,102 @@
 	}
 	
 	$(document).ready(function(){
-		$("#productImg").change(function(){
+		$("#productImg1").change(function(){
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img img").attr("src", data.target.result).width(500);        
+			     $(".select_img1 img").attr("src", data.target.result);        
+			     $("#image1").val('image1');
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
 			  });
+	});
+	$(document).ready(function(){
+		$("#productImg2").change(function(){
+			   if(this.files && this.files[0]) {
+			    var reader = new FileReader;
+			    reader.onload = function(data) {
+			     $(".select_img2 img").attr("src", data.target.result);        
+			     $("#image2").val('image2');        
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			   }
+			  });
+	});
+	$(document).ready(function(){
+		$("#productImg3").change(function(){
+			   if(this.files && this.files[0]) {
+			    var reader = new FileReader;
+			    reader.onload = function(data) {
+			     $(".select_img3 img").attr("src", data.target.result);        
+			     $("#image3").val('image3');       
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			   }
+			  });
+	});
+	$(document).ready(function(){
+		$("#productImg4").change(function(){
+			   if(this.files && this.files[0]) {
+			    var reader = new FileReader;
+			    reader.onload = function(data) {
+			     $(".select_img4 img").attr("src", data.target.result);        
+			     $("#image4").val('image4');      
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			   }
+			  });
+	});
+	$(document).ready(function(){
+		$("#productImg5").change(function(){
+			   if(this.files && this.files[0]) {
+			    var reader = new FileReader;
+			    reader.onload = function(data) {
+			     $(".select_img5 img").attr("src", data.target.result);        
+			     $("#image5").val('image5');      
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			   }
+			  });
+	});
+	$(document).ready(function(){
+		$("#productImg6").change(function(){
+			   if(this.files && this.files[0]) {
+			    var reader = new FileReader;
+			    reader.onload = function(data) {
+			     $(".select_img6 img").attr("src", data.target.result);        
+			     $("#image6").val('image6');      
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			   }
+			  });
+	});
+	$(document).ready(function() {
+		$("#img1").click(function() {
+			$("#productImg1").click();
+		});
+		$("#img2").click(function() {
+			$("#productImg2").click();
+		});
+		$("#img3").click(function() {
+			$("#productImg3").click();
+		});
+		$("#img4").click(function() {
+			$("#productImg4").click();
+		});
+		$("#img5").click(function() {
+			$("#productImg5").click();
+		});
+		$("#img6").click(function() {
+			$("#productImg6").click();
+		});
 	});
 </script>
 <style type="text/css">
 	.button5 {
 	  background-color: white;
 	  color: black;
-	  padding: 16px 32px;
 	  text-align: center;
 	  text-decoration: none;
 	  display: inline-block;
@@ -74,12 +154,13 @@
 	  transition-duration: 0.4s;
 	  cursor: pointer;
 	  border: 2px solid #555555;
+	  width: 100px; 
+	  height: 60px;
 	}
 	
 	.button6{
 	  background-color: #555555;
 	  color: white;
-	  padding: 16px 32px;
 	  text-align: center;
 	  text-decoration: none;
 	  display: inline-block;
@@ -88,69 +169,242 @@
 	  transition-duration: 0.4s;
 	  cursor: pointer;
 	  border: 2px solid #555555;
+	  width: 100px; 
+	  height: 60px;
 	}
-	.select_img img {margin : 20px 0;}
+	.select_img1{
+		width: 300px;
+		height: 300px;
+	}
+	.select_img2{
+		width: 300px;
+		height: 300px;
+	}
+	.select_img3{
+		width: 300px;
+		height: 300px;
+	}
+	.select_img4{
+		width: 300px;
+		height: 300px;
+	}
+	.select_img5{
+		width: 300px;
+		height: 300px;
+	}
+	.select_img6{
+		width: 300px;
+		height: 300px;
+	}
+	.select_img1 img{
+		width: 300px;
+		height: 300px;
+		opacity : 1;
+		display: block;
+		transition : .5s ease;
+		backface-visibility: hidden;
+	}
+	.select_img2 img{
+		width: 300px;
+		height: 300px;
+		opacity : 1;
+		display: block;
+		transition : .5s ease;
+		backface-visibility: hidden;
+	}
+	.select_img3 img{
+		width: 300px;
+		height: 300px;
+		opacity : 1;
+		display: block;
+		transition : .5s ease;
+		backface-visibility: hidden;
+	}
+	.select_img4 img{
+		width: 300px;
+		height: 300px;
+		opacity : 1;
+		display: block;
+		transition : .5s ease;
+		backface-visibility: hidden;
+	}
+	.select_img5 img{
+		width: 300px;
+		height: 300px;
+		opacity : 1;
+		display: block;
+		transition : .5s ease;
+		backface-visibility: hidden;
+	}
+	.select_img6 img{
+		width: 300px;
+		height: 300px;
+		opacity : 1;
+		display: block;
+		transition : .5s ease;
+		backface-visibility: hidden;
+	}
+	.rowimg{
+		display: flex;
+	}
+	.select_img1:hover img {
+	  border : 1px solid;
+	  opacity: 0.3;
+	}
+	.select_img2:hover img {
+	border : 1px solid;
+	  opacity: 0.3;
+	}
+	.select_img3:hover img {
+	border : 1px solid;
+	  opacity: 0.3;
+	}
+	.select_img4:hover img {
+	border : 1px solid;
+	  opacity: 0.3;
+	}
+	.select_img5:hover img {
+	border : 1px solid;
+	  opacity: 0.3;
+	}
+	.select_img6:hover img {
+	border : 1px solid;
+	  opacity: 0.3;
+	}
+	/*맨 위에 있는 제목*/
+	.maintitle {font-family: monospace; font-size: 30px; }
+	/*안에 있는 제목*/
+	.subtitle {font-size: 20px; margin: 20px;}
+	/*input 크기*/
+	.inputarea {}
+	/*내용입력 div 부분*/
+	.subinput {}
+	.subinput label { display:inline-block; }
+	.subinput textarea {width:800px; height:300px;}
+	.subinput input[type=text]{
+		width : 20%;
+		padding: 10px 20px;
+ 		border-radius: 4px;
+ 		border : 2px solid #e6e6e6 ;
+ 		background-color: #f1f1f1;
+ 	}
+	.subinput input[type=text]: focus{border: 3px solid #555;} 
+	.subinput select {
+		width : 20%;
+		padding: 10px 20px;
+		border: none;
+ 		border-radius: 4px;
+ 		background-color: #f1f1f1;
+ 	}
+	/*안에 있는 div부분*/
+	.bodyinside {background: white; padding: 10px; margin-top:20px; 
+				height: 50%; border: 2px solid #BECDFF;}
+	/*body전체 부분(배경)*/
+	.bodyback {background: #DCEBFF; padding: 20px;}
 </style>
 </head>
-<body>
-<h3>상품 등록</h3><hr>
-<form action="product_input" enctype="multipart/form-data">
-	<div>
-		<label>상품 번호</label>
+<body style="margin: 0px;">
+
+<div class="bodyback">
+<label class="maintitle">상품 등록</label><hr>
+<form action="product_input" enctype="multipart/form-data" method="post" onsubmit="return checkcode()">
+	<div class="bodyinside">
+	<div class="subinput">
+		<label class="subtitle">상품 번호</label>
 		<input type="text" name="code">
 	</div>
-	<div>
-		<label>제목</label>
+	<div class="subinput">
+		<label class="subtitle">제목</label>
 		<input type="text" name="codename">
 	</div>
-	<div>
-		<label>color</label>
+	<div class="subinput">
+		<label class="subtitle">color</label>
 		<input type="text" name="codecolor">
 	</div>
-	<div>
-		<label>수량</label>
-		<input type="text">
+	<div class="subinput">
+		<label class="subtitle">금액</label>
+		<input type="text" name="price">
 	</div>
-	<div>
-		<label>분류</label>
+	<div class="subinput">
+		<label class="subtitle">분류</label>
 		<select name="category">
 			<option selected="selected" value="런닝화">런닝화</option>
 			<option value="축구화">축구화</option>
 			<option value="농구화">농구화</option>
 		</select>
 	</div>
-	<div>
-		<label>성별</label>
+	<div class="subinput">
+		<label class="subtitle">성별</label>
 		<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
-		<input type="checkbox" id="1" name="men" hidden="">
+		<input type="checkbox" id="1" name="gender" value="men" hidden="">
 		<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
-		<input type="checkbox" id="2" name="women" hidden="">
+		<input type="checkbox" id="2" name="gender" value="women" hidden="">
 		<input type="button" class="button5" value="KIDS" id="kids" onclick="genderbuttonclick(this.id)">
-		<input type="checkbox" id="3" name="kids" hidden="">
+		<input type="checkbox" id="3" name="gender" value="kids" hidden="">
 	</div>
-	<div>
-		<label>사이즈</label><br>
-		<c:forEach var="i" begin="230" end="330" step="10">
+	</div>
+	<div class="subinput">
+		<label class="subtitle">사이즈</label><br>
+		<c:forEach var="i" begin="80" end="160" step="10">
 			<input type="button" class="button5" value="${i}" id="${i}" onclick="sizebuttonclick(this.id)">
-			<input type="checkbox" id="${i}1" name="${i}" hidden="">
-		<c:if test="${i%280 eq 0}">
+			<input type="checkbox" id="${i}1"hidden="">
+		<c:if test="${i%110 eq 0}">
+			<br>
+		</c:if>
+		</c:forEach><br>
+		<c:forEach var="i" begin="220" end="330" step="10">
+			<input type="button" class="button5" value="${i}" id="${i}" onclick="sizebuttonclick(this.id)">
+			<input type="checkbox" id="${i}1"hidden="">
+		<c:if test="${i%260 eq 0 or i%310 eq 0}">
 			<br>
 		</c:if>
 		</c:forEach>
 		<div  id="size">
 		</div>
 	</div>
-	<div>
-		<label for="productImg">이미지</label>
-		<input type="file" id="productImg" name="file">
-		<div class="select_img"><img src=""/></div>
+	<div class="subinput">
+		<label class="subtitle">이미지</label><br>
+		<input type="file" id="productImg1" name="file1" hidden="">
+		<input type="file" id="productImg2" name="file2" hidden="">
+		<input type="file" id="productImg3" name="file3" hidden="">
+		<input type="file" id="productImg4" name="file4" hidden="">
+		<input type="file" id="productImg5" name="file5" hidden="">
+		<input type="file" id="productImg6" name="file6" hidden="">
+		<div class="rowimg">
+			<div class="select_img1">
+			<img src="image/plus.png" id="img1" name="" />	
+			<input type="text" id="image1" name="image1" value="" hidden="">
+			</div>
+			<div class="select_img2">
+			<img src="image/plus.png" id="img2" name=""/>
+			<input type="text" id="image2" name="image2" value="" hidden="">
+			</div>
+			<div class="select_img3">
+			<img src="image/plus.png" id="img3" name=""/>
+			<input type="text" id="image3" name="image3" value="" hidden="">
+			</div>
+		</div>
+			<div class="rowimg">
+			<div class="select_img4">
+			<img src="image/plus.png" id="img4" name=""/>
+			<input type="text" id="image4" name="image4" value="" hidden="">
+			</div>
+			<div class="select_img5">
+			<img src="image/plus.png" id="img5" name=""/>
+			<input type="text" id="image5" name="image5" value="" hidden="">
+			</div>
+			<div class="select_img6">
+			<img src="image/plus.png" id="img6" name=""/>
+			<input type="text" id="image6" name="image6" value="" hidden="">
+			</div>
+		</div>
 	</div>	
-	 <%=request.getRealPath("/") %>
-	<div>
-		<label>내용</label><br>
-		<textarea rows="10" cols="50"></textarea>
+	<div class="subinput">
+		<label class="subtitle">내용</label><br>
+		<textarea rows="10" cols="50" name="contents"></textarea>
 	</div>
-	<div><input type="submit" value="등록"></div>
+	<div><input class="button6" type="submit" value="등록"></div>
 </form>
+</div>
 </body>
 </html>

@@ -7,18 +7,18 @@ import java.sql.Date;
 
 public class ProductDTO {
 	private String code;
-	private String codename; 
-	private String codecolor; 
-	private String category; 
-	private String gender; 
-	private String image1; 
-	private String image2;
-	private String image3;
-	private String image4;
-	private String image5;
-	private String image6;
-	private String contents; 
-	private String price;
+	private String codename = " "; 
+	private String codecolor = " "; 
+	private String category = " "; 
+	private String gender = " "; 
+	private String image1 = " "; 
+	private String image2 = " ";
+	private String image3 = " ";
+	private String image4 = " ";
+	private String image5 = " ";
+	private String image6 = " ";
+	private String contents = " "; 
+	private String price = "0";
 	private Date joindate;
 	
 	

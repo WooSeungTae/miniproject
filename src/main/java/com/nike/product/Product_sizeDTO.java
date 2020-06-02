@@ -2,27 +2,27 @@ package com.nike.product;
 
 public class Product_sizeDTO {
 	private String code;
-	private String size80; 
-	private String size90; 
-	private String size100; 
-	private String size110; 
-	private String size120; 
-	private String size130; 
-	private String size140; 
-	private String size150; 
-	private String size160; 
-	private String size220; 
-	private String size230; 
-	private String size240; 
-	private String size250; 
-	private String size260; 
-	private String size270; 
-	private String size280; 
-	private String size290; 
-	private String size300; 
-	private String size310; 
-	private String size320; 
-	private String size330;
+	private String size80 = "0"; 
+	private String size90 = "0"; 
+	private String size100 = "0"; 
+	private String size110 = "0"; 
+	private String size120 = "0"; 
+	private String size130 = "0"; 
+	private String size140 = "0"; 
+	private String size150 = "0"; 
+	private String size160 = "0"; 
+	private String size220 = "0"; 
+	private String size230 = "0"; 
+	private String size240 = "0"; 
+	private String size250 = "0"; 
+	private String size260 = "0"; 
+	private String size270 = "0";
+	private String size280 = "0";
+	private String size290 = "0"; 
+	private String size300 = "0"; 
+	private String size310 = "0";
+	private String size320 = "0";
+	private String size330 = "0";
 	public String getCode() {
 		return code;
 	}

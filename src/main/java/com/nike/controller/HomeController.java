@@ -1,6 +1,5 @@
 package com.nike.controller;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -19,21 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.nike.service.FileUploadService;
 import com.nike.service.MemberService;
 import com.nike.service.ProductService;
-import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_sizeDTO;
-import com.nike.service.MemberService;
-
-import com.nike.memberInfo.MemberInfoDTO;
-import com.nike.product.ProductDTO;
-import com.nike.service.MemberService;
-import com.nike.service.ProductService;
 
 /**
  * Handles requests for the application home page.
@@ -46,6 +38,8 @@ public class HomeController {
 	ProductService Pservice;
 	@Autowired
 	MemberService memberservice;
+	@Autowired
+	FileUploadService fileUploadService;
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -148,10 +142,26 @@ public class HomeController {
 
 
 	@RequestMapping("product_input")
-	public String product_input(Product_sizeDTO sizedto, ProductDTO dto) throws Exception{
-		Pservice.product_input(sizedto,dto);
-		
-		return "";
+	public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
+			@RequestParam(value="file1", required=false) MultipartFile file1,
+			@RequestParam(value="file2", required=false) MultipartFile file2,
+			@RequestParam(value="file3", required=false) MultipartFile file3,
+			@RequestParam(value="file4", required=false) MultipartFile file4,
+			@RequestParam(value="file5", required=false) MultipartFile file5,
+			@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
+		String code = pdto.getCode();
+		if(Pservice.codeSearch(model, code) == 1) {
+			System.out.println("등록 실행");
+			if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
+			if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
+			if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
+			if(pdto.getImage4().equals("image4")) {String url4 = fileUploadService.restore(file4);pdto.setImage4(url4);}
+			if(pdto.getImage5().equals("image5")) {String url5 = fileUploadService.restore(file5);pdto.setImage5(url5);}
+			if(pdto.getImage6().equals("image6")) {String url6 = fileUploadService.restore(file6);pdto.setImage6(url6);}
+			Pservice.product_input(pdto);
+			Pservice.product_size(sizedto);
+		}
+		return "redirect:product_management";
 	}
 	
 	/*상품 등록*/
