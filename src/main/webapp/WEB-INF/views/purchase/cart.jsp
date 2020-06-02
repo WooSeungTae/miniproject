@@ -132,6 +132,12 @@
 			margin-top:15px; background-color:#fb5302; font-size:14x; font-weight:bold; color:#fff;
 		}
 	</style>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+		function alldelete(){
+			alert("장바구니에 담긴 상품이 모두 삭제됩니다!")
+		}
+	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -151,7 +157,7 @@
 					<div class="item-container">
 						<div class="item-list-wrap" id="cart">
 							<div class="mypage-cart" id="current-item-wrap">
-								<a class="btn-cart-delete-All" href="cartAlldelete">전체삭제</a>
+								<a class="btn-cart-delete-All" href="cartAlldelete" onclick="alldelete()">전체삭제</a>
 							</div>
 							<div class="product-opt_cart">
 								<div class="item-detail">
@@ -205,7 +211,7 @@
 										<strong class="retail-price">109,000원</strong>
 									</div>
 									<div class="delete-btn">
-										<a class="btn-delete" href="#"><i class="icon-delete_bold">X</i></a>
+										<a class="btn-delete" href="#" onclick="itemdelete()"><i class="icon-delete_bold">X</i></a>
 									</div>
 								</div>
 							</div>

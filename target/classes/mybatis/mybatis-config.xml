@@ -11,3 +11,4 @@
 		<typeAlias type="com.nike.order.ShoppingCartDTO" alias="Sdto"/>
 	</typeAliases>
 </configuration>
+
