@@ -6,13 +6,18 @@ public class OrderDTO {
 	
 	private String name;
 	private String tel;
+<<<<<<< HEAD
 	private String firstAddr;
 	private String secondAddr;
+=======
+	private String addr;
+>>>>>>> minhoeyk
 	private String orderMemo;
 	private String orderType;
 	private String bankName;
 	private String bank;
 	private String id;
+<<<<<<< HEAD
 	private int price;
 	private String code;
 	private int count;
@@ -20,6 +25,15 @@ public class OrderDTO {
 	private String orderNum;
 	private String orderDate;
 	private Date delivery;
+=======
+	private String totalPrice;
+	private String orderNum;
+	private String delivery;
+	private Date orderDate;
+	
+	
+	
+>>>>>>> minhoeyk
 	
 	public String getName() {
 		return name;
@@ -33,6 +47,7 @@ public class OrderDTO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+<<<<<<< HEAD
 	public String getFirstAddr() {
 		return firstAddr;
 	}
@@ -44,6 +59,13 @@ public class OrderDTO {
 	}
 	public void setSecondAddr(String secondAddr) {
 		this.secondAddr = secondAddr;
+=======
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+>>>>>>> minhoeyk
 	}
 	public String getOrderMemo() {
 		return orderMemo;
@@ -75,6 +97,7 @@ public class OrderDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
+<<<<<<< HEAD
 	public int getPrice() {
 		return price;
 	}
@@ -98,6 +121,13 @@ public class OrderDTO {
 	}
 	public void setOrdersize(String ordersize) {
 		this.ordersize = ordersize;
+=======
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+>>>>>>> minhoeyk
 	}
 	public String getOrderNum() {
 		return orderNum;
@@ -105,6 +135,7 @@ public class OrderDTO {
 	public void setOrderNum(String orderNum) {
 		this.orderNum = orderNum;
 	}
+<<<<<<< HEAD
 	public String getOrderDate() {
 		return orderDate;
 	}
@@ -117,6 +148,23 @@ public class OrderDTO {
 	public void setDelivery(Date delivery) {
 		this.delivery = delivery;
 	}
+=======
+	public String getDelivery() {
+		return delivery;
+	}
+	public void setDelivery(String delivery) {
+		this.delivery = delivery;
+	}
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	
+	
+	
+>>>>>>> minhoeyk
 	
 	
 	
