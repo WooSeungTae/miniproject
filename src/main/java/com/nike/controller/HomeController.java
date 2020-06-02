@@ -334,9 +334,26 @@ public class HomeController {
 	
 	/*장바구니*/
 	@RequestMapping("cart")
-	public String cart(ShoppingCartDTO sdto) {
-		
+	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		/*장바구니 DB에 값을 저장*/
+		orderservice.insertcart(sdto);
+		/*장바구니 DB에서 리스트 개수 가져오기*/
+		model.addAttribute("cartcount", orderservice.countcart(id));
+		/*장바구니 DB에서 회원별 리스트 가져오기*/
+		model.addAttribute("cartlist", orderservice.selectcart(id));
 		return "purchase/cart";
+	}
+	
+	/*회원별 장바구니에 있는 아이템 전부 삭제*/
+	@RequestMapping("cartAlldelete")
+	public String cartAlldelete(HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		orderservice.cartAlldelete(id);
+		return "redirect:cart";
 	}
 	/*구매*/
 	@RequestMapping("checkout")
