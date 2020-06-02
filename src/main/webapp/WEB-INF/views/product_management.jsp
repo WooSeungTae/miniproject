@@ -8,6 +8,7 @@
 <title>상품등록</title>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
 	function genderbuttonclick(clicked_id){
 		var gender = 1;
 		if(clicked_id == "men"){
@@ -29,6 +30,7 @@
 			document.getElementById(gender).checked = false;
 		}
 	}
+	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
 	function sizebuttonclick(clicked_id){
 		var gender = clicked_id+1;
 		console.log(gender);
@@ -48,7 +50,7 @@
 			document.getElementById('size').removeChild(document.getElementById(clicked_id+4));
 		}
 	}
-	
+	<!-- 이미지 삽입시 삽입한 이미지로 바뀜 -->
 	$(document).ready(function(){
 		$("#productImg1").change(function(){
 			   if(this.files && this.files[0]) {
@@ -121,6 +123,7 @@
 			   }
 			  });
 	});
+	<!--이미지 클릭시 파일을 클릭하는 기능-->
 	$(document).ready(function() {
 		$("#img1").click(function() {
 			$("#productImg1").click();
@@ -143,6 +146,7 @@
 	});
 </script>
 <style type="text/css">
+	/*버튼 클릭전 css*/
 	.button5 {
 	  background-color: white;
 	  color: black;
@@ -157,7 +161,7 @@
 	  width: 100px; 
 	  height: 60px;
 	}
-	
+	/*버튼 클릭후 css*/
 	.button6{
 	  background-color: #555555;
 	  color: white;
@@ -172,6 +176,7 @@
 	  width: 100px; 
 	  height: 60px;
 	}
+	/*이미지 div 크기*/
 	.select_img1{
 		width: 300px;
 		height: 300px;
@@ -196,6 +201,7 @@
 		width: 300px;
 		height: 300px;
 	}
+	/*이미지 크기 및 기본 css*/
 	.select_img1 img{
 		width: 300px;
 		height: 300px;
@@ -244,9 +250,11 @@
 		transition : .5s ease;
 		backface-visibility: hidden;
 	}
+	/*이미지 배열을 위한 css*/
 	.rowimg{
 		display: flex;
 	}
+	/*이미지 위에 마우스를 올릴시 나타나는 기능*/
 	.select_img1:hover img {
 	  border : 1px solid;
 	  opacity: 0.3;

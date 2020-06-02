@@ -24,7 +24,7 @@ public class ProductService {
 	@Autowired
 	private ProductDAO Pdao;
 	
-	/*신발 코드로 검색*/
+	/*신발 코드로 검색 검색 결과 없다면 1 있다면 0*/
 	public int codeSearch(Model model,String code) {
 	   model.addAttribute("quickProduct", Pdao.codeSearch(code));
 	   if(Pdao.codeSearch(code)==null) {

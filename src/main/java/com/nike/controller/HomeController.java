@@ -140,7 +140,7 @@ public class HomeController {
 		return "jsj/Kids/kidsCategory";
 	}
 
-
+	/*상품 등록*/
 	@RequestMapping("product_input")
 	public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
 			@RequestParam(value="file1", required=false) MultipartFile file1,
@@ -164,8 +164,7 @@ public class HomeController {
 		return "redirect:product_management";
 	}
 	
-	/*상품 등록*/
-
+	/*상품 등록 페이지*/
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";

@@ -6,6 +6,7 @@ import java.sql.Date;
 
 
 public class ProductDTO {
+	/*빈값이 들어갈경우를 대비해 미리 빈값을 넣어둠*/
 	private String code;
 	private String codename = " "; 
 	private String codecolor = " "; 

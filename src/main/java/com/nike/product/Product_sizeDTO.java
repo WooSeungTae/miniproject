@@ -1,6 +1,7 @@
 package com.nike.product;
 
 public class Product_sizeDTO {
+	/*빈값이 들어갈경우를 대비해 미리 빈값을 넣어둠*/
 	private String code;
 	private String size80 = "0"; 
 	private String size90 = "0"; 
