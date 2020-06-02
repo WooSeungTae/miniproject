@@ -6,20 +6,19 @@ public class OrderDTO {
 	
 	private String name;
 	private String tel;
-	private String firstAddr;
-	private String secondAddr;
-	private String orderMemo;
-	private String orderType;
-	private String bankName;
+	private String addr;
+	private String ordermemo;
+	private String ordertype;
+	private String bankname;
 	private String bank;
 	private String id;
-	private int price;
-	private String code;
-	private int count;
-	private String ordersize;
-	private String orderNum;
-	private String orderDate;
-	private Date delivery;
+	private String totalprice;
+	private String ordernum;
+	private String delivery;
+	private Date orderdate;
+	private String mile="0";
+	
+	
 	
 	public String getName() {
 		return name;
@@ -33,35 +32,29 @@ public class OrderDTO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getFirstAddr() {
-		return firstAddr;
+	public String getAddr() {
+		return addr;
 	}
-	public void setFirstAddr(String firstAddr) {
-		this.firstAddr = firstAddr;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
-	public String getSecondAddr() {
-		return secondAddr;
+	public String getordermemo() {
+		return ordermemo;
 	}
-	public void setSecondAddr(String secondAddr) {
-		this.secondAddr = secondAddr;
+	public void setordermemo(String ordermemo) {
+		this.ordermemo = ordermemo;
 	}
-	public String getOrderMemo() {
-		return orderMemo;
+	public String getOrdertype() {
+		return ordertype;
 	}
-	public void setOrderMemo(String orderMemo) {
-		this.orderMemo = orderMemo;
+	public void setOrdertype(String ordertype) {
+		this.ordertype = ordertype;
 	}
-	public String getOrderType() {
-		return orderType;
+	public String getbankname() {
+		return bankname;
 	}
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
-	public String getBankName() {
-		return bankName;
-	}
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
+	public void setbankname(String bankname) {
+		this.bankname = bankname;
 	}
 	public String getBank() {
 		return bank;
@@ -75,49 +68,37 @@ public class OrderDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getPrice() {
-		return price;
+	public String gettotalprice() {
+		return totalprice;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void settotalprice(String totalprice) {
+		this.totalprice = totalprice;
 	}
-	public String getCode() {
-		return code;
+	public String getordernum() {
+		return ordernum;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setordernum(String ordernum) {
+		this.ordernum = ordernum;
 	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
-	public String getOrdersize() {
-		return ordersize;
-	}
-	public void setOrdersize(String ordersize) {
-		this.ordersize = ordersize;
-	}
-	public String getOrderNum() {
-		return orderNum;
-	}
-	public void setOrderNum(String orderNum) {
-		this.orderNum = orderNum;
-	}
-	public String getOrderDate() {
-		return orderDate;
-	}
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
-	}
-	public Date getDelivery() {
+	public String getDelivery() {
 		return delivery;
 	}
-	public void setDelivery(Date delivery) {
+	public void setDelivery(String delivery) {
 		this.delivery = delivery;
+	}
+	public Date getOrderdate() {
+		return orderdate;
+	}
+	public void setOrderdate(Date orderdate) {
+		this.orderdate = orderdate;
+	}
+	public String getMile() {
+		return mile;
+	}
+	public void setMile(String mile) {
+		this.mile = mile;
 	}
 	
 	
-	
+		
 }

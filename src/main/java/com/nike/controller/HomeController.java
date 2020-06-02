@@ -24,10 +24,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.nike.service.MemberService;
+import com.nike.service.OrderService;
 import com.nike.service.ProductService;
 import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.order.OrderDTO;
+import com.nike.order.Order_detailsDTO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
@@ -49,6 +52,8 @@ public class HomeController {
 	ProductService Pservice;
 	@Autowired
 	MemberService memberservice;
+	@Autowired
+	OrderService oservice;
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -72,7 +77,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "/sminj/main";
 	}
 
 	@RequestMapping("loginChk")
@@ -357,7 +362,11 @@ public class HomeController {
 	}
 	
 	/*구매후 등록*/
-
+	@RequestMapping("productBuy")
+	public String productBuy(Model model,OrderDTO Odto,Order_detailsDTO DDto) {
+		oservice.productBuy(Odto,DDto);
+		return "/sminj/main";
+	}
 	
 	@RequestMapping("myreviewlistall")
 	public String myreviewlistall() {

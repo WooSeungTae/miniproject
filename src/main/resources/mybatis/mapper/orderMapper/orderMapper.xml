@@ -2,5 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.care.mybatis.orderMapper.orderMapper"></mapper>
+<mapper namespace="com.care.mybatis.orderMapper.orderMapper">
+
+	<insert id="buyRegister" parameterType="Odto">
+		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname
+		,bank,id,totalprice,ordernum) values(#{name},#{tel},#{addr},
+		#{ordermemo},#{ordertype,jdbcType=VARCHAR},#{bankname},#{bank},#{id},#{totalprice},ordernumber.nextval)
+	</insert>
+	<insert id="buyRegisterDetails" parameterType="Ddto">
+		insert into orderDetailsInfo (orderNum,code,id,count,ordersize,price) 
+		values(#{orderNum},#{code},#{id},#{count},#{ordersize},#{price})
+	</insert>
+	<select id="SEQUENCENUM" resultType="int">
+		SELECT orderNumber.CURRVAL FROM DUAL;
+	</select>
+	
+</mapper>
 

@@ -23,9 +23,6 @@ import com.nike.memberInfo.MemberInfoDTO;
 
 @Service
 public class MemberService {
-
-
-
 	@Autowired
 	MemberInfoDAO dao;
 	

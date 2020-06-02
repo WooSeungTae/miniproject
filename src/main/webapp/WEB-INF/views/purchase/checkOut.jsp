@@ -58,7 +58,7 @@
 }
 
 /*배송선택 스타일*/
-.orderMemo {
+.ordermemo {
     width: 250px; /* 원하는 너비설정 */
     padding: .55em .4em; /* 여백으로 높이 설정 */
     font-family: inherit;  /* 폰트 상속 */
@@ -71,7 +71,7 @@
 	font-size: 15px;
 }
 /*배송메모 직접 입력란*/
-#orderMemo{
+#ordermemo{
 	width: 780px;
 	height: 15px;
 }
@@ -94,44 +94,51 @@
 </style>
 
 <script>
-	var price = ${quickProduct.price };
-	var total=0;
+	var price = ${quickProduct.price }*${count};
+	var total=${quickProduct.price }*${count};
 	var mile=0;
 	var yes=5000;
 	var checkDely=0;
 	
 	/*은행 선택*/
-	function changeBank(bankName){
-		if(bankName=="농협"){
+	function changeBank(bankname){
+		if(bankname=="농협"){
 			document.getElementById("bankNum").innerHTML="예금주 : (주)나이키<br>계좌번호 : 8795-5114-7814";
+			document.getElementById("totalprice").value=total;
 		}
-		if(bankName=="우리은행"){
+		if(bankname=="우리은행"){
 			document.getElementById("bankNum").innerHTML="예금주 : (주)나이키<br>계좌번호 : 1002-7815-789515";
+			document.getElementById("totalprice").value=total;
 		}
-		if(bankName=="기업은행"){
+		if(bankname=="기업은행"){
 			document.getElementById("bankNum").innerHTML="예금주 : (주)나이키<br>계좌번호 : 010-4567-8879";
+			document.getElementById("totalprice").value=total;
 		}
 			
 	}
 	
 	/*배송배시지 선택*/
-	function changOrderMemo(memo){
+	function changordermemo(memo){
 		var select = document.getElementById("memoDiv");
 		if(memo=="직접 입력"){
 			select.style.visibility='visible';
-			document.getElementById("orderMemo").value="";
+			document.getElementById("ordermemo").value="";
+			document.getElementById("totalprice").value=total;
 		}else{
 			select.style.visibility='hidden';
 		}
 		
 		if(memo=="배송시 연락 부탁드립니다."){
-			document.getElementById("orderMemo").value="배송시 연락 부탁드립니다.";
+			document.getElementById("ordermemo").value="배송시연락부탁드립니다.";
+			document.getElementById("totalprice").value=total;
 		}
 		if(memo=="빠른배송 부탁드립니다."){
-			document.getElementById("orderMemo").value="빠른배송 부탁드립니다.";
+			document.getElementById("ordermemo").value="빠른배송부탁드립니다.";
+			document.getElementById("totalprice").value=total;
 		}
 		if(memo=="배송메모 없음"){
-			document.getElementById("orderMemo").value="별도의 요청 없음.";
+			document.getElementById("ordermemo").value="별도의요청없음.";
+			document.getElementById("totalprice").value=total;
 		}
 	}
 	
@@ -143,6 +150,7 @@
 			checkDely=0;
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
+			document.getElementById("totalprice").value=total;
 		}
 		if(dely=="fast"){
 			document.getElementById("dely").innerHTML=yes.toLocaleString()+" 원";
@@ -150,6 +158,7 @@
 			checkDely=1;
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
+			document.getElementById("totalprice").value=total;
 		}
 	}
 	function mileSet(){
@@ -165,13 +174,19 @@
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
+			document.getElementById("totalprice").value=total;
 		}else{
 			total=price-mile;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
+			document.getElementById("totalprice").value=total;
 		}
 
+	}
+	
+	function submitbuy(){
+		fo.submit();
 	}
 	
 </script>
@@ -184,7 +199,7 @@
 		<div class="" style="text-align: center;">
 			<h1>주문결제</h1>
 		</div>
-	<form action="productBuy" method="get">
+	<form id ="fo" action="productBuy" method="get">
 		<div class="" style="text-align: center;"><h3>${quickProduct.codename }</h3></div>
 		<div class="" style="text-align: center;"><h3>${count } 개 </h3></div>
 		<div>
@@ -232,7 +247,7 @@
 						<div>
 						<div style="float: left; text-align: left;">상품금액</div>
 						<div style="text-align: right;"><script type="text/javascript">
-										var price = ${quickProduct.price };
+										var price = ${quickProduct.price }*${count};
 										document.write(price.toLocaleString()+' 원');
 									</script></div>
 					</div>
@@ -271,8 +286,8 @@
 				<div>
 
 					<h3>주문고객</h3>
-					<h5>고객명 : ${searchId.name}</h5>
-					<h5 id="telH">전화번호 : <script>
+					<h5 >고객명 : ${searchId.name}</h5>
+					<h5 id="telH" >전화번호 : <script>
 					var num =  "${searchId.tel}";
 					num = num.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
 					document.write(num);
@@ -304,24 +319,24 @@
 							<input style="width: 780px;" type="text" value="${searchId.address}" placeholder="나머지 주소 입력">
 						</div>
 					</div>
-					<select class ="orderMemo" id = "orderMemo1" onchange="changOrderMemo(this.value)">
+					<select class ="ordermemo" id = "ordermemo1" onchange="changordermemo(this.value)">
 						<option value="배송메모 없음">배송메모를 선택해주세요</option>
 						<option value="배송시 연락 부탁드립니다.">배송시 연락 부탁드립니다.</option>
 						<option value="빠른배송 부탁드립니다.">빠른배송 부탁드립니다.</option>
 						<option value="직접 입력">직접 입력</option>
-					</select><div id="memoDiv" style="visibility: hidden;"><input type="text" id = "orderMemo" name = "orderMemo" placeholder="배송메모를 직접 입력하여 주십시오." ><br></div> 
+					</select><div id="memoDiv" style="visibility: hidden;"><input type="text" id = "ordermemo" name = "ordermemo" placeholder="배송메모를 직접 입력하여 주십시오." ><br></div> 
 					※ 배송 수령 시간은 임의로 지정하실 수 없습니다.<br> ※ 배송 메세지에 특수문자 "\ 사용이 불가합니다.<br>
 					<br>
 					<hr style="width: 100%;">
 					<div class="dlM">
 						<h3>배송방식 선택</h3>
-						<br><h4> <input type="radio" name="delivery" value="normal" onclick="changeDely(this.value)" checked >일반배송 : 배송비
+						<br><h4> <input type="radio" name="ordertype" value="normal" onclick="changeDely(this.value)" checked >일반배송 : 배송비
 						무료<br></h4>
 						<p>
 							ㆍ 배송지역 : 전국(일부 도서산간 지역 제외)<br> ㆍ 배송기간 : 결제 후 3일 이내(토, 공휴일
 							제외)<br>
 							<br>
-							<br><h4> <input type="radio" name="delivery" value="fast" onclick="changeDely(this.value)">오늘도착 : 서비스
+							<br><h4> <input type="radio" name="ordertype" value="fast" onclick="changeDely(this.value)">오늘도착 : 서비스
 							비용 5,000원 [나이키멤버 전용]<br></h4>
 						<p>
 							ㆍ 배송지역 : 서울ㆍ분당<br> ㆍ 이용시간 : 13시까지 결제 시, 당일 도착(공휴일 제외)<br>
@@ -336,7 +351,7 @@
 					<h3>마일리지 사용</h3>
 					<div>
 					<b>보유 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" value="${searchId.mile}"> 점</b><br>
-					<b>사용 마일리지 &nbsp;&nbsp;<input id="mile" name="mile" style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" > 점 </b> <input type="button" value="적용" onclick="mileSet()">
+					<b>사용 마일리지 &nbsp;&nbsp;<input id="mile" name="mile" style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" value="0"> 점 </b> <input type="button" value="적용" onclick="mileSet()">
 					</div>
 					<hr style="width: 100%;">
 					
@@ -345,19 +360,19 @@
 					<div>
 						
 						<h3>입금자 성명</h3>				
-						<input name = "name"type="text" placeholder="입금자 이름을 입력해주세요">
+						<input name = "bankname" type="text" placeholder="입금자 이름을 입력해주세요">
 						<fieldset>
 						<legend><h4>입금하실 은행을 선택하여 주세요.</h4></legend>
-						<input type="radio" name = "bankName" value="농협" onclick="changeBank(this.value)"> 농협
-						<input type="radio" name = "bankName" value="우리은행" onclick="changeBank(this.value)"> 우리은행
-						<input type="radio" name = "bankName" value="기업은행" onclick="changeBank(this.value)"> 기업은행 <br>
+						<input type="radio" name = "bank" value="농협" onclick="changeBank(this.value)"> 농협
+						<input type="radio" name = "bank" value="우리은행" onclick="changeBank(this.value)"> 우리은행
+						<input type="radio" name = "bank" value="기업은행" onclick="changeBank(this.value)"> 기업은행 <br>
 						<br><b><div class="bankNum" id = "bankNum"></div></b>
 						</fieldset>						 
 					</div>
 					<br>
 					<br>
 					<!--  결제 클릭 -->
-					<div id="buy" name="price" class="buy">
+					<div onclick='submitbuy()' id="buy" class="buy" >
 						<script type="text/javascript">
 										var price = ${quickProduct.price }*${count};
 										document.write(price.toLocaleString()+' 원 결제');
@@ -368,6 +383,19 @@
 				</section>
 			</div>
 		</div>
+		<!--  히든 내용 -->
+		
+		<input type="hidden" name = "name" value="${searchId.name}">
+		<input type="hidden" name = "tel" value="${searchId.tel}">
+		<input type="hidden" name = "id" value="${sessionScope.id }">
+		<input type="hidden" name = "addr" value="${searchId.address}">
+		<input type="text" name = "totalprice" id="totalprice" value="">
+		<input type="hidden" name = "code" value="${quickProduct.code }">
+		<input type="hidden" name = "count" value="${count }">
+		<input type="hidden" name = "ordersize" value="${ordersize }">
+		<input type="hidden" name = "price" value="${quickProduct.price }">
+		
+		
 		</form>
 	</div>
 	<c:import url="/footer"></c:import>
