@@ -55,15 +55,6 @@ public class ProductDAO {
 	public List<ProductDTO> allListKidsCategoly(String category) {
 		return sqlSession.selectList(nameSpace+".AllListKidsCategory",category);
 	}
-<<<<<<< HEAD
-
-	
-	
-	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
-		// TODO Auto-generated method stub
-
-	}
-
 
 	//관리자 상품 목록 수정, 삭제를 위한 조회
 	public ProductDTO productSelect(String code) {
@@ -75,7 +66,6 @@ public class ProductDAO {
 		sqlSession.delete(nameSpace+".productDelete", code);		
 	}
 
-=======
 	/*상품등록 기본정보 등록*/
 	public void product_input(ProductDTO pdto) {
 		sqlSession.insert(nameSpace+".productinput",pdto);
@@ -89,5 +79,4 @@ public class ProductDAO {
 	    return sqlSession.selectOne(nameSpace+".codeSearch",code);      
 	}	
 	
->>>>>>> minhoeyk
 }

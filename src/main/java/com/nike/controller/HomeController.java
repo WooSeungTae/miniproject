@@ -41,13 +41,10 @@ public class HomeController {
 	@Autowired
 	MemberService memberservice;
 	@Autowired
-<<<<<<< HEAD
 	OrderService orderservice;
-	
-=======
+	@Autowired
 	FileUploadService fileUploadService;
 
->>>>>>> minhoeyk
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;

@@ -3,16 +3,12 @@ package com.nike.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.ui.Model;
-
-import com.nike.product.ProductDAO;
-
 
 import com.nike.product.ProductDAO;
 import com.nike.product.ProductDTO;
@@ -232,11 +228,7 @@ public class ProductService {
 	public void product_size(Product_sizeDTO sizedto) {
 		Pdao.product_size(sizedto);
 	}
-<<<<<<< HEAD
-	
-	
-		
-	
+
 	/*세부 상품 조회*/
 	public ProductDTO productdetail(String code) {
 		return Pdao.productdetail(code);
@@ -255,6 +247,4 @@ public class ProductService {
 	}
 
 
-=======
->>>>>>> minhoeyk
 }
