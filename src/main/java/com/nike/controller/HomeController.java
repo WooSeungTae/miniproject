@@ -28,8 +28,6 @@ import com.nike.service.ProductService;
 import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
-import com.nike.order.OrderDTO;
-import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
@@ -359,10 +357,7 @@ public class HomeController {
 	}
 	
 	/*구매후 등록*/
-	public String productBuy(Model model,OrderDTO Odto) {
-		
-		return "/nike/main";
-	}
+
 	
 	@RequestMapping("myreviewlistall")
 	public String myreviewlistall() {

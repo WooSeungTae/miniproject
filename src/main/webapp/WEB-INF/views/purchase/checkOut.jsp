@@ -7,7 +7,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
+/*현제 페이지 전체 hr*/
+.chekcout hr{
+	border:solid 0.5px #e8ebed;
+}
 /*주문내역 사진*/
 #quickImg{
 	width: 180px;
@@ -91,7 +94,12 @@
 </style>
 
 <script>
-
+	var price = ${quickProduct.price };
+	var total=0;
+	var mile=0;
+	var yes=5000;
+	var checkDely=0;
+	
 	/*은행 선택*/
 	function changeBank(bankName){
 		if(bankName=="농협"){
@@ -129,30 +137,50 @@
 	
 	/*배송비 선택*/
 	function changeDely(dely){
-		var price = ${quickProduct.price };
-		var no = 0;
-		var yes=5000;
-		var total=0;
 		if(dely=="normal"){
-			document.getElementById("dely").innerHTML=no+" 원";
-			total=price*${count};
+			document.getElementById("dely").innerHTML="0 원";
+			total=price-mile;
+			checkDely=0;
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 		}
 		if(dely=="fast"){
 			document.getElementById("dely").innerHTML=yes.toLocaleString()+" 원";
-			total=(price*${count})+yes;
+			total=yes+price-mile;
+			checkDely=1;
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 		}
 	}
+	function mileSet(){
+		mile =  document.getElementById("mile").value;
+		if(mile>=${searchId.mile}){
+			mile=${searchId.mile};
+			document.getElementById("mile").value=mile;
+			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
+		};
+		console.log(mile);
+		if(checkDely==1){
+			total=yes+price-mile;
+			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
+			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
+			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
+		}else{
+			total=price-mile;
+			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
+			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
+			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
+		}
+
+	}
+	
 </script>
 
 
 </head>
 <body >
 	<c:import url="/header"></c:import>
-	<div style="width: 70%; margin: auto; padding-top: 80px;">
+	<div class="chekcout" style="width: 70%; margin: auto; padding-top: 80px;">
 		<div class="" style="text-align: center;">
 			<h1>주문결제</h1>
 		</div>
@@ -163,10 +191,10 @@
 			<!-- 우측 주문금액 내역  -->
 			<aside class="rightSide" >
 				<section style="padding: 20px;">
-					<div style="background-color: #F5F5F5;">
-						<h3>주문내역</h3>
+					<div style="background-color: #F5F5F5; height: 45px;">
+						<h3 style="padding: 10px; text-align: center;">주문내역</h3>
 					</div>
-				<aside style="border: 1; border-color: #F5F5F5; padding: 10px; ">
+				<aside style="border: 3px solid;  border-color: #F5F5F5; padding: 10px; ">
 						<div>
 						<div style="float: left; padding-right: 20px;">
 						<img id ="quickImg"src="/nike/${quickProduct.image1 }" onclick="location.href='/nike/productdetail?code=${quickProduct.code }'">
@@ -214,7 +242,7 @@
 					</div>
 					<div>
 						<div style="float: left; text-align: left;">상품 할인 금액</div>
-						<div style="text-align: right;">0 원</div>
+						<div id="mileMoney" style="text-align: right;">0 원</div>
 					</div>
 					<div>
 						<div style="float: left; text-align: left;">주문 할인 금액</div>
@@ -257,7 +285,7 @@
 					<h3>배송지 정보</h3>
 				</div>
 					<!--  받으시는분 연락처 공간 -->
-					<div >
+					<div class="delyinfo" >
 						<div style="float: left; width: 50%;">
 							받으시는분<br> <input type="text" value="${searchId.name}" placeholder="이름">
 						</div>
@@ -301,14 +329,14 @@
 							예정, 배송업체 상황에 따라 조금 지연될 수 있습니다.<br> 
 							&nbsp;&nbsp;&nbsp; 오늘 밤에 받으실 배송지 주소를 한번더 확인해
 							주세요.
-					</div>
+							</div>
 					<br>
 					<hr style="width: 100%;">
 					<!--  혜택 할인 -->
 					<h3>마일리지 사용</h3>
 					<div>
 					<b>보유 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" value="${searchId.mile}"> 점</b><br>
-					<b>사용 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" onchange="changeDely(this.value)"> 점</b>
+					<b>사용 마일리지 &nbsp;&nbsp;<input id="mile" name="mile" style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" > 점 </b> <input type="button" value="적용" onclick="mileSet()">
 					</div>
 					<hr style="width: 100%;">
 					
@@ -329,7 +357,7 @@
 					<br>
 					<br>
 					<!--  결제 클릭 -->
-					<div id="buy" class="buy">
+					<div id="buy" name="price" class="buy">
 						<script type="text/javascript">
 										var price = ${quickProduct.price }*${count};
 										document.write(price.toLocaleString()+' 원 결제');
