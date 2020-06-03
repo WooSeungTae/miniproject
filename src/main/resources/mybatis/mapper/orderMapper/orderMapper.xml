@@ -12,8 +12,8 @@
 	
 	<!-- orderDetailsInfo 테이블에 저장 -->
 	<insert id="buyRegisterDetails" parameterType="Ddto">
-		insert into orderDetailsInfo (orderNum,code,id,count,ordersize,price) 
-		values(#{ordernum},#{code},#{id},#{count},#{ordersize},#{price})
+		insert into orderDetailsInfo (ordernum,code,id,count,ordersize,price,image1) 
+		values(#{ordernum},#{code},#{id},#{count},#{ordersize},#{price},#{image1})
 	</insert>
 
 	

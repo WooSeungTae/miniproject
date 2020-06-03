@@ -23,7 +23,7 @@ public class OrderDAO {
 //		System.out.println("배송타입 : "+Odto.getOrdertype());
 //		System.out.println("전화번호 : "+Odto.getTel());
 //		System.out.println("총가격 : "+Odto.gettotalprice());
-		System.out.println("정보 주문번호 : "+Odto.getordernum());
+		//System.out.println("정보 주문번호 : "+Odto.getordernum());
 		sqlSession.insert(namespace+".buyRegister",Odto);
 		}
 	

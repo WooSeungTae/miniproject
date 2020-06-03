@@ -176,7 +176,7 @@
 							<div class="pinfo-item-box">
 								<form method="POST" action="#">
 								<!-- 세션 임의 생성 -->
-								<c:set var="id" value="hong" scope="session"/> 
+							
 									<div class="option-wrap">
 										<div class="size-grid-type padding radius">
 											<a class="btn-option">

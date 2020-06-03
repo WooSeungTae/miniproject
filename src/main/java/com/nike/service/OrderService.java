@@ -38,7 +38,7 @@ public class OrderService {
 		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
 		orderNum = orderNum + format.format(new Date());
 		Odto.setordernum(orderNum);
-		Ddto.setOrderNum(orderNum);
+		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
 		Ddao.buyRegisterDetails(Ddto);
 	}

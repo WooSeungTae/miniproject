@@ -165,14 +165,17 @@
 			document.getElementById("totalprice").value=total;
 		}
 	}
+
 	function mileSet(){
-		mile =  document.getElementById("mile").value;
-		if(mile>=${searchId.mile}){
-			mile=${searchId.mile};
+		var s = '${searchId.mile}';
+		
+		if("${sessionScope.id}"!=""){	
+			mile =  document.getElementById("mile").value;
+		if(mile>=s){
+			mile=s;
 			document.getElementById("mile").value=mile;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
 		};
-		console.log(mile);
 		if(checkDely==1){
 			total=yes+price-mile;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
@@ -186,11 +189,23 @@
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
 		}
-
+		
+		}
+			
 	}
+
 	/*빈칸 있을시 결제 불가*/
 	function submitbuy(){
-		if(document.getElementById("ordermemo").value==""){
+		if(document.getElementById("name").value==""){
+			document.getElementById("name").focus();
+			alert('이름을  입력하여 주세요.');
+		}else if(document.getElementById("tel").value==""){
+			document.getElementById("tel").focus();
+			alert('전화번호를 선택 혹은 입력하여 주세요.');
+		}else if(document.getElementById("addr").value==""){
+			document.getElementById("addr").focus();
+			alert('배송지를 입력하여 주세요.');
+		}else if(document.getElementById("ordermemo").value==""){
 			document.getElementById("ordermemo1").focus();
 			alert('배송메모를 선택 혹은 입력하여 주세요.');
 		}else if(document.getElementById("bankname").value==""){
@@ -227,7 +242,7 @@
 				<aside style="border: 3px solid;  border-color: #F5F5F5; padding: 10px; ">
 						<div>
 						<div style="float: left; padding-right: 20px;">
-						<img id ="quickImg"src="/nike/${quickProduct.image1 }" onclick="location.href='/nike/productdetail?code=${quickProduct.code }'">
+						<img id ="quickImg" src="/nike/${quickProduct.image1 }" onclick="location.href='/nike/productdetail?code=${quickProduct.code }'">
 						</div>
 							<table>
 								<tr>
@@ -299,8 +314,9 @@
 				<section class="addr"
 					style="display: flex; flex-direction: column; padding-top: 10px;">
 				<div>
-
 					<h3>주문고객</h3>
+				<c:choose>
+					<c:when test="${sessionScope.id!=null}">
 					<h5 >고객명 : ${searchId.name}</h5>
 					<h5 id="telH" >전화번호 : <script>
 					var num =  "${searchId.tel}";
@@ -308,7 +324,14 @@
 					document.write(num);
 					</script>
 					</h5>
-					<h5>고객ID : ${searchId.id}</h5>					
+					<h5>고객ID : ${searchId.id}</h5>
+					</c:when>
+					<c:otherwise>
+					
+					<h5>비회원 고객님</h5>
+					<h5>회원가입을 하시면 혜택이 많이 있습니다.</h5>
+					</c:otherwise>					
+				</c:choose>				
 				<hr>
 				</div>
 				<div>
@@ -317,10 +340,12 @@
 					<!--  받으시는분 연락처 공간 -->
 					<div class="delyinfo" >
 						<div style="float: left; width: 50%;">
-							받으시는분<br> <input type="text" value="${searchId.name}" placeholder="이름">
+							받으시는분<br> <c:if test="${sessionScope.id!=null}"><input type="text" id = "name" name = "name" value="${searchId.name}" placeholder="이름"></c:if>
+										<c:if test="${sessionScope.id==null}"><input type="text" id = "name"name = "name" value="" placeholder="이름을 입력하세요"></c:if>
 						</div>
 						<div style="float: left; width: 50%;">
-							연락처<br> <input type="text"  value="${searchId.tel}" placeholder="-없이 입력">
+							연락처<br> <c:if test="${sessionScope.id!=null}"><input type="text" id = "tel" name="tel" value="${searchId.tel}" placeholder="-없이 입력"></c:if>
+									 <c:if test="${sessionScope.id==null}"><input type="text" id = "tel" name="tel" value="" placeholder="-없이 입력"></c:if>
 						</div>
 					</div>
 					<!-- 배송주소-->
@@ -331,7 +356,8 @@
 						</div>
 						<div style="float: left; width: 20%;">검색</div>
 						<div>
-							<input style="width: 780px;" type="text" value="${searchId.address}" placeholder="나머지 주소 입력">
+							<c:if test="${sessionScope.id!=null}"><input style="width: 780px;" id = "addr" name="addr" type="text" value="${searchId.address}" placeholder="나머지 주소 입력"></c:if>
+							<c:if test="${sessionScope.id==null}"><input style="width: 780px;" id = "addr" name="addr" type="text" value="" placeholder="나머지 주소 입력"></c:if>
 						</div>
 					</div>
 					<select class ="ordermemo" id = "ordermemo1" onchange="changordermemo(this.value)">
@@ -365,8 +391,9 @@
 					<!--  혜택 할인 -->
 					<h3>마일리지 사용</h3>
 					<div>
-					<b>보유 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" value="${searchId.mile}"> 점</b><br>
-					<b>사용 마일리지 &nbsp;&nbsp;<input id="mile" name="mile" style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" value="0"> 점 </b> <input type="button" value="적용" onclick="mileSet()">
+					<c:if test="${sessionScope.id!=null}"><b>보유 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" value="${searchId.mile}"> 점</b><br></c:if>
+					<c:if test="${sessionScope.id==null}"><b>보유 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" value="회원전용"> 점</b><br></c:if>
+					<c:if test="${sessionScope.id!=null}"><b>사용 마일리지 &nbsp;&nbsp;<input id="mile" name="mile" style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" value="0"> 점 </b> <input type="button" value="적용" onclick="mileSet()"></c:if>
 					</div>
 					<hr style="width: 100%;">
 					
@@ -400,15 +427,20 @@
 		</div>
 		<!--  히든 내용 -->
 		
-		<input type="hidden" name = "name" value="${searchId.name}">
-		<input type="hidden" name = "tel" value="${searchId.tel}">
+		<c:choose>
+			<c:when test="${sessionScope.id!=null }">		
 		<input type="hidden" name = "id" value="${sessionScope.id }">
-		<input type="hidden" name = "addr" value="${searchId.address}">
+		</c:when>
+		<c:otherwise>
+			<input type="hidden" name = "id" value="비회원">
+		</c:otherwise>
+		</c:choose>
 		<input type="hidden" name = "totalprice" id="totalprice" value="">
 		<input type="hidden" name = "code" value="${quickProduct.code }">
 		<input type="hidden" name = "count" value="${count }">
 		<input type="hidden" name = "ordersize" value="${ordersize }">
 		<input type="hidden" name = "price" value="${quickProduct.price }">
+		<input type="hidden" name = "image1" value="${quickProduct.image1 }">
 		
 		
 		</form>

@@ -354,19 +354,21 @@ public class HomeController {
 	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
 			,@Param("ordersize") String ordersize
 			,@Param("count") String count) {
-		service.searchId(model, id);
+		if(id!=null)service.searchId(model, id);
 		Pservice.codeSearch(model, code);
 		model.addAttribute("ordersize", ordersize);
 		model.addAttribute("count", count);
 		return "purchase/checkOut";
 	}
 	
+	
+	
 	/*구매후 등록*/
 	@RequestMapping("productBuy0")
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
-		System.out.println("호출");
+		//System.out.println("호출");
 		oservice.productBuy(Odto,Ddto);
-		return "/sminj/main";
+		return "myPage/myPage";
 	}
 	
 	@RequestMapping("myreviewlistall")

@@ -7,12 +7,20 @@ public class Order_detailsDTO {
 	private String count;
 	private String ordersize ;
 	private String price;
+	private String image1;
 	
 	
-	public String getOrderNum() {
+	public String getImage1() {
+		return image1;
+	}
+	public void setImage1(String image1) {
+		this.image1 = image1;
+	}
+
+	public String getOrdernum() {
 		return ordernum;
 	}
-	public void setOrderNum(String ordernum) {
+	public void setOrdernum(String ordernum) {
 		this.ordernum = ordernum;
 	}
 	public String getCode() {
