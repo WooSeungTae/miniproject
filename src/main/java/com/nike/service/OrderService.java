@@ -39,6 +39,11 @@ public class OrderService {
 	public int totalprice(String id) {
 		return odao.totalprice(id);
 	}
+	
+	/*회원별 장바구니에서 x누른 아이템 삭제*/
+	public void cartitemdelete(ShoppingCartDTO sdto) {
+		odao.cartitemdelete(sdto);
+	}
 
 	
 }

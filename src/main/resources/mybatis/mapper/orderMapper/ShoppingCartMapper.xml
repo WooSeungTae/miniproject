@@ -30,4 +30,8 @@
 		select sum(price) from shoppingcart where id=#{id}
 	</select>
 	
+	<!-- 회원별 장바구니에서 x누른 아이템 삭제 -->
+	<delete id="cartitemdelete" parameterType="Sdto">
+		delete from shoppingcart where id=#{id} and code=#{code}
+	</delete>
 </mapper>

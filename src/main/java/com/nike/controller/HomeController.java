@@ -345,7 +345,6 @@ public class HomeController {
 		sdto.setImage1(Pservice.image1get(sdto.getCode()));
 		/*장바구니에 가격 저장하는 기능*/
 		sdto.setPrice(Pservice.priceget(sdto.getCode()));
-		System.out.println("HomeController2=====================================" + Pservice.priceget(sdto.getCode()));
 		/*장바구니 DB에 값을 저장*/
 		orderservice.insertcart(sdto);
 		return "redirect:cart";
@@ -362,7 +361,6 @@ public class HomeController {
 		model.addAttribute("cartlist", orderservice.selectcart(id));
 		/*장바구니 DB에서 회원별 총 금액 가져오기*/
 		model.addAttribute("totalprice", orderservice.totalprice(id));
-		System.out.println("HomeController=====================================" + orderservice.totalprice(id));
 		return "purchase/cart";
 	}
 	
@@ -374,6 +372,18 @@ public class HomeController {
 		orderservice.cartAlldelete(id);
 		return "redirect:cart";
 	}
+	
+	/*회원별 장바구니에서 x누른 아이템 삭제*/
+	@RequestMapping("cartitemdelete")
+	public String cartitemdelete(ShoppingCartDTO sdto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		sdto.setCode(request.getParameter("code"));
+		orderservice.cartitemdelete(sdto);
+		return "redirect:cart";
+	}
+	
 	/*구매*/
 	@RequestMapping("checkout")
 	public String checkOut() {

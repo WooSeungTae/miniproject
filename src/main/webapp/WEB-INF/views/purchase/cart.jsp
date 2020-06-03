@@ -204,7 +204,7 @@
 														</strong>
 													</div>
 													<div class="delete-btn">
-														<a class="btn-delete" href="#" onclick="itemdelete()"><i class="icon-delete_bold">X</i></a>
+														<a class="btn-delete" href="cartitemdelete?code='${cartitem.code }'"><i class="icon-delete_bold">X</i></a>
 													</div>
 												</div>
 											</div>

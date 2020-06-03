@@ -43,8 +43,9 @@ public class OrderDAO {
 		return sqlSession.selectOne(namespace2+".totalprice", id);
 	}
 	
-	
-	
-	
+	/*회원별 장바구니에서 x누른 아이템 삭제*/
+	public void cartitemdelete(ShoppingCartDTO sdto) {
+		sqlSession.delete(namespace2+".cartitemdelete", sdto);
+	}
 	
 }
