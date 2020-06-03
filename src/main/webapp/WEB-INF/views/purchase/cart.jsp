@@ -131,6 +131,9 @@
 		.btn-link{
 			margin-top:15px; background-color:#fb5302; font-size:14x; font-weight:bold; color:#fff;
 		}
+		a:link{
+			text-decoration:none;
+		}
 	</style>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
