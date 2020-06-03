@@ -3,16 +3,12 @@ package com.nike.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.ui.Model;
-
-import com.nike.product.ProductDAO;
-
 
 import com.nike.product.ProductDAO;
 import com.nike.product.ProductDTO;
@@ -23,6 +19,17 @@ import com.nike.product.Product_sizeDTO;
 public class ProductService {
 	@Autowired
 	private ProductDAO Pdao;
+	
+	/*신발 코드로 검색 검색 결과 없다면 1 있다면 0*/
+	public int codeSearch(Model model,String code) {
+	   model.addAttribute("quickProduct", Pdao.codeSearch(code));
+	   if(Pdao.codeSearch(code)==null) {
+		   return 1;
+	   }else {
+		   return 0;
+	   }
+	}
+	
 	/*남자 신발 전체 검색 및 컬러 조회*/
 	public void allListMen(Model model) {
 		model.addAttribute("AllListMen", Pdao.allListMen());
@@ -213,10 +220,21 @@ public class ProductService {
 		}
 		model.addAttribute("codeNameList", hm);
 	}
-	
-	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
-		Pdao.product_input(sizedto,dto);
+	/*상품 등록 기본 정보*/
+	public void product_input(ProductDTO pdto) {
+		Pdao.product_input(pdto);
 	}
+	/*상품 등록 사이즈별 수량*/
+	public void product_size(Product_sizeDTO sizedto) {
+		Pdao.product_size(sizedto);
+	}
+
+	/*세부 상품 조회*/
+	public ProductDTO productdetail(String code) {
+		return Pdao.productdetail(code);
+	}
+	
+
 	
 	//관리자 상품 목록 수정, 삭제를 위한 조회
 	public ProductDTO productSelect(String code) {
@@ -227,5 +245,6 @@ public class ProductService {
 	public void productDelete(String code) {		
 		Pdao.productDelete(code);	
 	}
+
 
 }

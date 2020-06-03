@@ -15,6 +15,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import com.nike.product.ProductDTO;
+
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,7 +27,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MemberInfoDAO {
 
-	private static final String namespace = "com.nike.mybatis.memberMapper.memberMapper";
+	private static final String namespace = "com.care.mybatis.memberMapper.memberMapper";
 	@Autowired
 	private SqlSession sqlSession;
 

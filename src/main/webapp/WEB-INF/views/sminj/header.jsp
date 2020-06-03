@@ -38,6 +38,7 @@
 	var searchCodeName = document.getElementById('searchProduct').value;
 	location.href="/nike/searchCheck?codename="+searchCodeName;
    }
+   
  </script>
 <style type="text/css">
 	/* 기본 설정 */
@@ -152,7 +153,6 @@
 			</ul>
 	</c:if>
 	<hr class="header_hr">	
-</header>
 <nav>
 	<div class="nav_menu" align="center">
 		<span class="swoosh_span"><input type="image" class="swoosh_input" src="/nike/image/nike.jpg" onclick="location.href='main'"></span>

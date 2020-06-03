@@ -12,7 +12,14 @@
 		select * from product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate, codename
 	</select>
 	<!--  전체 총 페이지 -->
-		<select id="countProduct" resultType="int">
+
+	
+	
+	<!-- 세부상품 페이지 조회  -->
+	<select id="productdetail" resultType="Pdto" parameterType="String">
+		select * from product where code=#{code}
+	</select>
+	<select id="countProduct" resultType="int">
 		select count(*) from product;		
 		</select>
 		
@@ -45,5 +52,18 @@
 		<select id="AllListKidsCategory" resultType="Pdto">
 		select * from product where gender='키즈' and category=#{category} ORDER BY joindate, codename
 	</select>
+	
+	<!-- 상품정보 등록 -->
+	<insert id="productinput" parameterType="Pdto">
+		insert into product (code,codename,codecolor,category,gender,image1,image2,image3,image4,image5,image6,contents,price) values(#{code},#{codename},#{codecolor},#{category},#{gender},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{contents},#{price})
+	</insert>
+	<!-- 상품 size수량 등록 -->
+	<insert id="sizeinput" parameterType="Pdto_size">
+		insert into sizetable values(#{code},#{size80},#{size90},#{size100},#{size110},#{size120},#{size130},#{size140},#{size150},#{size160},#{size220},#{size230},#{size240},#{size250},#{size260},#{size270},#{size280},#{size290},#{size300},#{size310},#{size320},#{size330})
+	</insert>
+   <!-- 페이징 없이 코드로 품목 검색 -->
+   <select id="codeSearch" resultType="Pdto">
+   select * from product where code=#{code}
+   </select>
 </mapper>
 
