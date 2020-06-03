@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-
 <mapper namespace="com.care.mybatis.orderMapper.orderMapper">
+	<!-- orderInfo 테이블에 저장 -->
+	<insert id="buyRegister" parameterType="Odto">
+		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname
+		,bank,id,totalprice,ordernum) values(#{name},#{tel},#{addr},
+		#{ordermemo},#{ordertype},#{bankname},#{bank},#{id},#{totalprice},#{ordernum})
+	</insert>
+	
+	<!-- orderDetailsInfo 테이블에 저장 -->
+	<insert id="buyRegisterDetails" parameterType="Ddto">
+		insert into orderDetailsInfo (ordernum,code,id,count,ordersize,price,image1) 
+		values(#{ordernum},#{code},#{id},#{count},#{ordersize},#{price},#{image1})
+	</insert>
 
 </mapper>
 

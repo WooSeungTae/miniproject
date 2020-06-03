@@ -1,19 +1,28 @@
 package com.nike.order;
 
 public class Order_detailsDTO {
-	private String orderNum;
+
+	private String ordernum;
 	private String code;
 	private String id;
 	private String count;
 	private String ordersize ;
 	private String price;
+	private String image1;
 	
 	
-	public String getOrderNum() {
-		return orderNum;
+	public String getImage1() {
+		return image1;
 	}
-	public void setOrderNum(String orderNum) {
-		this.orderNum = orderNum;
+	public void setImage1(String image1) {
+		this.image1 = image1;
+	}
+
+	public String getOrdernum() {
+		return ordernum;
+	}
+	public void setOrdernum(String ordernum) {
+		this.ordernum = ordernum;
 	}
 	public String getCode() {
 		return code;

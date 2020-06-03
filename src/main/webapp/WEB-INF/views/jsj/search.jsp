@@ -245,13 +245,13 @@ document.getElementById(imgId).src = changeName;
 											style="padding-left: 14px;"><a href="/nike/Men">Men</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=run">러닝</a></li>
+											href="/nike/Men/category?category=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=basket">농구</a></li>
+											href="/nike/Men/category?category=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=soccer">축구</a></li>
+											href="/nike/Men/category?category=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -260,17 +260,17 @@ document.getElementById(imgId).src = changeName;
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men">Women
+											style="padding-left: 14px;"><a href="/nike/Women">Women
 										</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=run">러닝</a></li>
+											href="/nike/Women/category?category=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=basket">농구</a></li>
+											href="/nike/Women/category?category=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=soccer">축구</a></li>
+											href="/nike/Women/category?category=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -279,16 +279,16 @@ document.getElementById(imgId).src = changeName;
 								<div class="f-category">
 									<ul id="category-filter-list">
 										<li class="f-item" id="two-depth-shoes"
-											style="padding-left: 14px;"><a href="/nike/Men">Kids</a></li>
+											style="padding-left: 14px;"><a href="/nike/Kids">Kids</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=run">러닝</a></li>
+											href="/nike/Kids/category?category=run">러닝</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=basket">농구</a></li>
+											href="/nike/Kids/category?category=basket">농구</a></li>
 										<li class="f-item" id="two-depth-shoes"
 											style="padding-left: 14px;"><a
-											href="/nike/Men/categoly?categoly=soccer">축구</a></li>
+											href="/nike/Kids/category?category=soccer">축구</a></li>
 									</ul>
 								</div>
 							</div>
@@ -306,7 +306,7 @@ document.getElementById(imgId).src = changeName;
 										<div class="ncss-col">
 											<div class="a-product">
 												<div class="a-product-image">
-													<a href="${search.code}">
+													<a href="/nike/productdetail?code=${search.code}">
 														<div class="a-product-image-wrapper">
 															<div class="a-image">
 																<img id="${search.code }"
@@ -332,7 +332,14 @@ document.getElementById(imgId).src = changeName;
 																</span>
 															</div>
 															<div id="item-color-opt" class="product-colorways-number">
-																<span class="text-color-secondary">1 컬러</span>
+																<span class="text-color-secondary">
+																<c:forEach var ="num" items="${codeNameList }">
+																	<c:if test="${num.key==search.codename}">
+																		${num.value } 컬러
+																	</c:if>													
+																</c:forEach>
+																
+																</span>
 															</div>
 														</div>
 														<div class="product-price">
@@ -360,6 +367,26 @@ document.getElementById(imgId).src = changeName;
 							</div>
 						</c:otherwise>
 					</c:choose>
+					<div style="display: block; text-align: center;">
+						<c:if test="${paging.startPage != 1 }">
+							<a href="searchCheck?nowPage=${paging.startPage - 1 }&codename=${paging.codename}">이전</a>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+							var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<a href="searchCheck?nowPage=${p }&codename=${paging.codename}">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<a
+								href="searchCheck?nowPage=${paging.endPage+1 }&codename=${paging.codename}">다음</a>
+						</c:if>
+					</div>
 				</div>
 			</article>
 		</section>

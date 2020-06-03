@@ -3,54 +3,72 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
-	<!--  남자 신발 전체 검색 -->
-	<select id="AllListMen" resultType="Pdto">
-		select * from product where (gender='남자' or gender='공용') ORDER BY joindate, codename  
-	</select>
-	<!--  남자 카테고리별 신발 전체 검색 -->
-		<select id="AllListMenCategory" resultType="Pdto">
-		select * from product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate, codename
-	</select>
-	<!--  전체 총 페이지 -->
-
-	
-	
 	<!-- 세부상품 페이지 조회  -->
 	<select id="productdetail" resultType="Pdto" parameterType="String">
 		select * from product where code=#{code}
 	</select>
-	<select id="countProduct" resultType="int">
-		select count(*) from product;		
-		</select>
-		
-	<!-- 신발 검색 -->
-		<select id="searchCode" resultType="Pdto">
-		select * from product where codename like '%'|| #{codename} ||'%'		
-		</select>
-		
-	<!-- 신발 컬러 검색 -->
-		<select id="codeColor" resultType="int">
-		select * from product where codename =#{codename}		
-		</select>
-		
-	<!-- 여자 신발 전체 검색 -->
-	<select id="AllListWomen" resultType="Pdto">
-		select * from product where (gender='여자' or gender='공용') ORDER BY joindate, codename  
-	</select>
-		
-	<!-- 여자 카테고리별 신발 전체 검색 -->
-		<select id="AllListWomenCategory" resultType="Pdto">
-		select * from product where (gender='여자'or gender='공용') and category=#{category} ORDER BY joindate, codename
+	<!-- 신발 전체 검색 -->
+	<select id="AllList" resultType="Pdto">
+		select * from product
 	</select>
 	
+	<!-- 남자 신발 전체 검색 페이징 -->
+	<select id="AllListMen" resultType="Pdto" parameterType="Vodto">
+		SELECT *
+		FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM product where (gender='남자' or gender='공용') ORDER BY joindate,
+		codename)A)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 여자 신발 전체 검색 -->
+	<select id="AllListWomen" resultType="Pdto">
+		SELECT * FROM (SELECT
+		ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM product where (gender='여자' or gender='공용') ORDER BY joindate,
+		codename)A)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
 	<!-- Kids 신발 전체 검색 -->
 	<select id="AllListKids" resultType="Pdto">
-		select * from product where gender='키즈' ORDER BY joindate, codename  
+		SELECT * FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM product where (gender='키즈' or gender='공용') ORDER BY joindate,
+		codename)A)
+		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-		
+
+
+	<!-- 남자 카테고리별 신발 전체 검색 -->
+	<select id="AllListMenCategory" resultType="Pdto">
+			SELECT *
+		FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate,
+		codename)A)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 여자 카테고리별 신발 전체 검색 -->
+	<select id="AllListWomenCategory" resultType="Pdto">
+			SELECT *
+		FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM product where (gender='여자'or gender='공용') and category=#{category} ORDER BY joindate,
+		codename)A)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
 	<!-- Kids 카테고리별 신발 전체 검색 -->
-		<select id="AllListKidsCategory" resultType="Pdto">
-		select * from product where gender='키즈' and category=#{category} ORDER BY joindate, codename
+	<select id="AllListKidsCategory" resultType="Pdto">
+			SELECT *
+		FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM product where (gender='키즈'or gender='공용') and category=#{category} ORDER BY joindate,
+		codename)A)
+		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
 	<!-- 상품정보 등록 -->
@@ -61,9 +79,42 @@
 	<insert id="sizeinput" parameterType="Pdto_size">
 		insert into sizetable values(#{code},#{size80},#{size90},#{size100},#{size110},#{size120},#{size130},#{size140},#{size150},#{size160},#{size220},#{size230},#{size240},#{size250},#{size260},#{size270},#{size280},#{size290},#{size300},#{size310},#{size320},#{size330})
 	</insert>
-   <!-- 페이징 없이 코드로 품목 검색 -->
-   <select id="codeSearch" resultType="Pdto">
-   select * from product where code=#{code}
-   </select>
+
+	<!-- 신발 검색 -->
+	<select id="searchCode" resultType="Pdto">
+					SELECT *
+		FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM product where upper(codename) like '%'||#{codename}||'%' ORDER BY joindate,
+		codename)A)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 신발 컬러 검색 -->
+	<select id="codeColor" resultType="int">
+		select * from product where
+		codename =#{codename}
+	</select>
+
+	<!-- 페이징 없이 코드로 품목 검색 -->
+	<select id="codeSearch" resultType="Pdto">
+	select * from product where code=#{code}
+	</select>
+	
+
+	<!-- ===========Paging========= -->
+	<!-- gender별 페이지수 -->
+	<select id="countProduct" resultType="int">
+		select count(*) from product where gender=#{gender} or gender='공용'
+	</select>
+	<!-- Category and gender별 페이지수 -->
+		<select id="countProductGender" resultType="int">
+		select count(*) from product where (gender=#{gender} or gender='공용') and category=#{category}
+	</select>
+	<!-- 검색어 입력하여 신발 찾기 -->
+	<select id="searchProduct" resultType="int">
+		select count(*) from product where upper(codename) like '%'||#{codename}||'%'
+	</select>
+
 </mapper>
 

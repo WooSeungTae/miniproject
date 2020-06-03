@@ -7,15 +7,18 @@ public class OrderDTO {
 	private String name;
 	private String tel;
 	private String addr;
-	private String orderMemo;
-	private String orderType;
-	private String bankName;
+	private String ordermemo;
+	private String ordertype;
+	private String bankname;
 	private String bank;
 	private String id;
-	private String totalPrice;
-	private String orderNum;
+	private String totalprice;
+	private String ordernum;
 	private String delivery;
-	private Date orderDate;
+	private Date orderdate;
+	private String mile="0";
+	
+
 	public String getName() {
 		return name;
 	}
@@ -34,23 +37,24 @@ public class OrderDTO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public String getOrderMemo() {
-		return orderMemo;
+	public String getordermemo() {
+		return ordermemo;
 	}
-	public void setOrderMemo(String orderMemo) {
-		this.orderMemo = orderMemo;
+	public void setordermemo(String ordermemo) {
+		this.ordermemo = ordermemo;
 	}
-	public String getOrderType() {
-		return orderType;
+	public String getOrdertype() {
+		return ordertype;
 	}
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
+	public void setOrdertype(String ordertype) {
+		this.ordertype = ordertype;
 	}
-	public String getBankName() {
-		return bankName;
+	public String getbankname() {
+		return bankname;
 	}
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
+	public void setbankname(String bankname) {
+		this.bankname = bankname;
+
 	}
 	public String getBank() {
 		return bank;
@@ -64,17 +68,17 @@ public class OrderDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getTotalPrice() {
-		return totalPrice;
+	public String gettotalprice() {
+		return totalprice;
 	}
-	public void setTotalPrice(String totalPrice) {
-		this.totalPrice = totalPrice;
+	public void settotalprice(String totalprice) {
+		this.totalprice = totalprice;
 	}
-	public String getOrderNum() {
-		return orderNum;
+	public String getordernum() {
+		return ordernum;
 	}
-	public void setOrderNum(String orderNum) {
-		this.orderNum = orderNum;
+	public void setordernum(String ordernum) {
+		this.ordernum = ordernum;
 	}
 	public String getDelivery() {
 		return delivery;
@@ -82,13 +86,17 @@ public class OrderDTO {
 	public void setDelivery(String delivery) {
 		this.delivery = delivery;
 	}
-	public Date getOrderDate() {
-		return orderDate;
+	public Date getOrderdate() {
+		return orderdate;
 	}
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setOrderdate(Date orderdate) {
+		this.orderdate = orderdate;
 	}
-	
-	
-	
+	public String getMile() {
+		return mile;
+	}
+	public void setMile(String mile) {
+		this.mile = mile;
+	}
+
 }
