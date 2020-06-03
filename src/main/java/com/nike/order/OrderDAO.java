@@ -12,7 +12,7 @@ public class OrderDAO {
 	private SqlSession sqlSession;
 	
 	
-	public int buyRegister(OrderDTO Odto) {
+	public void buyRegister(OrderDTO Odto) {
 //		System.out.println("이름 : "+Odto.getName());
 //		System.out.println("주소 : "+Odto.getAddr());
 //		System.out.println("은행 : "+Odto.getBank());
@@ -23,10 +23,9 @@ public class OrderDAO {
 //		System.out.println("배송타입 : "+Odto.getOrdertype());
 //		System.out.println("전화번호 : "+Odto.getTel());
 //		System.out.println("총가격 : "+Odto.gettotalprice());
-		
+		System.out.println("정보 주문번호 : "+Odto.getordernum());
 		sqlSession.insert(namespace+".buyRegister",Odto);
-		return sqlSession.selectOne(namespace+".SEQUENCENUM");
-	}
+		}
 	
 	
 }

@@ -362,9 +362,10 @@ public class HomeController {
 	}
 	
 	/*구매후 등록*/
-	@RequestMapping("productBuy")
-	public String productBuy(Model model,OrderDTO Odto,Order_detailsDTO DDto) {
-		oservice.productBuy(Odto,DDto);
+	@RequestMapping("productBuy0")
+	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+		System.out.println("호출");
+		oservice.productBuy(Odto,Ddto);
 		return "/sminj/main";
 	}
 	

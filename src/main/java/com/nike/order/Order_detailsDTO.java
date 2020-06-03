@@ -1,7 +1,7 @@
 package com.nike.order;
 
 public class Order_detailsDTO {
-	private String orderNum;
+	private String ordernum;
 	private String code;
 	private String id;
 	private String count;
@@ -10,10 +10,10 @@ public class Order_detailsDTO {
 	
 	
 	public String getOrderNum() {
-		return orderNum;
+		return ordernum;
 	}
-	public void setOrderNum(String orderNum) {
-		this.orderNum = orderNum;
+	public void setOrderNum(String ordernum) {
+		this.ordernum = ordernum;
 	}
 	public String getCode() {
 		return code;

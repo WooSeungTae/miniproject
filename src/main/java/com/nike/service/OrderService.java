@@ -1,5 +1,7 @@
 package com.nike.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +29,17 @@ public class OrderService {
 	private ProductDAO pdao;
 	@Autowired
 	private Order_detailsDAO Ddao;
+	private String orderNum;
+	
 	
 	/*구매후 등록*/
-	public void productBuy(OrderDTO Odto,Order_detailsDTO DDto) {
-		int num = Odao.buyRegister(Odto);
-		System.out.println("num : "+num);
-		Ddao.buyRegisterDetails(DDto,num);
+	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+		orderNum="Order";
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
+		orderNum = orderNum + format.format(new Date());
+		Odto.setordernum(orderNum);
+		Ddto.setOrderNum(orderNum);
+		Odao.buyRegister(Odto);
+		Ddao.buyRegisterDetails(Ddto);
 	}
 }

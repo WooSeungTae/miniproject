@@ -99,18 +99,22 @@
 	var mile=0;
 	var yes=5000;
 	var checkDely=0;
+	var checkRaddio=0;
 	
 	/*은행 선택*/
 	function changeBank(bankname){
 		if(bankname=="농협"){
+			checkRaddio=1;
 			document.getElementById("bankNum").innerHTML="예금주 : (주)나이키<br>계좌번호 : 8795-5114-7814";
 			document.getElementById("totalprice").value=total;
 		}
 		if(bankname=="우리은행"){
+			checkRaddio=1;
 			document.getElementById("bankNum").innerHTML="예금주 : (주)나이키<br>계좌번호 : 1002-7815-789515";
 			document.getElementById("totalprice").value=total;
 		}
 		if(bankname=="기업은행"){
+			checkRaddio=1;
 			document.getElementById("bankNum").innerHTML="예금주 : (주)나이키<br>계좌번호 : 010-4567-8879";
 			document.getElementById("totalprice").value=total;
 		}
@@ -184,9 +188,20 @@
 		}
 
 	}
-	
+	/*빈칸 있을시 결제 불가*/
 	function submitbuy(){
-		fo.submit();
+		if(document.getElementById("ordermemo").value==""){
+			document.getElementById("ordermemo1").focus();
+			alert('배송메모를 선택 혹은 입력하여 주세요.');
+		}else if(document.getElementById("bankname").value==""){
+			alert('입금자 성명을 입력하여 주세요');
+			document.getElementById("bankname").focus();
+		}else if(checkRaddio==0){
+			alert('입금하실 은행은 선택하여 주세요');
+		}else{
+			fo.submit();			
+		}
+		
 	}
 	
 </script>
@@ -199,7 +214,7 @@
 		<div class="" style="text-align: center;">
 			<h1>주문결제</h1>
 		</div>
-	<form id ="fo" action="productBuy" method="get">
+	<form id ="fo" action="productBuy0" method="post">
 		<div class="" style="text-align: center;"><h3>${quickProduct.codename }</h3></div>
 		<div class="" style="text-align: center;"><h3>${count } 개 </h3></div>
 		<div>
@@ -320,7 +335,7 @@
 						</div>
 					</div>
 					<select class ="ordermemo" id = "ordermemo1" onchange="changordermemo(this.value)">
-						<option value="배송메모 없음">배송메모를 선택해주세요</option>
+						<option value="배송메모 없음" selected>배송메모를 선택해주세요</option>
 						<option value="배송시 연락 부탁드립니다.">배송시 연락 부탁드립니다.</option>
 						<option value="빠른배송 부탁드립니다.">빠른배송 부탁드립니다.</option>
 						<option value="직접 입력">직접 입력</option>
@@ -360,12 +375,12 @@
 					<div>
 						
 						<h3>입금자 성명</h3>				
-						<input name = "bankname" type="text" placeholder="입금자 이름을 입력해주세요">
+						<input name = "bankname" id="bankname"type="text" placeholder="입금자 이름을 입력해주세요">
 						<fieldset>
 						<legend><h4>입금하실 은행을 선택하여 주세요.</h4></legend>
-						<input type="radio" name = "bank" value="농협" onclick="changeBank(this.value)"> 농협
-						<input type="radio" name = "bank" value="우리은행" onclick="changeBank(this.value)"> 우리은행
-						<input type="radio" name = "bank" value="기업은행" onclick="changeBank(this.value)"> 기업은행 <br>
+						<input type="radio" id="bank" name = "bank" value="농협" onclick="changeBank(this.value)"> 농협
+						<input type="radio" id="bank"  name = "bank" value="우리은행" onclick="changeBank(this.value)"> 우리은행
+						<input type="radio" id="bank"  name = "bank" value="기업은행" onclick="changeBank(this.value)"> 기업은행 <br>
 						<br><b><div class="bankNum" id = "bankNum"></div></b>
 						</fieldset>						 
 					</div>
@@ -389,7 +404,7 @@
 		<input type="hidden" name = "tel" value="${searchId.tel}">
 		<input type="hidden" name = "id" value="${sessionScope.id }">
 		<input type="hidden" name = "addr" value="${searchId.address}">
-		<input type="text" name = "totalprice" id="totalprice" value="">
+		<input type="hidden" name = "totalprice" id="totalprice" value="">
 		<input type="hidden" name = "code" value="${quickProduct.code }">
 		<input type="hidden" name = "count" value="${count }">
 		<input type="hidden" name = "ordersize" value="${ordersize }">

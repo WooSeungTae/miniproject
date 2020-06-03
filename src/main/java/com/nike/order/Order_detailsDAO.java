@@ -10,14 +10,8 @@ public class Order_detailsDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public void buyRegisterDetails(Order_detailsDTO Ddto,int num) {
-		System.out.println(Ddto.getCode());
-		System.out.println(Ddto.getCount());
-		System.out.println(Ddto.getId());
-		System.out.println(Ddto.getOrdersize());
-		System.out.println(Ddto.getPrice());
-		String snum=num+"";
-		Ddto.setOrderNum(snum);		
+	public void buyRegisterDetails(Order_detailsDTO Ddto) {
+		System.out.println("디테일 정보 주문번호 : "+Ddto.getOrderNum());
 		sqlSession.insert(namespace+".buyRegisterDetails",Ddto);
 	}
 
