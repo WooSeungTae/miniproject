@@ -12,3 +12,4 @@
 		<typeAlias type="com.nike.product.Product_sizeDTO" alias="Pdto_size"/>
 	</typeAliases>
 </configuration>
+

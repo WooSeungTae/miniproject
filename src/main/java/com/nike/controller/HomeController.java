@@ -1,5 +1,10 @@
 package com.nike.controller;
 
+<<<<<<< HEAD
+=======
+import java.io.File;
+import java.sql.SQLException;
+>>>>>>> jsj
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -341,12 +346,57 @@ public class HomeController {
 		return "myPage/myPageReviewintro";
 	}
 	
+	/*장바구니 DB에 값 저장하기*/
+	@RequestMapping("cartSave")
+	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		/*장바구니에 상품명 저장하는 기능*/
+		sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+		/*장바구니에 대표사진 저장하는 기능*/
+		sdto.setImage1(Pservice.image1get(sdto.getCode()));
+		/*장바구니에 가격 저장하는 기능*/
+		sdto.setPrice(Pservice.priceget(sdto.getCode()));
+		/*장바구니 DB에 값을 저장*/
+		orderservice.insertcart(sdto);
+		return "redirect:cart";
+	}
+	
 	/*장바구니*/
 	@RequestMapping("cart")
-	public String cart(ShoppingCartDTO sdto) {
-		
+	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		/*장바구니 DB에서 리스트 개수 가져오기*/
+		model.addAttribute("cartcount", orderservice.countcart(id));
+		/*장바구니 DB에서 회원별 리스트 가져오기*/
+		model.addAttribute("cartlist", orderservice.selectcart(id));
+		/*장바구니 DB에서 회원별 총 금액 가져오기*/
+		model.addAttribute("totalprice", orderservice.totalprice(id));
 		return "purchase/cart";
 	}
+	
+	/*회원별 장바구니에 있는 아이템 전부 삭제*/
+	@RequestMapping("cartAlldelete")
+	public String cartAlldelete(HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		orderservice.cartAlldelete(id);
+		return "redirect:cart";
+	}
+	
+	/*회원별 장바구니에서 x누른 아이템 삭제*/
+	@RequestMapping("cartitemdelete")
+	public String cartitemdelete(ShoppingCartDTO sdto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		sdto.setCode(request.getParameter("code"));
+		orderservice.cartitemdelete(sdto);
+		return "redirect:cart";
+	}
+	
 	/*구매*/
 	@RequestMapping("checkout")
 	public String checkOut() {

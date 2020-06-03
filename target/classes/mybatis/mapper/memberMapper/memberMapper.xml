@@ -51,7 +51,7 @@
 	<delete id="memberdelete" parameterType="String">
 		delete from memberinfo where id=#{id}
 	</delete>
-<select id="countmember" resultType="int">
+	<select id="countmember" resultType="int">
 		SELECT COUNT(*) FROM memberinfo
 	</select>
 	
