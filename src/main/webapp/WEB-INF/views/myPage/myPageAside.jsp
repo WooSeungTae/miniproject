@@ -5,34 +5,81 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Aside</title>
+<style>
+	.aside_a{
+	text-decoration:none; 
+	font-size: 13.5px; 
+	font-weight: bold;
+	color: #5D5D5D;
+	margin-left: -35px;
+	}
+	
+	.aside_hr{
+	border:solid 0.5px #e8ebed; 
+	width:230px;
+	}
+	
+	#aside_btn{ 
+	display: inline-block; 
+	}
+	#aside_btn ul{}
+	#aside_btn ul li{
+	list-style: none;
+	padding-bottom: 8px;
+	}
+	
+	.aside_title{
+	margin-left: -35px; 
+	font-weight: bold;
+	}
+	.aside_name{
+	}
+</style>
 </head>
 <body>
 	<!--  왼쪽 사이드바 부분 -->
-	<aside style="float: left; margin: 0px 20px 0px 0px; height: auto; width:20%;">
-		<div class="MyPage"><h1>MY PAGE</h1><hr></div>
-		<div class="회원이름"><h3>회원이름</h3><hr></div>
-		<div class="쇼핑정보">
-			<label><b>쇼핑정보</b><br></label>
-			<label><a href = "orders">주문 배송</a><br></label>
-			<label><a href = "returnable">취소/반품</a><br><br></label><hr>
+	<aside style="float: left; margin: 0px 30px 0px 0px; height: auto;">
+		<div class="MyPage"><h1>MY PAGE</h1></div>
+		<hr class="aside_hr">
+		<div><h3>${name }</h3></div>
+		<hr class="aside_hr">
+		
+	<div id="aside_btn">
+		<div>
+			<ul>
+				<li class="aside_title">쇼핑정보</li>
+				<li><a href = "orders" class="aside_a">주문 배송</a></li>
+				<li><a href = "returnable" class="aside_a">취소/반품</a></li>
+			</ul>
 		</div>
-		<div class="활동정보">
-			<label><b>활동정보</b><br></label>
-			<label><a href = "mileage">나의 MILE</a><br></label>
-			<label><a href = "reviewintro">상품리뷰</a><br><br></label><hr>
+		<hr class="aside_hr">
+		<div>
+			<ul>
+				<li class="aside_title">활동정보</li>
+				<li><a href = "mileage" class="aside_a">나의 MILE</a></li>
+				<li><a href = "reviewintro" class="aside_a">상품리뷰</a></li>
+			</ul>
 		</div>
-		<div class="나의정보">
-			<label><b>나의정보</b><br></label>
-			<label><a href = "account">회원정보 관리</a><br></label>
-			<label><a href = "password">비밀번호 관리</a><br></label>
-			<label><a href = "withdrawal">회원 탈퇴</a><br><br></label><hr>
+		<hr class="aside_hr">
+		<div>
+			<ul>
+				<li class="aside_title">나의정보</li>
+				<li><a href = "account" class="aside_a">회원정보 관리</a></li>
+				<li><a href = "password" class="aside_a">비밀번호 변경</a></li>
+				<li><a href = "withdrawal" class="aside_a">회원 탈퇴</a></li>
+			</ul>
 		</div>
-		<div class="나이키고객센터">
-			<label><b>나이키닷컴 고객센터</b><br></label>
-			<label><H3>080-022-0182</H3></label>
-			<label><H4>월~일 : 오전 9시 ~ 오후 8시</H4><br></label><hr>
+		<hr class="aside_hr">
+		<div>
+			<ul>
+				<li class="aside_title">나이키닷컴 고객센터</li>
+				<li style="font-size:24px; font-weight: bold; margin-left: -35px; ">080-022-0182</li>
+				<li style="font-size:13px; margin-left: -35px; ">월~일 : 오전 9시 ~ 오후 8시</li>
+			</ul>
 		</div>
-		</aside>
+		<hr class="aside_hr">
+	</div>
+	</aside>
 </body>
 </html>

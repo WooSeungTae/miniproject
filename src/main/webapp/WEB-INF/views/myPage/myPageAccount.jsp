@@ -11,7 +11,7 @@
 			height:550px;
 		}
 		.customer-contents{
-			width(100% - 265px); margin-top:-24px; margin-left:20px;
+			width:(100% - 265px); margin-top:-24px; margin-left:20px;
 			
 		}
 		.title{
