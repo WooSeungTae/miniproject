@@ -97,8 +97,8 @@ public class HomeController {
 		}else {
 			HttpSession mySession = request.getSession();
 			mySession.setAttribute("id", dto.getId());
-			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getPwd()));
 			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
+			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getPwd()));
 			return "sminj/main";
 		}
 	}

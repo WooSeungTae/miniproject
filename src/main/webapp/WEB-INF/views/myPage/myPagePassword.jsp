@@ -29,13 +29,12 @@
 </head>
 <body>
 <header><c:import url="/header"></c:import></header>
-<div style="width: 60%; margin: auto; padding-top: 80px; padding-bottom: 150px;">
+<div style="width: 70%; margin: auto; padding-top: 80px; padding-bottom: 150px;">
 	<c:import url="/aside"></c:import>
 		<h2>비밀번호 변경</h2>
 		<form action="">
 			<div class="pwd_modify_font">기존 비밀번호</div>
-			<label>${dto.pwd }</label>
-			<input type="text" id="pwd" name="pwd" value="${dto.pwd }" class="pwd_modify_input"><br><br>
+			<input type="text" id="pwd" name="pwd" value="${pwd }" class="pwd_modify_input"><br><br>
 			<div class="pwd_modify_font">새 비밀번호</div>
 			<input type="text" placeholder="새 비밀번호 입력" class="pwd_modify_input"><br><br>
 			<div class="pwd_modify_font">새 비밀번호 확인</div>
@@ -43,7 +42,7 @@
 			<input type="submit" value="변경하기" class="pwd_modify_input2">
 		</form>
 </div>
-		<h2>${dto.pwd }</h2>
+		<h2>${pwd }</h2>
 <footer><c:import url="/footer"></c:import></footer>
 </body>
 </html>

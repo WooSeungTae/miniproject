@@ -33,7 +33,16 @@
 	margin-left: -35px; 
 	font-weight: bold;
 	}
+	.aside_img{
+	vertical-align: middle; 
+	width:30px;
+	height:30px;
+	margin-top: -4px;
+	}
 	.aside_name{
+	font-size: 14px; 
+	padding-top:16px; 
+	padding-bottom:11px;
 	}
 </style>
 </head>
@@ -42,32 +51,35 @@
 	<aside style="float: left; margin: 0px 30px 0px 0px; height: auto;">
 		<div class="MyPage"><h1>MY PAGE</h1></div>
 		<hr class="aside_hr">
-		<div><h3>${name }</h3></div>
+		<div class="aside_name">
+			<span><img src="image/user_b.png" class="aside_img"></span>
+			<span>${name }</span>
+		</div>
 		<hr class="aside_hr">
 		
 	<div id="aside_btn">
 		<div>
 			<ul>
 				<li class="aside_title">쇼핑정보</li>
-				<li><a href = "orders" class="aside_a">주문 배송</a></li>
-				<li><a href = "returnable" class="aside_a">취소/반품</a></li>
+				<li><a href="orders" class="aside_a">주문 배송</a></li>
+				<li><a href="returnable" class="aside_a">취소/반품</a></li>
 			</ul>
 		</div>
 		<hr class="aside_hr">
 		<div>
 			<ul>
 				<li class="aside_title">활동정보</li>
-				<li><a href = "mileage" class="aside_a">나의 MILE</a></li>
-				<li><a href = "reviewintro" class="aside_a">상품리뷰</a></li>
+				<li><a href="mileage" class="aside_a">나의 MILE</a></li>
+				<li><a href="reviewintro" class="aside_a">상품리뷰</a></li>
 			</ul>
 		</div>
 		<hr class="aside_hr">
 		<div>
 			<ul>
 				<li class="aside_title">나의정보</li>
-				<li><a href = "account" class="aside_a">회원정보 관리</a></li>
-				<li><a href = "password" class="aside_a">비밀번호 변경</a></li>
-				<li><a href = "withdrawal" class="aside_a">회원 탈퇴</a></li>
+				<li><a href="account" class="aside_a">회원정보 관리</a></li>
+				<li><a href="password" class="aside_a">비밀번호 변경</a></li>
+				<li><a href="withdrawal" class="aside_a">회원 탈퇴</a></li>
 			</ul>
 		</div>
 		<hr class="aside_hr">

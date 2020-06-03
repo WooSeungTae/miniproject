@@ -3,19 +3,18 @@ package com.nike.order;
 import java.sql.Date;
 
 public class OrderDTO {
-	
 	private String name;
 	private String tel;
 	private String addr;
-	private String orderMemo;
-	private String orderType;
-	private String bankName;
-	private String bank;
-	private String id;
-	private String totalPrice;
-	private String orderNum;
-	private String delivery;
-	private Date orderDate;
+	private String orderMemo; //배송메모
+	private String orderType; //배송방법
+	private String bankName; //은행이름
+	private String bank; //계좌
+	private String id; //아이디
+	private String totalPrice; //총 가격
+	private String orderNum; //주문번호
+	private String delivery; //배송
+	private Date orderDate; 
 	public String getName() {
 		return name;
 	}
