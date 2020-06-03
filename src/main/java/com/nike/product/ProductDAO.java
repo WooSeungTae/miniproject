@@ -73,5 +73,21 @@ public class ProductDAO {
 		
 		sqlSession.delete(nameSpace+".productDelete", code);		
 	}
+	
+	//장바구니에 대표사진 저장하는 기능
+	public String image1get(String code) {
+		return sqlSession.selectOne(nameSpace+".image1get", code);
+	}
+	
+	//장바구니에 상품명 저장하는 기능
+	public String codenameget(String code) {
+		return sqlSession.selectOne(nameSpace+".codnameget", code);
+	}
+	
+	//장바구니에 가격 저장하는 기능
+	public int priceget(String code) {
+		System.out.println("타입변환====================="+Integer.valueOf(sqlSession.selectOne(nameSpace+".priceget", code).toString()));
+		return Integer.valueOf(sqlSession.selectOne(nameSpace+".priceget", code).toString());
+	}
 
 }

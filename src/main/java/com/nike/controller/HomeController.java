@@ -339,6 +339,13 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		sdto.setId(id);
+		/*장바구니에 상품명 저장하는 기능*/
+		sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+		/*장바구니에 대표사진 저장하는 기능*/
+		sdto.setImage1(Pservice.image1get(sdto.getCode()));
+		/*장바구니에 가격 저장하는 기능*/
+		sdto.setPrice(Pservice.priceget(sdto.getCode()));
+		System.out.println("HomeController2=====================================" + Pservice.priceget(sdto.getCode()));
 		/*장바구니 DB에 값을 저장*/
 		orderservice.insertcart(sdto);
 		return "redirect:cart";
@@ -353,6 +360,9 @@ public class HomeController {
 		model.addAttribute("cartcount", orderservice.countcart(id));
 		/*장바구니 DB에서 회원별 리스트 가져오기*/
 		model.addAttribute("cartlist", orderservice.selectcart(id));
+		/*장바구니 DB에서 회원별 총 금액 가져오기*/
+		model.addAttribute("totalprice", orderservice.totalprice(id));
+		System.out.println("HomeController=====================================" + orderservice.totalprice(id));
 		return "purchase/cart";
 	}
 	

@@ -29,7 +29,7 @@
 			box-sizing:border-box;
 		}
 		.item-list-wrap{
-			margin:0; float:left; display:inline-block; width:55%; box-sizing:border-box;
+			margin:0; float:left; display:inline-block; width:57%; box-sizing:border-box;
 		}
 		.mypage-cart{
 			margin:0; padding:0; border:0; vertical-align:baseline;
@@ -137,6 +137,18 @@
 		function alldelete(){
 			alert("장바구니에 담긴 상품이 모두 삭제됩니다!")
 		}
+		
+   		function chageSrc(obj){
+  			var imgId = obj.id;
+  			var imgName =obj.src;
+   			imgName = imgName.toLowerCase();
+   			var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
+   			var lastName = imgName.substring(imgName.indexOf('.') + 1);
+   			lastName = lastName.toUpperCase();
+   			var changeName = firstName + lastName;
+   			document.getElementById(imgId).src = changeName;
+   			
+   		}
 	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -150,71 +162,64 @@
 		<section class="content-area">
 			<section class="pt_cart">
 				<article class="contents">
-					<h2 class="cart-title">장바구니</h2>
-					<div class="mc-cart-num">
-						<span>${cartcount}개 상품</span>
-					</div>
-					<div class="item-container">
-						<div class="item-list-wrap" id="cart">
-							<div class="mypage-cart" id="current-item-wrap">
-								<a class="btn-cart-delete-All" href="cartAlldelete" onclick="alldelete()">전체삭제</a>
-							</div>
-							<div class="product-opt_cart">
-								<div class="item-detail">
-									<div class="item-info">
-										<span class="img-wrap">
-											<img src="" alt="나이키 데이브레이크-타입">
-										</span>
-										<div class="info-wrap">
-											<div class="tit">나이키 데이브레이크-타입</div>
-											<div class="style-code">스타일 : CJ1156-001</div>
-											<div class="current-option-wrap">
-												<span class="opt">사이즈 : 250</span>
-											</div>
-											<span class="opt-quantity">수량 : 1</span>
-										</div>
-									</div>
-									<div class="option-wrap">
-										<div>
-											<button class="optchange">옵션 변경</button>
-										</div>
-									</div>
-									<div class="total-price">
-										<strong class="retail-price">109,000원</strong>
-									</div>
-									<div class="delete-btn">
-										<a class="btn-delete" href="#"><i class="icon-delete_bold">X</i></a>
-									</div>
+					<form action="checkout" method="post">
+						<h2 class="cart-title">장바구니</h2>
+						<div class="mc-cart-num">
+							<span>${cartcount}개 상품</span>
+						</div>
+						<div class="item-container">
+							<div class="item-list-wrap" id="cart">
+								<div class="mypage-cart" id="current-item-wrap">
+									<a class="btn-cart-delete-All" href="cartAlldelete" onclick="alldelete()">전체삭제</a>
 								</div>
-							</div>
-							<div class="product-opt_cart">
-								<div class="item-detail">
-									<div class="item-info">
-										<span class="img-wrap">
-											<img src="" alt="나이키 데이브레이크-타입">
-										</span>
-										<div class="info-wrap">
-											<div class="tit">나이키 데이브레이크-타입</div>
-											<div class="style-code">스타일 : CJ1156-001</div>
-											<div class="current-option-wrap">
-												<span class="opt">사이즈 : 250</span>
+								<c:choose>
+									<c:when test="${cartlist.size()!=0}">
+										<c:forEach items="${cartlist }" var="cartitem">
+											<div class="product-opt_cart">
+												<div class="item-detail">
+													<div class="item-info">
+														<span class="img-wrap">
+															<img id ="${cartitem.image1 }" src="${cartitem.image1 }" alt="나이키 데이브레이크-타입" onerror="this.onerror=null; chageSrc(this)">
+														</span>
+														<div class="info-wrap">
+															<div class="tit">${cartitem.codename }</div>
+															<div class="style-code">${cartitem.code }</div>
+															<div class="current-option-wrap">
+																<span class="opt">사이즈 : ${cartitem.ordersize }</span>
+															</div>
+															<span class="opt-quantity">수량 : ${cartitem.count }</span>
+														</div>
+													</div>
+													<div class="option-wrap">
+														<div>
+															<button class="optchange">옵션 변경</button>
+														</div>
+													</div>
+													<div class="total-price">
+														<strong class="retail-price">
+															<script type="text/javascript">
+																var price = ${cartitem.price };
+																document.write(price.toLocaleString()+' 원');
+															</script>
+														</strong>
+													</div>
+													<div class="delete-btn">
+														<a class="btn-delete" href="#" onclick="itemdelete()"><i class="icon-delete_bold">X</i></a>
+													</div>
+												</div>
 											</div>
-											<span class="opt-quantity">수량 : 1</span>
-										</div>
-									</div>
-									<div class="option-wrap">
-										<div>
-											<button class="optchange">옵션 변경</button>
-										</div>
-									</div>
-									<div class="total-price">
-										<strong class="retail-price">109,000원</strong>
-									</div>
-									<div class="delete-btn">
-										<a class="btn-delete" href="#" onclick="itemdelete()"><i class="icon-delete_bold">X</i></a>
-									</div>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+								<div class="noneProduct">
+									<hr align="left" style="color: gray; width: 85%; border: 5;">
+									<br>
+									<h2>장바구니에 상품이 없습니다.</h2>
+									<br>
+									<hr align="left" style="color: gray; width: 85%; border: 5;">
 								</div>
-							</div>
+							</c:otherwise>
+						</c:choose>
 						</div>
 						<div class="product-checkout">
 							<strong class="tit">주문예정금액</strong>
@@ -222,7 +227,14 @@
 								<div class="info-price">
 									<span class="item-price">
 										<span class="label">상품 금액</span>
-										<span class="price"><strong>268,000원</strong></span>
+										<span class="price">
+											<strong>
+												<script type="text/javascript">
+													var price = ${totalprice };
+													document.write(price.toLocaleString()+' 원');
+												</script>
+											</strong>
+										</span>
 									</span>
 									<span class="delivery-price">
 										<span class="label">예상 배송비</span>
@@ -239,12 +251,20 @@
 								</div>
 								<div class="total-price2">
 									<span class="label">총 결제 예정 금액</span>
-									<span class="price-sale-total"><strong>268,000원</strong></span>
+									<span class="price-sale-total">
+										<strong>
+											<script type="text/javascript">
+												var price = ${totalprice };
+												document.write(price.toLocaleString()+' 원');
+											</script>
+										</strong>
+									</span>
 								</div>
-								<input class="btn-link" type="button" value="주문하기">
+								<input class="btn-link" type="submit" value="주문하기">
 							</div>
 						</div>
 					</div>
+				</form>
 				</article>
 			</section>
 		</section>

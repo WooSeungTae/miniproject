@@ -7,7 +7,7 @@
 	
 	<!--장바구니 DB에 값을 저장-->
 	<insert id="insertcart" parameterType="Sdto" >
-		insert into shoppingcart(id,code,count,ordersize) values(#{id},#{code},#{count},#{ordersize})
+		insert into shoppingcart(id,code,codename,count,ordersize,image1,price) values(#{id},#{code},#{codename},#{count},#{ordersize},#{image1},#{price})
 	</insert>
 	
 	<!-- 장바구니 DB에서 장바구니 리스트 가져오기 -->
@@ -24,4 +24,10 @@
 	<delete id="cartAlldelete" parameterType="String">
 		delete from shoppingcart where id=#{id}
 	</delete>
+	
+	<!-- 장바구니 DB에서 회원별 총 금액 가져오기 -->
+	<select id="totalprice" parameterType="String" resultType="integer">
+		select sum(price) from shoppingcart where id=#{id}
+	</select>
+	
 </mapper>

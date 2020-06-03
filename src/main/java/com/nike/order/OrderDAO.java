@@ -38,6 +38,11 @@ public class OrderDAO {
 		sqlSession.delete(namespace2+".cartAlldelete",id);
 	}
 	
+	/*장바구니 DB에서 회원별 총 금액 가져오기*/
+	public int totalprice(String id) {
+		return sqlSession.selectOne(namespace2+".totalprice", id);
+	}
+	
 	
 	
 	

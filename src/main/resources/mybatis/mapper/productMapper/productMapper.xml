@@ -52,5 +52,21 @@
 		<select id="AllListKidsCategory" resultType="Pdto">
 		select * from product where gender='키즈' and category=#{category} ORDER BY joindate, codename
 	</select>
+	
+	<!-- 장바구니에 대표사진 저장하는 기능-->
+	<select id="image1get" resultType="String" parameterType="String">
+		select image1 from product where code=#{code}
+	</select>
+	
+	<!-- 장바구니에 상품명 저장하는 기능 -->
+	<select id="codnameget" resultType="String" parameterType="String">
+		select codename from product where code=#{code}
+	</select>
+	
+	<!-- 장바구니에 가격 저장하는 기능-->
+	<select id="priceget" resultType="String" parameterType="String">
+		select price from product where code=#{code}
+	</select>
+	
 </mapper>
 

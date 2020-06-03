@@ -34,6 +34,11 @@ public class OrderService {
 	public void cartAlldelete(String id) {
 		odao.cartAlldelete(id);
 	}
+	
+	/*장바구니 DB에서 회원별 총 금액 가져오기*/
+	public int totalprice(String id) {
+		return odao.totalprice(id);
+	}
 
 	
 }
