@@ -18,6 +18,9 @@ public class OrderDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public void buyRegister(OrderDTO Odto) {
+		sqlSession.insert(namespace+".buyRegister",Odto);
+	}
 	/*장바구니 DB에 값을 저장*/
 	public void insertcart(ShoppingCartDTO sdto) {
 		sqlSession.insert(namespace2+".insertcart",sdto); 

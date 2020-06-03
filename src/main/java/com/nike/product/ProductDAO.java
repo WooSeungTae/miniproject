@@ -56,14 +56,6 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".AllListKidsCategory",category);
 	}
 
-	
-	
-	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
-		// TODO Auto-generated method stub
-
-	}
-
-
 	//관리자 상품 목록 수정, 삭제를 위한 조회
 	public ProductDTO productSelect(String code) {
 		return sqlSession.selectOne(nameSpace+".productSelect", code);
@@ -90,4 +82,17 @@ public class ProductDAO {
 		return Integer.valueOf(sqlSession.selectOne(nameSpace+".priceget", code).toString());
 	}
 
+	/*상품등록 기본정보 등록*/
+	public void product_input(ProductDTO pdto) {
+		sqlSession.insert(nameSpace+".productinput",pdto);
+	}
+	/*상품등록 사이즈별 수량 등록*/
+	public void product_size(Product_sizeDTO sizedto) {
+		sqlSession.insert(nameSpace+".sizeinput",sizedto);
+	}
+	/*신발 코드로 검색 전체*/   
+	public ProductDTO codeSearch(String code){
+	    return sqlSession.selectOne(nameSpace+".codeSearch",code);      
+	}	
+	
 }
