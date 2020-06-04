@@ -98,7 +98,7 @@ public class HomeController {
 			HttpSession mySession = request.getSession();
 			mySession.setAttribute("id", dto.getId());
 			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
-			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getPwd()));
+			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
 			return "sminj/main";
 		}
 	}
@@ -386,6 +386,10 @@ public class HomeController {
 	@RequestMapping("withdrawal")
 	public String withdrawal() {
 		return "myPage/myPageWithdrawal";
+	}
+	@RequestMapping("pwdSuccess")
+	public String pwdSuccess() {
+		return "sminj/pwd_ModifySuccess";
 	}
 	
 }

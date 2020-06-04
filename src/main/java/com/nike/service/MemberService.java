@@ -92,8 +92,8 @@ public class MemberService {
 		return dao.beforePwd(id);
 	}
 	/* 마이페이지 회원 비밀번호 변경 */
-	public void pwdModify(String id) {
-		dao.pwdModify(id);
+	public void pwdModify(MemberInfoDTO dto) {
+		dao.pwdModify(dto);
 	}
 	/* 마이페이지 회원탈퇴 */
 	public void userDelete(String id) {

@@ -95,8 +95,8 @@ public class MemberInfoDAO {
 		return sqlSession.selectOne(namespace+".beforePwd",id);
 	}
 	/* 마이페이지 회원 비밀번호 변경 */
-	public void pwdModify(String id) {
-		sqlSession.update(namespace+".pwdModify",id);
+	public void pwdModify(MemberInfoDTO dto) {
+		sqlSession.update(namespace+".pwdModify",dto);
 	}
 	/* 마이페이지 회원탈퇴 */
 	public void userDelete(String id) {
@@ -106,4 +106,5 @@ public class MemberInfoDAO {
 	public String nameget(String id) {
 		return sqlSession.selectOne(namespace+".nameget",id);
 	}
+
 }
