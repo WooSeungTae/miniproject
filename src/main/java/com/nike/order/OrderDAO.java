@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OrderDAO {
 	private  final String namespace = "com.care.mybatis.orderMapper.orderMapper";
+	private  final String namespace2 = "com.care.mybatis.orderMapper.ShoppingCartMapper";
 	@Autowired
 	private SqlSession sqlSession;
 	/*장바구니용 namespace*/
-	private static final String namespace2 = "com.care.mybatis.orderMapper.ShoppingCartMapper";
 
 	public void buyRegister(OrderDTO Odto) {
 //		System.out.println("이름 : "+Odto.getName());
@@ -37,7 +37,7 @@ public class OrderDAO {
 
 	/*장바구니 DB에서 회원별 리스트 가져오기*/
 	public List<ShoppingCartDTO> selectcart(String id) {
-		return sqlSession.selectList(namespace2+".selectcart", id);
+				return sqlSession.selectList(namespace2+".selectcart", id);
 	}
 	
 	/*장바구니 DB에서 리스트 개수 가져오기*/

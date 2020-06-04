@@ -6,6 +6,7 @@ public class Order_detailsDTO {
 
 	private String ordernum;
 	private String code;
+	private String codename;
 	private String id;
 	private String count;
 	private String ordersize ;
@@ -16,6 +17,12 @@ public class Order_detailsDTO {
 	
 	
 	
+	public String getCodename() {
+		return codename;
+	}
+	public void setCodename(String codename) {
+		this.codename = codename;
+	}
 	public String getDelivery() {
 		return delivery;
 	}

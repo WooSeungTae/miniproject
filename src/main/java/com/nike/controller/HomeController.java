@@ -391,7 +391,7 @@ public class HomeController {
 		/*장바구니에 대표사진 저장하는 기능*/
 		sdto.setImage1(Pservice.image1get(sdto.getCode()));
 		/*장바구니에 가격 저장하는 기능*/
-		sdto.setPrice(Pservice.priceget(sdto.getCode()));
+		//sdto.setPrice(Pservice.priceget(sdto.getCode()));
 		/*장바구니 DB에 값을 저장*/
 		orderservice.insertcart(sdto);
 		return "redirect:cart";
@@ -443,7 +443,17 @@ public class HomeController {
 		return "purchase/checkOut";
 	}
 	
-	
+	/*장바구니에서 구매*/
+	@RequestMapping("checkoutCart")
+	public String checkoutCart(Model model,@SessionAttribute(value="id",required=false) String id) {
+		if(id!=null)service.searchId(model, id);
+		
+		model.addAttribute("cartlist",orderservice.selectcart(id));
+		System.out.println("아이디 : "+id);
+		model.addAttribute("totalmoney", orderservice.totalprice(id));
+		System.out.println("홈컨트롤 : "+orderservice.selectcart(id));
+		return "purchase/checkOutCart";
+	}
 	
 	/*구매후 등록*/
 	@RequestMapping("productBuy0")

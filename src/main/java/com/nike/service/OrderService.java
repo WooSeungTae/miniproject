@@ -60,6 +60,8 @@ public class OrderService {
 	
 	/*장바구니 DB에서 회원별 리스트 가져오기*/
 	public List<ShoppingCartDTO> selectcart(String id) {
+		
+		System.out.println(Odao.selectcart(id));
 		return Odao.selectcart(id);
 	}
 	
