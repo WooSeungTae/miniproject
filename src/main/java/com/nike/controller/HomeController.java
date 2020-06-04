@@ -110,13 +110,6 @@ public class HomeController {
 		return "redirect:loginPage";
 	}
 	
-	/*세부 상품 조회*/
-	@RequestMapping("/productdetail")
-	public String productdetail(Model model, HttpServletRequest request) {
-		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
-		return "jsj/product_detail";
-	}
-	
 	/*남자 신발 전체목록*/
 	@RequestMapping("Men")
 	public String catalogMen(Model model) {
@@ -343,21 +336,39 @@ public class HomeController {
 		return "myPage/myPageReviewintro";
 	}
 	
+	/*세부 상품 조회*/
+	@RequestMapping("/productdetail")
+	public String productdetail(Model model, HttpServletRequest request) {
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
+		model.addAttribute("noadd", request.getParameter("noadd"));
+		return "jsj/product_detail";
+	}
+	
 	/*장바구니 DB에 값 저장하기*/
 	@RequestMapping("cartSave")
 	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
+		String code = request.getParameter("code");
 		sdto.setId(id);
-		/*장바구니에 상품명 저장하는 기능*/
-		sdto.setCodename(Pservice.codnameget(sdto.getCode()));
-		/*장바구니에 대표사진 저장하는 기능*/
-		sdto.setImage1(Pservice.image1get(sdto.getCode()));
-		/*장바구니에 가격 저장하는 기능*/
-		sdto.setPrice(Pservice.priceget(sdto.getCode()));
-		/*장바구니 DB에 값을 저장*/
-		orderservice.insertcart(sdto);
-		return "redirect:cart";
+		sdto.setCode(code);
+		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+		if(orderservice.checkitem(sdto)==0) {
+			/*장바구니에 상품명 저장하는 기능*/
+			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+			/*장바구니에 대표사진 저장하는 기능*/
+			sdto.setImage1(Pservice.image1get(sdto.getCode()));
+			/*장바구니에 가격 저장하는 기능*/
+			sdto.setPrice(Pservice.priceget(sdto.getCode()));
+			/*장바구니 DB에 값을 저장*/
+			orderservice.insertcart(sdto);
+			return "redirect:cart";
+		}else {
+			model.addAttribute("noadd", -1);
+			System.out.println("=============================================뭐야무야");
+			return "redirect:productdetail?code="+code;
+		}
+		
 	}
 	
 	/*장바구니*/

@@ -44,11 +44,17 @@ public class OrderDAO {
 	/*장바구니 DB에서 회원별 총 금액 가져오기*/
 	public int totalprice(String id) {
 		return sqlSession.selectOne(namespace2+".totalprice", id);
+		
 	}
 	
 	/*회원별 장바구니에서 x누른 아이템 삭제*/
 	public void cartitemdelete(ShoppingCartDTO sdto) {
 		sqlSession.delete(namespace2+".cartitemdelete", sdto);
+	}
+	
+	/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+	public int checkitem(ShoppingCartDTO sdto) {
+		return sqlSession.selectOne(namespace2+".checkitem", sdto);
 	}
 	
 }

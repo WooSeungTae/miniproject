@@ -60,4 +60,9 @@ public class OrderService {
 		Odao.cartitemdelete(sdto);
 	}
 
+	/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+	public int checkitem(ShoppingCartDTO sdto) {
+		return Odao.checkitem(sdto);
+	}
+
 }
