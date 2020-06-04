@@ -53,7 +53,7 @@ public class HomeController {
 	@Autowired
 	MemberService memberservice;
 	@Autowired
-	OrderService oservice;
+	OrderService orderservice;;
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -367,7 +367,7 @@ public class HomeController {
 	@RequestMapping("productBuy0")
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
 		//System.out.println("호출");
-		oservice.productBuy(Odto,Ddto);
+		orderservice.productBuy(Odto,Ddto);
 		return "myPage/myPage";
 	}
 	
