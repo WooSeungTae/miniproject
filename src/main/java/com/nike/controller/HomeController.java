@@ -416,6 +416,12 @@ public class HomeController {
 		return "purchase/cart";
 	}
 	
+	/*장바구니 옵션변경*/
+	@RequestMapping("cartoption")
+	public String cartoption() {
+		return "purchase/cartoption";
+	}
+	
 	/*회원별 장바구니에 있는 아이템 전부 삭제*/
 	@RequestMapping("cartAlldelete")
 	public String cartAlldelete(HttpServletRequest request) {
