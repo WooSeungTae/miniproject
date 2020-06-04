@@ -48,7 +48,7 @@ public class HomeController {
 	@Autowired
 	MemberService memberservice;
 	@Autowired
-	OrderService oservice;
+	OrderService orderservice;
 	@Autowired
 	FileUploadService fileUploadService;
 
@@ -449,7 +449,7 @@ public class HomeController {
 	@RequestMapping("productBuy0")
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
 		//System.out.println("호출");
-		oservice.productBuy(Odto,Ddto);
+		orderservice.productBuy(Odto,Ddto);
 		return "myPage/myPage";
 	}
 	

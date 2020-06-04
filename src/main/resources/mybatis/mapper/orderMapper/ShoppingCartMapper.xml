@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
- <mapper namespace="com.care.mybatis.orderMapper.ShoppingCartMapper"></mapper>
-
-=======
-  
+ 
 <mapper namespace="com.care.mybatis.orderMapper.ShoppingCartMapper">
 	
 	<!--장바구니 DB에 값을 저장-->
@@ -38,4 +34,4 @@
 		delete from shoppingcart where id=#{id} and code=#{code}
 	</delete>
 </mapper>
->>>>>>> 2cea2c58b142cb5b3f1b34a9c821cee968b30e49
+

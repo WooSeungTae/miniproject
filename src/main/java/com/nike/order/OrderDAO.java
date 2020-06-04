@@ -10,23 +10,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class OrderDAO {
-<<<<<<< HEAD
 	private  final String namespace = "com.care.mybatis.orderMapper.orderMapper";
 	@Autowired
 	private SqlSession sqlSession;
-	
-	
-=======
-	private static final String namespace = "com.care.mybatis.orderMapper.orderMapper";
-	
 	/*장바구니용 namespace*/
 	private static final String namespace2 = "com.care.mybatis.orderMapper.ShoppingCartMapper";
-	
-	@Autowired
-	private SqlSession sqlSession;
-	
-<<<<<<< HEAD
->>>>>>> 2cea2c58b142cb5b3f1b34a9c821cee968b30e49
+
 	public void buyRegister(OrderDTO Odto) {
 //		System.out.println("이름 : "+Odto.getName());
 //		System.out.println("주소 : "+Odto.getAddr());
@@ -40,11 +29,7 @@ public class OrderDAO {
 //		System.out.println("총가격 : "+Odto.gettotalprice());
 		//System.out.println("정보 주문번호 : "+Odto.getordernum());
 		sqlSession.insert(namespace+".buyRegister",Odto);
-<<<<<<< HEAD
 		}
-
-=======
-=======
 	/*장바구니 DB에 값을 저장*/
 	public void insertcart(ShoppingCartDTO sdto) {
 		sqlSession.insert(namespace2+".insertcart",sdto); 
@@ -73,8 +58,8 @@ public class OrderDAO {
 	/*회원별 장바구니에서 x누른 아이템 삭제*/
 	public void cartitemdelete(ShoppingCartDTO sdto) {
 		sqlSession.delete(namespace2+".cartitemdelete", sdto);
->>>>>>> jsj
+
 	}
-	
->>>>>>> 2cea2c58b142cb5b3f1b34a9c821cee968b30e49
+
+
 }

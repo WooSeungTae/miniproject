@@ -389,7 +389,9 @@
 							ㆍ 배송지역 : 전국(일부 도서산간 지역 제외)<br> ㆍ 배송기간 : 결제 후 3일 이내(토, 공휴일
 							제외)<br>
 							<br>
-							<br><h4> <input type="radio" name="ordertype" value="fast" onclick="changeDely(this.value)">오늘도착 : 서비스
+							<br>
+							<c:if test="${sessionScope.id!=null}">
+							<h4><input type="radio" name="ordertype" value="fast" onclick="changeDely(this.value)">오늘도착 : 서비스
 							비용 5,000원 [나이키멤버 전용]<br></h4>
 						<p>
 							ㆍ 배송지역 : 서울ㆍ분당<br> ㆍ 이용시간 : 13시까지 결제 시, 당일 도착(공휴일 제외)<br>
@@ -397,6 +399,7 @@
 							예정, 배송업체 상황에 따라 조금 지연될 수 있습니다.<br> 
 							&nbsp;&nbsp;&nbsp; 오늘 밤에 받으실 배송지 주소를 한번더 확인해
 							주세요.
+							</p></c:if>
 							</div>
 					<br>
 					<hr style="width: 100%;">
