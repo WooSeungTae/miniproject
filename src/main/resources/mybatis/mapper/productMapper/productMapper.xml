@@ -3,40 +3,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
-
-	<!--  남자 신발 전체 검색 -->
-	<select id="AllListMen" resultType="Pdto">
-		select * from product where (gender='남자' or gender='공용') ORDER BY joindate, codename  
-	</select>
-	
-	<!--  남자 카테고리별 신발 전체 검색 -->
-		<select id="AllListMenCategory" resultType="Pdto">
-		select * from product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate, codename
-	</select>
-	
-	<!--  전체 총 페이지 -->
-
-	
-	
 	<!-- 세부상품 페이지 조회  -->
 	<select id="productdetail" resultType="Pdto" parameterType="String">
 		select * from product where code=#{code}
 	</select>
-	
-	<select id="countProduct" resultType="int">
-		select count(*) from product;		
-		</select>
-		
-	<!-- 신발 검색 -->
-		<select id="searchCode" resultType="Pdto">
-		select * from product where codename like '%'|| #{codename} ||'%'		
-		</select>
-		
-	<!-- 신발 컬러 검색 -->
-		<select id="codeColor" resultType="int">
-		select * from product where codename =#{codename}		
-		</select>
-		
 	<!-- 신발 전체 검색 -->
 	<select id="AllList" resultType="Pdto">
 		select * from product
@@ -51,7 +21,6 @@
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-	
 	<!-- 여자 신발 전체 검색 -->
 	<select id="AllListWomen" resultType="Pdto">
 		SELECT * FROM (SELECT
@@ -101,23 +70,15 @@
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-	
 
 	<!-- 상품정보 등록 -->
 	<insert id="productinput" parameterType="Pdto">
 		insert into product (code,codename,codecolor,category,gender,image1,image2,image3,image4,image5,image6,contents,price) values(#{code},#{codename},#{codecolor},#{category},#{gender},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{contents},#{price})
 	</insert>
-	
 	<!-- 상품 size수량 등록 -->
 	<insert id="sizeinput" parameterType="Pdto_size">
 		insert into sizetable values(#{code},#{size80},#{size90},#{size100},#{size110},#{size120},#{size130},#{size140},#{size150},#{size160},#{size220},#{size230},#{size240},#{size250},#{size260},#{size270},#{size280},#{size290},#{size300},#{size310},#{size320},#{size330})
 	</insert>
-	
-   <!-- 페이징 없이 코드로 품목 검색 -->
-   <select id="codeSearch" resultType="Pdto">
-  		select * from product where code=#{code}
-   </select>
-   
 
 
 	<!-- 신발 검색 -->
