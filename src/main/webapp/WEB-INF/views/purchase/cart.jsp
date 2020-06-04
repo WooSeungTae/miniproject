@@ -166,7 +166,7 @@
 		<section class="content-area">
 			<section class="pt_cart">
 				<article class="contents">
-					<form action="checkout" method="get">
+					<form action="checkoutCart" method="get">
 						<h2 class="cart-title">장바구니</h2>
 						<div class="mc-cart-num">
 							<span>${cartcount}개 상품</span>
