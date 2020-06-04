@@ -383,6 +383,7 @@ public class HomeController {
 		sdto.setId(id);
 		sdto.setCode(code);
 		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+		System.out.println("=========================================="+orderservice.checkitem(sdto));
 		if(orderservice.checkitem(sdto)==0) {
 			/*장바구니에 상품명 저장하는 기능*/
 			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
@@ -395,7 +396,6 @@ public class HomeController {
 			return "redirect:cart";
 		}else {
 			model.addAttribute("noadd", -1);
-			System.out.println("=============================================뭐야무야");
 			return "redirect:productdetail?code="+code;
 		}
 		
@@ -407,6 +407,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		/*장바구니 DB에서 리스트 개수 가져오기*/
+		System.out.println("==========================================" + orderservice.countcart(id));
 		model.addAttribute("cartcount", orderservice.countcart(id));
 		/*장바구니 DB에서 회원별 리스트 가져오기*/
 		model.addAttribute("cartlist", orderservice.selectcart(id));
