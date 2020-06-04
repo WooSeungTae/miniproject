@@ -13,6 +13,7 @@ public class OrderDAO {
 	private  final String namespace = "com.care.mybatis.orderMapper.orderMapper";
 	@Autowired
 	private SqlSession sqlSession;
+	
 	/*장바구니용 namespace*/
 	private static final String namespace2 = "com.care.mybatis.orderMapper.ShoppingCartMapper";
 
@@ -29,7 +30,9 @@ public class OrderDAO {
 //		System.out.println("총가격 : "+Odto.gettotalprice());
 		//System.out.println("정보 주문번호 : "+Odto.getordernum());
 		sqlSession.insert(namespace+".buyRegister",Odto);
-		}
+	}
+		
+
 	/*장바구니 DB에 값을 저장*/
 	public void insertcart(ShoppingCartDTO sdto) {
 		sqlSession.insert(namespace2+".insertcart",sdto); 
@@ -53,11 +56,17 @@ public class OrderDAO {
 	/*장바구니 DB에서 회원별 총 금액 가져오기*/
 	public int totalprice(String id) {
 		return sqlSession.selectOne(namespace2+".totalprice", id);
+		
 	}
 	
 	/*회원별 장바구니에서 x누른 아이템 삭제*/
 	public void cartitemdelete(ShoppingCartDTO sdto) {
 		sqlSession.delete(namespace2+".cartitemdelete", sdto);
+	}
+	
+	/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+	public int checkitem(ShoppingCartDTO sdto) {
+		return sqlSession.selectOne(namespace2+".checkitem", sdto);
 
 	}
 

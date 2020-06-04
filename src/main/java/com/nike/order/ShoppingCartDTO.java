@@ -54,5 +54,11 @@ public class ShoppingCartDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public String getOrdersize() {
+		return ordersize;
+	}
+	public void setOrdersize(String ordersize) {
+		this.ordersize = ordersize;
+	}
 
 }

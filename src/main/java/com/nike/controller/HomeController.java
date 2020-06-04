@@ -1,5 +1,6 @@
 package com.nike.controller;
 
+
 import java.io.File;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -114,14 +115,6 @@ public class HomeController {
 	public String saveUserInfo(MemberInfoDTO dto) {
 		memberservice.saveUserInfo(dto);
 		return "redirect:loginPage";
-	}
-	
-	/*세부 상품 조회*/
-	@RequestMapping("/productdetail")
-	public String productdetail(Model model, HttpServletRequest request) {
-		System.out.println("===============================" + request.getParameter("code"));
-		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
-		return "jsj/product_detail";
 	}
 	
 	/*남자 신발 전체목록*/
@@ -373,21 +366,39 @@ public class HomeController {
 		return "myPage/myPageReviewintro";
 	}
 	
+	/*세부 상품 조회*/
+	@RequestMapping("/productdetail")
+	public String productdetail(Model model, HttpServletRequest request) {
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
+		model.addAttribute("noadd", request.getParameter("noadd"));
+		return "jsj/product_detail";
+	}
+	
 	/*장바구니 DB에 값 저장하기*/
 	@RequestMapping("cartSave")
 	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
+		String code = request.getParameter("code");
 		sdto.setId(id);
-		/*장바구니에 상품명 저장하는 기능*/
-		sdto.setCodename(Pservice.codnameget(sdto.getCode()));
-		/*장바구니에 대표사진 저장하는 기능*/
-		sdto.setImage1(Pservice.image1get(sdto.getCode()));
-		/*장바구니에 가격 저장하는 기능*/
-		sdto.setPrice(Pservice.priceget(sdto.getCode()));
-		/*장바구니 DB에 값을 저장*/
-		orderservice.insertcart(sdto);
-		return "redirect:cart";
+		sdto.setCode(code);
+		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+		System.out.println("=========================================="+orderservice.checkitem(sdto));
+		if(orderservice.checkitem(sdto)==0) {
+			/*장바구니에 상품명 저장하는 기능*/
+			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+			/*장바구니에 대표사진 저장하는 기능*/
+			sdto.setImage1(Pservice.image1get(sdto.getCode()));
+			/*장바구니에 가격 저장하는 기능*/
+			sdto.setPrice(Pservice.priceget(sdto.getCode()));
+			/*장바구니 DB에 값을 저장*/
+			orderservice.insertcart(sdto);
+			return "redirect:cart";
+		}else {
+			model.addAttribute("noadd", -1);
+			return "redirect:productdetail?code="+code;
+		}
+		
 	}
 
 	/*장바구니*/
@@ -396,6 +407,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		/*장바구니 DB에서 리스트 개수 가져오기*/
+		System.out.println("==========================================" + orderservice.countcart(id));
 		model.addAttribute("cartcount", orderservice.countcart(id));
 		/*장바구니 DB에서 회원별 리스트 가져오기*/
 		model.addAttribute("cartlist", orderservice.selectcart(id));

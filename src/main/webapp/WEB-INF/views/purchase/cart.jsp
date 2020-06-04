@@ -131,11 +131,15 @@
 		.btn-link{
 			margin-top:15px; background-color:#fb5302; font-size:14x; font-weight:bold; color:#fff;
 		}
+		a:link{
+			text-decoration:none;
+		}
 	</style>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 		function alldelete(){
-			alert("장바구니에 담긴 상품이 모두 삭제됩니다!")
+			alert("장바구니에 담긴 상품이 모두 삭제됩니다!");
+			location.href="cartAlldelete";
 		}
 		
    		function chageSrc(obj){
@@ -162,7 +166,7 @@
 		<section class="content-area">
 			<section class="pt_cart">
 				<article class="contents">
-					<form action="checkout" method="post">
+					<form action="checkoutCart" method="get">
 						<h2 class="cart-title">장바구니</h2>
 						<div class="mc-cart-num">
 							<span>${cartcount}개 상품</span>
@@ -174,6 +178,7 @@
 								</div>
 								<c:choose>
 									<c:when test="${cartlist.size()!=0}">
+										<input type="hidden" name="cartlist" value="${cartlist }">
 										<c:forEach items="${cartlist }" var="cartitem">
 											<div class="product-opt_cart">
 												<div class="item-detail">
@@ -192,7 +197,7 @@
 													</div>
 													<div class="option-wrap">
 														<div>
-															<button class="optchange">옵션 변경</button>
+															<button class="optchange" type="button" onclick="location.href='cartoption?code=${cartitem.code}'">옵션 변경</button>
 														</div>
 													</div>
 													<div class="total-price">
@@ -204,7 +209,7 @@
 														</strong>
 													</div>
 													<div class="delete-btn">
-														<a class="btn-delete" href="cartitemdelete?code='${cartitem.code }'"><i class="icon-delete_bold">X</i></a>
+														<a class="btn-delete" onclick="location.href='cartitemdelete?code=${cartitem.code }'"><i class="icon-delete_bold">X</i></a>
 													</div>
 												</div>
 											</div>
@@ -257,6 +262,7 @@
 												var price = ${totalprice };
 												document.write(price.toLocaleString()+' 원');
 											</script>
+											<input type="hidden" name="totalprice" value="${totalprice }">
 										</strong>
 									</span>
 								</div>
