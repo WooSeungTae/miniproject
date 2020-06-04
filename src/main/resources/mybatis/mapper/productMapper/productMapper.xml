@@ -71,6 +71,7 @@
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
+<<<<<<< HEAD
 	<!-- 상품정보 등록 -->
 	<insert id="productinput" parameterType="Pdto">
 		insert into product (code,codename,codecolor,category,gender,image1,image2,image3,image4,image5,image6,contents,price) values(#{code},#{codename},#{codecolor},#{category},#{gender},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{contents},#{price})
@@ -79,6 +80,7 @@
 	<insert id="sizeinput" parameterType="Pdto_size">
 		insert into sizetable values(#{code},#{size80},#{size90},#{size100},#{size110},#{size120},#{size130},#{size140},#{size150},#{size160},#{size220},#{size230},#{size240},#{size250},#{size260},#{size270},#{size280},#{size290},#{size300},#{size310},#{size320},#{size330})
 	</insert>
+<<<<<<< HEAD
 
 	<!-- 신발 검색 -->
 	<select id="searchCode" resultType="Pdto">
@@ -116,5 +118,28 @@
 		select count(*) from product where upper(codename) like '%'||#{codename}||'%'
 	</select>
 
+=======
+   <!-- 페이징 없이 코드로 품목 검색 -->
+   <select id="codeSearch" resultType="Pdto">
+   select * from product where code=#{code}
+   </select>
+=======
+	<!-- 장바구니에 대표사진 저장하는 기능-->
+	<select id="image1get" resultType="String" parameterType="String">
+		select image1 from product where code=#{code}
+	</select>
+	
+	<!-- 장바구니에 상품명 저장하는 기능 -->
+	<select id="codnameget" resultType="String" parameterType="String">
+		select codename from product where code=#{code}
+	</select>
+	
+	<!-- 장바구니에 가격 저장하는 기능-->
+	<select id="priceget" resultType="String" parameterType="String">
+		select price from product where code=#{code}
+	</select>
+	
+>>>>>>> jsj
+>>>>>>> 2cea2c58b142cb5b3f1b34a9c821cee968b30e49
 </mapper>
 

@@ -281,6 +281,21 @@ public class ProductService {
 	public void productDelete(String code) {		
 		Pdao.productDelete(code);	
 	}
+	
+	//장바구니에 대표사진 저장하는 기능
+	public String image1get(String code) {
+		return Pdao.image1get(code);
+	}
+	
+	//장바구니에 상품명 저장하는 기능
+	public String codnameget(String code) {
+		return Pdao.codenameget(code);
+	}
+	
+	//장바구니에 가격 저장하는 기능
+	public int priceget(String code) {
+		return Pdao.priceget(code);
+	}
 
 
 }
