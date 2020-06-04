@@ -153,6 +153,10 @@
    			document.getElementById(imgId).src = changeName;
    			
    		}
+   		
+   		function openoption(){
+   			window.open("cartoption", "장바구니 옵션 변경", "width=700, height=500")
+   		}
 	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -197,7 +201,7 @@
 													</div>
 													<div class="option-wrap">
 														<div>
-															<button class="optchange" type="button" onclick="location.href='cartoption?code=${cartitem.code}'">옵션 변경</button>
+															<button class="optchange" type="button" onclick="openoption()">옵션 변경</button>
 														</div>
 													</div>
 													<div class="total-price">
