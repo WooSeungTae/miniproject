@@ -6,8 +6,8 @@
 	<!-- orderInfo 테이블에 저장 -->
 	<insert id="buyRegister" parameterType="Odto">
 		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname
-		,bank,id,totalprice,ordernum) values(#{name},#{tel},#{addr},
-		#{ordermemo},#{ordertype},#{bankname},#{bank},#{id},#{totalprice},#{ordernum})
+		,bank,id,totalprice,ordernum,mile) values(#{name},#{tel},#{addr},
+		#{ordermemo},#{ordertype},#{bankname},#{bank},#{id},#{totalprice},#{ordernum},#{mile})
 	</insert>
 	
 	<!-- orderDetailsInfo 테이블에 저장 -->

@@ -2,6 +2,7 @@ package com.nike.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
@@ -36,10 +38,14 @@ public class OrderService {
 	
 	
 	/*구매후 등록*/
-	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		orderNum="Order";
 		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
 		orderNum = orderNum + format.format(new Date());
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		if(id!=null) {dao.mileageModify(dto);
+		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);

@@ -167,22 +167,26 @@
 	}
 
 	function mileSet(){
-		var s = '${searchId.mile}';
-		
-		if("${sessionScope.id}"!=""){	
-			mile =  document.getElementById("mile").value;
-		if(mile>=s){
+		var s =parseInt('${searchId.mile}');
+		var mile1 =  document.getElementById("mile").value;
+		if("${sessionScope.id}"!=""){
+
+		if(mile1>=s){
+			mile1=s;
 			mile=s;
-			document.getElementById("mile").value=mile;
+			document.getElementById("mile").value=mile1;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
+			mile1 = 0;
 		};
 		if(checkDely==1){
+			mile=mile1;
 			total=yes+price-mile;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
 		}else{
+			mile=mile1;
 			total=price-mile;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";

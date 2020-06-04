@@ -447,9 +447,9 @@ public class HomeController {
 	
 	/*구매후 등록*/
 	@RequestMapping("productBuy0")
-	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
-		orderservice.productBuy(Odto,Ddto);
+		orderservice.productBuy(Odto,Ddto,dto,request);
 		return "myPage/myPage";
 	}
 	
