@@ -70,5 +70,11 @@ public class OrderDAO {
 
 	}
 
+	/*장바구니 옵션 변경*/
+	public void cartoptionchange(ShoppingCartDTO sdto) {
+		sqlSession.update(namespace2+".cartoptionchange", sdto);
+		
+	}
+
 
 }

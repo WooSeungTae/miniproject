@@ -87,5 +87,11 @@ public class OrderService {
 		return Odao.checkitem(sdto);
 
 	}
+	
+	/*장바구니 옵션 변경*/
+	public void cartoptionchange(ShoppingCartDTO sdto) {
+		Odao.cartoptionchange(sdto);
+		
+	}
 
 }

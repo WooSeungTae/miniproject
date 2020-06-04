@@ -38,6 +38,11 @@
 	<select id="checkitem" parameterType="Sdto" resultType="Integer">
 		select nvl(count(code), 0) from shoppingcart where id=#{id} and code=#{code}
 	</select>
+	
+	<!-- 장바구니 옵션 변경 -->
+	<update id="cartoptionchange" parameterType="Sdto">
+		update shoppingcart set ordersize=#{ordersize}, count=#{count} where id=#{id} and code=#{code}
+	</update>
 </mapper>
 
 
