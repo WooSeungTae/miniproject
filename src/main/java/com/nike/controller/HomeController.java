@@ -1,6 +1,9 @@
 package com.nike.controller;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 import java.io.File;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -11,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nike.service.FileUploadService;
@@ -28,8 +33,11 @@ import com.nike.service.OrderService;
 import com.nike.service.ProductService;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.order.OrderDTO;
+import com.nike.order.Order_detailsDTO;
 import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
+import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
 
 /**
@@ -47,6 +55,7 @@ public class HomeController {
 	OrderService orderservice;
 	@Autowired
 	FileUploadService fileUploadService;
+
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -70,7 +79,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "/sminj/main";
 	}
 	
 	//관리자 상품관리(수정)
@@ -100,10 +109,11 @@ public class HomeController {
 		}else {
 			HttpSession mySession = request.getSession();
 			mySession.setAttribute("id", dto.getId());
+			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
+			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
 			return "sminj/main";
 		}
 	}
-	
 	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
 	public String saveUserInfo(MemberInfoDTO dto) {
 		memberservice.saveUserInfo(dto);
@@ -112,55 +122,86 @@ public class HomeController {
 	
 	/*남자 신발 전체목록*/
 	@RequestMapping("Men")
-	public String catalogMen(Model model) {
-		Pservice.allListMen(model);
-		
+	public String catalogMen(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("남자");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListMen(model,vo);
 		return "jsj/Men/men";
+	}
+	
+	/*여자 신발 전체목록*/
+	@RequestMapping("/Women")
+	public String catalogWomen(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("여자");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListWomen(model,vo);
+		return "jsj/Women/women";
+	}
+	
+	/*아동 신발 전체목록*/
+	@RequestMapping("/Kids")
+	public String catalogKids(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("키즈");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListKids(model,vo);
+		return "jsj/Kids/kids";
 	}
 	
 	/*남자 신발 카테코리별 전체조회*/
 	@RequestMapping("Men/category")
-	public String catalogMenCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListMenCategory(model,category);
+	public String catalogMenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+				, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("남자", category);
+		System.out.println("남자신발 토탈 번호 : " + total);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListMenCategory(model,vo);
 		return "jsj/Men/menCategory";
 	}
 
+	/*여자 신발 카테고리별 전체조회*/
+	@RequestMapping("/Women/category")
+	public String catalogWomenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("여자", category);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListWomenCategory(model,vo);
+		return "jsj/Women/womenCategory";
+	}
+	
+	
+	/*아동 신발 카체고리별 전체조회*/
+	@RequestMapping("/Kids/category")
+	public String catalogKidsCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("키즈", category);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListKidsCategory(model,vo);
+		return "jsj/Kids/kidsCategory";
+	}
 	
 	/*전체 신발 검색*/
 	@RequestMapping("searchCheck")
-	public String catalogMenSearch(Model model,@RequestParam("codename") String codename) {
-		Pservice.searchCode(model,codename);
+	public String catalogMenSearch(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="codename", required=false) String codename) {
+		Double total = (double)Pservice.searchShose(codename);
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total,Integer.parseInt(nowPage),codename);
+		Pservice.searchCode(model,vo);
 		return "jsj/search";
 	}
 	
 
-	/*여자 신발 전체*/
-	@RequestMapping("/Women")
-	public String catalogWomen(Model model) {
-		Pservice.allListWomen(model);
-		return "jsj/Women/women";
-	}
 	
-	/*여자 신발 카테고리별 전체조회*/
-	@RequestMapping("/Women/category")
-	public String catalogWomenCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListWomenCategory(model,category);
-		return "jsj/Women/womenCategory";
-	}
-
-	/*아동 신발 전체*/
-	@RequestMapping("/Kids")
-	public String catalogKids(Model model) {
-		Pservice.allListKids(model);
-		return "jsj/Kids/kids";
-	}
-	
-	/*아동 신발 카체고리별 전체조회*/
-	@RequestMapping("/Kids/category")
-	public String catalogKidsCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListKidsCategory(model,category);
-		return "jsj/Kids/kidsCategory";
-	}
 
 	/*상품 등록*/
 	@RequestMapping("product_input")
@@ -247,7 +288,10 @@ public class HomeController {
 	
 	/*마이페이지 사이드*/
 	@RequestMapping("aside")
-	public String aside() {
+	public String aside(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String name = (String) mySession.getAttribute("name");
+		model.addAttribute("name", name);
 		return "myPage/myPageAside";
 	}
 	/*주문내역 배송현황*/
@@ -320,17 +364,6 @@ public class HomeController {
 		service.memberinfoModify(dto, model);
 		return "redirect:account";
 	}
-	
-	@RequestMapping("password")
-	public String password() {
-		return "myPage/myPagePassword";
-	}
-	
-	@RequestMapping("withdrawal")
-	public String withdrawal() {
-		return "myPage/myPageWithdrawal";
-	}
-	
 	@RequestMapping("reviewintro")
 	public String reviewintro() {
 		return "myPage/myPageReviewintro";
@@ -370,7 +403,7 @@ public class HomeController {
 		}
 		
 	}
-	
+
 	/*장바구니*/
 	@RequestMapping("cart")
 	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
@@ -406,10 +439,25 @@ public class HomeController {
 	}
 	
 	/*구매*/
-	@RequestMapping("checkout")
-	public String checkOut() {
+	@RequestMapping("checkoutQuick")
+	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
+			,@Param("ordersize") String ordersize
+			,@Param("count") String count) {
+		if(id!=null)service.searchId(model, id);
+		Pservice.codeSearch(model, code);
+		model.addAttribute("ordersize", ordersize);
+		model.addAttribute("count", count);
 		return "purchase/checkOut";
 	}
+	
+	/*구매후 등록*/
+	@RequestMapping("productBuy0")
+	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+		//System.out.println("호출");
+		orderservice.productBuy(Odto,Ddto);
+		return "myPage/myPage";
+	}
+	
 	@RequestMapping("myreviewlistall")
 	public String myreviewlistall() {
 		return "myPage/myPagemyReviewlistall";
@@ -420,7 +468,10 @@ public class HomeController {
 		return "myPage/myPageTowritelistall";
 	}
 	@RequestMapping("/header")
-	public String header() {
+	public String header(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String name = (String)mySession.getAttribute("name");
+		model.addAttribute("name", name);
 		return "sminj/header";
 	}
 	@RequestMapping("/footer")
@@ -430,6 +481,29 @@ public class HomeController {
 	@RequestMapping("/main")
 	public String main() {
 		return "sminj/main";
+	}
+	/* 로그아웃 */
+	@RequestMapping("logout")
+	public String logout(HttpSession mySession) {
+		memberservice.logout(mySession);
+		return "sminj/main";
+	}
+	/* 회원비밀번호 변경 */
+	@RequestMapping("password")
+	public String password(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String pwd = (String)mySession.getAttribute("pwd");
+		model.addAttribute("pwd", pwd);
+		return "myPage/myPagePassword";
+	}
+	/* 회원탈퇴 */
+	@RequestMapping("withdrawal")
+	public String withdrawal() {
+		return "myPage/myPageWithdrawal";
+	}
+	@RequestMapping("pwdSuccess")
+	public String pwdSuccess() {
+		return "sminj/pwd_ModifySuccess";
 	}
 	
 }

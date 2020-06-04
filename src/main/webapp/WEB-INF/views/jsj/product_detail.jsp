@@ -341,8 +341,8 @@
 											<div>
 												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
-														<input class="directorder" type="submit" value="바로구매" formaction="checkout" >
-														<input type="submit" class="shoppingcart" value="장바구니" formaction="cartSave">
+														<input class="directorder" type="submit" value="바로구매" formaction="checkoutQuick" >
+														<input type="submit" class="shoppingcart" value="장바구니" formaction="cart">
 													</div>
 												</div>
 											</div>

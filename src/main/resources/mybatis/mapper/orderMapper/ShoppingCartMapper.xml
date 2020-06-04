@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+ 
 <mapper namespace="com.care.mybatis.orderMapper.ShoppingCartMapper">
 	
 	<!--장바구니 DB에 값을 저장-->
@@ -34,9 +33,14 @@
 	<delete id="cartitemdelete" parameterType="Sdto">
 		delete from shoppingcart where id=#{id} and code=#{code}
 	</delete>
+<<<<<<< HEAD
 	
 	<!-- 이미 있는 아이템은 더이상 장바구니에 추가 못함 -->
 	<select id="checkitem" parameterType="Sdto" resultType="Integer">
 		select nvl2(count(code), 1, 0) from shoppingcart where id=#{id} and code=#{code}
 	</select>
 </mapper>
+=======
+</mapper>
+
+>>>>>>> master

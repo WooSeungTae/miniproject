@@ -1,15 +1,30 @@
 package com.nike.service;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
+=======
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+>>>>>>> master
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.nike.memberInfo.MemberInfoDAO;
+import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.order.OrderDAO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDAO;
+import com.nike.order.Order_detailsDTO;
 import com.nike.product.ProductDAO;
 import com.nike.order.ShoppingCartDTO;
 
@@ -23,12 +38,25 @@ public class OrderService {
 	private ProductDAO pdao;
 	@Autowired
 	private Order_detailsDAO Ddao;
+
+	private String orderNum;
+	
 	
 	/*구매후 등록*/
-	public void productBuy(HttpServletRequest request,OrderDTO Odto) {
+	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+		orderNum="Order";
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
+		orderNum = orderNum + format.format(new Date());
+		Odto.setordernum(orderNum);
+		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
+		Ddao.buyRegisterDetails(Ddto);
+
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> master
 	
 	/*장바구니 DB에 값을 저장*/
 	public void insertcart(ShoppingCartDTO sdto) {
@@ -58,11 +86,14 @@ public class OrderService {
 	/*회원별 장바구니에서 x누른 아이템 삭제*/
 	public void cartitemdelete(ShoppingCartDTO sdto) {
 		Odao.cartitemdelete(sdto);
+<<<<<<< HEAD
 	}
 
 	/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
 	public int checkitem(ShoppingCartDTO sdto) {
 		return Odao.checkitem(sdto);
+=======
+>>>>>>> master
 	}
 
 }
