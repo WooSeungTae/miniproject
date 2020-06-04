@@ -3,7 +3,6 @@ package com.nike.order;
 import java.sql.Date;
 
 public class OrderDTO {
-	
 	private String name;
 	private String tel;
 	private String addr;
@@ -18,7 +17,6 @@ public class OrderDTO {
 	private Date orderdate;
 	private String mile="0";
 	
-
 	public String getName() {
 		return name;
 	}

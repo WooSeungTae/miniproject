@@ -105,10 +105,11 @@ public class HomeController {
 		}else {
 			HttpSession mySession = request.getSession();
 			mySession.setAttribute("id", dto.getId());
+			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
+			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
 			return "sminj/main";
 		}
 	}
-	
 	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
 	public String saveUserInfo(MemberInfoDTO dto) {
 		memberservice.saveUserInfo(dto);
@@ -291,7 +292,10 @@ public class HomeController {
 	
 	/*마이페이지 사이드*/
 	@RequestMapping("aside")
-	public String aside() {
+	public String aside(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String name = (String) mySession.getAttribute("name");
+		model.addAttribute("name", name);
 		return "myPage/myPageAside";
 	}
 	/*주문내역 배송현황*/
@@ -364,17 +368,6 @@ public class HomeController {
 		service.memberinfoModify(dto, model);
 		return "redirect:account";
 	}
-	
-	@RequestMapping("password")
-	public String password() {
-		return "myPage/myPagePassword";
-	}
-	
-	@RequestMapping("withdrawal")
-	public String withdrawal() {
-		return "myPage/myPageWithdrawal";
-	}
-	
 	@RequestMapping("reviewintro")
 	public String reviewintro() {
 		return "myPage/myPageReviewintro";
@@ -396,7 +389,7 @@ public class HomeController {
 		orderservice.insertcart(sdto);
 		return "redirect:cart";
 	}
-	
+
 	/*장바구니*/
 	@RequestMapping("cart")
 	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
@@ -443,8 +436,6 @@ public class HomeController {
 		return "purchase/checkOut";
 	}
 	
-	
-	
 	/*구매후 등록*/
 	@RequestMapping("productBuy0")
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
@@ -463,7 +454,10 @@ public class HomeController {
 		return "myPage/myPageTowritelistall";
 	}
 	@RequestMapping("/header")
-	public String header() {
+	public String header(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String name = (String)mySession.getAttribute("name");
+		model.addAttribute("name", name);
 		return "sminj/header";
 	}
 	@RequestMapping("/footer")
@@ -473,6 +467,29 @@ public class HomeController {
 	@RequestMapping("/main")
 	public String main() {
 		return "sminj/main";
+	}
+	/* 로그아웃 */
+	@RequestMapping("logout")
+	public String logout(HttpSession mySession) {
+		memberservice.logout(mySession);
+		return "sminj/main";
+	}
+	/* 회원비밀번호 변경 */
+	@RequestMapping("password")
+	public String password(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String pwd = (String)mySession.getAttribute("pwd");
+		model.addAttribute("pwd", pwd);
+		return "myPage/myPagePassword";
+	}
+	/* 회원탈퇴 */
+	@RequestMapping("withdrawal")
+	public String withdrawal() {
+		return "myPage/myPageWithdrawal";
+	}
+	@RequestMapping("pwdSuccess")
+	public String pwdSuccess() {
+		return "sminj/pwd_ModifySuccess";
 	}
 	
 }

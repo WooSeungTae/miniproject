@@ -82,7 +82,6 @@ public class MemberInfoDAO {
 		sqlSession.delete(namespace+".memberdelete",id);
 	}
 
-
 	/*멤버 수 반환*/
 	public int countBoard() {
 		return sqlSession.selectOne(namespace+".countmember");
@@ -91,6 +90,21 @@ public class MemberInfoDAO {
 	public List<MemberInfoDTO> selectBoard(MemberInfo_PagingVO vo){
 		return sqlSession.selectList(namespace+".selectmember",vo);
 	}
+	/* 마이페이지 회원 기존비밀번호 조회 */
+	public String beforePwd(String id) {
+		return sqlSession.selectOne(namespace+".beforePwd",id);
+	}
+	/* 마이페이지 회원 비밀번호 변경 */
+	public void pwdModify(MemberInfoDTO dto) {
+		sqlSession.update(namespace+".pwdModify",dto);
+	}
+	/* 마이페이지 회원탈퇴 */
+	public void userDelete(String id) {
+		sqlSession.delete(namespace+".userDelete",id);
+	}
+	/* 로그인시 이름출력 */
+	public String nameget(String id) {
+		return sqlSession.selectOne(namespace+".nameget",id);
+	}
 
-	
 }
