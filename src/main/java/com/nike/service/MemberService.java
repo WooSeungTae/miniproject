@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.product.ProductDTO;
 import com.nike.memberInfo.MemberInfoDAO;
 
 import com.nike.memberInfo.MemberInfoDAO;
@@ -85,5 +86,6 @@ public class MemberService {
 	public MemberInfoDTO account(String id) {
 		return dao.account(id);
 	}
+	
 	
 }

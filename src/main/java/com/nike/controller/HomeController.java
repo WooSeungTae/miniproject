@@ -1,6 +1,7 @@
 package com.nike.controller;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -21,25 +22,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.nike.service.FileUploadService;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
-import com.nike.utils.UploadFileUtils;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
+import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
-import com.nike.service.MemberService;
-
-import com.nike.memberInfo.MemberInfoDTO;
-import com.nike.product.ProductDTO;
-import com.nike.service.MemberService;
-import com.nike.service.ProductService;
 
 /**
  * Handles requests for the application home page.
@@ -53,7 +48,10 @@ public class HomeController {
 	@Autowired
 	MemberService memberservice;
 	@Autowired
-	OrderService orderservice;;
+	OrderService orderservice;
+	@Autowired
+	FileUploadService fileUploadService;
+
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -79,7 +77,27 @@ public class HomeController {
 		
 		return "/sminj/main";
 	}
-
+	
+	//관리자 상품관리(수정)
+		@RequestMapping("productUpdate")
+		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
+			return null;
+		}
+		
+		//관리자 상품관리(삭제)
+		@RequestMapping("productDelete")
+		public String productDelete(@RequestParam("code") String code) {
+			Pservice.productDelete(code);
+			return "productUpdate_Delete/productSelect";
+		}
+		
+		//관리자 상품 목록 수정, 삭제를 위한 조회
+		@RequestMapping("productSelect")
+		public String productSelect(ProductDTO pdto , Model model) {
+			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
+			return "productUpdate_Delete/productSelect";
+		}
+		
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
@@ -96,9 +114,12 @@ public class HomeController {
 		memberservice.saveUserInfo(dto);
 		return "redirect:loginPage";
 	}
-
+	
+	/*세부 상품 조회*/
 	@RequestMapping("/productdetail")
-	public String productdetail() {
+	public String productdetail(Model model, HttpServletRequest request) {
+		System.out.println("===============================" + request.getParameter("code"));
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
 	
@@ -185,16 +206,31 @@ public class HomeController {
 
 	
 
-
+	/*상품 등록*/
 	@RequestMapping("product_input")
-	public String product_input(Product_sizeDTO sizedto, ProductDTO dto) throws Exception{
-		Pservice.product_input(sizedto,dto);
-		
-		return "";
+	public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
+			@RequestParam(value="file1", required=false) MultipartFile file1,
+			@RequestParam(value="file2", required=false) MultipartFile file2,
+			@RequestParam(value="file3", required=false) MultipartFile file3,
+			@RequestParam(value="file4", required=false) MultipartFile file4,
+			@RequestParam(value="file5", required=false) MultipartFile file5,
+			@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
+		String code = pdto.getCode();
+		if(Pservice.codeSearch(model, code) == 1) {
+			System.out.println("등록 실행");
+			if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
+			if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
+			if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
+			if(pdto.getImage4().equals("image4")) {String url4 = fileUploadService.restore(file4);pdto.setImage4(url4);}
+			if(pdto.getImage5().equals("image5")) {String url5 = fileUploadService.restore(file5);pdto.setImage5(url5);}
+			if(pdto.getImage6().equals("image6")) {String url6 = fileUploadService.restore(file6);pdto.setImage6(url6);}
+			Pservice.product_input(pdto);
+			Pservice.product_size(sizedto);
+		}
+		return "redirect:product_management";
 	}
 	
-	/*상품 등록*/
-
+	/*상품 등록 페이지*/
 	@RequestMapping("product_management")
 	public String product_management() {
 		return "product_management";
@@ -344,11 +380,57 @@ public class HomeController {
 		return "myPage/myPageReviewintro";
 	}
 	
+	/*장바구니 DB에 값 저장하기*/
+	@RequestMapping("cartSave")
+	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		/*장바구니에 상품명 저장하는 기능*/
+		sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+		/*장바구니에 대표사진 저장하는 기능*/
+		sdto.setImage1(Pservice.image1get(sdto.getCode()));
+		/*장바구니에 가격 저장하는 기능*/
+		sdto.setPrice(Pservice.priceget(sdto.getCode()));
+		/*장바구니 DB에 값을 저장*/
+		orderservice.insertcart(sdto);
+		return "redirect:cart";
+	}
+	
 	/*장바구니*/
 	@RequestMapping("cart")
-	public String cart() {
+	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		/*장바구니 DB에서 리스트 개수 가져오기*/
+		model.addAttribute("cartcount", orderservice.countcart(id));
+		/*장바구니 DB에서 회원별 리스트 가져오기*/
+		model.addAttribute("cartlist", orderservice.selectcart(id));
+		/*장바구니 DB에서 회원별 총 금액 가져오기*/
+		model.addAttribute("totalprice", orderservice.totalprice(id));
 		return "purchase/cart";
 	}
+	
+	/*회원별 장바구니에 있는 아이템 전부 삭제*/
+	@RequestMapping("cartAlldelete")
+	public String cartAlldelete(HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		orderservice.cartAlldelete(id);
+		return "redirect:cart";
+	}
+	
+	/*회원별 장바구니에서 x누른 아이템 삭제*/
+	@RequestMapping("cartitemdelete")
+	public String cartitemdelete(ShoppingCartDTO sdto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		sdto.setCode(request.getParameter("code"));
+		orderservice.cartitemdelete(sdto);
+		return "redirect:cart";
+	}
+	
 	/*구매*/
 	@RequestMapping("checkoutQuick")
 	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code

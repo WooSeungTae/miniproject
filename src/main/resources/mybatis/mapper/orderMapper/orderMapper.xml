@@ -16,6 +16,5 @@
 		values(#{ordernum},#{code},#{id},#{count},#{ordersize},#{price},#{image1})
 	</insert>
 
-	
 </mapper>
 

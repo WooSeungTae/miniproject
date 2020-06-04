@@ -4,7 +4,6 @@ package com.nike.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -12,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.ui.Model;
-
-import com.nike.product.ProductDAO;
-
 
 import com.nike.product.ProductDAO;
 import com.nike.product.ProductDTO;
@@ -27,6 +23,17 @@ public class ProductService {
 	@Autowired
 	private ProductDAO Pdao;
 	
+
+	/*신발 코드로 검색 검색 결과 없다면 1 있다면 0*/
+	public int codeSearch(Model model,String code) {
+	   model.addAttribute("quickProduct", Pdao.codeSearch(code));
+	   if(Pdao.codeSearch(code)==null) {
+		   return 1;
+	   }else {
+		   return 0;
+	   }
+	}
+
 	
 	
 	/*gender별 신발 전체 개수*/
@@ -46,7 +53,6 @@ public class ProductService {
 	public int searchShose(String codename) {
 		return Pdao.searchShose(codename);
 	}
-
 
 	/*남자 신발 전체 검색 및 컬러 조회*/
 	public void allListMen(Model model,Product_PagingVO vo) {
@@ -250,14 +256,46 @@ public class ProductService {
 		model.addAttribute("codeNameList", hm);
 	}
 
-	/*신발 코드로 검색*/
-	public void codeSearch(Model model,String code) {
-		model.addAttribute("quickProduct", Pdao.codeSearch(code));
+	/*상품 등록 기본 정보*/
+	public void product_input(ProductDTO pdto) {
+		Pdao.product_input(pdto);
+	}
+	/*상품 등록 사이즈별 수량*/
+	public void product_size(Product_sizeDTO sizedto) {
+		Pdao.product_size(sizedto);
+	}
+
+	/*세부 상품 조회*/
+	public ProductDTO productdetail(String code) {
+		return Pdao.productdetail(code);
 	}
 	
 
-	public void product_input(Product_sizeDTO sizedto, ProductDTO dto) {
-		Pdao.product_input(sizedto,dto);
+	
+	//관리자 상품 목록 수정, 삭제를 위한 조회
+	public ProductDTO productSelect(String code) {
+		return Pdao.productSelect(code);
 	}
+		
+	//관리자 상품 삭제하기 위한 기능
+	public void productDelete(String code) {		
+		Pdao.productDelete(code);	
+	}
+	
+	//장바구니에 대표사진 저장하는 기능
+	public String image1get(String code) {
+		return Pdao.image1get(code);
+	}
+	
+	//장바구니에 상품명 저장하는 기능
+	public String codnameget(String code) {
+		return Pdao.codenameget(code);
+	}
+	
+	//장바구니에 가격 저장하는 기능
+	public int priceget(String code) {
+		return Pdao.priceget(code);
+	}
+
 
 }

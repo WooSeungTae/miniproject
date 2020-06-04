@@ -1,6 +1,7 @@
 package com.nike.order;
 
 public class Order_detailsDTO {
+
 	private String ordernum;
 	private String code;
 	private String id;

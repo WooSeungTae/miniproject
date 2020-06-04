@@ -18,8 +18,7 @@ public class OrderDTO {
 	private Date orderdate;
 	private String mile="0";
 	
-	
-	
+
 	public String getName() {
 		return name;
 	}
@@ -55,6 +54,7 @@ public class OrderDTO {
 	}
 	public void setbankname(String bankname) {
 		this.bankname = bankname;
+
 	}
 	public String getBank() {
 		return bank;
@@ -98,7 +98,5 @@ public class OrderDTO {
 	public void setMile(String mile) {
 		this.mile = mile;
 	}
-	
-	
-		
+
 }
