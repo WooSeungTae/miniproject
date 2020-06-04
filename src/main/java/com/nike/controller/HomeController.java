@@ -1,9 +1,6 @@
 package com.nike.controller;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> master
 import java.io.File;
 import java.sql.SQLException;
 import java.text.DateFormat;

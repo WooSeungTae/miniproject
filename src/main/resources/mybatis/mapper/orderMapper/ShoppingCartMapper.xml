@@ -33,14 +33,11 @@
 	<delete id="cartitemdelete" parameterType="Sdto">
 		delete from shoppingcart where id=#{id} and code=#{code}
 	</delete>
-<<<<<<< HEAD
 	
 	<!-- 이미 있는 아이템은 더이상 장바구니에 추가 못함 -->
 	<select id="checkitem" parameterType="Sdto" resultType="Integer">
 		select nvl2(count(code), 1, 0) from shoppingcart where id=#{id} and code=#{code}
 	</select>
 </mapper>
-=======
-</mapper>
 
->>>>>>> master
+

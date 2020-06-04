@@ -3,8 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
-<<<<<<< HEAD
-	
+
 	<!--  남자 신발 전체 검색 -->
 	<select id="AllListMen" resultType="Pdto">
 		select * from product where (gender='남자' or gender='공용') ORDER BY joindate, codename  
@@ -19,13 +18,10 @@
 
 	
 	
-=======
->>>>>>> master
 	<!-- 세부상품 페이지 조회  -->
 	<select id="productdetail" resultType="Pdto" parameterType="String">
 		select * from product where code=#{code}
 	</select>
-<<<<<<< HEAD
 	
 	<select id="countProduct" resultType="int">
 		select count(*) from product;		
@@ -41,7 +37,6 @@
 		select * from product where codename =#{codename}		
 		</select>
 		
-=======
 	<!-- 신발 전체 검색 -->
 	<select id="AllList" resultType="Pdto">
 		select * from product
@@ -56,7 +51,7 @@
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
->>>>>>> master
+	
 	<!-- 여자 신발 전체 검색 -->
 	<select id="AllListWomen" resultType="Pdto">
 		SELECT * FROM (SELECT
@@ -106,11 +101,8 @@
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-<<<<<<< HEAD
 	
-=======
 
->>>>>>> master
 	<!-- 상품정보 등록 -->
 	<insert id="productinput" parameterType="Pdto">
 		insert into product (code,codename,codecolor,category,gender,image1,image2,image3,image4,image5,image6,contents,price) values(#{code},#{codename},#{codecolor},#{category},#{gender},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{contents},#{price})
@@ -120,14 +112,12 @@
 	<insert id="sizeinput" parameterType="Pdto_size">
 		insert into sizetable values(#{code},#{size80},#{size90},#{size100},#{size110},#{size120},#{size130},#{size140},#{size150},#{size160},#{size220},#{size230},#{size240},#{size250},#{size260},#{size270},#{size280},#{size290},#{size300},#{size310},#{size320},#{size330})
 	</insert>
-<<<<<<< HEAD
 	
    <!-- 페이징 없이 코드로 품목 검색 -->
    <select id="codeSearch" resultType="Pdto">
   		select * from product where code=#{code}
    </select>
    
-=======
 
 
 	<!-- 신발 검색 -->
@@ -166,7 +156,6 @@
 		select count(*) from product where upper(codename) like '%'||#{codename}||'%'
 	</select>
 
->>>>>>> master
 	<!-- 장바구니에 대표사진 저장하는 기능-->
 	<select id="image1get" resultType="String" parameterType="String">
 		select image1 from product where code=#{code}
