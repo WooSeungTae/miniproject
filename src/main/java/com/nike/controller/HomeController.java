@@ -480,6 +480,8 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String pwd = (String)mySession.getAttribute("pwd");
 		model.addAttribute("pwd", pwd);
+		
+		
 		return "myPage/myPagePassword";
 	}
 	/* 회원탈퇴 */
@@ -488,7 +490,11 @@ public class HomeController {
 		return "myPage/myPageWithdrawal";
 	}
 	@RequestMapping("pwdSuccess")
-	public String pwdSuccess() {
+	public String pwdSuccess(MemberInfoDTO dto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String)mySession.getAttribute("id");
+		dto.setId(id);
+		memberservice.pwdModify(dto);
 		return "sminj/pwd_ModifySuccess";
 	}
 	

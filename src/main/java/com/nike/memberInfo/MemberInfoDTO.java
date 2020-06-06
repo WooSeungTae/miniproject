@@ -15,8 +15,15 @@ public class MemberInfoDTO {
 	private String answer; 
 	private String address;
 	private Date joindate;
+	private String newPwd;
 	
 	
+	public String getNewPwd() {
+		return newPwd;
+	}
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
+	}
 	public String getId() {
 		return id;
 	}

@@ -146,27 +146,16 @@
 	</div>
 	</c:if>
 	<c:if test = '${id == null }'>
-<<<<<<< HEAD
-	<div class="right_top_div" align="right">
-			<a href="/nike/memberJoin" id="top">회원가입</a>/<a href="/nike/loginPage" id="top">로그인</a>&nbsp;&nbsp;&nbsp;<a href="#" id="top">고객센터</a>&nbsp;&nbsp;&nbsp;<span class="basket_input"><a href="/nike/cart"><input type="image" src="/nike/image/basket.png"></a></span>
-		</div>
-=======
 			<ul class="rightTop_logout">
 				<li style="margin-right: 15px;"><span><a href="memberJoin">회원가입</a> / <a href="loginPage">로그인</a></span></li>
 				<li style="margin-right: 15px;"><a href="#">고객센터</a></li>
 				<li><a href="/nike/cart"><img src="/nike/image/basket.png"></a></li>
 			</ul>
->>>>>>> smj
 	</c:if>
 	<hr class="header_hr">	
 <nav>
-<<<<<<< HEAD
-	<div class="div2" align="center">
-		<span class="swoosh_span"><input type="image" class="swoosh_input" src="/nike/image/nike.jpg" onclick="location.href='/nike/main'"></span>
-=======
 	<div class="nav_menu" align="center">
-		<span class="swoosh_span"><input type="image" class="swoosh_input" src="/nike/image/nike.jpg" onclick="location.href='main'"></span>
->>>>>>> smj
+		<span class="swoosh_span"><input type="image" class="swoosh_input" src="/nike/image/nike.jpg" onclick="location.href='/nike/main'"></span>
 		<a href="/nike/Men" class="nav_a">MEN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/nike/Women" class="nav_a">WOMEN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/nike/Kids" class="nav_a">KIDS</a>
 		<span class="search_span"><input id="searchProduct" onkeypress="if( event.keyCode==13 ){goSearch()}" type="search" class="search_input" placeholder="검색" ></span>
 	</div>

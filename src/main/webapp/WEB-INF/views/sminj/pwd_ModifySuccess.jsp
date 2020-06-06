@@ -37,7 +37,7 @@
 <body style="width:100%; margin:auto;">
 <header><c:import url="/header"></c:import></header>
 <section>
-	<form action="main">
+	<form action="/nike/main">
 		<div class="pwdSuccess_center">
 			<div class="pwdSuccess_margin">
 				<div>
