@@ -480,15 +480,9 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String pwd = (String)mySession.getAttribute("pwd");
 		model.addAttribute("pwd", pwd);
-		
-		
 		return "myPage/myPagePassword";
 	}
-	/* 회원탈퇴 */
-	@RequestMapping("withdrawal")
-	public String withdrawal() {
-		return "myPage/myPageWithdrawal";
-	}
+	/* 비밀번호 변경완료 페이지(쇼핑계속하기) */
 	@RequestMapping("pwdSuccess")
 	public String pwdSuccess(MemberInfoDTO dto, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -497,5 +491,19 @@ public class HomeController {
 		memberservice.pwdModify(dto);
 		return "sminj/pwd_ModifySuccess";
 	}
-	
+	/* 회원탈퇴 */
+	@RequestMapping("withdrawal")
+	public String withdrawal() {
+		return "myPage/myPageWithdrawal";
+	}
+	/* 회원탈퇴 완료 페이지 */
+	@RequestMapping("userDelete")
+	public String userDelete(MemberInfoDTO dto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String)mySession.getAttribute("id");
+		dto.setId(id);
+		memberservice.userDelete(dto);
+		memberservice.logout(mySession);
+		return "sminj/userDelete";
+	}
 }

@@ -67,7 +67,7 @@
 		</c:import>
 	</header>
 	<section class="wrapper">
-		<div style="width: 75%; margin: auto; padding-top: 80px; float:right;">
+		<div style="width: 85%; margin: auto; padding-top: 80px; float:right;">
 		<aside>
 			<c:import url="/aside">
 			</c:import>

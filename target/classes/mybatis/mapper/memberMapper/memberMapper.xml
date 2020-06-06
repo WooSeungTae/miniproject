@@ -78,7 +78,7 @@
 		update memberinfo set pwd=#{newPwd} where id=#{id}
 	</update>
 	<!-- 마이페이지 회원 탈퇴 -->
-	<delete id="userDelete" parameterType="String">
+	<delete id="userDelete" parameterType="dto">
 		delete from memberinfo where id=#{id}
 	</delete>
 	

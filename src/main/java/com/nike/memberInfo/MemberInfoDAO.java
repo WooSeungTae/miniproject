@@ -99,8 +99,8 @@ public class MemberInfoDAO {
 		sqlSession.update(namespace+".pwdModify",dto);
 	}
 	/* 마이페이지 회원탈퇴 */
-	public void userDelete(String id) {
-		sqlSession.delete(namespace+".userDelete",id);
+	public void userDelete(MemberInfoDTO dto) {
+		sqlSession.delete(namespace+".userDelete",dto);
 	}
 	/* 로그인시 이름출력 */
 	public String nameget(String id) {

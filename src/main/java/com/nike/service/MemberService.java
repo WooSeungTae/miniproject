@@ -96,8 +96,8 @@ public class MemberService {
 		dao.pwdModify(dto);
 	}
 	/* 마이페이지 회원탈퇴 */
-	public void userDelete(String id) {
-		dao.userDelete(id);
+	public void userDelete(MemberInfoDTO dto) {
+		dao.userDelete(dto);
 	}
 	/* 로그아웃 */
 	public void logout(HttpSession mySession) {

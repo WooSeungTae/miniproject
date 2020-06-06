@@ -49,7 +49,7 @@
 		<c:import url="/aside"></c:import>
 	<div style="line-height: 170%;">
 		<h2>회원 탈퇴</h2>
-		<form action="">
+		<form action="/nike/userDelete">
 			<div class="member_delete_font">회원탈퇴 사유</div>
 			<div class="member_delete_font2" style="margin-bottom: 10px;">
 				<input type="radio" name="reason" class="radiobtn"> 회원탈퇴 후 재가입을 위해서<br>
@@ -66,7 +66,7 @@
 				<input type="checkbox"> 회원탈퇴 안내를 모두 확인하였으며 탈퇴에 동의합니다
 			</div>
 			<br>
-			<input type="submit" value="탈퇴하기" class="member_delete_input2">
+			<input type="submit" value="탈퇴하기" name="userDelete" class="member_delete_input2">
 		</form>
 	</div>
 	</div>
