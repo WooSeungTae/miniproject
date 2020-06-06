@@ -1,8 +1,12 @@
 package com.nike.service;
 
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -75,6 +79,13 @@ public class OrderService {
 	/*회원별 장바구니에서 x누른 아이템 삭제*/
 	public void cartitemdelete(ShoppingCartDTO sdto) {
 		Odao.cartitemdelete(sdto);
+
+	}
+
+	/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+	public int checkitem(ShoppingCartDTO sdto) {
+		return Odao.checkitem(sdto);
+
 	}
 
 }
