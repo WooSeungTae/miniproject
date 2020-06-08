@@ -92,6 +92,7 @@
 		   		window.onload = function(){
 		   			document.getElementById('gocart').onclick = function(){
 		   				document.getElementById('cartoptionchange').submit();
+		   				opener.document.location.reload();
 		   				self.close();
 		   			}
 		   		}
