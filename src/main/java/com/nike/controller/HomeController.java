@@ -2,6 +2,7 @@ package com.nike.controller;
 
 
 import java.io.File;
+import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -455,7 +456,6 @@ public class HomeController {
 			model.addAttribute("noadd", -1);
 			return "redirect:productdetail?code="+code;
 		}
-		
 	}
 
 	/*장바구니*/
@@ -525,13 +525,34 @@ public class HomeController {
 		return "purchase/checkOut";
 	}
 	
+	/*장바구니에서 구매*/
+	@RequestMapping("checkoutCart")
+	public String checkoutCart(Model model,@SessionAttribute(value="id",required=false) String id) {
+		if(id!=null) {service.searchId(model, id);}
+		else {return "redirect:loginPage";}
+		model.addAttribute("cartlist",orderservice.selectcart(id));
+		System.out.println("아이디 : "+id);
+		model.addAttribute("totalmoney", orderservice.totalprice(id));
+		System.out.println("홈컨트롤 : "+orderservice.selectcart(id));
+		return "purchase/checkOutCart";
+	}
+
 	/*구매후 등록*/
 	@RequestMapping("productBuy0")
-	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
-		orderservice.productBuy(Odto,Ddto);
+		orderservice.productBuy(Odto,Ddto,dto,request);
 		return "myPage/myPage";
 	}
+	
+	/*구매후 등록*/
+	@RequestMapping("productBuyCart")
+	public String productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+		//System.out.println("호출");
+		orderservice.productBuyCart(Odto,Ddto,dto,request);
+		return "myPage/myPage";
+	}
+	
 	
 	@RequestMapping("myreviewlistall")
 	public String myreviewlistall() {
