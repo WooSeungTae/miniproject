@@ -76,7 +76,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:set var="size" value="${viewAll.size()}"/>
+<c:set var="date" value="${viewAll.orderDate}"/>
 <%@include file="product_header.jsp" %>
 <div class="bodyback">
 <p class="maintitle">상품 관리</p>
@@ -89,18 +89,6 @@
 <div class="bodyinside">
 <div class="subtitle"><a>상품 목록</a></div>
 <div id="outter">
-	<div class="pagingoption">
-		<select id="cntPerPage" name="sel" onchange="selChange()">
-			<option value="5"
-				<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
-			<option value="10"
-				<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
-			<option value="15"
-				<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
-			<option value="20"
-				<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
-		</select>
-	</div> <!-- 옵션선택 끝 -->
 	 <table class="membertable" >
 		<tr class="tablehead">
 		<th>등록 날짜</th><th>상품 대표사진</th><th>상품 코드</th>
@@ -108,40 +96,18 @@
 		<th>상품 가격</th><th>상품 내용</th><th>성별</th>
 		<th>수정</th><th>삭제</th></tr>
 		<c:choose>
-			<c:when test="${size ne 0}">
-				<c:forEach items="${viewAll }" var="dto">
-				<tr align="center"><td>${dto.joindate}</td><td><img src="${dto.image1}" id="${dto.code }"onerror="this.onerror=null; chageSrc(this)"></td><td>${dto.code}</td>
-				<td>${dto.codename}</td><td>${dto.codecolor}</td><td>${dto.category}</td>
-				<td>${dto.price}</td><td>${dto.contents}</td><td>${dto.gender}</td>
-				<td><a href="productUpdate?code=${dto.code}"><input type="button" value="수정"></a></td>
-				<td><a href="productDelete?code=${dto.code}"><input type="button" value="삭제"></a></td></tr>
-				</c:forEach>
+			<c:when test="${not empty date}">
+				<tr align="center"><td>${viewAll.joindate}</td><td><img src="${viewAll.image1}" id="${viewAll.code }"onerror="this.onerror=null; chageSrc(this)"></td><td>${viewAll.code}</td>
+				<td>${viewAll.codename}</td><td>${viewAll.codecolor}</td><td>${viewAll.category}</td>
+				<td>${viewAll.price}</td><td>${viewAll.contents}</td><td>${viewAll.gender}</td>
+				<td><a href="productUpdate?code=${viewAll.code}"><input type="button" value="수정"></a></td>
+				<td><a href="productDelete?code=${viewAll.code}"><input type="button" value="삭제"></a></td></tr>
 			</c:when>
 			<c:otherwise>
 				<tr align="center"><th colspan="11">등록된 정보가 없습니다</th></tr>
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<div class="pagingdiv">
-	<div class="paging">		
-		<c:if test="${paging.startPage != 1 }">
-			<a href="inventory?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
-		</c:if>
-		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-			<c:choose>
-				<c:when test="${p == paging.nowPage }">
-					<a class="active">${p }</a>
-				</c:when>
-				<c:when test="${p != paging.nowPage }">
-					<a href="inventory?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="inventory?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
-		</c:if>
-	</div>
-	</div>
 </div>
 </div>
 </div>
