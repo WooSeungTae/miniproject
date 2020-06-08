@@ -3,7 +3,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
-<<<<<<< HEAD
 
 	<!-- 멤버 목록 수 -->
 	<select id="countproduct" resultType="int">
@@ -24,21 +23,6 @@
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
-
-	<!--  남자 신발 전체 검색 -->
-	<select id="AllListMen" resultType="Pdto">
-		select * from product where (gender='남자' or gender='공용') ORDER BY joindate, codename  
-	</select>
-	<!--  남자 카테고리별 신발 전체 검색 -->
-		<select id="AllListMenCategory" resultType="Pdto">
-		select * from product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate, codename
-	</select>
-	<!--  전체 총 페이지 -->
-
-	
-	
-=======
->>>>>>> master
 	<!-- 세부상품 페이지 조회  -->
 	<select id="productdetail" resultType="Pdto" parameterType="String">
 		select * from product where code=#{code}

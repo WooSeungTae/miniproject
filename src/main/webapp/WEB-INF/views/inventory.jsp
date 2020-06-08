@@ -76,7 +76,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:set var="size" value="${viewAll.size()}"/>
+<c:set var="size" value="${searchCode.size()}"/>
 <%@include file="product_header.jsp" %>
 <div class="bodyback">
 <p class="maintitle">상품 관리</p>
@@ -105,14 +105,14 @@
 		<tr class="tablehead">
 		<th>등록 날짜</th><th>상품 대표사진</th><th>상품 코드</th>
 		<th>상품 이름</th><th>상품 색</th><th>상품 종류</th>
-		<th>상품 가격</th><th>상품 내용</th><th>성별</th>
+		<th>상품 가격</th><th>성별</th>
 		<th>수정</th><th>삭제</th></tr>
 		<c:choose>
 			<c:when test="${size ne 0}">
-				<c:forEach items="${viewAll }" var="dto">
+				<c:forEach items="${searchCode }" var="dto">
 				<tr align="center"><td>${dto.joindate}</td><td><img src="${dto.image1}" id="${dto.code }"onerror="this.onerror=null; chageSrc(this)"></td><td>${dto.code}</td>
 				<td>${dto.codename}</td><td>${dto.codecolor}</td><td>${dto.category}</td>
-				<td>${dto.price}</td><td>${dto.contents}</td><td>${dto.gender}</td>
+				<td>${dto.price}</td><td>${dto.gender}</td>
 				<td><a href="productUpdate?code=${dto.code}"><input type="button" value="수정"></a></td>
 				<td><a href="productDelete?code=${dto.code}"><input type="button" value="삭제"></a></td></tr>
 				</c:forEach>

@@ -283,7 +283,6 @@ public class ProductService {
 	public void productDelete(String code) {		
 		Pdao.productDelete(code);	
 	}
-<<<<<<< HEAD
 	//상품 관리 페이지 상품 갯수를 가져오는 기능
 	public int countProduct() {
 		return Pdao.countProduct();
@@ -292,7 +291,6 @@ public class ProductService {
 	public List<ProductDTO> selectProduct(Inventory_PagingVO vo) {
 		return Pdao.selectProduct(vo);
 	}
-=======
 	
 	//장바구니에 대표사진 저장하는 기능
 	public String image1get(String code) {
@@ -308,7 +306,5 @@ public class ProductService {
 	public int priceget(String code) {
 		return Pdao.priceget(code);
 	}
-
->>>>>>> master
 
 }

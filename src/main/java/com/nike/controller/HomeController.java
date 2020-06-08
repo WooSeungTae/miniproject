@@ -122,12 +122,20 @@ public class HomeController {
 			}
 			vo = new Inventory_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 			model.addAttribute("paging",vo);
-			model.addAttribute("viewAll",Pservice.selectProduct(vo));
+			model.addAttribute("searchCode",Pservice.selectProduct(vo));
 			return "inventory";
 		}
 		/*상품 관리 페이지 검색기능*/
-		public String productserch(Model model,@RequestParam("codename") String codename) {
-			return "inventory2";
+		@RequestMapping("productserch")
+		public String productserch(Product_PagingVO vo, Model model
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+				, @RequestParam("codename") String codename) {
+			Double total = (double)Pservice.searchShose(codename);
+			if (nowPage == null) {nowPage = "1";}
+			vo = new Product_PagingVO(total,Integer.parseInt(nowPage),codename);
+			Pservice.searchCode(model,vo);
+			return "inventory";
 		}
 	
 	@RequestMapping("loginChk")
