@@ -81,11 +81,16 @@ public class HomeController {
 	
 		//리뷰 등록
 		@RequestMapping("review")
-		public String review() {
+		public String review(HttpServletRequest request, Model model) {
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			String name = (String)mySession.getAttribute("name");
+			model.addAttribute("id", id);
+			model.addAttribute("name", name);
 			return "board/review_Register";
 		}
 		
-	//관리자 상품관리(수정)
+		//관리자 상품관리(수정)
 		@RequestMapping("productUpdate")
 		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
 			return null;

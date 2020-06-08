@@ -14,6 +14,7 @@ public class ReviewDTO {
 	private String reviewSize;
 	private String reviewDurable;
 	private String reviewWidth;
+	private String image;
 	
 	public String getReviewTitle() {
 		return reviewTitle;
@@ -74,6 +75,12 @@ public class ReviewDTO {
 	}
 	public void setReviewWidth(String reviewWidth) {
 		this.reviewWidth = reviewWidth;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	
