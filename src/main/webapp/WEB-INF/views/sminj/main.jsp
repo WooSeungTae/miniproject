@@ -16,8 +16,8 @@
 	}
 	
 /*첫 메인 사진*/
-	.img1{
-	background-image:url(''); 
+	.img_main{
+	background-image:url('image/nike_worldcup.jpg'); 
 	background-color: pink;
 	width:95%;
 	height:700px;
@@ -78,7 +78,7 @@
 <%@include file="header.jsp" %>
 
 <div id="wrapper">
-		<div class="img1"></div>
+		<div class="img_main"></div>
 	<br><br><br>
 	<div style="height:500px; margin: auto;">
 		<div class="img1-1"></div>

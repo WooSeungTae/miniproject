@@ -2,10 +2,15 @@ package com.nike.order;
 
 public class ShoppingCartDTO {
 	private String id;
+	private String codename;
 	private String code;
 	private int count;
+	private String size;
 	private String ordersize;
+	private String image1; 
+	private int price;
 	
+
 	public String getId() {
 		return id;
 	}
@@ -24,13 +29,36 @@ public class ShoppingCartDTO {
 	public void setCount(int count) {
 		this.count = count;
 	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getImage1() {
+		return image1;
+	}
+	public void setImage1(String image1) {
+		this.image1 = image1;
+	}
+	public String getCodename() {
+		return codename;
+	}
+	public void setCodename(String codename) {
+		this.codename = codename;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getOrdersize() {
 		return ordersize;
 	}
 	public void setOrdersize(String ordersize) {
 		this.ordersize = ordersize;
 	}
-	
-	
-	
+
 }

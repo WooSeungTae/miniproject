@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 </head>
 <body>
-	<c:import url="/header"></c:import>
-<div  style="width: 60%; margin: auto; padding-top: 80px;">
-	<c:import url="/aside"></c:import>
+<c:import url="/header"></c:import>
+	<div style="width: 60%; margin: auto; padding-top: 80px;">
+<c:import url="/aside"></c:import>
 	<!--  마이페이지 상단  -->
 	<div>
 	<h2>최근 주문 내역</h2>
@@ -27,8 +27,7 @@
 	</section>
 	
 	<!-- 가운데 부분 -->
-	
-
-</div>
+	</div>
+<c:import url="/footer"></c:import>
 </body>
 </html>

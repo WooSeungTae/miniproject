@@ -180,6 +180,7 @@
 		}
 	
 	}
+	
 	</script>
 	<script type="text/javascript">
 	
@@ -212,8 +213,15 @@
    			}
    		}
    		
-   		
-   		
+	</script>
+	<script type="text/javascript">
+		window.onload = function(){
+			var noadd = document.getElementById("noadd")
+			console.log(noadd);
+			if(noadd.value==-1){
+				alert("장바구니에 이미 동일한 아이템이 있습니다!");
+			}
+		}
 	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -227,7 +235,8 @@
 		<section class="content-area" style="height:80%;">
 			<section>
 				<article>
-					<article class="contents-area contents">
+					<article class="contents-area contents">				
+						<input type="hidden" name="add" id="noadd" value="${noadd}">
 						<div class="img-detail_product_n">
 								<ul id="product-gallery" class="img-detail-list">
 									<li class="image-list" style="float:left;">
@@ -332,8 +341,8 @@
 											<div>
 												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
-														<input class="directorder" type="submit" value="바로구매" formaction="checkout" >
-														<input type="submit" class="shoppingcart" value="장바구니" formaction="cart">
+														<input class="directorder" type="submit" value="바로구매" formaction="checkoutQuick" >
+														<input type="submit" class="shoppingcart" value="장바구니" formaction="cartSave">
 													</div>
 												</div>
 											</div>

@@ -11,7 +11,7 @@
 			height:550px;
 		}
 		.customer-contents{
-			width(100% - 265px); margin-top:-24px; margin-left:20px;
+			width:(100% - 265px); margin-top:-24px; margin-left:20px;
 			
 		}
 		.title{
@@ -67,11 +67,11 @@
 		</c:import>
 	</header>
 	<section class="wrapper">
+		<div style="width: 75%; margin: auto; padding-top: 80px; float:right;">
 		<aside>
 			<c:import url="/aside">
 			</c:import>
 		</aside>
-		<div style="width: 75%; margin: auto; padding-top: 80px; float:right;">
 			<div class="customer-contents" >
 				<h2 class="title">회원정보 수정</h2>	
 					<div>

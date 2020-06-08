@@ -1,5 +1,8 @@
 package com.nike.controller;
 
+
+import java.io.File;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -8,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nike.service.FileUploadService;
@@ -25,11 +30,13 @@ import com.nike.service.OrderService;
 import com.nike.service.ProductService;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
-import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.OrderDTO;
+import com.nike.order.Order_detailsDTO;
+import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
 import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDTO;
+import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
 
 /**
@@ -47,6 +54,7 @@ public class HomeController {
 	OrderService orderservice;
 	@Autowired
 	FileUploadService fileUploadService;
+
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -70,9 +78,15 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "/sminj/main";
 	}
 	
+		//리뷰 등록
+		@RequestMapping("review")
+		public String review() {
+			return "board/review_Register";
+		}
+		
 	//관리자 상품관리(수정)
 		@RequestMapping("productUpdate")
 		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
@@ -123,75 +137,99 @@ public class HomeController {
 		}else {
 			HttpSession mySession = request.getSession();
 			mySession.setAttribute("id", dto.getId());
+			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
+			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
 			return "sminj/main";
 		}
 	}
-	
 	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
 	public String saveUserInfo(MemberInfoDTO dto) {
 		memberservice.saveUserInfo(dto);
 		return "redirect:loginPage";
 	}
 	
-	/*세부 상품 조회*/
-	@RequestMapping("/productdetail")
-	public String productdetail(Model model, HttpServletRequest request) {
-		System.out.println("===============================" + request.getParameter("code"));
-		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
-		return "jsj/product_detail";
-	}
-	
 	/*남자 신발 전체목록*/
 	@RequestMapping("Men")
-	public String catalogMen(Model model) {
-		Pservice.allListMen(model);
-		
+	public String catalogMen(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("남자");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListMen(model,vo);
 		return "jsj/Men/men";
+	}
+	
+	/*여자 신발 전체목록*/
+	@RequestMapping("/Women")
+	public String catalogWomen(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("여자");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListWomen(model,vo);
+		return "jsj/Women/women";
+	}
+	
+	/*아동 신발 전체목록*/
+	@RequestMapping("/Kids")
+	public String catalogKids(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.genderAll("키즈");
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
+		Pservice.allListKids(model,vo);
+		return "jsj/Kids/kids";
 	}
 	
 	/*남자 신발 카테코리별 전체조회*/
 	@RequestMapping("Men/category")
-	public String catalogMenCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListMenCategory(model,category);
+	public String catalogMenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+				, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("남자", category);
+		System.out.println("남자신발 토탈 번호 : " + total);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListMenCategory(model,vo);
 		return "jsj/Men/menCategory";
 	}
 
+	/*여자 신발 카테고리별 전체조회*/
+	@RequestMapping("/Women/category")
+	public String catalogWomenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("여자", category);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListWomenCategory(model,vo);
+		return "jsj/Women/womenCategory";
+	}
+	
+	
+	/*아동 신발 카체고리별 전체조회*/
+	@RequestMapping("/Kids/category")
+	public String catalogKidsCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
+			, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int total = Pservice.categoryGenderAll("키즈", category);
+		if (nowPage == null) {nowPage = "1";}
+		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
+		Pservice.allListKidsCategory(model,vo);
+		return "jsj/Kids/kidsCategory";
+	}
 	
 	/*전체 신발 검색*/
 	@RequestMapping("searchCheck")
-	public String catalogMenSearch(Model model,@RequestParam("codename") String codename) {
-		Pservice.searchCode(model,codename);
+	public String catalogMenSearch(Product_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="codename", required=false) String codename) {
+		Double total = (double)Pservice.searchShose(codename);
+		if (nowPage == null) {nowPage = "1";}
+		vo = new Product_PagingVO(total,Integer.parseInt(nowPage),codename);
+		Pservice.searchCode(model,vo);
 		return "jsj/search";
 	}
 	
 
-	/*여자 신발 전체*/
-	@RequestMapping("/Women")
-	public String catalogWomen(Model model) {
-		Pservice.allListWomen(model);
-		return "jsj/Women/women";
-	}
 	
-	/*여자 신발 카테고리별 전체조회*/
-	@RequestMapping("/Women/category")
-	public String catalogWomenCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListWomenCategory(model,category);
-		return "jsj/Women/womenCategory";
-	}
-
-	/*아동 신발 전체*/
-	@RequestMapping("/Kids")
-	public String catalogKids(Model model) {
-		Pservice.allListKids(model);
-		return "jsj/Kids/kids";
-	}
-	
-	/*아동 신발 카체고리별 전체조회*/
-	@RequestMapping("/Kids/category")
-	public String catalogKidsCategory(Model model,@RequestParam("category") String category) {
-		Pservice.allListKidsCategory(model,category);
-		return "jsj/Kids/kidsCategory";
-	}
 
 	/*상품 등록*/
 	@RequestMapping("product_input")
@@ -296,7 +334,10 @@ public class HomeController {
 	
 	/*마이페이지 사이드*/
 	@RequestMapping("aside")
-	public String aside() {
+	public String aside(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String name = (String) mySession.getAttribute("name");
+		model.addAttribute("name", name);
 		return "myPage/myPageAside";
 	}
 	/*주문내역 배송현황*/
@@ -369,33 +410,121 @@ public class HomeController {
 		service.memberinfoModify(dto, model);
 		return "redirect:account";
 	}
-	
-	@RequestMapping("password")
-	public String password() {
-		return "myPage/myPagePassword";
-	}
-	
-	@RequestMapping("withdrawal")
-	public String withdrawal() {
-		return "myPage/myPageWithdrawal";
-	}
-	
 	@RequestMapping("reviewintro")
 	public String reviewintro() {
 		return "myPage/myPageReviewintro";
 	}
 	
+	/*세부 상품 조회*/
+	@RequestMapping("/productdetail")
+	public String productdetail(Model model, HttpServletRequest request) {
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
+		model.addAttribute("noadd", request.getParameter("noadd"));
+		return "jsj/product_detail";
+	}
+	
+	/*장바구니 DB에 값 저장하기*/
+	@RequestMapping("cartSave")
+	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		String code = request.getParameter("code");
+		sdto.setId(id);
+		sdto.setCode(code);
+		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+		System.out.println("=========================================="+orderservice.checkitem(sdto));
+		if(orderservice.checkitem(sdto)==0) {
+			/*장바구니에 상품명 저장하는 기능*/
+			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+			/*장바구니에 대표사진 저장하는 기능*/
+			sdto.setImage1(Pservice.image1get(sdto.getCode()));
+			/*장바구니에 가격 저장하는 기능*/
+			sdto.setPrice(Pservice.priceget(sdto.getCode()));
+			/*장바구니 DB에 값을 저장*/
+			orderservice.insertcart(sdto);
+			return "redirect:cart";
+		}else {
+			model.addAttribute("noadd", -1);
+			return "redirect:productdetail?code="+code;
+		}
+		
+	}
+
 	/*장바구니*/
 	@RequestMapping("cart")
-	public String cart(ShoppingCartDTO sdto) {
-		
+	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		/*장바구니 DB에서 리스트 개수 가져오기*/
+		System.out.println("==========================================" + orderservice.countcart(id));
+		model.addAttribute("cartcount", orderservice.countcart(id));
+		/*장바구니 DB에서 회원별 리스트 가져오기*/
+		model.addAttribute("cartlist", orderservice.selectcart(id));
+		/*장바구니 DB에서 회원별 총 금액 가져오기*/
+		model.addAttribute("totalprice", orderservice.totalprice(id));
 		return "purchase/cart";
 	}
+	
+	/*장바구니 옵션창 뜨게 함*/
+	@RequestMapping("cartoption")
+	public String cartoption(@RequestParam("code") String code, Model model) {
+		model.addAttribute("code", code);
+		return "purchase/cartoption";
+	}
+	
+	/*장바구니 옵션 변경*/
+	@RequestMapping("cartoptionchange")
+	public String cartoptionchange(ShoppingCartDTO sdto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		sdto.setCode(request.getParameter("code"));
+		System.out.println("==============================================="+sdto.getCode());
+		System.out.println("==============================================="+sdto.getOrdersize());
+		System.out.println("==============================================="+sdto.getCount());
+		orderservice.cartoptionchange(sdto);
+		return "redirect:cart";
+	}
+	/*회원별 장바구니에 있는 아이템 전부 삭제*/
+	@RequestMapping("cartAlldelete")
+	public String cartAlldelete(HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		orderservice.cartAlldelete(id);
+		return "redirect:cart";
+	}
+	
+	/*회원별 장바구니에서 x누른 아이템 삭제*/
+	@RequestMapping("cartitemdelete")
+	public String cartitemdelete(ShoppingCartDTO sdto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		sdto.setCode(request.getParameter("code"));
+		orderservice.cartitemdelete(sdto);
+		return "redirect:cart";
+	}
+	
 	/*구매*/
-	@RequestMapping("checkout")
-	public String checkOut() {
+	@RequestMapping("checkoutQuick")
+	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
+			,@Param("ordersize") String ordersize
+			,@Param("count") String count) {
+		if(id!=null)service.searchId(model, id);
+		Pservice.codeSearch(model, code);
+		model.addAttribute("ordersize", ordersize);
+		model.addAttribute("count", count);
 		return "purchase/checkOut";
 	}
+	
+	/*구매후 등록*/
+	@RequestMapping("productBuy0")
+	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+		//System.out.println("호출");
+		orderservice.productBuy(Odto,Ddto);
+		return "myPage/myPage";
+	}
+	
 	@RequestMapping("myreviewlistall")
 	public String myreviewlistall() {
 		return "myPage/myPagemyReviewlistall";
@@ -406,7 +535,10 @@ public class HomeController {
 		return "myPage/myPageTowritelistall";
 	}
 	@RequestMapping("/header")
-	public String header() {
+	public String header(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String name = (String)mySession.getAttribute("name");
+		model.addAttribute("name", name);
 		return "sminj/header";
 	}
 	@RequestMapping("/footer")
@@ -416,6 +548,29 @@ public class HomeController {
 	@RequestMapping("/main")
 	public String main() {
 		return "sminj/main";
+	}
+	/* 로그아웃 */
+	@RequestMapping("logout")
+	public String logout(HttpSession mySession) {
+		memberservice.logout(mySession);
+		return "sminj/main";
+	}
+	/* 회원비밀번호 변경 */
+	@RequestMapping("password")
+	public String password(Model model, HttpServletRequest request, MemberInfoDTO dto) {
+		HttpSession mySession = request.getSession();
+		String pwd = (String)mySession.getAttribute("pwd");
+		model.addAttribute("pwd", pwd);
+		return "myPage/myPagePassword";
+	}
+	/* 회원탈퇴 */
+	@RequestMapping("withdrawal")
+	public String withdrawal() {
+		return "myPage/myPageWithdrawal";
+	}
+	@RequestMapping("pwdSuccess")
+	public String pwdSuccess() {
+		return "sminj/pwd_ModifySuccess";
 	}
 	
 }
