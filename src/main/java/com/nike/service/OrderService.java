@@ -1,36 +1,15 @@
 package com.nike.service;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> minhoeyk
-
-import javax.servlet.http.HttpServletRequest;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
-import com.nike.memberInfo.MemberInfoDAO;
-<<<<<<< HEAD
-import com.nike.memberInfo.MemberInfoDTO;
-=======
 import com.nike.order.OrderCare_PagingVO;
->>>>>>> minhoeyk
 import com.nike.order.OrderDAO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDAO;
 import com.nike.order.Order_detailsDTO;
-import com.nike.product.ProductDAO;
 import com.nike.order.ShoppingCartDTO;
 
 @Service
@@ -69,7 +48,6 @@ public class OrderService {
 	public int countcart(String id) {
 		return Odao.countcart(id);
 	}
-<<<<<<< HEAD
 	
 	/*회원별 장바구니에 있는 아이템 전부 삭제*/
 	public void cartAlldelete(String id) {
@@ -99,7 +77,6 @@ public class OrderService {
 		
 	}
 
-=======
 	/*주문 수 반환*/
 	public int countOrder() {
 		return Odao.countOrder();
@@ -108,11 +85,12 @@ public class OrderService {
 	public List<OrderDTO> selectorder(OrderCare_PagingVO vo) {
 		return Odao.selectOrder(vo);
 	}
+	/*주문 관리 물품 확인, 취소 기능*/
 	public void deliveryChange(OrderDTO Odto) {
 		Odao.deliveryChange(Odto);
 	}
+	/*주문 관리 물품 하나만 검색해 가져오기*/
 	public OrderDTO orderserch(String id) {
 		return Odao.orderserch(id);
 	}
->>>>>>> minhoeyk
 }

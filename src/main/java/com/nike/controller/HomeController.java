@@ -30,13 +30,9 @@ import com.nike.service.OrderService;
 import com.nike.service.ProductService;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
-<<<<<<< HEAD
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
-=======
 import com.nike.order.OrderCare_PagingVO;
-import com.nike.order.OrderDTO;
->>>>>>> minhoeyk
 import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;

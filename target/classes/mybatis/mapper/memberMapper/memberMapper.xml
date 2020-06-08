@@ -48,10 +48,7 @@
 	<delete id="memberdelete" parameterType="String">
 		delete from memberinfo where id=#{id}
 	</delete>
-<<<<<<< HEAD
-=======
 	<!-- 멤버 목록 수 -->
->>>>>>> minhoeyk
 	<select id="countmember" resultType="int">
 		SELECT COUNT(*) FROM memberinfo
 	</select>
