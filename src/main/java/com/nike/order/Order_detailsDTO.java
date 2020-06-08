@@ -6,6 +6,7 @@ public class Order_detailsDTO {
 
 	private String ordernum;
 	private String code;
+	private String codename;
 	private String id;
 	private String count;
 	private String ordersize ;
@@ -35,13 +36,18 @@ public class Order_detailsDTO {
 		this.orderDate = orderDate;
 	}
 	
+	public String getCodename() {
+		return codename;
+	}
+	public void setCodename(String codename) {
+		this.codename = codename;
+	}
 	public String getImage1() {
 		return image1;
 	}
 	public void setImage1(String image1) {
 		this.image1 = image1;
 	}
-
 	public String getOrdernum() {
 		return ordernum;
 	}

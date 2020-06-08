@@ -2,6 +2,7 @@ package com.nike.controller;
 
 
 import java.io.File;
+import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -33,7 +34,9 @@ import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
+import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
+import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
@@ -80,6 +83,12 @@ public class HomeController {
 		return "/sminj/main";
 	}
 	
+		//리뷰 등록
+		@RequestMapping("review")
+		public String review() {
+			return "board/review_Register";
+		}
+		
 	//관리자 상품관리(수정)
 		@RequestMapping("productUpdate")
 		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
@@ -99,7 +108,38 @@ public class HomeController {
 			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
 			return "productUpdate_Delete/productSelect";
 		}
-		
+		/*상품관리*/
+		@RequestMapping("inventory")
+		public String inventory(Inventory_PagingVO vo, Model model
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			int total = Pservice.countProduct();
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) { 
+				cntPerPage = "5";
+			}
+			vo = new Inventory_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			model.addAttribute("paging",vo);
+			model.addAttribute("searchCode",Pservice.selectProduct(vo));
+			return "inventory";
+		}
+		/*상품 관리 페이지 검색기능*/
+		@RequestMapping("productserch")
+		public String productserch(Product_PagingVO vo, Model model
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+				, @RequestParam("codename") String codename) {
+			Double total = (double)Pservice.searchShose(codename);
+			if (nowPage == null) {nowPage = "1";}
+			vo = new Product_PagingVO(total,Integer.parseInt(nowPage),codename);
+			Pservice.searchCode(model,vo);
+			return "inventory";
+		}
+	
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
@@ -246,7 +286,6 @@ public class HomeController {
 		}
 		vo = new MemberInfo_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging",vo);
-		System.out.println(vo);
 		model.addAttribute("viewAll",service.selectBoard(vo));
 		return "customer_care";
 	}
@@ -270,13 +309,32 @@ public class HomeController {
 	}
 	/*주문관리*/
 	@RequestMapping("order_care")
-	public String order_care() {
+	public String order_care(OrderCare_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = orderservice.countOrder();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",orderservice.selectorder(vo));
 		return "order_care";
 	}
-	/*상품관리*/
-	@RequestMapping("inventory")
-	public String inventory() {
-		return "inventory";
+	@RequestMapping("deliveryChange")
+	public String deliveryChange(OrderDTO Odto) {
+		orderservice.deliveryChange(Odto);
+		return "redirect:order_care";
+	}
+	@RequestMapping("orderserch")
+	public String orderserch(Model model,@RequestParam("id") String id) {
+		model.addAttribute("viewAll",orderservice.orderserch(id));
+		return "order_care2";
 	}
 	/*마이페이지*/
 	@RequestMapping("myPage")
@@ -393,7 +451,6 @@ public class HomeController {
 			model.addAttribute("noadd", -1);
 			return "redirect:productdetail?code="+code;
 		}
-		
 	}
 
 	/*장바구니*/
@@ -411,12 +468,26 @@ public class HomeController {
 		return "purchase/cart";
 	}
 	
-	/*장바구니 옵션변경*/
+	/*장바구니 옵션창 뜨게 함*/
 	@RequestMapping("cartoption")
-	public String cartoption() {
+	public String cartoption(@RequestParam("code") String code, Model model) {
+		model.addAttribute("code", code);
 		return "purchase/cartoption";
 	}
 	
+	/*장바구니 옵션 변경*/
+	@RequestMapping("cartoptionchange")
+	public String cartoptionchange(ShoppingCartDTO sdto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		sdto.setCode(request.getParameter("code"));
+		System.out.println("==============================================="+sdto.getCode());
+		System.out.println("==============================================="+sdto.getOrdersize());
+		System.out.println("==============================================="+sdto.getCount());
+		orderservice.cartoptionchange(sdto);
+		return "redirect:cart";
+	}
 	/*회원별 장바구니에 있는 아이템 전부 삭제*/
 	@RequestMapping("cartAlldelete")
 	public String cartAlldelete(HttpServletRequest request) {
@@ -449,13 +520,34 @@ public class HomeController {
 		return "purchase/checkOut";
 	}
 	
+	/*장바구니에서 구매*/
+	@RequestMapping("checkoutCart")
+	public String checkoutCart(Model model,@SessionAttribute(value="id",required=false) String id) {
+		if(id!=null) {service.searchId(model, id);}
+		else {return "redirect:loginPage";}
+		model.addAttribute("cartlist",orderservice.selectcart(id));
+		System.out.println("아이디 : "+id);
+		model.addAttribute("totalmoney", orderservice.totalprice(id));
+		System.out.println("홈컨트롤 : "+orderservice.selectcart(id));
+		return "purchase/checkOutCart";
+	}
+
 	/*구매후 등록*/
 	@RequestMapping("productBuy0")
-	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
-		orderservice.productBuy(Odto,Ddto);
+		orderservice.productBuy(Odto,Ddto,dto,request);
 		return "myPage/myPage";
 	}
+	
+	/*구매후 등록*/
+	@RequestMapping("productBuyCart")
+	public String productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+		//System.out.println("호출");
+		orderservice.productBuyCart(Odto,Ddto,dto,request);
+		return "myPage/myPage";
+	}
+	
 	
 	@RequestMapping("myreviewlistall")
 	public String myreviewlistall() {

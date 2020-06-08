@@ -12,8 +12,8 @@ public class Order_detailsDAO {
 	@Autowired
 	private SqlSession sqlSession;
 
+	/*구매 세부목록 저장*/
 	public void buyRegisterDetails(Order_detailsDTO Ddto) {
-		//System.out.println("디테일 정보 주문번호 : "+Ddto.getOrderNum());
 		sqlSession.insert(namespace+".buyRegisterDetails",Ddto);
 		
 	}

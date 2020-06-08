@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nike.memberInfo.MemberInfo_PagingVO;
+
 @Repository
 public class ProductDAO {
 	private final String nameSpace="com.care.mybatis.productMapper.productMapper";
@@ -119,6 +121,14 @@ public class ProductDAO {
 	/*신발 코드로 검색 전체*/   
 	public ProductDTO codeSearch(String code){
 	    return sqlSession.selectOne(nameSpace+".codeSearch",code);      
+	}
+	//상품 관리 페이지 상품 갯수를 가져오는 기능
+	public int countProduct() {
+		return sqlSession.selectOne(nameSpace+".countproduct");
+	}
+	//상품 관리 페이지 상품을 가져오는 기능
+	public List<ProductDTO> selectProduct(Inventory_PagingVO vo) {
+		return sqlSession.selectList(nameSpace+".selectproduct",vo);
 	}	
 	
 }

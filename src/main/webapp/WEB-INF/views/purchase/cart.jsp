@@ -154,8 +154,8 @@
    			
    		}
    		
-   		function openoption(){
-   			window.open("cartoption", "장바구니 옵션 변경", "width=700, height=500")
+   		function openoption(code){
+   			window.open("cartoption?code="+code, "장바구니 옵션 변경", "width=700, height=500")
    		}
 	</script>
 <meta charset="UTF-8">
@@ -201,7 +201,7 @@
 													</div>
 													<div class="option-wrap">
 														<div>
-															<button class="optchange" type="button" onclick="openoption()">옵션 변경</button>
+															<button id="${cartitem.code}" class="optchange" type="button" onclick="openoption(this.id)">옵션 변경</button>
 														</div>
 													</div>
 													<div class="total-price">

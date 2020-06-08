@@ -5,12 +5,18 @@ public class ShoppingCartDTO {
 	private String codename;
 	private String code;
 	private int count;
-	private String size;
 	private String ordersize;
 	private String image1; 
 	private int price;
 	
-
+	
+	
+	public String getOrdersize() {
+		return ordersize;
+	}
+	public void setOrdersize(String ordersize) {
+		this.ordersize = ordersize;
+	}
 	public String getId() {
 		return id;
 	}
@@ -29,12 +35,7 @@ public class ShoppingCartDTO {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public String getSize() {
-		return size;
-	}
-	public void setSize(String size) {
-		this.size = size;
-	}
+
 
 	public String getImage1() {
 		return image1;
@@ -53,12 +54,6 @@ public class ShoppingCartDTO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
-	}
-	public String getOrdersize() {
-		return ordersize;
-	}
-	public void setOrdersize(String ordersize) {
-		this.ordersize = ordersize;
 	}
 
 }

@@ -2,27 +2,14 @@ package com.nike.service;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import com.nike.memberInfo.MemberInfoDAO;
-import com.nike.memberInfo.MemberInfoDTO;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
-import com.nike.product.ProductDTO;
-import com.nike.memberInfo.MemberInfoDAO;
-
-import com.nike.memberInfo.MemberInfoDAO;
-import com.nike.memberInfo.MemberInfoDTO;
-
 @Service
 public class MemberService {
 	@Autowired

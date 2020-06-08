@@ -6,13 +6,15 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.nike.memberInfo.MemberInfoDTO" alias="dto"/>
-		<typeAlias type="com.nike.product.ProductDTO" alias="Pdto"/>
-
 		<typeAlias type="com.nike.order.ShoppingCartDTO" alias="Sdto"/>
+		<typeAlias type="com.nike.product.ProductDTO" alias="Pdto"/>
 		<typeAlias type="com.nike.product.Product_sizeDTO" alias="Pdto_size"/>
 		<typeAlias type="com.nike.product.Product_PagingVO" alias="Vodto"/>
 		<typeAlias type="com.nike.order.OrderDTO" alias="Odto"/>
 		<typeAlias type="com.nike.order.Order_detailsDTO" alias="Ddto"/>
+		<typeAlias type="com.nike.board.QandADTO" alias="Qdto"/>
+		<typeAlias type="com.nike.board.ReviewDTO" alias="Rdto"/>
+		<typeAlias type="com.nike.board.Board_PagingVO" alias="Bdto"/>
 	</typeAliases>
 </configuration>
 
