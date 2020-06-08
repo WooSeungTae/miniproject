@@ -1,28 +1,19 @@
 package com.nike.service;
 
-
-import javax.servlet.http.HttpServletRequest;
-
+import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
+import com.nike.order.OrderCare_PagingVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.order.OrderDAO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDAO;
 import com.nike.order.Order_detailsDTO;
-import com.nike.product.ProductDAO;
 import com.nike.order.ShoppingCartDTO;
 
 @Service
@@ -30,24 +21,57 @@ public class OrderService {
 	@Autowired
 	private OrderDAO Odao;
 	@Autowired
-	private MemberInfoDAO dao;
-	@Autowired
-	private ProductDAO pdao;
-	@Autowired
 	private Order_detailsDAO Ddao;
-
+	@Autowired
+	private MemberInfoDAO dao;
 	private String orderNum;
 	
 	
 	/*구매후 등록*/
-	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		orderNum="Order";
 		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
 		orderNum = orderNum + format.format(new Date());
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		if(id!=null) {dao.mileageModify(dto);}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
 		Ddao.buyRegisterDetails(Ddto);
+
+	}
+	
+	/*구매후 등록*/
+	public void productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+		orderNum="Order";
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
+		orderNum = orderNum + format.format(new Date());
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		if(id!=null) {dao.mileageModify(dto);
+		}
+		Odto.setordernum(orderNum);
+		Ddto.setOrdernum(orderNum);
+		Odao.buyRegister(Odto);
+		String code[]=Ddto.getCode().split(",");
+		String codename[]=Ddto.getCodename().split(",");
+		String count[]=Ddto.getCount().split(",");
+		String image1[]=Ddto.getImage1().split(",");
+		String ordersize[]=Ddto.getOrdersize().split(",");
+		String price[]=Ddto.getPrice().split(",");
+		for(int i = 0 ; i<code.length;i++) {
+			Ddto.setCode(code[i]);
+			Ddto.setCodename(codename[i]);
+			Ddto.setCount(count[i]);
+			Ddto.setId(id);
+			Ddto.setImage1(image1[i]);
+			Ddto.setOrdernum(orderNum);
+			Ddto.setOrdersize(ordersize[i]);
+			Ddto.setPrice(price[i]);
+			Ddao.buyRegisterDetails(Ddto);
+		}
+		
 
 	}
 	
@@ -58,6 +82,8 @@ public class OrderService {
 	
 	/*장바구니 DB에서 회원별 리스트 가져오기*/
 	public List<ShoppingCartDTO> selectcart(String id) {
+		
+		System.out.println(Odao.selectcart(id));
 		return Odao.selectcart(id);
 	}
 	
@@ -94,4 +120,20 @@ public class OrderService {
 		
 	}
 
+	/*주문 수 반환*/
+	public int countOrder() {
+		return Odao.countOrder();
+	}
+	/*모든 주문 목록 출력 일정량만*/
+	public List<OrderDTO> selectorder(OrderCare_PagingVO vo) {
+		return Odao.selectOrder(vo);
+	}
+	/*주문 관리 물품 확인, 취소 기능*/
+	public void deliveryChange(OrderDTO Odto) {
+		Odao.deliveryChange(Odto);
+	}
+	/*주문 관리 물품 하나만 검색해 가져오기*/
+	public OrderDTO orderserch(String id) {
+		return Odao.orderserch(id);
+	}
 }
