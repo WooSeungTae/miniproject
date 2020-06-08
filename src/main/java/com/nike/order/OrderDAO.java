@@ -1,6 +1,9 @@
 package com.nike.order;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> minhoeyk
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -31,6 +34,7 @@ public class OrderDAO {
 		//System.out.println("정보 주문번호 : "+Odto.getordernum());
 		sqlSession.insert(namespace+".buyRegister",Odto);
 	}
+<<<<<<< HEAD
 		
 
 	/*장바구니 DB에 값을 저장*/
@@ -51,6 +55,23 @@ public class OrderDAO {
 	/*회원별 장바구니에 있는 아이템 전부 삭제*/
 	public void cartAlldelete(String id) {
 		sqlSession.delete(namespace2+".cartAlldelete",id);
+=======
+
+	public int countOrder() {
+		return sqlSession.selectOne(namespace+".countorder");
+	}
+
+	public List<OrderDTO> selectOrder(OrderCare_PagingVO vo) {
+		return sqlSession.selectList(namespace+".selectorber",vo);
+	}
+
+	public void deliveryChange(OrderDTO Odto) {
+		sqlSession.update(namespace+".deliveryChange",Odto);
+	}
+
+	public OrderDTO orderserch(String id) {
+		return sqlSession.selectOne(namespace+".orderserch",id);
+>>>>>>> minhoeyk
 	}
 	
 	/*장바구니 DB에서 회원별 총 금액 가져오기*/

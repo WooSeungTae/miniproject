@@ -178,26 +178,32 @@
 	}
 	/*이미지 div 크기*/
 	.select_img1{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img2{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img3{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img4{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img5{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img6{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
@@ -280,7 +286,7 @@
 	  opacity: 0.3;
 	}
 	/*맨 위에 있는 제목*/
-	.maintitle {font-family: monospace; font-size: 30px; }
+	.maintitle {font-family: monospace; font-size: 30px; font-weight: bold;}
 	/*안에 있는 제목*/
 	.subtitle {font-size: 20px; margin: 20px;}
 	/*input 크기*/
@@ -306,15 +312,15 @@
  	}
 	/*안에 있는 div부분*/
 	.bodyinside {background: white; padding: 10px; margin-top:20px; 
-				height: 50%; border: 2px solid #BECDFF;}
+				height: 50%; border: 2px solid #d2d2d2;}
 	/*body전체 부분(배경)*/
-	.bodyback {background: #DCEBFF; padding: 20px;}
+	.bodyback {padding: 20px;}
 </style>
 </head>
 <body style="margin: 0px;">
-
+<%@include file="product_header.jsp" %>
 <div class="bodyback">
-<label class="maintitle">상품 등록</label><hr>
+<label class="maintitle">상품 등록</label>
 <form action="product_input" enctype="multipart/form-data" method="post" onsubmit="return checkcode()">
 	<div class="bodyinside">
 	<div class="subinput">

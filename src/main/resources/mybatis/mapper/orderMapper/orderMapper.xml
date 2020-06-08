@@ -3,6 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.care.mybatis.orderMapper.orderMapper">
+<<<<<<< HEAD
 	<!-- orderInfo 테이블에 저장 -->
 	<insert id="buyRegister" parameterType="Odto">
 		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname
@@ -16,5 +17,32 @@
 		values(#{ordernum},#{code},#{id},#{count},#{ordersize},#{price},#{image1})
 	</insert>
 
+=======
+	<!-- 페이징 처리 후 주문 목록 조회 -->
+	<select id="selectorber" resultType="Odto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM orderInfo 
+							ORDER BY orderDate DESC
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 주문 목록 수 -->
+	<select id="countorder" resultType="int">
+		SELECT COUNT(*) FROM orderInfo
+	</select>
+	<!--  -->
+	<select id="orderserch" resultType="Odto">
+		select * from orderInfo where id=#{id}
+	</select>
+	<!-- 주문 확인클릭시 수정 -->
+	<update id="deliveryChange" parameterType="String">
+		update orderInfo set delivery=#{delivery} where orderNum=#{orderNum}
+	</update>
+>>>>>>> minhoeyk
 </mapper>
 

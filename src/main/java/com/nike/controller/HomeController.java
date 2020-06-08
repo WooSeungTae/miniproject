@@ -30,8 +30,13 @@ import com.nike.service.OrderService;
 import com.nike.service.ProductService;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+<<<<<<< HEAD
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
+=======
+import com.nike.order.OrderCare_PagingVO;
+import com.nike.order.OrderDTO;
+>>>>>>> minhoeyk
 import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
@@ -251,7 +256,6 @@ public class HomeController {
 		}
 		vo = new MemberInfo_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging",vo);
-		System.out.println(vo);
 		model.addAttribute("viewAll",service.selectBoard(vo));
 		return "customer_care";
 	}
@@ -275,8 +279,32 @@ public class HomeController {
 	}
 	/*주문관리*/
 	@RequestMapping("order_care")
-	public String order_care() {
+	public String order_care(OrderCare_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = orderservice.countOrder();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",orderservice.selectorder(vo));
 		return "order_care";
+	}
+	@RequestMapping("deliveryChange")
+	public String deliveryChange(OrderDTO Odto) {
+		orderservice.deliveryChange(Odto);
+		return "redirect:order_care";
+	}
+	@RequestMapping("orderserch")
+	public String orderserch(Model model,@RequestParam("id") String id) {
+		model.addAttribute("viewAll",orderservice.orderserch(id));
+		return "order_care2";
 	}
 	/*상품관리*/
 	@RequestMapping("inventory")

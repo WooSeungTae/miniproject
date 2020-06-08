@@ -1,5 +1,9 @@
 package com.nike.service;
 
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> minhoeyk
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +21,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nike.memberInfo.MemberInfoDAO;
+<<<<<<< HEAD
 import com.nike.memberInfo.MemberInfoDTO;
+=======
+import com.nike.order.OrderCare_PagingVO;
+>>>>>>> minhoeyk
 import com.nike.order.OrderDAO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDAO;
@@ -29,10 +37,6 @@ import com.nike.order.ShoppingCartDTO;
 public class OrderService {
 	@Autowired
 	private OrderDAO Odao;
-	@Autowired
-	private MemberInfoDAO dao;
-	@Autowired
-	private ProductDAO pdao;
 	@Autowired
 	private Order_detailsDAO Ddao;
 
@@ -65,6 +69,7 @@ public class OrderService {
 	public int countcart(String id) {
 		return Odao.countcart(id);
 	}
+<<<<<<< HEAD
 	
 	/*회원별 장바구니에 있는 아이템 전부 삭제*/
 	public void cartAlldelete(String id) {
@@ -94,4 +99,20 @@ public class OrderService {
 		
 	}
 
+=======
+	/*주문 수 반환*/
+	public int countOrder() {
+		return Odao.countOrder();
+	}
+	/*모든 주문 목록 출력 일정량만*/
+	public List<OrderDTO> selectorder(OrderCare_PagingVO vo) {
+		return Odao.selectOrder(vo);
+	}
+	public void deliveryChange(OrderDTO Odto) {
+		Odao.deliveryChange(Odto);
+	}
+	public OrderDTO orderserch(String id) {
+		return Odao.orderserch(id);
+	}
+>>>>>>> minhoeyk
 }
