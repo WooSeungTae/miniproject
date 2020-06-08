@@ -53,6 +53,39 @@ public class OrderService {
 
 	}
 	
+	/*구매후 등록*/
+	public void productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+		orderNum="Order";
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
+		orderNum = orderNum + format.format(new Date());
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		if(id!=null) {dao.mileageModify(dto);
+		}
+		Odto.setordernum(orderNum);
+		Ddto.setOrdernum(orderNum);
+		Odao.buyRegister(Odto);
+		String code[]=Ddto.getCode().split(",");
+		String codename[]=Ddto.getCodename().split(",");
+		String count[]=Ddto.getCount().split(",");
+		String image1[]=Ddto.getImage1().split(",");
+		String ordersize[]=Ddto.getOrdersize().split(",");
+		String price[]=Ddto.getPrice().split(",");
+		for(int i = 0 ; i<code.length;i++) {
+			Ddto.setCode(code[i]);
+			Ddto.setCodename(codename[i]);
+			Ddto.setCount(count[i]);
+			Ddto.setId(id);
+			Ddto.setImage1(image1[i]);
+			Ddto.setOrdernum(orderNum);
+			Ddto.setOrdersize(ordersize[i]);
+			Ddto.setPrice(price[i]);
+			Ddao.buyRegisterDetails(Ddto);
+		}
+		
+
+	}
+	
 	/*장바구니 DB에 값을 저장*/
 	public void insertcart(ShoppingCartDTO sdto) {
 		Odao.insertcart(sdto);

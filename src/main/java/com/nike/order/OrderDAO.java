@@ -16,20 +16,10 @@ public class OrderDAO {
 	private SqlSession sqlSession;
 	/*장바구니용 namespace*/
 
+	/*구매물품 등록*/
 	public void buyRegister(OrderDTO Odto) {
-//		System.out.println("이름 : "+Odto.getName());
-//		System.out.println("주소 : "+Odto.getAddr());
-//		System.out.println("은행 : "+Odto.getBank());
-//		System.out.println("예금주 : "+Odto.getbankname());
-//		System.out.println("id: "+Odto.getId());
-//		System.out.println("mile : "+Odto.getMile());
-//		System.out.println("배송메모 : "+Odto.getordermemo());
-//		System.out.println("배송타입 : "+Odto.getOrdertype());
-//		System.out.println("전화번호 : "+Odto.getTel());
-//		System.out.println("총가격 : "+Odto.gettotalprice());
-		//System.out.println("정보 주문번호 : "+Odto.getordernum());
 		sqlSession.insert(namespace+".buyRegister",Odto);
-		}
+	}
 	/*장바구니 DB에 값을 저장*/
 	public void insertcart(ShoppingCartDTO sdto) {
 		sqlSession.insert(namespace2+".insertcart",sdto); 

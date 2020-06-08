@@ -13,7 +13,8 @@
 }
 /*주문내역 사진*/
 #quickImg{
-	width: 180px;
+	width: 100%;
+	max-width : 150px;
 	vertical-align: top;
 	position: relative;
 	top:0px;
@@ -171,7 +172,7 @@
 		var mile1 =  document.getElementById("mile").value;
 		if("${sessionScope.id}"!=""){
 
-		if(mile1>=s){
+		if(mile1>s){
 			mile1=s;
 			mile=s;
 			document.getElementById("mile").value=mile1;
@@ -241,11 +242,11 @@
 </head>
 <body >
 	<c:import url="/header"></c:import>
-	<div class="chekcout" style="width: 70%; margin: auto; padding-top: 80px;">
+	<div class="checkOut" style="width: 70%; margin: auto; padding-top: 80px;">
 		<div class="" style="text-align: center;">
 			<h1>주문결제</h1>
 		</div>
-	<form id ="fo" action="productBuy0" method="get">
+	<form id ="fo" action="productBuyCart" method="get">
 		<div class="" style="text-align: center;"><h3>${cartlist.size() } 개 </h3></div>
 		<div>
 			<!-- 우측 주문금액 내역  -->
@@ -281,7 +282,7 @@
 								</tr>
 								<tr>
 									<td style="color: red"><b><script type="text/javascript">
-										var price = ${cartList.price }*${count};
+										var price = ${cartList.price }*${cartList.count};
 										document.write(price.toLocaleString()+' 원');
 									</script></b></td>
 								</tr>
@@ -455,8 +456,8 @@
 			<input type="hidden" name = "id" value="비회원">
 		</c:otherwise>
 		</c:choose>
-		<c:forEach var = "cartlist" items="${cartlist }">
 		<input type="hidden" name = "totalprice" id="totalprice" value="">
+		<c:forEach var = "cartlist" items="${cartlist }">
 		<input type="hidden" name = "code" value="${cartlist.code }">
 		<input type="hidden" name = "codename" value="${cartlist.codename }">
 		<input type="hidden" name = "count" value="${cartlist.count }">
