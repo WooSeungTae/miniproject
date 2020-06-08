@@ -34,6 +34,7 @@ import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
 import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
+import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
@@ -105,7 +106,38 @@ public class HomeController {
 			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
 			return "productUpdate_Delete/productSelect";
 		}
-		
+		/*상품관리*/
+		@RequestMapping("inventory")
+		public String inventory(Inventory_PagingVO vo, Model model
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			int total = Pservice.countProduct();
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) { 
+				cntPerPage = "5";
+			}
+			vo = new Inventory_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			model.addAttribute("paging",vo);
+			model.addAttribute("searchCode",Pservice.selectProduct(vo));
+			return "inventory";
+		}
+		/*상품 관리 페이지 검색기능*/
+		@RequestMapping("productserch")
+		public String productserch(Product_PagingVO vo, Model model
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+				, @RequestParam("codename") String codename) {
+			Double total = (double)Pservice.searchShose(codename);
+			if (nowPage == null) {nowPage = "1";}
+			vo = new Product_PagingVO(total,Integer.parseInt(nowPage),codename);
+			Pservice.searchCode(model,vo);
+			return "inventory";
+		}
+	
 	@RequestMapping("loginChk")
 	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
 		if(memberservice.loginChk(dto)==0) {
@@ -301,11 +333,6 @@ public class HomeController {
 	public String orderserch(Model model,@RequestParam("id") String id) {
 		model.addAttribute("viewAll",orderservice.orderserch(id));
 		return "order_care2";
-	}
-	/*상품관리*/
-	@RequestMapping("inventory")
-	public String inventory() {
-		return "inventory";
 	}
 	/*마이페이지*/
 	@RequestMapping("myPage")

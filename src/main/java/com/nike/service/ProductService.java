@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.ui.Model;
 
+import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDAO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
@@ -281,6 +283,14 @@ public class ProductService {
 	public void productDelete(String code) {		
 		Pdao.productDelete(code);	
 	}
+	//상품 관리 페이지 상품 갯수를 가져오는 기능
+	public int countProduct() {
+		return Pdao.countProduct();
+	}
+	//상품 관리 페이지 상품을 가져오는 기능
+	public List<ProductDTO> selectProduct(Inventory_PagingVO vo) {
+		return Pdao.selectProduct(vo);
+	}
 	
 	//장바구니에 대표사진 저장하는 기능
 	public String image1get(String code) {
@@ -296,6 +306,5 @@ public class ProductService {
 	public int priceget(String code) {
 		return Pdao.priceget(code);
 	}
-
 
 }
