@@ -13,7 +13,8 @@
 }
 /*주문내역 사진*/
 #quickImg{
-	width: 180px;
+	width: 100%;
+	max-width : 150px;
 	vertical-align: top;
 	position: relative;
 	top:0px;
@@ -94,8 +95,8 @@
 </style>
 
 <script>
-	var price = ${quickProduct.price }*${count};
-	var total=${quickProduct.price }*${count};
+	var price = ${totalmoney};
+	var total=${totalmoney};
 	var mile=0;
 	var yes=5000;
 	var checkDely=0;
@@ -171,12 +172,12 @@
 		var mile1 =  document.getElementById("mile").value;
 		if("${sessionScope.id}"!=""){
 
-		if(mile1>=s){
+		if(mile1>s){
 			mile1=s;
 			mile=s;
 			document.getElementById("mile").value=mile1;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
-			
+			mile1 = 0;
 		};
 		if(checkDely==1){
 			mile=mile1;
@@ -241,13 +242,12 @@
 </head>
 <body >
 	<c:import url="/header"></c:import>
-	<div class="chekcout" style="width: 70%; margin: auto; padding-top: 80px;">
+	<div class="checkOut" style="width: 70%; margin: auto; padding-top: 80px;">
 		<div class="" style="text-align: center;">
 			<h1>주문결제</h1>
 		</div>
-	<form id ="fo" action="productBuy0" method="post">
-		<div class="" style="text-align: center;"><h3>${quickProduct.codename }</h3></div>
-		<div class="" style="text-align: center;"><h3>${count } 개 </h3></div>
+	<form id ="fo" action="productBuyCart" method="get">
+		<div class="" style="text-align: center;"><h3>${cartlist.size() } 개 </h3></div>
 		<div>
 			<!-- 우측 주문금액 내역  -->
 			<aside class="rightSide" >
@@ -256,32 +256,33 @@
 						<h3 style="padding: 10px; text-align: center;">주문내역</h3>
 					</div>
 				<aside style="border: 3px solid;  border-color: #F5F5F5; padding: 10px; ">
+						<c:forEach var ="cartList" items="${cartlist }">
 						<div>
 						<div style="float: left; padding-right: 20px;">
-						<img id ="quickImg" src="/nike/${quickProduct.image1 }" onerror="this.onerror=null; chageSrc(this)" onclick="location.href='/nike/productdetail?code=${quickProduct.code }'">
+						<img id ="quickImg" src="/nike/${cartList.image1 }" onerror="this.onerror=null; chageSrc(this)" onclick="location.href='/nike/productdetail?code=${cartList.code }'">
 						</div>
 							<table>
 								<tr>
-									<td><a style="text-decoration: none;" href="/nike/productdetail?code=${quickProduct.code }">${quickProduct.codename }</a></td>
+									<td><a style="text-decoration: none;" href="/nike/productdetail?code=${cartList.code }">${cartList.codename }</a></td>
 								</tr>
 								<tr>
 									<td></td>
 								</tr>
 								<tr>
-									<td>스타일 : ${quickProduct.code } </td>
+									<td>스타일 : ${cartList.code } </td>
 								</tr>
 								<tr>
-									<td>사이즈 : ${ordersize }</td>
+									<td>사이즈 : ${cartList.ordersize }</td>
 								</tr>
 								<tr>
-									<td>수량 : ${count }개</td>
+									<td>수량 : ${cartList.count }개</td>
 								</tr>
 								<tr>
 									<td></td>
 								</tr>
 								<tr>
 									<td style="color: red"><b><script type="text/javascript">
-										var price = ${quickProduct.price }*${count};
+										var price = ${cartList.price }*${cartList.count};
 										document.write(price.toLocaleString()+' 원');
 									</script></b></td>
 								</tr>
@@ -289,11 +290,12 @@
 							<hr>
 
 						</div>
+						</c:forEach>
 					<div class="priceCheck">
 						<div>
 						<div style="float: left; text-align: left;">상품금액</div>
 						<div style="text-align: right;"><script type="text/javascript">
-										var price = ${quickProduct.price }*${count};
+										var price = ${totalmoney};
 										document.write(price.toLocaleString()+' 원');
 									</script></div>
 					</div>
@@ -315,7 +317,7 @@
 						</div>
 						<b><div id="totalMoney"style="text-align: right;">
 										<script type="text/javascript">
-										var price = ${quickProduct.price }*${count};
+										var price = ${totalmoney};
 										document.write(price.toLocaleString()+' 원');
 									</script></div></b>
 									</div>
@@ -435,7 +437,7 @@
 					<!--  결제 클릭 -->
 					<div onclick='submitbuy()' id="buy" class="buy" >
 						<script type="text/javascript">
-										var price = ${quickProduct.price }*${count};
+										var price = ${totalmoney};
 										document.write(price.toLocaleString()+' 원 결제');
 									</script>
 					</div>
@@ -455,13 +457,14 @@
 		</c:otherwise>
 		</c:choose>
 		<input type="hidden" name = "totalprice" id="totalprice" value="">
-		<input type="hidden" name = "code" value="${quickProduct.code }">
-		<input type="hidden" name = "codename" value="${quickProduct.codename }">
-		<input type="hidden" name = "count" value="${count }">
-		<input type="hidden" name = "ordersize" value="${ordersize }">
-		<input type="hidden" name = "price" value="${quickProduct.price }">
-		<input type="hidden" name = "image1" value="${quickProduct.image1 }">
-		
+		<c:forEach var = "cartlist" items="${cartlist }">
+		<input type="hidden" name = "code" value="${cartlist.code }">
+		<input type="hidden" name = "codename" value="${cartlist.codename }">
+		<input type="hidden" name = "count" value="${cartlist.count }">
+		<input type="hidden" name = "ordersize" value="${cartlist.ordersize }">
+		<input type="hidden" name = "price" value="${cartlist.price }">
+		<input type="hidden" name = "image1" value="${cartlist.image1 }">
+		</c:forEach>
 		
 		</form>
 	</div>

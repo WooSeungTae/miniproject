@@ -30,6 +30,10 @@
 	<select resultType="String" id="mileage" parameterType="String">
 		select mile from memberInfo where id=#{id} 
 	</select>
+	<!--  마일리지 수정 -->
+	<update id="mileageModify" >
+		update memberInfo set mile=mile-#{mile} where id=#{id}
+	</update>
 
 	<!-- 회원정보수정을 위한 회원정보조회 -->
 	<select resultType="dto" id="account" parameterType="String">

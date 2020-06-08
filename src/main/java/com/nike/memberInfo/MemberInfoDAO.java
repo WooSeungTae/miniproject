@@ -1,6 +1,7 @@
 
 package com.nike.memberInfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.nike.order.OrderDTO;
 import com.nike.product.ProductDTO;
 
 import java.util.List;
@@ -30,7 +32,7 @@ public class MemberInfoDAO {
 	private static final String namespace = "com.care.mybatis.memberMapper.memberMapper";
 	@Autowired
 	private SqlSession sqlSession;
-
+	
 	public void saveUserInfo(MemberInfoDTO dto) {
 		sqlSession.insert(namespace+".saveUserInfo",dto);
 	}
@@ -64,6 +66,11 @@ public class MemberInfoDAO {
 		String mileage = sqlSession.selectOne(namespace+".mileage", id);
 		return mileage;
 	}
+	/*마일리지 수정*/
+	public void mileageModify(MemberInfoDTO dto) {
+		sqlSession.update(namespace+".mileageModify",dto);
+	}
+	
 
 	/*회원정보 수정을 위한 회원정보 조회*/
 	public MemberInfoDTO account(String id) {

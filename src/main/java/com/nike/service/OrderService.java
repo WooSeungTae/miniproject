@@ -6,6 +6,10 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nike.order.OrderCare_PagingVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import com.nike.memberInfo.MemberInfoDAO;
+import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.order.OrderDAO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDAO;
@@ -18,19 +22,56 @@ public class OrderService {
 	private OrderDAO Odao;
 	@Autowired
 	private Order_detailsDAO Ddao;
-
+	@Autowired
+	private MemberInfoDAO dao;
 	private String orderNum;
 	
 	
 	/*구매후 등록*/
-	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
+	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		orderNum="Order";
 		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
 		orderNum = orderNum + format.format(new Date());
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		if(id!=null) {dao.mileageModify(dto);}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
 		Ddao.buyRegisterDetails(Ddto);
+
+	}
+	
+	/*구매후 등록*/
+	public void productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+		orderNum="Order";
+		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
+		orderNum = orderNum + format.format(new Date());
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		if(id!=null) {dao.mileageModify(dto);
+		}
+		Odto.setordernum(orderNum);
+		Ddto.setOrdernum(orderNum);
+		Odao.buyRegister(Odto);
+		String code[]=Ddto.getCode().split(",");
+		String codename[]=Ddto.getCodename().split(",");
+		String count[]=Ddto.getCount().split(",");
+		String image1[]=Ddto.getImage1().split(",");
+		String ordersize[]=Ddto.getOrdersize().split(",");
+		String price[]=Ddto.getPrice().split(",");
+		for(int i = 0 ; i<code.length;i++) {
+			Ddto.setCode(code[i]);
+			Ddto.setCodename(codename[i]);
+			Ddto.setCount(count[i]);
+			Ddto.setId(id);
+			Ddto.setImage1(image1[i]);
+			Ddto.setOrdernum(orderNum);
+			Ddto.setOrdersize(ordersize[i]);
+			Ddto.setPrice(price[i]);
+			Ddao.buyRegisterDetails(Ddto);
+		}
+		
 
 	}
 	
@@ -41,6 +82,8 @@ public class OrderService {
 	
 	/*장바구니 DB에서 회원별 리스트 가져오기*/
 	public List<ShoppingCartDTO> selectcart(String id) {
+		
+		System.out.println(Odao.selectcart(id));
 		return Odao.selectcart(id);
 	}
 	
