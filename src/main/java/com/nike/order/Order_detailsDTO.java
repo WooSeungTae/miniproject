@@ -1,5 +1,7 @@
 package com.nike.order;
 
+import java.sql.Date;
+
 public class Order_detailsDTO {
 
 	private String ordernum;
@@ -9,7 +11,29 @@ public class Order_detailsDTO {
 	private String ordersize ;
 	private String price;
 	private String image1;
+
+	private String codeName;
+	private String delivery;
+	private Date orderDate;
 	
+	public String getCodeName() {
+		return codeName;
+	}
+	public void setCodeName(String codeName) {
+		this.codeName = codeName;
+	}
+	public String getDelivery() {
+		return delivery;
+	}
+	public void setDelivery(String delivery) {
+		this.delivery = delivery;
+	}
+	public Date getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
 	
 	public String getImage1() {
 		return image1;

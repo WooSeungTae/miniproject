@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,10 @@
 		font-size: 11.5px;
 		font-weight: bold;
 		margin-bottom: 15px;
+	}
+	.order_a {
+	text-decoration:none; 
+	color:black;
 	}
 	td, th{
 		font-size: 11px;
@@ -40,6 +45,21 @@
 	.orderDate{
 	}
 </style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+
+	$(document).ready(function(){
+		$('.orderCancel').click(function(){
+			alert('확인 버튼을 클릭하면 주문이 취소됩니다.')
+			$('.delivery').text("주문취소");
+		});
+		$('.orderFinish').click(function(){
+			alert('구매확정이 완료되었습니다.')
+			$('.delivery').text("배송완료");
+		});
+	});
+
+</script>
 <body>
 	<header>
 		<c:import url="/header"></c:import>
@@ -73,7 +93,7 @@
 						</td>
 						<td class="image1"><a href=""><img src="image/pd3-3.PNG" onerror="" alt="" class="order_img"></a></td>
 						<td class="product">
-							<strong class="CodeName"><a	href=""	class="" style="text-decoration:none; color:black;">나이키 에어 줌 페가수스 37</a></strong>
+							<strong class="CodeName"><a	href=""	class="order_a">나이키 에어 줌 페가수스 37</a></strong>
 							<div class="orderSize">[사이즈 : 220]</div>
 						</td>
 						<td class="count">1</td>
@@ -90,27 +110,35 @@
 					</tr>
 				</tbody>
 				<tbody>
+					<c:forEach items="${list }" var="list">
 					<tr>
-						<td class="orderDate">${orderDate }
-							<p>	<a href="#">[${orderNum }]</a> </p> 
+						<td class="orderDate">
+							<fmt:formatDate value="${list.orderDate }" pattern="yyyy.MM.dd"/>
+							<p><a href="#">[${list.ordernum }]</a></p> 
 						</td>
-						<td class="image1"><a href=""><img src="" onerror="" alt=""></a></td>
+						<td class="image1">
+							<a href="/nike/productdetail?code=${list.code }">
+							<img src="${list.image1 }" class="order_img"></a>
+						</td>
 						<td class="product">
-							<strong class="CodeName"><a	href=""	class="">${codeName }</a></strong>
-							<div class="orderSize">[사이즈 : ${orderSize }]</div>
+							<strong class="CodeName"><a	href=""	class="order_a">${list.codeName }</a></strong>
+							<div class="orderSize">[사이즈 : ${list.ordersize }]</div>
 						</td>
-						<td class="count">${count }</td>
+						<td class="count">${list.count }</td>
 						<td class="price">
-							<strong>${price }</strong>
+							<strong>
+							<fmt:formatNumber value="${list.price }" pattern="###,###,###"/>
+							</strong>
 						</td>
-						<td class="delivery">
-							<p>배송완료</p>
+						<td class="">
+							<p class="delivery">${list.delivery }</p>
 						</td>
 						<td class="service">
-							<input type="button" value="주문취소"><br><br>
-							<input type="button" value="구매확정">
+							<a href="orderCancel"><input type="button" value="주문취소" class="orderCancel"></a><br><br>
+							<a href="orderFinish"><input type="button" value="구매확정" class="orderFinish"></a>
 						</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</section><br>

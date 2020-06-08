@@ -38,7 +38,6 @@ public class OrderService {
 
 	private String orderNum;
 	
-	
 	/*구매후 등록*/
 	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto) {
 		orderNum="Order";
@@ -48,7 +47,6 @@ public class OrderService {
 		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
 		Ddao.buyRegisterDetails(Ddto);
-
 	}
 	
 	/*장바구니 DB에 값을 저장*/
@@ -87,5 +85,8 @@ public class OrderService {
 		return Odao.checkitem(sdto);
 
 	}
-
+	/* 주문내역 및 배송현황 조회 */
+	public List<Order_detailsDTO> orderView(String id) {
+		return Ddao.orderView(id);
+	}
 }

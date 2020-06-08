@@ -16,5 +16,9 @@
 		values(#{ordernum},#{code},#{id},#{count},#{ordersize},#{price},#{image1})
 	</insert>
 
+	<!-- 주문내역 및 배송현황 조회 -->
+	<select id="orderView" parameterType="String" resultType="Ddto">
+		select * from orderDetailsInfo where id=#{id}
+	</select>
 </mapper>
 

@@ -1,5 +1,7 @@
 package com.nike.order;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,9 @@ public class Order_detailsDAO {
 		sqlSession.insert(namespace+".buyRegisterDetails",Ddto);
 		
 	}
-
+	/* 주문내역 및 배송현황 조회 */
+	public List<Order_detailsDTO> orderView(String id) {
+		return sqlSession.selectList(namespace+".orderView", id);
+	}
 
 }

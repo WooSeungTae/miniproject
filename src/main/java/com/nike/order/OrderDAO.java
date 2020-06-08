@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class OrderDAO {
-	private  final String namespace = "com.care.mybatis.orderMapper.orderMapper";
+	private final String namespace = "com.care.mybatis.orderMapper.orderMapper";
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	/*장바구니용 namespace*/
 	private static final String namespace2 = "com.care.mybatis.orderMapper.ShoppingCartMapper";
 
@@ -28,7 +28,7 @@ public class OrderDAO {
 //		System.out.println("배송타입 : "+Odto.getOrdertype());
 //		System.out.println("전화번호 : "+Odto.getTel());
 //		System.out.println("총가격 : "+Odto.gettotalprice());
-		//System.out.println("정보 주문번호 : "+Odto.getordernum());
+//		System.out.println("정보 주문번호 : "+Odto.getordernum());
 		sqlSession.insert(namespace+".buyRegister",Odto);
 	}
 		

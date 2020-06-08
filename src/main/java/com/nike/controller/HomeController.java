@@ -5,6 +5,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Resource;
@@ -291,12 +292,6 @@ public class HomeController {
 		model.addAttribute("name", name);
 		return "myPage/myPageAside";
 	}
-	/*주문내역 배송현황*/
-	@RequestMapping("orders")
-	public String myOrder() {
-		return "myPage/myPageOrderDelivery";
-	}
-	
 	/*회원가입*/
 	@RequestMapping("memberJoin")
 	public String memberJoin() {
@@ -523,5 +518,14 @@ public class HomeController {
 		memberservice.userDelete(dto);
 		memberservice.logout(mySession);
 		return "sminj/userDelete";
+	}
+	/* 주문내역 및 배송현황 조회 */
+	@RequestMapping("orders")
+	public String orderView(Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		List<Order_detailsDTO> list = orderservice.orderView(id);
+		model.addAttribute("list", list);
+		return "myPage/myPageOrderDelivery";
 	}
 }
