@@ -416,12 +416,26 @@ public class HomeController {
 		return "purchase/cart";
 	}
 	
-	/*장바구니 옵션변경*/
+	/*장바구니 옵션창 뜨게 함*/
 	@RequestMapping("cartoption")
-	public String cartoption() {
+	public String cartoption(@RequestParam("code") String code, Model model) {
+		model.addAttribute("code", code);
 		return "purchase/cartoption";
 	}
 	
+	/*장바구니 옵션 변경*/
+	@RequestMapping("cartoptionchange")
+	public String cartoptionchange(ShoppingCartDTO sdto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		sdto.setId(id);
+		sdto.setCode(request.getParameter("code"));
+		System.out.println("==============================================="+sdto.getCode());
+		System.out.println("==============================================="+sdto.getOrdersize());
+		System.out.println("==============================================="+sdto.getCount());
+		orderservice.cartoptionchange(sdto);
+		return "redirect:cart";
+	}
 	/*회원별 장바구니에 있는 아이템 전부 삭제*/
 	@RequestMapping("cartAlldelete")
 	public String cartAlldelete(HttpServletRequest request) {
