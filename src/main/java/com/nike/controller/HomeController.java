@@ -79,6 +79,12 @@ public class HomeController {
 		return "/sminj/main";
 	}
 	
+		//리뷰 등록
+		@RequestMapping("review")
+		public String review() {
+			return "board/review_Register";
+		}
+		
 	//관리자 상품관리(수정)
 		@RequestMapping("productUpdate")
 		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
