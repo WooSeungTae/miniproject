@@ -101,12 +101,12 @@
 		<c:choose>
 			<c:when test="${size ne 0}">
 				<c:forEach items="${viewAll}" var="dto">
-				<tr align="center"><td>${dto.orderDate}</td><td>${dto.id}</td><td>${dto.name}</td>
-				<td>${dto.addr}</td><td>${dto.tel}</td><td>${dto.bankName}</td><td>${dto.bank}</td>
-				<td>${dto.totalPrice}</td><td>${dto.orderType }</td><td>${dto.orderNum}</td>
-				<td>${dto.delivery}</td><td>${dto.orderMemo}</td>
-				<td><a href="deliveryChange?orderNum=${dto.orderNum }&delivery=shipping"><input type="button" value="입금 확인"></a></td>
-				<td><a href="deliveryChange?orderNum=${dto.orderNum }&delivery=deposit"><input type="button" value="배송 취소"></a></td>
+				<tr align="center"><td>${dto.orderdate}</td><td>${dto.id}</td><td>${dto.name}</td>
+				<td>${dto.addr}</td><td>${dto.tel}</td><td>${dto.bankname}</td><td>${dto.bank}</td>
+				<td>${dto.totalprice}</td><td>${dto.ordertype }</td><td>${dto.ordernum}</td>
+				<td>${dto.delivery}</td><td>${dto.ordermemo}</td>
+				<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=shipping"><input type="button" value="입금 확인"></a></td>
+				<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=deposit"><input type="button" value="배송 취소"></a></td>
 				</tr>
 				</c:forEach>
 				</c:when>

@@ -42,7 +42,7 @@
 </head>
 <!-- https://master.dubuplus.com/43/616002 -->
 <body>
-<c:set var="date" value="${viewAll.orderDate}"/>
+<c:set var="date" value="${viewAll.orderdate}"/>
 <%@include file="product_header.jsp" %>
 <div class="bodyback">
 <p class="maintitle">주문 관리</p>
@@ -63,12 +63,12 @@
 		</tr>
 		<c:choose>
 			<c:when test="${not empty date}">
-				<tr align="center"><td>${viewAll.orderDate}</td><td>${viewAll.id}</td><td>${viewAll.name}</td>
-					<td>${viewAll.addr}</td><td>${viewAll.tel}</td><td>${viewAll.bankName}</td><td>${viewAll.bank}</td>
-					<td>${viewAll.totalPrice}</td><td>${viewAll.orderType }</td><td>${viewAll.orderNum}</td>
-					<td>${viewAll.delivery}</td><td>${viewAll.orderMemo}</td>
-					<td><a href="deliveryChange?orderNum=${viewAll.orderNum }&delivery=shipping"><input type="button" value="입금 확인"></a></td>
-					<td><a href="deliveryChange?orderNum=${viewAll.orderNum }&delivery=deposit"><input type="button" value="배송 취소"></a></td>
+				<tr align="center"><td>${viewAll.orderdate}</td><td>${viewAll.id}</td><td>${viewAll.name}</td>
+					<td>${viewAll.addr}</td><td>${viewAll.tel}</td><td>${viewAll.bankname}</td><td>${viewAll.bank}</td>
+					<td>${viewAll.totalprice}</td><td>${viewAll.ordertype }</td><td>${viewAll.ordernum}</td>
+					<td>${viewAll.delivery}</td><td>${viewAll.ordermemo}</td>
+					<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=shipping"><input type="button" value="입금 확인"></a></td>
+					<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=deposit"><input type="button" value="배송 취소"></a></td>
 				</tr>
 			</c:when>
 			<c:otherwise>
