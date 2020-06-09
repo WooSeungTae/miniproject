@@ -55,6 +55,8 @@
 	color: white;
 	}
 	.paging a:hover:not(.active) {background-color: #ddd;}
+	
+	table button { width: 50px; height: 30px;}
 </style>
 <script>
 	function selChange() {
@@ -113,8 +115,8 @@
 				<tr align="center"><td>${dto.joindate}</td><td><img src="${dto.image1}" id="${dto.code }"onerror="this.onerror=null; chageSrc(this)"></td><td>${dto.code}</td>
 				<td>${dto.codename}</td><td>${dto.codecolor}</td><td>${dto.category}</td>
 				<td>${dto.price}</td><td>${dto.gender}</td>
-				<td><a href="productUpdate?code=${dto.code}"><input type="button" value="수정"></a></td>
-				<td><a href="productDelete?code=${dto.code}"><input type="button" value="삭제"></a></td></tr>
+				<td><button onclick="location.href='productUpdate?code=${dto.code}'">수정</button></td>
+				<td><button onclick="location.href='productDelete?code=${dto.code}'">삭제</td></tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>

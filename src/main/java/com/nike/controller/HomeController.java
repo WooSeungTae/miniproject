@@ -99,7 +99,7 @@ public class HomeController {
 		@RequestMapping("productDelete")
 		public String productDelete(@RequestParam("code") String code) {
 			Pservice.productDelete(code);
-			return "productUpdate_Delete/productSelect";
+			return "redirect:inventory";
 		}
 		
 		//관리자 상품 목록 수정, 삭제를 위한 조회

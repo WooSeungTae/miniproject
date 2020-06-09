@@ -31,6 +31,7 @@
 		}
 	}
 	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
+	
 	function sizebuttonclick(clicked_id){
 		var gender = clicked_id+1;
 		console.log(gender);
@@ -51,6 +52,7 @@
 		}
 	}
 	<!-- 이미지 삽입시 삽입한 이미지로 바뀜 -->
+	
 	$(document).ready(function(){
 		$("#productImg1").change(function(){
 			   if(this.files && this.files[0]) {
