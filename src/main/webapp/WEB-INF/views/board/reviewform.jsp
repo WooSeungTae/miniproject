@@ -184,7 +184,7 @@
 		<h1>상품 리뷰 작성하기</h1>
 		<div style="margin-bottom:20px; height:20px;">
 		</div>
-			<form action="reviewsave" enctype="multipart/form-data" method="post">
+			<form action="reviewmodify" enctype="multipart/form-data" method="post">
 				<table>
 					<tr>
 						<td>작성자</td>
@@ -355,6 +355,8 @@
 					</tr>
 				</table>
 				<div align="center" style="margin-top:50px;">
+					<input type="hidden" name="reviewnum" value="${reviewnum }">
+					<input hidden="beforefile" value="${rdto.image }">
 					<input type="submit" value="리뷰수정" class="goreview"><br>
 					<input type="button" value="리뷰삭제" class="deletereview" onclick="location.href='reviewdelete?num=${reviewnum}'">
 				</div>

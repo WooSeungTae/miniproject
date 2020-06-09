@@ -1,5 +1,6 @@
 package com.nike.service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
@@ -76,5 +77,12 @@ public class ReviewUploadService {
 		fos.close();
 		
 		return result;
+	}
+	
+	public void deletefile(String filepath) {
+		String deletePath = SAVE_PATH + filepath;
+		File deletefile = new File(deletePath);
+		deletefile.delete();
+		
 	}
 }

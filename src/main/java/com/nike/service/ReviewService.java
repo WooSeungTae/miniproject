@@ -34,4 +34,9 @@ public class ReviewService {
 		rdao.reviewdelete(rdto);
 		
 	}
+	
+	//마이페이지 나의 리뷰 수정하기
+	public void reviewmodify(ReviewDTO rdto) {
+		rdao.reviewmodify(rdto);
+	}
 }

@@ -108,16 +108,12 @@ public class HomeController {
 		//리뷰 저장
 		@RequestMapping(value="reviewsave", method=RequestMethod.POST)
 		public String reviewsave(ReviewDTO rdto, HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file) {
-			System.out.println("============================="+file);
-			System.out.println("=========================================aaa");
 			String url1 = reviewUploadService.restore(file);
-			System.out.println("=========================================bbb");
 			rdto.setImage(url1);
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
 			reviewservice.review_save(rdto);
-			System.out.println("=========================================ccc");
 			return "redirect:reviewintro";
 			
 		}
@@ -131,8 +127,9 @@ public class HomeController {
 //			rdto.setId(id);
 //			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
-			rdto.setReviewnum(1);
+			rdto.setReviewnum(5);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
+			System.out.println("====================================================="+rdto.getImage());
 			return "board/reviewform";
 		}
 		
@@ -149,6 +146,22 @@ public class HomeController {
 			reviewservice.reviewdelete(rdto);
 			return "redirect:reviewintro";
 		}
+		
+		//마이페이지 나의 리뷰 수정하기
+		@RequestMapping("reviewmodify")
+		public String reviewmodify(HttpServletRequest request, ReviewDTO rdto,  @RequestParam(value="file", required=false) MultipartFile file) {
+			String beforefile = request.getParameter("beforefile");
+			reviewUploadService.deletefile(beforefile);
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			rdto.setId(id);
+			String url1 = reviewUploadService.restore(file);
+			rdto.setImage(url1);
+			reviewservice.reviewmodify(rdto);
+			return "redirect:reviewintro";
+		}
+		
+		
 		//마이페이지 나의 리뷰 보여주기
 		@RequestMapping("reviewintro")
 		public String reviewintro(HttpServletRequest request, Model model) {

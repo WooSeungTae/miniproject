@@ -32,4 +32,9 @@ public class ReviewDAO {
 	public void reviewdelete(ReviewDTO rdto) {
 		sqlSession.delete(namespace+".reviewdelete", rdto);
 	}
+	
+	//마이페이지 나의 리뷰 수정하기
+	public void reviewmodify(ReviewDTO rdto) {
+		sqlSession.update(namespace+".reviewmodify", rdto);
+	}
 }

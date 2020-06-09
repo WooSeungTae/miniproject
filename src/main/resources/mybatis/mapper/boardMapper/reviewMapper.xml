@@ -6,7 +6,7 @@
 	
 	<!--리뷰 등록-->
 	<insert id="reviewsave" parameterType="Rdto">
-		insert into review(reviewnum,reviewtitle,reviewcontents,id,name,code,codename,star_input,rating,rating2,rating3,rating4,image) values(reviewnum.nextval,#{reviewtitle},#{reviewcontents},#{id},#{name},#{code},sysdate,#{star_input},#{rating},#{rating2},#{rating3},#{rating4},#{image})
+		insert into review(reviewnum,reviewtitle,reviewcontents,id,name,code,codename,star_input,rating,rating2,rating3,rating4,image) values(reviewnum.nextval,#{reviewtitle},#{reviewcontents},#{id},#{name},#{code},#{codename},#{star_input},#{rating},#{rating2},#{rating3},#{rating4},#{image})
 	</insert>
 	
 	
@@ -24,4 +24,9 @@
 	<delete id="reviewdelete" parameterType="Rdto">
 		delete from review where id=#{id} and reviewnum=#{reviewnum}
 	</delete>
+	
+	<!-- 마이페이지 나의 리뷰 수정하기 -->
+	<update id="reviewmodify" parameterType="Rdto">
+		update review set reviewtitle=#{reviewtitle}, reviewcontents=#{reviewcontents}, star_input=#{star_input}, rating=#{rating}, rating2=#{rating2}, rating3=#{rating3}, rating4=#{rating4}, image=#{image} where id=#{id} and reviewnum=#{reviewnum}
+	</update>
 </mapper>
