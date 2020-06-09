@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.care.mybatis.boardMapper.qaboardMapper">
+  	<!-- qa전체 리스트 보기 -->
+  	<select id="qalist" resultType="Qdto">
+  		select row_number()over(order by QABOARD.writeDate)num,indexnum,title,content,name,modifyDate,hit from QABOARD where code=#{code}
+  	
+  	</select>
+  	
+  
+  
+  </mapper>

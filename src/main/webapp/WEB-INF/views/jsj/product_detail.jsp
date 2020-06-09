@@ -156,6 +156,22 @@
 			border-radius:30px;
 			margin-bottom:10px;
 		}
+		
+		/*리뷰 q&a 테이블 */
+		.bordertable{
+			margin: auto;
+			width: 80%;
+			min-width: 800px;
+		
+		}
+		
+		/*리뷰타이틀*/
+		#boardtitle{
+			font-size: 20px;
+			background-color: #f5f5f5;	
+		}
+		
+		
 	</style>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
@@ -213,8 +229,18 @@
    		}
    		
    		
-   		
+   		/*qa제목클릭*/
+     		function test(obj){
+   			var namev = $('[id*=qnanike]');
+			for(var i =0 ;i<namev.length;i++){
+				var getid = namev[i].id
+				document.getElementById(getid).style.display='none';   	
+			}
+   			var name = obj.id+'qnanike'
+   			document.getElementById(name).style.display="";   			
+  		}
 	</script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -467,6 +493,94 @@
 			</section>
 		</section>
 	</section>
+		<div class="reviewTitle" style="margin-top:50px;">
+		<h2 align="center">REVIEW</h2><br>
+		
+		<table class="bordertable" border="1" >
+			<tr id="boardtitle">
+				<th>번호</th>
+				<th colspan="2">제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회</th>
+				<th style="display: none;">코드번호</th>
+		<c:forEach var = "reviwList" items="">
+			<tr>
+				<td></td> <!-- 번호 -->
+				<td></td> <!-- 이미지 -->
+				<td></td> <!-- 제목 -->
+				<td></td> <!-- 작성자 -->
+				<td></td> <!-- 작성일 -->
+				<td></td> <!-- 조회 -->
+				<td style="display: none;"></td> <!-- 코드번호 -->
+		</c:forEach>	
+		</table>
+		</div>
+		<div style="display: block; text-align: center;">
+						<c:if test="${paging.startPage != 1 }">
+							<a href="productdetail?nowPage=${paging.startPage - 1 }">이전</a>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+							var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<a href="productdetail?nowPage=${p }">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<a
+								href="productdetail?nowPage=${paging.endPage+1 }">다음</a>
+						</c:if>
+					</div><br><br>
+		
+		<div class="Q&ATitle" >
+		<h2 align="center">Q & A</h2><br>
+		
+		<table id="qatable" class="bordertable" border="1" ">
+			<tr id="boardtitle">
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회</th>
+				<th style="display: none;">코드번호</th>
+		<c:forEach var = "QAList" items="${qalist }">
+			<tr>
+				<td>${QAList.indexnum }</td> <!-- 번호 -->
+				<td id="${QAList.indexnum }${QAList.title }" onclick="test(this)">${QAList.title }</td> <!-- 제목 -->
+				<td>${QAList.name }</td> <!-- 작성자 -->
+				<td>${QAList.modifyDate }</td> <!-- 작성일 -->
+				<td>${QAList.hit }</td> <!-- 조회 -->
+				<td style="display: none;">${QAList.code }</td> <!-- 코드번호 -->
+			</tr>
+			<tr class="contentqa"><td id ="${QAList.indexnum }${QAList.title }qnanike"  colspan="5" style="display:none;"><c:import url="/qnawrite"></c:import></td></tr><!-- 내용 -->	
+		</c:forEach>	
+		</table>
+		<div style="display: block; text-align: center;">
+						<c:if test="${paging.startPage != 1 }">
+							<a href="productdetail?nowPage=${paging.startPage - 1 }">이전</a>
+						</c:if>
+						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+							var="p">
+							<c:choose>
+								<c:when test="${p == paging.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != paging.nowPage }">
+									<a href="productdetail?nowPage=${p }">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.endPage != paging.lastPage}">
+							<a
+								href="productdetail?nowPage=${paging.endPage+1 }">다음</a>
+						</c:if>
+					</div>
+		</div>
 	<footer>
 		<c:import url="../sminj/footer.jsp">
 		</c:import>

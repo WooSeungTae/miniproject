@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,10 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nike.service.BoardService;
 import com.nike.service.FileUploadService;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
+import com.nike.board.QABoardDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
@@ -52,6 +55,8 @@ public class HomeController {
 	OrderService orderservice;
 	@Autowired
 	FileUploadService fileUploadService;
+	@Autowired
+	BoardService bservice;
 
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
@@ -120,6 +125,7 @@ public class HomeController {
 	@RequestMapping("/productdetail")
 	public String productdetail(Model model, HttpServletRequest request) {
 		System.out.println("===============================" + request.getParameter("code"));
+		model.addAttribute("qalist", bservice.qalist(request.getParameter("code")));
 		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
@@ -493,6 +499,13 @@ public class HomeController {
 	@RequestMapping("/main")
 	public String main() {
 		return "sminj/main";
+	}
+	
+	/*Q & A 게시판 작성글 보기*/
+	@RequestMapping("qnawrite")
+	public String qnaviewPage() {
+		
+		return "board/QnA_write";
 	}
 	
 }

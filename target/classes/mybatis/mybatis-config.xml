@@ -12,6 +12,8 @@
 		<typeAlias type="com.nike.product.Product_PagingVO" alias="Vodto"/>
 		<typeAlias type="com.nike.order.OrderDTO" alias="Odto"/>
 		<typeAlias type="com.nike.order.Order_detailsDTO" alias="Ddto"/>
+		<typeAlias type="com.nike.board.QABoardDTO" alias="Qdto"/>
+		<typeAlias type="com.nike.board.RVBoardDTO" alias="Rdto"/>
 	</typeAliases>
 </configuration>
 
