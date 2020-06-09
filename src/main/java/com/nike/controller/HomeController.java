@@ -103,18 +103,22 @@ public class HomeController {
 			model.addAttribute("codename", "나이키 조이라이드 듀얼 런");
 			return "board/review_Register";
 		}
-		
+		//ReviewDTO rdto, HttpServletRequest request,
 		
 		//리뷰 저장
-		@RequestMapping("reviewsave")
-		public String reviewsave(ReviewDTO rdto, @RequestParam(value="file1", required=false) MultipartFile file1) {
+		@RequestMapping(value="reviewsave", method=RequestMethod.POST)
+		public String reviewsave(ReviewDTO rdto, HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file) {
+			System.out.println("============================="+file);
 			System.out.println("=========================================aaa");
-			String url1 = reviewUploadService.restore(file1);
+			String url1 = reviewUploadService.restore(file);
 			System.out.println("=========================================bbb");
 			rdto.setImage(url1);
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			rdto.setId(id);
 			reviewservice.review_save(rdto);
 			System.out.println("=========================================ccc");
-			return "board/reviewintro";
+			return "redirect:reviewintro";
 			
 		}
 		

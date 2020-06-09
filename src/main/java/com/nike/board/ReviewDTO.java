@@ -2,22 +2,24 @@ package com.nike.board;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ReviewDTO {
 	
-	private int reviewNum;
-	private String reviewTitle;
-	private String reviewContents;
-	private String id;
-	private String name;
+	private int reviewnum = 0;
+	private String reviewtitle = " ";;
+	private String reviewcontents = " ";;
+	private String id = " ";;
+	private String name = " ";
 	private Date writeDate;
 	private String code;
-	private String codename;
-	private int star_input;
-	private int rating;
-	private int rating2;
-	private int rating3;
-	private int rating4;
-	private String image;
+	private String codename = " " ;
+	private int star_input = 0;
+	private int rating = 0;
+	private int rating2 = 0;
+	private int rating3 = 0;
+	private int rating4 = 0;
+	private String image = " ";
 	
 	
 	public String getCodename() {
@@ -58,17 +60,25 @@ public class ReviewDTO {
 	}
 	
 	
-	public String getReviewTitle() {
-		return reviewTitle;
+	
+	
+	public int getReviewnum() {
+		return reviewnum;
 	}
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
+	public void setReviewnum(int reviewnum) {
+		this.reviewnum = reviewnum;
 	}
-	public String getReviewContents() {
-		return reviewContents;
+	public String getReviewtitle() {
+		return reviewtitle;
 	}
-	public void setReviewContents(String reviewContents) {
-		this.reviewContents = reviewContents;
+	public void setReviewtitle(String reviewtitle) {
+		this.reviewtitle = reviewtitle;
+	}
+	public String getReviewcontents() {
+		return reviewcontents;
+	}
+	public void setReviewcontents(String reviewcontents) {
+		this.reviewcontents = reviewcontents;
 	}
 	public String getId() {
 		return id;
@@ -95,18 +105,21 @@ public class ReviewDTO {
 		this.code = code;
 	}
 	
+	
+	public int getReviewNum() {
+		return reviewnum;
+	}
+	public void setReviewNum(int reviewNum) {
+		this.reviewnum = reviewNum;
+	}
+	
 	public String getImage() {
 		return image;
 	}
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public int getReviewNum() {
-		return reviewNum;
-	}
-	public void setReviewNum(int reviewNum) {
-		this.reviewNum = reviewNum;
-	}
+	
 	
 	
 }

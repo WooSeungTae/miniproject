@@ -210,23 +210,22 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#productImg1").change(function(){
-				   if(this.files && this.files[0]) {
-				    var reader = new FileReader;
-				    reader.onload = function(data) {
-				     $(".select_img1 img").attr("src", data.target.result);        
-				     $("#image1").val('image1');
-				    }
-				    reader.readAsDataURL(this.files[0]);
-				   }
-				  });
+			   if(this.files && this.files[0]) {
+			    var reader = new FileReader;
+			    reader.onload = function(data) {
+			     $(".select_img1 img").attr("src", data.target.result);        
+			     $("#image1").val('image1');
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			   }
+			  });
 		});
-		
 		$(document).ready(function() {
 			$("#img1").click(function() {
 				$("#productImg1").click();
 			});
 		});
-		
+	
 	</script>
 	
 </head>
@@ -278,35 +277,35 @@
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="reviewTitle" placeholder="제목을 작성해주세요"></td>
+						<td><input type="text" name="reviewtitle" placeholder="제목을 작성해주세요"></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea cols="50" rows="10" name="reviewContents" placeholder="내용을 작성해주세요"></textarea>
+						<td><textarea cols="50" rows="10" name="reviewcontents" placeholder="내용을 작성해주세요"></textarea>
 					</td>
 					<tr>
 						<td>편안함</td>
 						<td>
 							<div class="rating">
-								<input type="radio" name="rating" id="rate10">
+								<input type="radio" name="rating" id="rate10" value="10">
 								<label for="rate10">10</label>
-								<input type="radio" name="rating" id="rate9">
+								<input type="radio" name="rating" id="rate9" value="9">
 								<label for="rate9">9</label>
-								<input type="radio" name="rating" id="rate8">
+								<input type="radio" name="rating" id="rate8" value="8">
 								<label for="rate8">8</label>
-								<input type="radio" name="rating" id="rate7">
+								<input type="radio" name="rating" id="rate7" value="7">
 								<label for="rate7">7</label>
-								<input type="radio" name="rating" id="rate6">
+								<input type="radio" name="rating" id="rate6" value="6">
 								<label for="rate6">6</label>
-								<input type="radio" name="rating" id="rate5">
+								<input type="radio" name="rating" id="rate5" value="5">
 								<label for="rate5">5</label>
-								<input type="radio" name="rating" id="rate4">
+								<input type="radio" name="rating" id="rate4" value="4">
 								<label for="rate4">4</label>
-								<input type="radio" name="rating" id="rate3">
+								<input type="radio" name="rating" id="rate3" value="3">
 								<label for="rate3">3</label>
-								<input type="radio" name="rating" id="rate2">
+								<input type="radio" name="rating" id="rate2" value="2">
 								<label for="rate2">2</label>
-								<input type="radio" name="rating" id="rate1">
+								<input type="radio" name="rating" id="rate1" value="1">
 								<label for="rate1">1</label>
 							</div>
 						</td>
@@ -315,25 +314,25 @@
 						<td>사이즈</td>
 						<td>
 							<div class="rating2">
-								<input type="radio" name="rating2" id="rate2_10">
+								<input type="radio" name="rating2" id="rate2_10" value="10">
 								<label for="rate2_10">10</label>
-								<input type="radio" name="rating2" id="rate2_9">
+								<input type="radio" name="rating2" id="rate2_9" value="9">
 								<label for="rate2_9">9</label>
-								<input type="radio" name="rating2" id="rate2_8">
+								<input type="radio" name="rating2" id="rate2_8" value="8">
 								<label for="rate2_8">8</label>
-								<input type="radio" name="rating2" id="rate2_7">
+								<input type="radio" name="rating2" id="rate2_7" value="7">
 								<label for="rate2_7">7</label>
-								<input type="radio" name="rating2" id="rate2_6">
+								<input type="radio" name="rating2" id="rate2_6" value="6">
 								<label for="rate2_6">6</label>
-								<input type="radio" name="rating2" id="rate2_5">
+								<input type="radio" name="rating2" id="rate2_5" value="5">
 								<label for="rate2_5">5</label>
-								<input type="radio" name="rating2" id="rate2_4">
+								<input type="radio" name="rating2" id="rate2_4" value="4">
 								<label for="rate2_4">4</label>
-								<input type="radio" name="rating2" id="rate2_3">
+								<input type="radio" name="rating2" id="rate2_3" value="3">
 								<label for="rate2_3">3</label>
-								<input type="radio" name="rating2" id="rate2_2">
+								<input type="radio" name="rating2" id="rate2_2" value="2">
 								<label for="rate2_2">2</label>
-								<input type="radio" name="rating2" id="rate2_1">
+								<input type="radio" name="rating2" id="rate2_1" value="1">
 								<label for="rate2_1">1</label>
 							</div>
 						</td>
@@ -342,25 +341,25 @@
 						<td>내구성</td>
 						<td>
 							<div class="rating3">
-								<input type="radio" name="rating3" id="rate3_10">
+								<input type="radio" name="rating3" id="rate3_10" value="10">
 								<label for="rate3_10">10</label>
-								<input type="radio" name="rating3" id="rate3_9">
+								<input type="radio" name="rating3" id="rate3_9" value="9">
 								<label for="rate3_9">9</label>
-								<input type="radio" name="rating3" id="rate3_8">
+								<input type="radio" name="rating3" id="rate3_8" value="8">
 								<label for="rate3_8">8</label>
-								<input type="radio" name="rating3" id="rate3_7">
+								<input type="radio" name="rating3" id="rate3_7" value="7">
 								<label for="rate3_7">7</label>
-								<input type="radio" name="rating3" id="rate3_6">
+								<input type="radio" name="rating3" id="rate3_6" value="6">
 								<label for="rate3_6">6</label>
-								<input type="radio" name="rating3" id="rate3_5">
+								<input type="radio" name="rating3" id="rate3_5" value="5">
 								<label for="rate3_5">5</label>
-								<input type="radio" name="rating3" id="rate3_4">
+								<input type="radio" name="rating3" id="rate3_4" value="4">
 								<label for="rate3_4">4</label>
-								<input type="radio" name="rating3" id="rate3_3">
+								<input type="radio" name="rating3" id="rate3_3" value="3">
 								<label for="rate3_3">3</label>
-								<input type="radio" name="rating3" id="rate3_2">
+								<input type="radio" name="rating3" id="rate3_2" value="2">
 								<label for="rate3_2">2</label>
-								<input type="radio" name="rating3" id="rate3_1">
+								<input type="radio" name="rating3" id="rate3_1" value="1">
 								<label for="rate3_1">1</label>
 							</div>
 						</td>
@@ -369,25 +368,25 @@
 						<td>폭</td>
 						<td>
 							<div class="rating4">
-								<input type="radio" name="rating4" id="rate4_10">
+								<input type="radio" name="rating4" id="rate4_10" value="10">
 								<label for="rate4_10">10</label>
-								<input type="radio" name="rating4" id="rate4_9">
+								<input type="radio" name="rating4" id="rate4_9" value="9">
 								<label for="rate4_9">9</label>
-								<input type="radio" name="rating4" id="rate4_8">
+								<input type="radio" name="rating4" id="rate4_8" value="8">
 								<label for="rate4_8">8</label>
-								<input type="radio" name="rating4" id="rate4_7">
+								<input type="radio" name="rating4" id="rate4_7" value="7">
 								<label for="rate4_7">7</label>
-								<input type="radio" name="rating4" id="rate4_6">
+								<input type="radio" name="rating4" id="rate4_6" value="6">
 								<label for="rate4_6">6</label>
-								<input type="radio" name="rating4" id="rate4_5">
+								<input type="radio" name="rating4" id="rate4_5" value="5">
 								<label for="rate4_5">5</label>
-								<input type="radio" name="rating4" id="rate4_4">
+								<input type="radio" name="rating4" id="rate4_4" value="4">
 								<label for="rate4_4">4</label>
-								<input type="radio" name="rating4" id="rate4_3">
+								<input type="radio" name="rating4" id="rate4_3" value="3">
 								<label for="rate4_3">3</label>
-								<input type="radio" name="rating4" id="rate4_2">
+								<input type="radio" name="rating4" id="rate4_2" value="2">
 								<label for="rate4_2">2</label>
-								<input type="radio" name="rating4" id="rate4_1">
+								<input type="radio" name="rating4" id="rate4_1" value="1">
 								<label for="rate4_1">1</label>
 							</div>
 						</td>
@@ -396,11 +395,11 @@
 						<td>사진</td>
 						<td align="center">
 							<div class="subinput">
-								<input type="file" id="productImg1" name="file1" hidden="">
+								<input type="file" id="productImg1" name="file" hidden="">
 								<div class="rowimg">
 									<div class="select_img1">
-										<img src="image/plus.png" id="img1" name="" />	
-										<input type="text" id="image1" name="image1" value="" hidden="">
+										<img src="image/plus.png" id="img1" />	
+										<input type="text" id="image1" name="image" value="" hidden="">
 									</div>
 								</div>
 							</div>

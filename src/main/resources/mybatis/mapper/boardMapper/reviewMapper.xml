@@ -6,7 +6,7 @@
 	
 	<!--리뷰 등록-->
 	<insert id="reviewsave" parameterType="Rdto">
-		insert into review(reviewnum.nextval,reviewtitle,reviewcontents,id,name,writedate,code,codename,star_input,rating,rating2,rating3,rating4,image) values(#{reviewnum},#{reviewtitle},#{reviewcontents},#{id},#{name},#{writedate},#{code},#{codename},#{star_input},#{rating},#{rating2},#{rating3},#{rating4},#{image})
+		insert into review(reviewnum,reviewtitle,reviewcontents,id,name,code,codename,star_input,rating,rating2,rating3,rating4,image) values(reviewnum.nextval,#{reviewtitle},#{reviewcontents},#{id},#{name},#{code},sysdate,#{star_input},#{rating},#{rating2},#{rating3},#{rating4},#{image})
 	</insert>
 <insert id="productinput" parameterType="Pdto">
 		insert into product (code,codename,codecolor,category,gender,image1,image2,image3,image4,image5,image6,contents,price) values(#{code},#{codename},#{codecolor},#{category},#{gender},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{contents},#{price})
