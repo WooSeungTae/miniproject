@@ -122,6 +122,38 @@ public class HomeController {
 			
 		}
 		
+		//마이페이지 나의 리뷰 수정하기, 삭제하기 하기 위한 폼
+		@RequestMapping("myreview")
+		public String myreview(HttpServletRequest request, Model model, ReviewDTO rdto) {
+			String reviewnum = request.getParameter("reviewnum");
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+//			rdto.setId(id);
+//			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId("hong");
+			rdto.setReviewnum(1);
+			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
+			return "board/reviewform";
+		}
+		
+		//마이페이지 나의 리뷰 삭제하기
+		@RequestMapping("reviewdelete")
+		public String reviewdelete(HttpServletRequest request, ReviewDTO rdto) {
+			String reviewnum = request.getParameter("reviewnum");
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+//			rdto.setId(id);
+//			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId("hong");
+			rdto.setReviewnum(1);
+			reviewservice.reviewdelete(rdto);
+			return "redirect:reviewintro";
+		}
+		//마이페이지 나의 리뷰 보여주기
+		@RequestMapping("reviewintro")
+		public String reviewintro(HttpServletRequest request, Model model) {
+			return "myPage/myPageReviewintro";
+		}
 		//관리자 상품관리(수정)
 		@RequestMapping("productUpdate")
 		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
@@ -426,10 +458,6 @@ public class HomeController {
 	public String memberinfoModify(MemberInfoDTO dto, Model model) {
 		service.memberinfoModify(dto, model);
 		return "redirect:account";
-	}
-	@RequestMapping("reviewintro")
-	public String reviewintro() {
-		return "myPage/myPageReviewintro";
 	}
 	
 	/*세부 상품 조회*/

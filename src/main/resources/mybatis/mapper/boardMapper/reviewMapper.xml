@@ -8,7 +8,20 @@
 	<insert id="reviewsave" parameterType="Rdto">
 		insert into review(reviewnum,reviewtitle,reviewcontents,id,name,code,codename,star_input,rating,rating2,rating3,rating4,image) values(reviewnum.nextval,#{reviewtitle},#{reviewcontents},#{id},#{name},#{code},sysdate,#{star_input},#{rating},#{rating2},#{rating3},#{rating4},#{image})
 	</insert>
-<insert id="productinput" parameterType="Pdto">
-		insert into product (code,codename,codecolor,category,gender,image1,image2,image3,image4,image5,image6,contents,price) values(#{code},#{codename},#{codecolor},#{category},#{gender},#{image1},#{image2},#{image3},#{image4},#{image5},#{image6},#{contents},#{price})
-	</insert>
+	
+	
+	<!-- 마이페이지 나의 리뷰 보여주기 -->
+	<select id="review_list" parameterType="String">
+		select * from review where id=#{id}
+	</select>
+	
+	<!-- 마이페이지 나의 리뷰 수정하기, 삭제하기 하기 위한 폼 -->
+	<select id="reviewitem" parameterType="Rdto" resultType="Rdto">
+		select * from review where id=#{id} and reviewnum=#{reviewnum}
+	</select>
+	
+	<!-- 마이페이지 나의 리뷰 삭제하기 -->
+	<delete id="reviewdelete" parameterType="Rdto">
+		delete from review where id=#{id} and reviewnum=#{reviewnum}
+	</delete>
 </mapper>
