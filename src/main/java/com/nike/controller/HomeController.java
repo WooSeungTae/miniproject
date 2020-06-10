@@ -12,12 +12,14 @@ import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,21 +29,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nike.service.BoardService;
 import com.nike.service.FileUploadService;
+<<<<<<< HEAD
 import com.nike.service.KakaoAPI;
+=======
+import com.nike.service.FileUploadService2;
+>>>>>>> 54d10572419f9336bee52652194c79937848ec14
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
+import com.nike.service.ReviewService;
+import com.nike.service.ReviewUploadService;
+import com.nike.board.ReviewDTO;
+
+import com.nike.board.Boardqa_PagingVO;
+import com.nike.board.QABoardDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
 import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
-import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
+import com.nike.product.*;
 
 /**
  * Handles requests for the application home page.
@@ -57,15 +70,32 @@ public class HomeController {
 	@Autowired
 	OrderService orderservice;
 	@Autowired
+	ReviewService reviewservice;
+	@Autowired
 	FileUploadService fileUploadService;
 	@Autowired
+<<<<<<< HEAD
     private KakaoAPI kakao;
+=======
+	ReviewUploadService reviewUploadService;
+	@Autowired
+	FileUploadService2 fileUploadService2;
+	@Autowired
+	BoardService bservice;
+	
+>>>>>>> 54d10572419f9336bee52652194c79937848ec14
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
-
 	
+	/*리뷰파일 업로드 경로*/
+	@Resource(name="uploadPath2")
+	private String uploadPath2;
+	
+	/*관리자 파일 수정 업로드*/
+	@Resource(name="uploadPath3")
+	private String uploadPath3;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -88,30 +118,192 @@ public class HomeController {
 	}
 	
 		//리뷰 등록
-		@RequestMapping("review")
-		public String review() {
+		@RequestMapping("reviewform")
+		public String review(HttpServletRequest request, Model model) {
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			String name = (String)mySession.getAttribute("name");
+			String code = request.getParameter("code");
+			String codename = request.getParameter("codename");
+			model.addAttribute("id", id);
+			model.addAttribute("name", name);
+			model.addAttribute("code", "CN9600-002");
+			model.addAttribute("codename", "나이키 조이라이드 듀얼 런");
 			return "board/review_Register";
 		}
+		//ReviewDTO rdto, HttpServletRequest request,
 		
-	//관리자 상품관리(수정)
-		@RequestMapping("productUpdate")
-		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
-			return null;
+		//리뷰 저장
+		@RequestMapping(value="reviewsave", method=RequestMethod.POST)
+		public String reviewsave(ReviewDTO rdto, HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file) {
+			if(file.getOriginalFilename()!=null) {
+				String url1 = reviewUploadService.restore(file);
+				rdto.setImage(url1);
+			}
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			rdto.setId(id);
+			reviewservice.review_save(rdto);
+			return "redirect:reviewintro";
+			
+		}
+		
+		//마이페이지 나의 리뷰 수정하기, 삭제하기 하기 위한 폼
+		@RequestMapping("myreview")
+		public String myreview(HttpServletRequest request, Model model, ReviewDTO rdto) {
+			String reviewnum = request.getParameter("reviewnum");
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+//			rdto.setId(id);
+//			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId("hong");
+			rdto.setReviewNum(9);
+			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
+			System.out.println("====================================================="+rdto.getImage());
+			return "board/reviewform";
+		}
+		
+		//마이페이지 나의 리뷰 삭제하기
+		@RequestMapping("reviewdelete")
+		public String reviewdelete(HttpServletRequest request, ReviewDTO rdto) {
+			String reviewnum = request.getParameter("reviewnum");
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+//			rdto.setId(id);
+//			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId("hong");
+			rdto.setReviewNum(9);
+			reviewUploadService.deletefile(rdto.getImage());
+			reviewservice.reviewdelete(rdto);
+			return "redirect:reviewintro";
+		}
+		
+		//마이페이지 나의 리뷰 수정하기
+		@RequestMapping("reviewmodify")
+		public String reviewmodify(HttpServletRequest request, ReviewDTO rdto,  
+				@RequestParam(value="file", required=false) MultipartFile file,
+				@RequestParam(value="reviewnum") String reviewnum,
+				@RequestParam(value="beforefile") String beforefile) {
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId(id);
+			if(file.getOriginalFilename()!="") {
+				System.out.println("========================================" + file.getOriginalFilename());
+				System.out.println("=====================================파일있음");
+				System.out.println("=====================================" + file);
+				System.out.println("===========================beforefile+"+beforefile);
+				String url1 = reviewUploadService.restore(file);
+				rdto.setImage(url1);
+				reviewservice.reviewmodify(rdto);
+				reviewUploadService.deletefile(beforefile);
+				return "redirect:reviewintro";
+			}else {
+				reviewservice.reviewitem(rdto);
+				return "redirect:reviewintro";
+			}
+		}
+		/*상품 등록*/
+		@RequestMapping("product_input")
+		public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
+				@RequestParam(value="file1", required=false) MultipartFile file1,
+				@RequestParam(value="file2", required=false) MultipartFile file2,
+				@RequestParam(value="file3", required=false) MultipartFile file3,
+				@RequestParam(value="file4", required=false) MultipartFile file4,
+				@RequestParam(value="file5", required=false) MultipartFile file5,
+				@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
+			String code = pdto.getCode();
+			if(Pservice.codeSearch(model, code) == 1) {
+				System.out.println("등록 실행");
+				if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
+				if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
+				if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
+				if(pdto.getImage4().equals("image4")) {String url4 = fileUploadService.restore(file4);pdto.setImage4(url4);}
+				if(pdto.getImage5().equals("image5")) {String url5 = fileUploadService.restore(file5);pdto.setImage5(url5);}
+				if(pdto.getImage6().equals("image6")) {String url6 = fileUploadService.restore(file6);pdto.setImage6(url6);}
+				Pservice.product_input(pdto);
+				Pservice.product_size(sizedto);
+			}
+			return "redirect:product_management";
+		}
+
+		//관리자 상품관리 - 수정기능
+		@RequestMapping("productupdate")
+		public String productupdate(Product_sizeDTO sizedto, ProductDTO pdto,
+				@RequestParam(value="file1", required=false) MultipartFile file1,
+				@RequestParam(value="file2", required=false) MultipartFile file2,
+				@RequestParam(value="file3", required=false) MultipartFile file3,
+				@RequestParam(value="file4", required=false) MultipartFile file4,
+				@RequestParam(value="file5", required=false) MultipartFile file5,
+				@RequestParam(value="file6", required=false) MultipartFile file6,
+				@RequestParam(value="beforefile1") String beforefile1,
+				@RequestParam(value="beforefile2") String beforefile2,
+				@RequestParam(value="beforefile3") String beforefile3,
+				@RequestParam(value="beforefile4") String beforefile4,
+				@RequestParam(value="beforefile5") String beforefile5,
+				@RequestParam(value="beforefile6") String beforefile6) {
+				if(file1.getOriginalFilename()!="") {
+					String url1 = fileUploadService2.restore(file1);
+					pdto.setImage1(url1);
+					fileUploadService2.deletefile(beforefile1);
+				}
+				if(file2.getOriginalFilename()!="") {
+					String url2 = fileUploadService2.restore(file2);
+					pdto.setImage2(url2);
+					fileUploadService2.deletefile(beforefile2);
+				}
+				if(file3.getOriginalFilename()!="") {
+					String url3 = fileUploadService2.restore(file3);
+					pdto.setImage3(url3);
+					fileUploadService2.deletefile(beforefile3);
+				}
+				if(file4.getOriginalFilename()!="") {
+					String url4 = fileUploadService2.restore(file4);
+					pdto.setImage4(url4);
+					fileUploadService2.deletefile(beforefile4);
+				}
+				if(file5.getOriginalFilename()!="") {
+					String url5 = fileUploadService2.restore(file5);
+					pdto.setImage5(url5);
+					fileUploadService2.deletefile(beforefile5);
+				}
+				if(file6.getOriginalFilename()!="") {
+					String url6 = fileUploadService2.restore(file6);
+					pdto.setImage6(url6);
+					fileUploadService2.deletefile(beforefile6);
+				}
+				Pservice.product_update(pdto);
+				Pservice.size_update(sizedto);
+					
+				return "redirect:inventory";
+			
+		}
+		
+		//관리자 상품관리폼(수정)
+		@RequestMapping("productview")
+		public String productview(@RequestParam("code") String code,Model model) {
+			//관리자 상품 목록 수정, 삭제를 위한 조회(상품)
+			model.addAttribute("pdto", Pservice.productSelect(code));
+			//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
+			model.addAttribute("sdto", Pservice.sizeSelect(code));
+			return "product_update/productViewPage";
+		}
+		
+		//마이페이지 나의 리뷰 보여주기
+		@RequestMapping("reviewintro")
+		public String reviewintro(HttpServletRequest request, Model model) {
+			return "myPage/myPageReviewintro";
 		}
 		
 		//관리자 상품관리(삭제)
 		@RequestMapping("productDelete")
 		public String productDelete(@RequestParam("code") String code) {
+			System.out.println(code);
 			Pservice.productDelete(code);
-			return "productUpdate_Delete/productSelect";
+			return "redirect:inventory";
 		}
 		
-		//관리자 상품 목록 수정, 삭제를 위한 조회
-		@RequestMapping("productSelect")
-		public String productSelect(ProductDTO pdto , Model model) {
-			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
-			return "productUpdate_Delete/productSelect";
-		}
+		
 		/*상품관리*/
 		@RequestMapping("inventory")
 		public String inventory(Inventory_PagingVO vo, Model model
@@ -161,7 +353,21 @@ public class HomeController {
 		memberservice.saveUserInfo(dto);
 		return "redirect:loginPage";
 	}
-	
+
+	/*세부 상품 조회*/
+	@RequestMapping("/productdetail")
+	public String productdetail(Model model, HttpServletRequest request,Boardqa_PagingVO vo
+			,@RequestParam(value="nowPageqa", required=false)String nowPageqa) {
+		String code = request.getParameter("code");
+		int totalqa = bservice.qatotal(code);
+		if (nowPageqa == null) {nowPageqa = "1";}
+		vo = new Boardqa_PagingVO(totalqa, Integer.parseInt(nowPageqa), code);
+		vo.setCode(code);
+		bservice.qalist(model,vo);
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
+		return "jsj/product_detail";
+	}
+
 	/*남자 신발 전체목록*/
 	@RequestMapping("Men")
 	public String catalogMen(Product_PagingVO vo, Model model
@@ -210,7 +416,8 @@ public class HomeController {
 	/*여자 신발 카테고리별 전체조회*/
 	@RequestMapping("/Women/category")
 	public String catalogWomenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
-			, @RequestParam(value="nowPage", required=false)String nowPage) {
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="code", required=false)String code) {
 		int total = Pservice.categoryGenderAll("여자", category);
 		if (nowPage == null) {nowPage = "1";}
 		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
@@ -245,29 +452,6 @@ public class HomeController {
 
 	
 
-	/*상품 등록*/
-	@RequestMapping("product_input")
-	public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
-			@RequestParam(value="file1", required=false) MultipartFile file1,
-			@RequestParam(value="file2", required=false) MultipartFile file2,
-			@RequestParam(value="file3", required=false) MultipartFile file3,
-			@RequestParam(value="file4", required=false) MultipartFile file4,
-			@RequestParam(value="file5", required=false) MultipartFile file5,
-			@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
-		String code = pdto.getCode();
-		if(Pservice.codeSearch(model, code) == 1) {
-			System.out.println("등록 실행");
-			if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
-			if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
-			if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
-			if(pdto.getImage4().equals("image4")) {String url4 = fileUploadService.restore(file4);pdto.setImage4(url4);}
-			if(pdto.getImage5().equals("image5")) {String url5 = fileUploadService.restore(file5);pdto.setImage5(url5);}
-			if(pdto.getImage6().equals("image6")) {String url6 = fileUploadService.restore(file6);pdto.setImage6(url6);}
-			Pservice.product_input(pdto);
-			Pservice.product_size(sizedto);
-		}
-		return "redirect:product_management";
-	}
 	
 	/*상품 등록 페이지*/
 	@RequestMapping("product_management")
@@ -418,19 +602,8 @@ public class HomeController {
 		service.memberinfoModify(dto, model);
 		return "redirect:account";
 	}
-	@RequestMapping("reviewintro")
-	public String reviewintro() {
-		return "myPage/myPageReviewintro";
-	}
 	
-	/*세부 상품 조회*/
-	@RequestMapping("/productdetail")
-	public String productdetail(Model model, HttpServletRequest request) {
-		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
-		model.addAttribute("noadd", request.getParameter("noadd"));
-		return "jsj/product_detail";
-	}
-	
+
 	/*장바구니 DB에 값 저장하기*/
 	@RequestMapping("cartSave")
 	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
@@ -577,6 +750,7 @@ public class HomeController {
 	public String main() {
 		return "sminj/main";
 	}
+
 	/* 로그아웃 */
 	@RequestMapping("logout")
 	public String logout(HttpSession mySession) {
@@ -626,5 +800,17 @@ public class HomeController {
 		List<Order_detailsDTO> list = orderservice.orderView(id);
 		model.addAttribute("list", list);
 		return "myPage/myPageOrderDelivery";
+	}
+	/*Q & A 게시판 작성*/
+	@RequestMapping("qnawrite")
+	public String qnaviewPage() {
+		
+		return "board/QnA_write";
+	}
+	/*Q & A 게시판 보기*/
+	@RequestMapping("qnaview")
+	public String qnaview() {
+		return "board/QnA_view";
+
 	}
 }
