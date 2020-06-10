@@ -34,15 +34,12 @@ import com.nike.service.FileUploadService2;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
-<<<<<<< HEAD
 import com.nike.service.ReviewService;
 import com.nike.service.ReviewUploadService;
 import com.nike.board.ReviewDTO;
-=======
 
 import com.nike.board.Boardqa_PagingVO;
 import com.nike.board.QABoardDAO;
->>>>>>> fa2e2c2de70a1440bd83f80471f1224cafe78ab9
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
@@ -72,17 +69,13 @@ public class HomeController {
 	@Autowired
 	FileUploadService fileUploadService;
 	@Autowired
-<<<<<<< HEAD
 	ReviewUploadService reviewUploadService;
 	@Autowired
 	FileUploadService2 fileUploadService2;
-	
-=======
+	@Autowired
 	BoardService bservice;
 	
 
-
->>>>>>> fa2e2c2de70a1440bd83f80471f1224cafe78ab9
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
