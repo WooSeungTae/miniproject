@@ -30,6 +30,8 @@ import com.nike.service.FileUploadService;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
+import com.nike.board.Board_PagingVO;
+import com.nike.board.Boardqa_PagingVO;
 import com.nike.board.QABoardDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
@@ -57,6 +59,7 @@ public class HomeController {
 	FileUploadService fileUploadService;
 	@Autowired
 	BoardService bservice;
+	
 
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
@@ -123,9 +126,14 @@ public class HomeController {
 	
 	/*세부 상품 조회*/
 	@RequestMapping("/productdetail")
-	public String productdetail(Model model, HttpServletRequest request) {
-		System.out.println("===============================" + request.getParameter("code"));
-		model.addAttribute("qalist", bservice.qalist(request.getParameter("code")));
+	public String productdetail(Model model, HttpServletRequest request,Boardqa_PagingVO vo
+			,@RequestParam(value="nowPageqa", required=false)String nowPageqa) {
+		String code = request.getParameter("code");
+		int totalqa = bservice.qatotal(code);
+		if (nowPageqa == null) {nowPageqa = "1";}
+		vo = new Boardqa_PagingVO(totalqa, Integer.parseInt(nowPageqa), code);
+		vo.setCode(code);
+		bservice.qalist(model,vo);
 		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
@@ -178,7 +186,8 @@ public class HomeController {
 	/*여자 신발 카테고리별 전체조회*/
 	@RequestMapping("/Women/category")
 	public String catalogWomenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
-			, @RequestParam(value="nowPage", required=false)String nowPage) {
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="code", required=false)String code) {
 		int total = Pservice.categoryGenderAll("여자", category);
 		if (nowPage == null) {nowPage = "1";}
 		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
@@ -501,11 +510,15 @@ public class HomeController {
 		return "sminj/main";
 	}
 	
-	/*Q & A 게시판 작성글 보기*/
+	/*Q & A 게시판 작성*/
 	@RequestMapping("qnawrite")
 	public String qnaviewPage() {
 		
 		return "board/QnA_write";
 	}
-	
+	/*Q & A 게시판 보기*/
+	@RequestMapping("qnaview")
+	public String qnaview() {
+		return "board/QnA_view";
+	}
 }

@@ -12,9 +12,14 @@ public class QABoardDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	/*코드별 Q&A 리스트 조회*/
+	public List<QABoardDTO> qalist(Boardqa_PagingVO vo) {
+		return sqlSession.selectList(namepace+".qalist",vo);
+	}
 	
-	public List<QABoardDTO> qalist(String code) {
-		return sqlSession.selectList(namepace+".qalist",code);
+	/*코드별 Q&A리스트 총 개수*/
+	public int qatotal(String code) {
+		return sqlSession.selectOne(namepace+".qatotal",code);
 	}
 	
 	

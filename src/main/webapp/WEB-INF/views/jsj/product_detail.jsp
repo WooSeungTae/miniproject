@@ -162,14 +162,26 @@
 			margin: auto;
 			width: 80%;
 			min-width: 800px;
-		
+			border-top: 1px solid #ddd;
+  			border-collapse: collapse;
+	
 		}
-		
+		.bordertable tr{
+			border-bottom: 1px solid #ddd;
+   			vertical-align: middle;
+   			
+		}
+		.bordertable tr th{
+			height: 50px;  			
+   			
+		}
+				
 		/*리뷰타이틀*/
 		#boardtitle{
 			font-size: 20px;
 			background-color: #f5f5f5;	
 		}
+		
 		
 		
 	</style>
@@ -518,7 +530,7 @@
 		</div>
 		<div style="display: block; text-align: center;">
 						<c:if test="${paging.startPage != 1 }">
-							<a href="productdetail?nowPage=${paging.startPage - 1 }">이전</a>
+							<a href="productdetail?nowPage=${paging.startPage - 1 }&code=${pdto.code}">이전</a>
 						</c:if>
 						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
 							var="p">
@@ -527,20 +539,20 @@
 									<b>${p }</b>
 								</c:when>
 								<c:when test="${p != paging.nowPage }">
-									<a href="productdetail?nowPage=${p }">${p }</a>
+									<a href="productdetail?nowPage=${p }&code=${pdto.code}">${p }</a>
 								</c:when>
 							</c:choose>
 						</c:forEach>
 						<c:if test="${paging.endPage != paging.lastPage}">
 							<a
-								href="productdetail?nowPage=${paging.endPage+1 }">다음</a>
+								href="productdetail?nowPage=${paging.endPage+1 }&code=${pdto.code}">다음</a>
 						</c:if>
 					</div><br><br>
 		
 		<div class="Q&ATitle" >
 		<h2 align="center">Q & A</h2><br>
 		
-		<table id="qatable" class="bordertable" border="1" ">
+		<table id="qatable" class="bordertable" >
 			<tr id="boardtitle">
 				<th>번호</th>
 				<th>제목</th>
@@ -550,34 +562,44 @@
 				<th style="display: none;">코드번호</th>
 		<c:forEach var = "QAList" items="${qalist }">
 			<tr>
-				<td>${QAList.indexnum }</td> <!-- 번호 -->
-				<td id="${QAList.indexnum }${QAList.title }" onclick="test(this)">${QAList.title }</td> <!-- 제목 -->
-				<td>${QAList.name }</td> <!-- 작성자 -->
-				<td>${QAList.modifyDate }</td> <!-- 작성일 -->
-				<td>${QAList.hit }</td> <!-- 조회 -->
-				<td style="display: none;">${QAList.code }</td> <!-- 코드번호 -->
+				<th style="width: 10%;">${QAList.indexnum }</th> <!-- 번호 -->
+				<th style="width: 65%;" id="${QAList.indexnum }${QAList.title }" onclick="test(this)">${QAList.title }</th> <!-- 제목 -->
+				<th style="width: 10%;">${QAList.name }</th> <!-- 작성자 -->
+				<th style="width: 10%;">${QAList.modifyDate }</th> <!-- 작성일 -->
+				<th style="width: 5%;">${QAList.hit }</th> <!-- 조회 -->
+				<th style="display: none;">${QAList.code }</th> <!-- 코드번호 -->
 			</tr>
-			<tr class="contentqa"><td id ="${QAList.indexnum }${QAList.title }qnanike"  colspan="5" style="display:none;"><c:import url="/qnawrite"></c:import></td></tr><!-- 내용 -->	
+			<tr class="contentqa"><th id ="${QAList.indexnum }${QAList.title }qnanike"  colspan="5" style="display:none;">
+			<c:import url="/qnaview">
+				<c:param name="name" value="${QAList.name }"/>
+				<c:param name="code" value="${QAList.code }"/>
+				<c:param name="codename" value="${QAList.codename }"/>
+				<c:param name="title" value="${QAList.title }"/>
+				<c:param name="content" value="${QAList.content }"/>
+				<c:param name="price" value="${pdto.price }"/>
+				<c:param name="image1" value="${pdto.image1 }"/>
+				<c:param name="id" value="${QAList.id }"/>
+			</c:import></th></tr><!-- 내용 -->	
 		</c:forEach>	
 		</table>
 		<div style="display: block; text-align: center;">
-						<c:if test="${paging.startPage != 1 }">
-							<a href="productdetail?nowPage=${paging.startPage - 1 }">이전</a>
+						<c:if test="${pagingqa.startPageqa != 1 }">
+							<a href="productdetail?nowPageqa=${pagingqa.startPageqa - 1 }&code=${pdto.code}">이전</a>
 						</c:if>
-						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
+						<c:forEach begin="${pagingqa.startPageqa }" end="${pagingqa.endPageqa }"
 							var="p">
 							<c:choose>
-								<c:when test="${p == paging.nowPage }">
+								<c:when test="${p == pagingqa.nowPageqa }">
 									<b>${p }</b>
 								</c:when>
-								<c:when test="${p != paging.nowPage }">
-									<a href="productdetail?nowPage=${p }">${p }</a>
+								<c:when test="${p != pagingqa.nowPageqa }">
+									<a href="productdetail?nowPageqa=${p }&code=${pdto.code}">${p }</a>
 								</c:when>
 							</c:choose>
 						</c:forEach>
-						<c:if test="${paging.endPage != paging.lastPage}">
+						<c:if test="${pagingqa.endPageqa != pagingqa.lastPageqa}">
 							<a
-								href="productdetail?nowPage=${paging.endPage+1 }">다음</a>
+								href="productdetail?nowPageqa=${pagingqa.endPageqa+1 }&code=${pdto.code}">다음</a>
 						</c:if>
 					</div>
 		</div>

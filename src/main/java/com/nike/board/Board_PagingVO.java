@@ -2,10 +2,12 @@ package com.nike.board;
 
 public class Board_PagingVO {
 	private int nowPage,startPage,lastPage,endPage,total,start,end;
-	private int cntPerPage=6;
+	private int cntPerPage=3;
 	private int cntPage=5;
 	private String category;
 	private String codename;
+	private String code;
+
 
 
 
@@ -19,26 +21,16 @@ public class Board_PagingVO {
 		calcStartEndPage(getNowPage());
 		calcStartEnd(getNowPage());
 	}
-	
-	public Board_PagingVO(int total, int nowPage, String category) {
+	public Board_PagingVO(int total, int nowPage, String code) {
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
 		setTotal(total);
 		calcLastPage(getTotal());
 		calcStartEndPage(getNowPage());
 		calcStartEnd(getNowPage());
-		setCategory(category);
+		setCodename(code);
 	}
-	
-	public Board_PagingVO(Double total, int nowPage, String codename) {
-		setNowPage(nowPage);
-		setCntPerPage(cntPerPage);
-		setTotal((int)Math.round(total));
-		calcLastPage(getTotal());
-		calcStartEndPage(getNowPage());
-		calcStartEnd(getNowPage());
-		setCodename(codename);
-	}
+
 
 
 
@@ -64,6 +56,13 @@ public class Board_PagingVO {
 		setStart(getEnd() - cntPerPage + 1);
 	}
 	
+	public String getCode() {
+		return code;
+	}
+	
+	public void setCode(String code) {
+		this.code = code;
+	}
 	
 	public String getCodename() {
 		return codename;

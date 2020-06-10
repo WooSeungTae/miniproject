@@ -5,10 +5,17 @@
   <mapper namespace="com.care.mybatis.boardMapper.qaboardMapper">
   	<!-- qa전체 리스트 보기 -->
   	<select id="qalist" resultType="Qdto">
-  		select row_number()over(order by QABOARD.writeDate)num,indexnum,title,content,name,modifyDate,hit from QABOARD where code=#{code}
-  	
+  		SELECT *
+		FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM QABOARD where code=#{code} ORDER BY writeDate
+		)A)
+		WHERE RN BETWEEN #{startqa} AND #{endqa}
   	</select>
-  	
+  	<!-- 코드별 Q &A 게시물 총갯수 -->
+  	<select id="qatotal" resultType="int">
+  		select count(*) from QABOARD where code=#{code}
+  	</select>
   
   
   </mapper>

@@ -7,16 +7,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#quickImgQ{
-	width: 180px;
-	vertical-align: top;
-	position: relative;
-	top:0px;
-}
+
+/*view 전체 바디 설정*/
 .bodyQ{
 	width: 80%;
 	margin: auto;
 }
+/*Q & A  and review 테이블 설정*/
+.qaview tr{
+	text-align: left;
+	vertical-align: middle;
+	padding-top: 30px;
+	padding-bottom: 30px;
+
+}
+
 
 </style>
 
@@ -40,55 +45,40 @@
 </head>
 <body>
 <div class = "bodyQ">
-
-	<h1 align="center" style="margin-top: 30px;">Q & A</h1>
 	<!-- 상품 내용 -->
 	<div >
-		<div style="float: left; padding-right: 20px;">
-			<img id="quickImgQ" src="/nike/"
-				onerror="this.onerror=null; chageSrc(this)"
-				onclick="location.href='/nike/productdetail?code='">
-		</div>
-		<table>
+		<div>
+		<table  class="qaview" style="margin-top: 20px; ">
 			<tr>
 				<td><a style="text-decoration: none;"
-					href="/nike/productdetail?code="></a></td>
+					href="/nike/productdetail?code=${param.code}">상품명 : ${param.codename } </a></td>
 			</tr>
 			<tr>
-				<td></td>
-			</tr>
-			<tr>
-				<td>상품명 :</td>
-			</tr>
+				<td>상품 코드 : ${param.code }
+			</tr>			
 			<tr>
 				<td style="color: red"><b><script type="text/javascript">
-										var price = 
+										var price =${param.price}
 										document.write(price.toLocaleString()+' 원');
 									</script></b></td>
 			</tr>
 		</table>
-		<hr>
+		</div>
+		<hr color="#ddd" >
 
 	</div>
 	
-	<table border="1">
+	<table  class="qaview" style="width: 100%; margin: auto;">
 	<tr>
-		<td>제목</td>
-		<td>
-		</td>
+	<td colspan="2">${param.content }</td>
 	</tr>
 	<tr>
-		<td>작성자</td>
-		<td><input type="text" name="name"></td>
+	<td colspan="2"><hr color="#ddd" ></td>
 	</tr>
 	<tr>
-	<td colspan="2">내용</td>
-	</tr>
-	<tr>
-	<td colspan="2"></td>
+	<td></td><td align="right"><button>답글</button><button>수정</button></td>
 	</tr>
 	</table>
-	<button>답글</button>
 
 </div>
 </body>
