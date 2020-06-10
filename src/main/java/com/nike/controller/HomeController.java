@@ -18,6 +18,7 @@ import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +28,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nike.service.BoardService;
 import com.nike.service.FileUploadService;
 import com.nike.service.FileUploadService2;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
+<<<<<<< HEAD
 import com.nike.service.ReviewService;
 import com.nike.service.ReviewUploadService;
 import com.nike.board.ReviewDTO;
+=======
+
+import com.nike.board.Boardqa_PagingVO;
+import com.nike.board.QABoardDAO;
+>>>>>>> fa2e2c2de70a1440bd83f80471f1224cafe78ab9
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
@@ -64,10 +72,17 @@ public class HomeController {
 	@Autowired
 	FileUploadService fileUploadService;
 	@Autowired
+<<<<<<< HEAD
 	ReviewUploadService reviewUploadService;
 	@Autowired
 	FileUploadService2 fileUploadService2;
 	
+=======
+	BoardService bservice;
+	
+
+
+>>>>>>> fa2e2c2de70a1440bd83f80471f1224cafe78ab9
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
@@ -335,7 +350,21 @@ public class HomeController {
 		memberservice.saveUserInfo(dto);
 		return "redirect:loginPage";
 	}
-	
+
+	/*세부 상품 조회*/
+	@RequestMapping("/productdetail")
+	public String productdetail(Model model, HttpServletRequest request,Boardqa_PagingVO vo
+			,@RequestParam(value="nowPageqa", required=false)String nowPageqa) {
+		String code = request.getParameter("code");
+		int totalqa = bservice.qatotal(code);
+		if (nowPageqa == null) {nowPageqa = "1";}
+		vo = new Boardqa_PagingVO(totalqa, Integer.parseInt(nowPageqa), code);
+		vo.setCode(code);
+		bservice.qalist(model,vo);
+		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
+		return "jsj/product_detail";
+	}
+
 	/*남자 신발 전체목록*/
 	@RequestMapping("Men")
 	public String catalogMen(Product_PagingVO vo, Model model
@@ -384,7 +413,8 @@ public class HomeController {
 	/*여자 신발 카테고리별 전체조회*/
 	@RequestMapping("/Women/category")
 	public String catalogWomenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
-			, @RequestParam(value="nowPage", required=false)String nowPage) {
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="code", required=false)String code) {
 		int total = Pservice.categoryGenderAll("여자", category);
 		if (nowPage == null) {nowPage = "1";}
 		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
@@ -570,14 +600,7 @@ public class HomeController {
 		return "redirect:account";
 	}
 	
-	/*세부 상품 조회*/
-	@RequestMapping("/productdetail")
-	public String productdetail(Model model, HttpServletRequest request) {
-		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
-		model.addAttribute("noadd", request.getParameter("noadd"));
-		return "jsj/product_detail";
-	}
-	
+
 	/*장바구니 DB에 값 저장하기*/
 	@RequestMapping("cartSave")
 	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
@@ -724,6 +747,7 @@ public class HomeController {
 	public String main() {
 		return "sminj/main";
 	}
+
 	/* 로그아웃 */
 	@RequestMapping("logout")
 	public String logout(HttpSession mySession) {
@@ -770,5 +794,17 @@ public class HomeController {
 		List<Order_detailsDTO> list = orderservice.orderView(id);
 		model.addAttribute("list", list);
 		return "myPage/myPageOrderDelivery";
+	}
+	/*Q & A 게시판 작성*/
+	@RequestMapping("qnawrite")
+	public String qnaviewPage() {
+		
+		return "board/QnA_write";
+	}
+	/*Q & A 게시판 보기*/
+	@RequestMapping("qnaview")
+	public String qnaview() {
+		return "board/QnA_view";
+
 	}
 }
