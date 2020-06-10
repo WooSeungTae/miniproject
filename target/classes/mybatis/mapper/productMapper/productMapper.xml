@@ -4,6 +4,24 @@
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
 
+	<!-- 상품 수정 -->
+	<update id="productUpate">
+		update product
+		set 
+		codename=#{dto.codename},
+		codecolor=#{dto.codecolor},
+		price=#{dto.price},
+		category=#{dto.category},
+		gender=#{dto.gender}
+		where
+		code=#{dto.code}
+	</update>
+
+	<!-- 상품 삭제 -->
+	<delete id="productDelete">
+		delete from product where code=#{code}
+	</delete>
+
 	<!-- 멤버 목록 수 -->
 	<select id="countproduct" resultType="int">
 		SELECT COUNT(*) FROM product

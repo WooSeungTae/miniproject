@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -186,15 +187,17 @@ public class HomeController {
 		}
 		//관리자 상품관리(수정)
 		@RequestMapping("productUpdate")
-		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
-			return null;
+		public String productUpdate(@RequestParam("code") String code,Model model) {
+			Pservice.codeSearch(model, code);
+			return "product_update/productUpdatePage";
 		}
 		
 		//관리자 상품관리(삭제)
 		@RequestMapping("productDelete")
 		public String productDelete(@RequestParam("code") String code) {
+			System.out.println(code);
 			Pservice.productDelete(code);
-			return "productUpdate_Delete/productSelect";
+			return "redirect:inventory";
 		}
 		
 		//관리자 상품 목록 수정, 삭제를 위한 조회

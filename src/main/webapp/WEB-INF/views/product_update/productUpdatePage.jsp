@@ -126,6 +126,7 @@
 			  });
 	});
 	<!--이미지 클릭시 파일을 클릭하는 기능-->
+	
 	$(document).ready(function() {
 		$("#img1").click(function() {
 			$("#productImg1").click();
@@ -320,29 +321,33 @@
 </style>
 </head>
 <body style="margin: 0px;">
-<%@include file="product_header.jsp" %>
+<%@include file="../product_header.jsp" %>
 <div class="bodyback">
-<label class="maintitle">상품 등록</label>
-<form action="product_input" enctype="multipart/form-data" method="post" onsubmit="return checkcode()">
+<label class="maintitle">상품 수정</label>
+<form action="producUpdate" enctype="multipart/form-data" method="post" onsubmit="return checkcode()">
 	<div class="bodyinside">
+	<!-- 클릭한 상품 정보들 가져와서 수정값 입력 받기 -->
 	<div class="subinput">
-		<label class="subtitle">상품 번호</label>
-		<input type="text" name="code">
+		<img src="${quickProduct.image1 }">
 	</div>
 	<div class="subinput">
-		<label class="subtitle">제목</label>
-		<input type="text" name="codename">
+		<label class="subtitle">상품 번호</label>
+		<input type="text" name="code" value="${quickProduct.code }">
+	</div>
+	<div class="subinput">
+		<label class="subtitle">상품명</label>
+		<input type="text" name="codename" placeholder="${quickProduct.codename }" >
 	</div>
 	<div class="subinput">
 		<label class="subtitle">color</label>
-		<input type="text" name="codecolor">
+		<input type="text" name="codecolor" placeholder="${quickProduct.codecolor }">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">금액</label>
-		<input type="text" name="price">
+		<input type="text" name="price" placeholder="${quickProduct.price }">
 	</div>
 	<div class="subinput">
-		<label class="subtitle">분류</label>
+		<label class="subtitle">분류 : ${quickProduct.category }</label>
 		<select name="category">
 			<option selected="selected" value="런닝화">런닝화</option>
 			<option value="축구화">축구화</option>
@@ -350,7 +355,7 @@
 		</select>
 	</div>
 	<div class="subinput">
-		<label class="subtitle">성별</label>
+		<label class="subtitle">성별 : ${quickProduct.gender }</label>
 		<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
 		<input type="checkbox" id="1" name="gender" value="men" hidden="">
 		<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
@@ -417,9 +422,9 @@
 	</div>	
 	<div class="subinput">
 		<label class="subtitle">내용</label><br>
-		<textarea rows="10" cols="50" name="contents"></textarea>
+		<textarea rows="5" cols="20" name="contents" >${quickProduct.contents }</textarea>
 	</div>
-	<div><input class="button6" type="submit" value="등록"></div>
+	<div><input class="button6" type="submit" value="수정 완료"></div>
 </form>
 </div>
 </body>
