@@ -31,11 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nike.service.BoardService;
 import com.nike.service.FileUploadService;
-<<<<<<< HEAD
 import com.nike.service.KakaoAPI;
-=======
 import com.nike.service.FileUploadService2;
->>>>>>> 54d10572419f9336bee52652194c79937848ec14
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
@@ -74,16 +71,14 @@ public class HomeController {
 	@Autowired
 	FileUploadService fileUploadService;
 	@Autowired
-<<<<<<< HEAD
     private KakaoAPI kakao;
-=======
+	@Autowired
 	ReviewUploadService reviewUploadService;
 	@Autowired
 	FileUploadService2 fileUploadService2;
 	@Autowired
 	BoardService bservice;
 	
->>>>>>> 54d10572419f9336bee52652194c79937848ec14
 
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
