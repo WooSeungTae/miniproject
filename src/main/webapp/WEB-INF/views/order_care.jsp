@@ -105,8 +105,8 @@
 				<td>${dto.addr}</td><td>${dto.tel}</td><td>${dto.bankname}</td><td>${dto.bank}</td>
 				<td>${dto.totalprice}</td><td>${dto.ordertype }</td><td>${dto.ordernum}</td>
 				<td>${dto.delivery}</td><td>${dto.ordermemo}</td>
-				<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=shipping"><input type="button" value="입금 확인"></a></td>
-				<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=deposit"><input type="button" value="배송 취소"></a></td>
+				<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=배송중"><input type="button" value="입금 확인"></a></td>
+				<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=입금확인중"><input type="button" value="배송 취소"></a></td>
 				</tr>
 				</c:forEach>
 				</c:when>
