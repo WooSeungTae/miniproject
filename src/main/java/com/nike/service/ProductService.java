@@ -273,15 +273,7 @@ public class ProductService {
 	
 
 	
-	//관리자 상품 목록 수정, 삭제를 위한 조회
-	public ProductDTO productSelect(String code) {
-		return Pdao.productSelect(code);
-	}
 		
-	//관리자 상품 삭제하기 위한 기능
-	public void productDelete(String code) {		
-		Pdao.productDelete(code);	
-	}
 	//상품 관리 페이지 상품 갯수를 가져오는 기능
 	public int countProduct() {
 		return Pdao.countProduct();
@@ -305,5 +297,33 @@ public class ProductService {
 	public int priceget(String code) {
 		return Pdao.priceget(code);
 	}
+
+	//관리자 상품 목록 수정, 삭제를 위한 조회(상품)
+	public ProductDTO productSelect(String code) {
+		return Pdao.productSelect(code);
+	}
+	//관리자 상품 삭제하기 위한 기능
+	public void productDelete(String code) {		
+		Pdao.productDelete(code);	
+	}
+	//관리자 상품관리 - 수정기능
+	public void product_update(ProductDTO pdto) {
+		Pdao.product_update(pdto);
+		
+	}
+
+	//관리자 상품관리 - 수정기능2
+	public void size_update(Product_sizeDTO sizedto) {
+		Pdao.size_update(sizedto);
+		
+	}
+
+
+	//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
+	public Product_sizeDTO sizeSelect(String code) {
+		return Pdao.sizeSelect(code);
+	}
+
+
 
 }

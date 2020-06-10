@@ -8,55 +8,32 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 <title>Insert title here</title>
-	<style>
+<style>
 		.wrapper{
 			font-family:"Noto Sans KR", "Malgun Gothic", "MalgunGothic", Dotum, Helvetica, Arial, sans-serif;
-			color:#111;
-			padding-top:108px;
-			height:1300px;
+			color:#111; padding-top:108px; height:1300px;
 		}
 		tr{
-			height:50px;
-			margin-bottom:20px;
+			height:50px; margin-bottom:20px;
 		}
 		.rating{
-			position:relative;
-			display:flex;
-			flex-direction:row-reverse;
-			margin-top:10px;
-			border:1px solid #000;
-			box-sizing:border-box;
-			background:linear-gradient(to right, #f00, #ff0, #0f0);
+			position:relative; display:flex; flex-direction:row-reverse; margin-top:10px;
+			border:1px solid #000; box-sizing:border-box; background:linear-gradient(to right, #f00, #ff0, #0f0);
 		}
 		
 		.rating2{
-			position:relative;
-			display:flex;
-			flex-direction:row-reverse;
-			margin-top:10px;
-			border:1px solid #000;
-			box-sizing:border-box;
-			background:linear-gradient(to right, #f00, #ff0, #0f0);
+			position:relative; display:flex; flex-direction:row-reverse; margin-top:10px;
+			border:1px solid #000; box-sizing:border-box; background:linear-gradient(to right, #f00, #ff0, #0f0);
 		}
 		
 		.rating3{
-			position:relative;
-			display:flex;
-			flex-direction:row-reverse;
-			margin-top:10px;
-			border:1px solid #000;
-			box-sizing:border-box;
-			background:linear-gradient(to right, #f00, #ff0, #0f0);
+			position:relative; display:flex; flex-direction:row-reverse; margin-top:10px;
+			border:1px solid #000; box-sizing:border-box; background:linear-gradient(to right, #f00, #ff0, #0f0);
 		}
 		
 		.rating4{
-			position:relative;
-			display:flex;
-			flex-direction:row-reverse;
-			margin-top:10px;
-			border:1px solid #000;
-			box-sizing:border-box;
-			background:linear-gradient(to right, #f00, #ff0, #0f0);
+			position:relative; display:flex; flex-direction:row-reverse; margin-top:10px;
+			border:1px solid #000; box-sizing:border-box; background:linear-gradient(to right, #f00, #ff0, #0f0);
 		}
 		.rating input{
 			display:none;
@@ -72,63 +49,23 @@
 			display:none;
 		}
 		.rating label{
-			display:block;
-			cursor:pointer;
-			width:50px;
-			height:40px;
-			display:flex;
-			justify-content:center;
-			align-items:center;
-			transition:0.5s;
-			background:#fff;
-			color:#000;
-			font-size:20px;
-			border-right:1px solid #000;
+			display:block; cursor:pointer; width:50px; height:40px; display:flex; justify-content:center;
+			align-items:center; transition:0.5s; background:#fff; color:#000; font-size:20px; border-right:1px solid #000;
 		}
 		
 		.rating2 label{
-			display:block;
-			cursor:pointer;
-			width:50px;
-			height:40px;
-			display:flex;
-			justify-content:center;
-			align-items:center;
-			transition:0.5s;
-			background:#fff;
-			color:#000;
-			font-size:20px;
-			border-right:1px solid #000;
+			display:block; cursor:pointer; width:50px; height:40px; display:flex; justify-content:center;
+			align-items:center; transition:0.5s; background:#fff; color:#000; font-size:20px; border-right:1px solid #000;
 		}
 		
 		.rating3 label{
-			display:block;
-			cursor:pointer;
-			width:50px;
-			height:40px;
-			display:flex;
-			justify-content:center;
-			align-items:center;
-			transition:0.5s;
-			background:#fff;
-			color:#000;
-			font-size:20px;
-			border-right:1px solid #000;
+			display:block; cursor:pointer; width:50px; height:40px; display:flex; justify-content:center;
+			align-items:center; transition:0.5s; background:#fff; color:#000; font-size:20px; border-right:1px solid #000;
 		}
 		
 		.rating4 label{
-			display:block;
-			cursor:pointer;
-			width:50px;
-			height:40px;
-			display:flex;
-			justify-content:center;
-			align-items:center;
-			transition:0.5s;
-			background:#fff;
-			color:#000;
-			font-size:20px;
-			border-right:1px solid #000;
+			display:block; cursor:pointer; width:50px; height:40px; display:flex; justify-content:center;
+			align-items:center; transition:0.5s; background:#fff; color:#000; font-size:20px; border-right:1px solid #000;
 		}
 		
 		input[type="text"]{
@@ -176,18 +113,11 @@
 		.star_input>output{display:inline-block;width:60px; font-size:18px;text-align:right; vertical-align:middle;}
 		
 		.goreview{
-			background-color:#000;
-			color:white;
-			width:350px;
-			height:45px;
-			border:0px;
-			border-radius:30px;
-			margin-bottom:10px;
+			background-color:#000; color:white; width:350px; height:45px; border:0px; border-radius:30px; margin-bottom:10px;
 		}
 		
 		.select_img1{
-			width: 300px;
-			height: 300px;
+			width: 300px; height: 300px;
 		}
 	
 		/*이미지 배열을 위한 css*/
@@ -205,9 +135,24 @@
 			width: 300px;
 			height: 300px;
 		}
+		
+		.deletereview{
+			background-color:#fff; color:#000; border:1px solid #000; width:350px; height:45px; border-radius:30px;
+			margin-bottom:10px;
+		}
 	</style>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
+		window.onload = function(){
+			$('input:radio[name=star_input]:input[value='+${rdto.star_input}+']').attr("checked", true);
+			$('input:radio[name=rating]:input[value='+${rdto.rating}+']').attr("checked", true);
+			$('input:radio[name=rating2]:input[value='+${rdto.rating2}+']').attr("checked", true);
+			$('input:radio[name=rating3]:input[value='+${rdto.rating3}+']').attr("checked", true);
+			$('input:radio[name=rating4]:input[value='+${rdto.rating4}+']').attr("checked", true);
+			
+		}	
+	
+	
 		$(document).ready(function(){
 			$("#productImg1").change(function(){
 			   if(this.files && this.files[0]) {
@@ -239,19 +184,19 @@
 		<h1>상품 리뷰 작성하기</h1>
 		<div style="margin-bottom:20px; height:20px;">
 		</div>
-			<form action="reviewsave" enctype="multipart/form-data" method="post">
+			<form action="reviewmodify" enctype="multipart/form-data" method="post">
 				<table>
 					<tr>
 						<td>작성자</td>
-						<td><input type="text" name="name" value="${name }" readonly></td>
+						<td><input type="text" name="name" value="${rdto.name }" readonly></td>
 					</tr>
 					<tr>
 						<td>상품코드</td>
-						<td><input type="text" name="code" value="${code }" readonly></td>
+						<td><input type="text" name="code" value="${rdto.code }" readonly></td>
 					</tr>
 					<tr>
 						<td>상품명</td>
-						<td><input type="text" name="codename" value="${codename }" readonly></td>
+						<td><input type="text" name="codename" value="${rdto.codename }" readonly></td>
 					</tr>
 					<tr>
 						<td>별점</td>
@@ -269,7 +214,7 @@
 							    	<input type="radio" name="star_input" value="5" id="p5">
 							    	<label for="p5">5</label>
 						  		</span>
-						  		<output for="star_input"><b>0</b>점</output>						
+						  		<output for="star_input"><b>${rdto.star_input }</b>점</output>						
 							</span>
 							<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 							<script src="js/star.js"></script>
@@ -277,11 +222,11 @@
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="reviewtitle" placeholder="제목을 작성해주세요"></td>
+						<td><input type="text" name="reviewtitle" value="${rdto.reviewtitle }"></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea cols="50" rows="10" name="reviewcontents" placeholder="내용을 작성해주세요"></textarea>
+						<td><textarea cols="50" rows="10" name="reviewcontents">${ rdto.reviewcontents}</textarea>
 					</td>
 					<tr>
 						<td>편안함</td>
@@ -314,6 +259,7 @@
 						<td>사이즈</td>
 						<td>
 							<div class="rating2">
+								<input type="hidden" name="rating2" id="rating2_hidden" value="${rdto.rating2 }">
 								<input type="radio" name="rating2" id="rate2_10" value="10">
 								<label for="rate2_10">10</label>
 								<input type="radio" name="rating2" id="rate2_9" value="9">
@@ -341,6 +287,7 @@
 						<td>내구성</td>
 						<td>
 							<div class="rating3">
+								<input type="hidden" name="rating3" id="rating3_hidden" value="${rdto.rating3 }">
 								<input type="radio" name="rating3" id="rate3_10" value="10">
 								<label for="rate3_10">10</label>
 								<input type="radio" name="rating3" id="rate3_9" value="9">
@@ -368,6 +315,7 @@
 						<td>폭</td>
 						<td>
 							<div class="rating4">
+								<input type="hidden" name="rating4" id="rating4_hidden" value="${rdto.rating4 }">
 								<input type="radio" name="rating4" id="rate4_10" value="10">
 								<label for="rate4_10">10</label>
 								<input type="radio" name="rating4" id="rate4_9" value="9">
@@ -398,7 +346,7 @@
 								<input type="file" id="productImg1" name="file" hidden="">
 								<div class="rowimg">
 									<div class="select_img1">
-										<img src="image/plus.png" id="img1" />	
+										<img src="${rdto.image }" id="img1" />	
 										<input type="text" id="image1" name="image" value="" hidden="">
 									</div>
 								</div>
@@ -407,7 +355,10 @@
 					</tr>
 				</table>
 				<div align="center" style="margin-top:50px;">
-					<input type="submit" value="리뷰등록" class="goreview">
+					<input type="hidden" name="reviewnum" value="${rdto.reviewnum}">
+					<input type="hidden" name="beforefile" value="${rdto.image}">
+					<input type="submit" value="리뷰수정" class="goreview"><br>
+					<input type="button" value="리뷰삭제" class="deletereview" onclick="location.href='reviewdelete?num=${rdto.reviewnum}'">
 				</div>
 			</form>
 		</div>
