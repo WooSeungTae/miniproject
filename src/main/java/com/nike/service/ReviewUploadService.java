@@ -14,6 +14,7 @@ public class ReviewUploadService {
 	// 윈도우라면 workspace의 드라이브를 파악하여 JVM이 알아서 처리해준다.
 	// 따라서 workspace가 C드라이브에 있다면 C드라이브에 upload 폴더를 생성해 놓아야 한다.
 	private static final String SAVE_PATH = "C:\\12월취업반정선주\\project_workspace\\miniproject\\src\\main\\webapp\\reviewimage";
+	private static final String SAVE_PATH2 = "C:\\12월취업반정선주\\project_workspace\\miniproject\\src\\main\\webapp";
 	private static final String PREFIX_URL = "reviewimage/";
 	
 	public String restore(MultipartFile multipartFile) {
@@ -80,9 +81,8 @@ public class ReviewUploadService {
 	
 	//파일 삭제하는 메서드
 	public void deletefile(String filepath) {
-		String deletePath = SAVE_PATH + "/" + filepath;
+		String deletePath = SAVE_PATH2 + "/" + filepath;
 		File deletefile = new File(deletePath);
-		System.out.println("====================================service" + deletefile.getPath());
 		if(deletefile.exists()==true) {			
 			deletefile.delete();
 			System.out.println("파일이 삭제됩니다.");

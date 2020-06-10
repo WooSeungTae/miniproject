@@ -110,7 +110,7 @@ public class HomeController {
 		//리뷰 저장
 		@RequestMapping(value="reviewsave", method=RequestMethod.POST)
 		public String reviewsave(ReviewDTO rdto, HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file) {
-			if(file!=null) {
+			if(file.getOriginalFilename()!=null) {
 				String url1 = reviewUploadService.restore(file);
 				rdto.setImage(url1);
 			}
@@ -131,7 +131,7 @@ public class HomeController {
 //			rdto.setId(id);
 //			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
-			rdto.setReviewNum(8);
+			rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
 			System.out.println("====================================================="+rdto.getImage());
 			return "board/reviewform";
@@ -146,7 +146,7 @@ public class HomeController {
 //			rdto.setId(id);
 //			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
-			rdto.setReviewNum(8);
+			rdto.setReviewNum(9);
 			reviewUploadService.deletefile(rdto.getImage());
 			reviewservice.reviewdelete(rdto);
 			return "redirect:reviewintro";
@@ -158,21 +158,24 @@ public class HomeController {
 				@RequestParam(value="file", required=false) MultipartFile file,
 				@RequestParam(value="reviewnum") String reviewnum,
 				@RequestParam(value="beforefile") String beforefile) {
-			reviewUploadService.deletefile(beforefile);
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId(id);
-			if(file!=null) {
+			if(file.getOriginalFilename()!="") {
+				System.out.println("========================================" + file.getOriginalFilename());
 				System.out.println("=====================================파일있음");
 				System.out.println("=====================================" + file);
+				System.out.println("===========================beforefile+"+beforefile);
 				String url1 = reviewUploadService.restore(file);
 				rdto.setImage(url1);
-				}
-			System.out.println("===========================beforefile+"+beforefile);
-			reviewUploadService.deletefile(beforefile);
-			reviewservice.reviewmodify(rdto);
-			return "redirect:reviewintro";
+				reviewservice.reviewmodify(rdto);
+				reviewUploadService.deletefile(beforefile);
+				return "redirect:reviewintro";
+			}else {
+				reviewservice.reviewitem(rdto);
+				return "redirect:reviewintro";
+			}
 		}
 		
 		
