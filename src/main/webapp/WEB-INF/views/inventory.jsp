@@ -73,6 +73,16 @@
 		var changeName = firstName + lastName;
 		document.getElementById(imgId).src = changeName;
 	}
+	  function delete_btn(id) {
+		  
+			var con = confirm("정말 삭제하시겠습니까?");
+			
+			if(con){
+				location.href="productDelete?code="+id
+			}
+		}
+	
+	
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -116,7 +126,7 @@
 				<td>${dto.codename}</td><td>${dto.codecolor}</td><td>${dto.category}</td>
 				<td>${dto.price}</td><td>${dto.gender}</td>
 				<td><button onclick="location.href='productUpdate?code=${dto.code}'">수정</button></td>
-				<td><button onclick="location.href='productDelete?code=${dto.code}'">삭제</td></tr>
+				<td><button id="${dto.code}" onclick="delete_btn(this.id)">삭제</td></tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
