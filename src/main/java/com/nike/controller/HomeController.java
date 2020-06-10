@@ -6,6 +6,7 @@ import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nike.service.BoardService;
 import com.nike.service.FileUploadService;
+import com.nike.service.KakaoAPI;
 import com.nike.service.FileUploadService2;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
@@ -67,12 +69,14 @@ public class HomeController {
 	@Autowired
 	FileUploadService fileUploadService;
 	@Autowired
+    private KakaoAPI kakao;
+	@Autowired
 	ReviewUploadService reviewUploadService;
 	@Autowired
 	FileUploadService2 fileUploadService2;
 	@Autowired
 	BoardService bservice;
-	
+
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
@@ -91,16 +95,17 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+	public String home(Locale locale, Model model, 
+			@RequestParam(value="code", required=false) String code,
+			HttpSession session) {
+		String access_Token = kakao.getAccessToken(code);
+	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+	    if (userInfo.get("email") != null) {
+	        session.setAttribute("id", userInfo.get("email"));
+	        session.setAttribute("name", userInfo.get("nickname"));
+	        session.setAttribute("access_Token", access_Token);
+	    }
 		return "/sminj/main";
 	}
 	
@@ -748,6 +753,9 @@ public class HomeController {
 	/* 로그아웃 */
 	@RequestMapping("logout")
 	public String logout(HttpSession mySession) {
+		if((String)mySession.getAttribute("access_Token") != null) {
+			kakao.kakaoLogout((String)mySession.getAttribute("access_Token"));
+		}
 		memberservice.logout(mySession);
 		return "sminj/main";
 	}

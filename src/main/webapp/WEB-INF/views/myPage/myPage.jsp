@@ -9,7 +9,7 @@
 </head>
 <body>
 <c:import url="/header"></c:import>
-	<div style="width: 60%; margin: auto; padding-top: 80px;">
+	<div style="width: 70%; margin: auto; margin-top: 200px;">
 <c:import url="/aside"></c:import>
 	<!--  마이페이지 상단  -->
 	<div>
