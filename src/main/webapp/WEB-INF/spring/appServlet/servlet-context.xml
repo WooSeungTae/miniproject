@@ -36,5 +36,12 @@
 	<!-- value에 view에서 <%=request.getRealPath("/") %>입력후 나오는 경로 입력 -->
 	 <beans:constructor-arg value="C:\spring-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\miniproject\image" />
 	</beans:bean>
+	
+	<!-- 리뷰업로드 패스 설정 --> 
+	<beans:bean class="java.lang.String" id="uploadPath2">
+	<!-- value에 view에서 <%=request.getRealPath("/") %>입력후 나오는 경로 입력 -->
+	 <beans:constructor-arg value="C:\12월취업반정선주\project_workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\miniproject\reviewimage" />
+	</beans:bean>
+	
 
 </beans:beans>

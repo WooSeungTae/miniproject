@@ -30,16 +30,19 @@ import com.nike.service.FileUploadService;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
+import com.nike.service.ReviewService;
+import com.nike.service.ReviewUploadService;
+import com.nike.board.ReviewDTO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
 import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
-import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
 import com.nike.product.Product_sizeDTO;
+import com.nike.product.*;
 
 /**
  * Handles requests for the application home page.
@@ -55,14 +58,19 @@ public class HomeController {
 	@Autowired
 	OrderService orderservice;
 	@Autowired
+	ReviewService reviewservice;
+	@Autowired
 	FileUploadService fileUploadService;
-
-
+	@Autowired
+	ReviewUploadService reviewUploadService;
+	
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
-
 	
+	/*리뷰파일 업로드 경로*/
+	@Resource(name="uploadPath2")
+	private String uploadPath2;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -84,12 +92,96 @@ public class HomeController {
 	}
 	
 		//리뷰 등록
-		@RequestMapping("review")
-		public String review() {
+		@RequestMapping("reviewform")
+		public String review(HttpServletRequest request, Model model) {
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			String name = (String)mySession.getAttribute("name");
+			String code = request.getParameter("code");
+			String codename = request.getParameter("codename");
+			model.addAttribute("id", id);
+			model.addAttribute("name", name);
+			model.addAttribute("code", "CN9600-002");
+			model.addAttribute("codename", "나이키 조이라이드 듀얼 런");
 			return "board/review_Register";
 		}
+		//ReviewDTO rdto, HttpServletRequest request,
 		
-	//관리자 상품관리(수정)
+		//리뷰 저장
+		@RequestMapping(value="reviewsave", method=RequestMethod.POST)
+		public String reviewsave(ReviewDTO rdto, HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file) {
+			if(file!=null) {
+				String url1 = reviewUploadService.restore(file);
+				rdto.setImage(url1);
+			}
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			rdto.setId(id);
+			reviewservice.review_save(rdto);
+			return "redirect:reviewintro";
+			
+		}
+		
+		//마이페이지 나의 리뷰 수정하기, 삭제하기 하기 위한 폼
+		@RequestMapping("myreview")
+		public String myreview(HttpServletRequest request, Model model, ReviewDTO rdto) {
+			String reviewnum = request.getParameter("reviewnum");
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+//			rdto.setId(id);
+//			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId("hong");
+			rdto.setReviewNum(8);
+			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
+			System.out.println("====================================================="+rdto.getImage());
+			return "board/reviewform";
+		}
+		
+		//마이페이지 나의 리뷰 삭제하기
+		@RequestMapping("reviewdelete")
+		public String reviewdelete(HttpServletRequest request, ReviewDTO rdto) {
+			String reviewnum = request.getParameter("reviewnum");
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+//			rdto.setId(id);
+//			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId("hong");
+			rdto.setReviewNum(8);
+			reviewUploadService.deletefile(rdto.getImage());
+			reviewservice.reviewdelete(rdto);
+			return "redirect:reviewintro";
+		}
+		
+		//마이페이지 나의 리뷰 수정하기
+		@RequestMapping("reviewmodify")
+		public String reviewmodify(HttpServletRequest request, ReviewDTO rdto,  
+				@RequestParam(value="file", required=false) MultipartFile file,
+				@RequestParam(value="reviewnum") String reviewnum,
+				@RequestParam(value="beforefile") String beforefile) {
+			reviewUploadService.deletefile(beforefile);
+			HttpSession mySession = request.getSession();
+			String id = (String) mySession.getAttribute("id");
+			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId(id);
+			if(file!=null) {
+				System.out.println("=====================================파일있음");
+				System.out.println("=====================================" + file);
+				String url1 = reviewUploadService.restore(file);
+				rdto.setImage(url1);
+				}
+			System.out.println("===========================beforefile+"+beforefile);
+			reviewUploadService.deletefile(beforefile);
+			reviewservice.reviewmodify(rdto);
+			return "redirect:reviewintro";
+		}
+		
+		
+		//마이페이지 나의 리뷰 보여주기
+		@RequestMapping("reviewintro")
+		public String reviewintro(HttpServletRequest request, Model model) {
+			return "myPage/myPageReviewintro";
+		}
+		//관리자 상품관리(수정)
 		@RequestMapping("productUpdate")
 		public String productUpdate(ProductDTO pdto, HttpServletRequest request) {
 			return null;
@@ -413,10 +505,6 @@ public class HomeController {
 	public String memberinfoModify(MemberInfoDTO dto, Model model) {
 		service.memberinfoModify(dto, model);
 		return "redirect:account";
-	}
-	@RequestMapping("reviewintro")
-	public String reviewintro() {
-		return "myPage/myPageReviewintro";
 	}
 	
 	/*세부 상품 조회*/
