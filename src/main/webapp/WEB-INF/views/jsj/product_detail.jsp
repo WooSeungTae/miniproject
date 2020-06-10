@@ -168,19 +168,23 @@
 		}
 		.bordertable tr{
 			border-bottom: 1px solid #ddd;
-   			vertical-align: middle;
-   			
+   			height: 20px;
 		}
-		.bordertable tr th{
-			height: 50px;  			
-   			
-		}
+
+
 				
 		/*리뷰타이틀*/
 		#boardtitle{
 			font-size: 20px;
 			background-color: #f5f5f5;	
 		}
+		
+		/*리뷰창 사진*/
+		#imgreview{
+			width: 100%;
+			max-width: 80px;		
+		}
+		
 		
 		
 		
@@ -519,26 +523,38 @@
 			</section>
 		</section>
 	</section>
-		<div class="reviewTitle" style="margin-top:50px;">
+		<div class="reviewTitle" style="margin-top:700px;">
 		<h2 align="center">REVIEW</h2><br>
 		
-		<table class="bordertable" border="1" >
+		<table class="bordertable" >
 			<tr id="boardtitle">
 				<th>번호</th>
 				<th colspan="2">제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
-				<th>조회</th>
-				<th style="display: none;">코드번호</th>
-		<c:forEach var = "reviwList" items="">
+				<th style="display: none;">코드번호</th></tr>
+		<c:forEach var = "reviwList" items="${rvlist}">
 			<tr>
-				<td></td> <!-- 번호 -->
-				<td></td> <!-- 이미지 -->
-				<td></td> <!-- 제목 -->
-				<td></td> <!-- 작성자 -->
-				<td></td> <!-- 작성일 -->
-				<td></td> <!-- 조회 -->
-				<td style="display: none;"></td> <!-- 코드번호 -->
+				<th style="width: 10%;">${reviwList.reviewnum}</th> <!-- 번호 -->
+				<th style="width: 10%;"><img id="imgreview" src='/nike/${reviwList.image}'></th> <!-- 이미지 -->
+				<th  id = "${reviwList.reviewnum}${reviwList.reviewtitle}" style="width: 60%;" onclick="test(this)">${reviwList.reviewtitle}</th> <!-- 제목 -->
+				<th style="width: 10%;">${reviwList.name}</th> <!-- 작성자 -->
+				<th style="width: 10%;">${reviwList.writeDate}</th> <!-- 작성일 -->
+				<th style="display: none;">${reviwList.code}</th> <!-- 코드번호 -->
+			</tr>
+			<tr class="contentqa"><th id ="${reviwList.reviewnum}${reviwList.reviewtitle}qnanike"  colspan="5" style="display:none;">
+			<c:import url="/Review_board">
+				<c:param name="name" value="${reviwList.name }"/>
+				<c:param name="code" value="${reviwList.code }"/>
+				<c:param name="codename" value="${reviwList.codename }"/>
+				<c:param name="reviewtitle" value="${reviwList.reviewtitle }"/>
+				<c:param name="reviewcontents" value="${reviwList.reviewcontents }"/>
+				<c:param name="price" value="${pdto.price }"/>
+				<c:param name="image" value="${reviwList.image }"/>
+				<c:param name="id" value="${reviwList.id }"/>
+				<c:param name="star_input" value="${reviwList.star_input }"/>
+			</c:import>
+			</th>
 		</c:forEach>	
 		</table>
 		</div>
@@ -572,18 +588,16 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
-				<th>조회</th>
 				<th style="display: none;">코드번호</th>
 		<c:forEach var = "QAList" items="${qalist }">
 			<tr>
 				<th style="width: 10%;">${QAList.indexnum }</th> <!-- 번호 -->
-				<th style="width: 65%;" id="${QAList.indexnum }${QAList.title }" onclick="test(this)">${QAList.title }</th> <!-- 제목 -->
+				<th style="width: 70%;" id="${QAList.indexnum }${QAList.title }" onclick="test(this)">${QAList.title }</th> <!-- 제목 -->
 				<th style="width: 10%;">${QAList.name }</th> <!-- 작성자 -->
 				<th style="width: 10%;">${QAList.modifyDate }</th> <!-- 작성일 -->
-				<th style="width: 5%;">${QAList.hit }</th> <!-- 조회 -->
 				<th style="display: none;">${QAList.code }</th> <!-- 코드번호 -->
 			</tr>
-			<tr class="contentqa"><th id ="${QAList.indexnum }${QAList.title }qnanike"  colspan="5" style="display:none;">
+			<tr class="contentqa"><th id ="${QAList.indexnum }${QAList.title }qnanike"  colspan="4" style="display:none;">
 			<c:import url="/qnaview">
 				<c:param name="name" value="${QAList.name }"/>
 				<c:param name="code" value="${QAList.code }"/>

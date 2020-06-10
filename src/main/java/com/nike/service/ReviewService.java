@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import com.nike.board.Board_PagingVO;
+import com.nike.board.Boardqa_PagingVO;
 import com.nike.board.ReviewDAO;
 import com.nike.board.ReviewDTO;
 
@@ -12,6 +15,7 @@ import com.nike.board.ReviewDTO;
 public class ReviewService {
 	@Autowired
 	private ReviewDAO rdao;
+	
 	
 	//리뷰 저장
 	public void review_save(ReviewDTO rdto) {
@@ -38,5 +42,16 @@ public class ReviewService {
 	//마이페이지 나의 리뷰 수정하기
 	public void reviewmodify(ReviewDTO rdto) {
 		rdao.reviewmodify(rdto);
+	}
+	
+	/*코드별 리뷰 게시글 총 개수*/
+	public int rvtotal(String code) {
+		return rdao.rvtotal(code);
+	}
+	
+	/*코드별 리뷰 조회*/
+	public void rvlist(Model model,Board_PagingVO voRV) {
+		model.addAttribute("rvlist", rdao.rvlist(voRV));
+		model.addAttribute("paging", voRV);
 	}
 }
