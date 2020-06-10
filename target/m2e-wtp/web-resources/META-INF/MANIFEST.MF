@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
-Built-By: ￬ﾋﾬ￫ﾯﾼ￬ﾠﾕ
-Build-Jdk: 1.8.0_241
+<<<<<<< HEAD
+Built-By: kgitbank
+Build-Jdk: 1.8.0_191
+=======
+Built-By: itbank
+Build-Jdk: 1.8.0_211
+>>>>>>> fa2e2c2de70a1440bd83f80471f1224cafe78ab9
 Created-By: Maven Integration for Eclipse
 

@@ -3,4 +3,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.care.mybatis.boardMapper.reviewMapper">
+	
+	<!--리뷰 등록-->
+	<insert id="reviewsave" parameterType="Rdto">
+		insert into review(reviewnum,reviewtitle,reviewcontents,id,name,code,codename,star_input,rating,rating2,rating3,rating4,image) values(reviewnum.nextval,#{reviewtitle},#{reviewcontents},#{id},#{name},#{code},#{codename},#{star_input},#{rating},#{rating2},#{rating3},#{rating4},#{image})
+	</insert>
+	
+	
+	<!-- 마이페이지 나의 리뷰 보여주기 -->
+	<select id="review_list" parameterType="String">
+		select * from review where id=#{id}
+	</select>
+	
+	<!-- 마이페이지 나의 리뷰 수정하기, 삭제하기 하기 위한 폼 -->
+	<select id="reviewitem" parameterType="Rdto" resultType="Rdto">
+		select * from review where id=#{id} and reviewnum=#{reviewnum}
+	</select>
+	
+	<!-- 마이페이지 나의 리뷰 삭제하기 -->
+	<delete id="reviewdelete" parameterType="Rdto">
+		delete from review where id=#{id} and reviewnum=#{reviewnum}
+	</delete>
+	
+	<!-- 마이페이지 나의 리뷰 수정하기 -->
+	<update id="reviewmodify" parameterType="Rdto">
+		update review set reviewtitle=#{reviewtitle}, reviewcontents=#{reviewcontents}, star_input=#{star_input}, rating=#{rating}, rating2=#{rating2}, rating3=#{rating3}, rating4=#{rating4}, image=#{image} where id=#{id} and reviewnum=#{reviewnum}
+	</update>
 </mapper>

@@ -11,11 +11,17 @@
 	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
 	function genderbuttonclick(clicked_id){
 		var gender = 1;
+		var genderlabel = document.getElementById('subtitle');
+		console.log(genderlabel)
+		
 		if(clicked_id == "men"){
 			gender=1;
+			genderlabel.innerHTML = "남"
 		}else if(clicked_id == "women"){
 			gender=2;
+			genderlabel.innerHTML = "여"
 		}else if(clicked_id == "kids"){
+			genderlabel.innerHTML = "키즈"
 			gender=3;
 		}
 		console.log(gender);
@@ -40,7 +46,7 @@
 			document.getElementById(clicked_id).classList.remove('button5');
 			document.getElementById(gender).checked = true;
 			size.innerHTML += "<label class='subtitle' id='"+clicked_id+2+"'>"+clicked_id+" 사이즈 수량</label>"
-			size.innerHTML += "<input id='"+clicked_id+3+"' name='size"+clicked_id+"' type='text'><br id='"+clicked_id+4+"'>"
+			size.innerHTML += "<input id='"+clicked_id+3+"' name='size"+clicked_id+"' type='text' value='${size}'><br id='"+clicked_id+4+"'>"
 		}
 		else{
 			document.getElementById(clicked_id).classList.add('button5');
@@ -126,6 +132,7 @@
 			  });
 	});
 	<!--이미지 클릭시 파일을 클릭하는 기능-->
+	
 	$(document).ready(function() {
 		$("#img1").click(function() {
 			$("#productImg1").click();
@@ -320,29 +327,33 @@
 </style>
 </head>
 <body style="margin: 0px;">
-<%@include file="product_header.jsp" %>
+<%@include file="../product_header.jsp" %>
 <div class="bodyback">
-<label class="maintitle">상품 등록</label>
-<form action="product_input" enctype="multipart/form-data" method="post" onsubmit="return checkcode()">
+<label class="maintitle">상품 수정</label>
+<form action="producUpdate" enctype="multipart/form-data" method="post">
 	<div class="bodyinside">
+	<!-- 클릭한 상품 정보들 가져와서 수정값 입력 받기 -->
 	<div class="subinput">
-		<label class="subtitle">상품 번호</label>
-		<input type="text" name="code">
+		<img src="${pdto.image1 }">
 	</div>
 	<div class="subinput">
-		<label class="subtitle">제목</label>
-		<input type="text" name="codename">
+		<label class="subtitle">상품 번호</label>
+		<input type="text" name="code" value="${pdto.code }" readonly>
+	</div>
+	<div class="subinput">
+		<label class="subtitle">상품명</label>
+		<input type="text" name="codename" placeholder="${pdto.codename }" >
 	</div>
 	<div class="subinput">
 		<label class="subtitle">color</label>
-		<input type="text" name="codecolor">
+		<input type="text" name="codecolor" placeholder="${pdto.codecolor }">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">금액</label>
-		<input type="text" name="price">
+		<input type="text" name="price" placeholder="${pdto.price }">
 	</div>
 	<div class="subinput">
-		<label class="subtitle">분류</label>
+		<label class="subtitle">분류 : ${pdto.category }</label>
 		<select name="category">
 			<option selected="selected" value="런닝화">런닝화</option>
 			<option value="축구화">축구화</option>
@@ -350,7 +361,7 @@
 		</select>
 	</div>
 	<div class="subinput">
-		<label class="subtitle">성별</label>
+		<font style="font-size:20px; margin:20px;">성별 : </font><label id="subtitle" class="subtitle" style="margin-left:-20px;">${pdto.gender }</label>
 		<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
 		<input type="checkbox" id="1" name="gender" value="men" hidden="">
 		<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
@@ -388,38 +399,44 @@
 		<input type="file" id="productImg6" name="file6" hidden="">
 		<div class="rowimg">
 			<div class="select_img1">
-			<img src="image/plus.png" id="img1" name="" src="">	
+			<img src="${pdto.image1}" id="img1" name="" />	
 			<input type="text" id="image1" name="image1" value="" hidden="">
 			</div>
 			<div class="select_img2">
-			<img src="image/plus.png" id="img2" name=""/>
+			<img src="${pdto.image2 }" id="img2" name=""/>
 			<input type="text" id="image2" name="image2" value="" hidden="">
 			</div>
 			<div class="select_img3">
-			<img src="image/plus.png" id="img3" name=""/>
+			<img src="${pdto.image3 }" id="img3" name=""/>
 			<input type="text" id="image3" name="image3" value="" hidden="">
 			</div>
 		</div>
 			<div class="rowimg">
 			<div class="select_img4">
-			<img src="image/plus.png" id="img4" name=""/>
+			<img src="${pdto.image4 }" id="img4" name=""/>
 			<input type="text" id="image4" name="image4" value="" hidden="">
 			</div>
 			<div class="select_img5">
-			<img src="image/plus.png" id="img5" name=""/>
+			<img src="${pdto.image5  }" id="img5" name=""/>
 			<input type="text" id="image5" name="image5" value="" hidden="">
 			</div>
 			<div class="select_img6">
-			<img src="image/plus.png" id="img6" name=""/>
+			<img src="${pdto.image6  }" id="img6" name=""/>
 			<input type="text" id="image6" name="image6" value="" hidden="">
 			</div>
+			<input type="hidden" name="beforefile1" value="${pdto.image1}">
+			<input type="hidden" name="beforefile2" value="${pdto.image2}">
+			<input type="hidden" name="beforefile3" value="${pdto.image3}">
+			<input type="hidden" name="beforefile4" value="${pdto.image4}">
+			<input type="hidden" name="beforefile5" value="${pdto.image5}">
+			<input type="hidden" name="beforefile6" value="${pdto.image6}">
 		</div>
 	</div>	
 	<div class="subinput">
 		<label class="subtitle">내용</label><br>
-		<textarea rows="10" cols="50" name="contents"></textarea>
+		<textarea rows="5" cols="20" name="contents" >${pdto.contents }</textarea>
 	</div>
-	<div><input class="button6" type="submit" value="등록"></div>
+	<div><input class="button6" type="submit" value="수정 완료"></div>
 </form>
 </div>
 </body>

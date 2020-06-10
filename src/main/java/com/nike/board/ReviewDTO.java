@@ -2,30 +2,81 @@ package com.nike.board;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ReviewDTO {
 	
-	private String reviewTitle;
-	private String reviewContents;
-	private String id;
-	private String name;
+	private int reviewnum = 0;
+	private String reviewtitle = " ";;
+	private String reviewcontents = " ";;
+	private String id = " ";;
+	private String name = " ";
 	private Date writeDate;
 	private String code;
-	private String reviewComfort;
-	private String reviewSize;
-	private String reviewDurable;
-	private String reviewWidth;
+	private String codename = " " ;
+	private int star_input = 0;
+	private int rating = 0;
+	private int rating2 = 0;
+	private int rating3 = 0;
+	private int rating4 = 0;
+	private String image = " ";
 	
-	public String getReviewTitle() {
-		return reviewTitle;
+	
+	public int getReviewnum() {
+		return reviewnum;
 	}
-	public void setReviewTitle(String reviewTitle) {
-		this.reviewTitle = reviewTitle;
+	public void setReviewnum(int reviewnum) {
+		this.reviewnum = reviewnum;
 	}
-	public String getReviewContents() {
-		return reviewContents;
+	public String getCodename() {
+		return codename;
 	}
-	public void setReviewContents(String reviewContents) {
-		this.reviewContents = reviewContents;
+	public void setCodename(String codename) {
+		this.codename = codename;
+	}
+	public int getStar_input() {
+		return star_input;
+	}
+	public void setStar_input(int star_input) {
+		this.star_input = star_input;
+	}
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public int getRating2() {
+		return rating2;
+	}
+	public void setRating2(int rating2) {
+		this.rating2 = rating2;
+	}
+	public int getRating3() {
+		return rating3;
+	}
+	public void setRating3(int rating3) {
+		this.rating3 = rating3;
+	}
+	public int getRating4() {
+		return rating4;
+	}
+	public void setRating4(int rating4) {
+		this.rating4 = rating4;
+	}
+	
+	
+	public String getReviewtitle() {
+		return reviewtitle;
+	}
+	public void setReviewtitle(String reviewtitle) {
+		this.reviewtitle = reviewtitle;
+	}
+	public String getReviewcontents() {
+		return reviewcontents;
+	}
+	public void setReviewcontents(String reviewcontents) {
+		this.reviewcontents = reviewcontents;
 	}
 	public String getId() {
 		return id;
@@ -51,30 +102,22 @@ public class ReviewDTO {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getReviewComfort() {
-		return reviewComfort;
+	
+	
+	public int getReviewNum() {
+		return reviewnum;
 	}
-	public void setReviewComfort(String reviewComfort) {
-		this.reviewComfort = reviewComfort;
+	public void setReviewNum(int reviewNum) {
+		this.reviewnum = reviewNum;
 	}
-	public String getReviewSize() {
-		return reviewSize;
+	
+	public String getImage() {
+		return image;
 	}
-	public void setReviewSize(String reviewSize) {
-		this.reviewSize = reviewSize;
+	public void setImage(String image) {
+		this.image = image;
 	}
-	public String getReviewDurable() {
-		return reviewDurable;
-	}
-	public void setReviewDurable(String reviewDurable) {
-		this.reviewDurable = reviewDurable;
-	}
-	public String getReviewWidth() {
-		return reviewWidth;
-	}
-	public void setReviewWidth(String reviewWidth) {
-		this.reviewWidth = reviewWidth;
-	}
+	
 	
 	
 }
