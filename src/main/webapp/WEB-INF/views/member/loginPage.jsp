@@ -12,7 +12,6 @@
 	.wrapper{max-width: 100%; max-height: 100%; display: block; text-align: center;}
 	.input01{height: 15px; width: 330px; margin: 10px; padding: 10px;}
 </style>
-
 </head>
 <body >
 	<c:import url="/header"></c:import>
@@ -32,6 +31,13 @@
 			</div><br>
 			<div style="padding: 10px;">
 				<input type="submit" value="로그인" style="width: 360px; height: 40px; background-color: black; color: white;">
+			</div>
+			<div>
+				<a href="https://kauth.kakao.com/oauth/authorize?
+				client_id=ced6c950f8e687c8d26beefb5315561a
+				&redirect_uri=http://localhost:8080/nike
+				&response_type=code">
+	            <img style="width: 360px;" src="image/kakao_login_large_wide.png"></a>
 			</div>
 			<span ><font size="2" color="gray">회원이 아니신가요?</font></span>
 			<a href="memberJoin">회원가입</a><br><br>
