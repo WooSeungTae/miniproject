@@ -46,7 +46,7 @@
 			document.getElementById(clicked_id).classList.remove('button5');
 			document.getElementById(gender).checked = true;
 			size.innerHTML += "<label class='subtitle' id='"+clicked_id+2+"'>"+clicked_id+" 사이즈 수량</label>"
-			size.innerHTML += "<input id='"+clicked_id+3+"' name='size"+clicked_id+"' type='text'><br id='"+clicked_id+4+"'>"
+			size.innerHTML += "<input id='"+clicked_id+3+"' name='size"+clicked_id+"' type='text' value='${size}'><br id='"+clicked_id+4+"'>"
 		}
 		else{
 			document.getElementById(clicked_id).classList.add('button5');
@@ -330,30 +330,30 @@
 <%@include file="../product_header.jsp" %>
 <div class="bodyback">
 <label class="maintitle">상품 수정</label>
-<form action="producUpdate" enctype="multipart/form-data" method="post"">
+<form action="producUpdate" enctype="multipart/form-data" method="post">
 	<div class="bodyinside">
 	<!-- 클릭한 상품 정보들 가져와서 수정값 입력 받기 -->
 	<div class="subinput">
-		<img src="${quickProduct.image1 }">
+		<img src="${pdto.image1 }">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">상품 번호</label>
-		<input type="text" name="code" value="${quickProduct.code }" readonly>
+		<input type="text" name="code" value="${pdto.code }" readonly>
 	</div>
 	<div class="subinput">
 		<label class="subtitle">상품명</label>
-		<input type="text" name="codename" placeholder="${quickProduct.codename }" >
+		<input type="text" name="codename" placeholder="${pdto.codename }" >
 	</div>
 	<div class="subinput">
 		<label class="subtitle">color</label>
-		<input type="text" name="codecolor" placeholder="${quickProduct.codecolor }">
+		<input type="text" name="codecolor" placeholder="${pdto.codecolor }">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">금액</label>
-		<input type="text" name="price" placeholder="${quickProduct.price }">
+		<input type="text" name="price" placeholder="${pdto.price }">
 	</div>
 	<div class="subinput">
-		<label class="subtitle">분류 : ${quickProduct.category }</label>
+		<label class="subtitle">분류 : ${pdto.category }</label>
 		<select name="category">
 			<option selected="selected" value="런닝화">런닝화</option>
 			<option value="축구화">축구화</option>
@@ -361,7 +361,7 @@
 		</select>
 	</div>
 	<div class="subinput">
-		<font style="font-size:20px; margin:20px;">성별 : </font><label id="subtitle" class="subtitle" style="margin-left:-20px;">${quickProduct.gender }</label>
+		<font style="font-size:20px; margin:20px;">성별 : </font><label id="subtitle" class="subtitle" style="margin-left:-20px;">${pdto.gender }</label>
 		<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
 		<input type="checkbox" id="1" name="gender" value="men" hidden="">
 		<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
@@ -399,42 +399,42 @@
 		<input type="file" id="productImg6" name="file6" hidden="">
 		<div class="rowimg">
 			<div class="select_img1">
-			<img src="${quickProduct.image1}" id="img1" name="" />	
+			<img src="${pdto.image1}" id="img1" name="" />	
 			<input type="text" id="image1" name="image1" value="" hidden="">
 			</div>
 			<div class="select_img2">
-			<img src="${quickProduct.image2 }" id="img2" name=""/>
+			<img src="${pdto.image2 }" id="img2" name=""/>
 			<input type="text" id="image2" name="image2" value="" hidden="">
 			</div>
 			<div class="select_img3">
-			<img src="${quickProduct.image3 }" id="img3" name=""/>
+			<img src="${pdto.image3 }" id="img3" name=""/>
 			<input type="text" id="image3" name="image3" value="" hidden="">
 			</div>
 		</div>
 			<div class="rowimg">
 			<div class="select_img4">
-			<img src="${quickProduct.image4 }" id="img4" name=""/>
+			<img src="${pdto.image4 }" id="img4" name=""/>
 			<input type="text" id="image4" name="image4" value="" hidden="">
 			</div>
 			<div class="select_img5">
-			<img src="${quickProduct.image5  }" id="img5" name=""/>
+			<img src="${pdto.image5  }" id="img5" name=""/>
 			<input type="text" id="image5" name="image5" value="" hidden="">
 			</div>
 			<div class="select_img6">
-			<img src="${quickProduct.image6  }" id="img6" name=""/>
+			<img src="${pdto.image6  }" id="img6" name=""/>
 			<input type="text" id="image6" name="image6" value="" hidden="">
 			</div>
-			<input type="hidden" name="beforefile1" value="${quickProduct.image1}">
-			<input type="hidden" name="beforefile2" value="${quickProduct.image2}">
-			<input type="hidden" name="beforefile3" value="${quickProduct.image3}">
-			<input type="hidden" name="beforefile4" value="${quickProduct.image4}">
-			<input type="hidden" name="beforefile5" value="${quickProduct.image5}">
-			<input type="hidden" name="beforefile6" value="${quickProduct.image6}">
+			<input type="hidden" name="beforefile1" value="${pdto.image1}">
+			<input type="hidden" name="beforefile2" value="${pdto.image2}">
+			<input type="hidden" name="beforefile3" value="${pdto.image3}">
+			<input type="hidden" name="beforefile4" value="${pdto.image4}">
+			<input type="hidden" name="beforefile5" value="${pdto.image5}">
+			<input type="hidden" name="beforefile6" value="${pdto.image6}">
 		</div>
 	</div>	
 	<div class="subinput">
 		<label class="subtitle">내용</label><br>
-		<textarea rows="5" cols="20" name="contents" >${quickProduct.contents }</textarea>
+		<textarea rows="5" cols="20" name="contents" >${pdto.contents }</textarea>
 	</div>
 	<div><input class="button6" type="submit" value="수정 완료"></div>
 </form>

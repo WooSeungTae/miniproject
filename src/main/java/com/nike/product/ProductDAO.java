@@ -129,6 +129,23 @@ public class ProductDAO {
 	//상품 관리 페이지 상품을 가져오는 기능
 	public List<ProductDTO> selectProduct(Inventory_PagingVO vo) {
 		return sqlSession.selectList(nameSpace+".selectproduct",vo);
+	}
+	
+	//관리자 상품관리 - 수정기능
+	public void product_update(ProductDTO pdto) {
+		sqlSession.update(nameSpace+".product_update",pdto);
+		
+	}
+	
+	//관리자 상품관리 - 수정기능2
+	public void size_update(Product_sizeDTO sizedto) {
+		sqlSession.update(nameSpace+".size_update", sizedto);
+		
+	}
+	
+	//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
+	public Product_sizeDTO sizeSelect(String code) {
+		return sqlSession.selectOne(nameSpace+".sizeSelect", code);
 	}	
 	
 }

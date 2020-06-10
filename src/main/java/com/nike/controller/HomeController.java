@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nike.service.FileUploadService;
+import com.nike.service.FileUploadService2;
 import com.nike.service.MemberService;
 import com.nike.service.OrderService;
 import com.nike.service.ProductService;
@@ -65,7 +66,7 @@ public class HomeController {
 	@Autowired
 	ReviewUploadService reviewUploadService;
 	@Autowired
-	FileUploadService fileUploadService2;
+	FileUploadService2 fileUploadService2;
 	
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -226,22 +227,47 @@ public class HomeController {
 				if(file1.getOriginalFilename()!="") {
 					String url1 = fileUploadService2.restore(file1);
 					pdto.setImage1(url1);
-//					ProductService.product_update(pdto);
-//					ProductService.size_update(sizedto);
-//					fileUploadService2.
-				return "redirect:reviewintro";
-			}else {
-				//reviewservice.reviewitem(rdto);
-				return "redirect:reviewintro";
-			}
+					fileUploadService2.deletefile(beforefile1);
+				}
+				if(file2.getOriginalFilename()!="") {
+					String url2 = fileUploadService2.restore(file2);
+					pdto.setImage2(url2);
+					fileUploadService2.deletefile(beforefile2);
+				}
+				if(file3.getOriginalFilename()!="") {
+					String url3 = fileUploadService2.restore(file3);
+					pdto.setImage3(url3);
+					fileUploadService2.deletefile(beforefile3);
+				}
+				if(file4.getOriginalFilename()!="") {
+					String url4 = fileUploadService2.restore(file4);
+					pdto.setImage4(url4);
+					fileUploadService2.deletefile(beforefile4);
+				}
+				if(file5.getOriginalFilename()!="") {
+					String url5 = fileUploadService2.restore(file5);
+					pdto.setImage5(url5);
+					fileUploadService2.deletefile(beforefile5);
+				}
+				if(file6.getOriginalFilename()!="") {
+					String url6 = fileUploadService2.restore(file6);
+					pdto.setImage6(url6);
+					fileUploadService2.deletefile(beforefile6);
+				}
+				Pservice.product_update(pdto);
+				Pservice.size_update(sizedto);
+					
+				return "redirect:inventory";
 			
-				//Pservice.size_update(sizedto);
-			//return "redirect:inventory";
 		}
 		
 		//관리자 상품관리폼(수정)
 		@RequestMapping("productview")
 		public String productview(@RequestParam("code") String code,Model model) {
+			//관리자 상품 목록 수정, 삭제를 위한 조회(상품)
+			model.addAttribute("pdto", Pservice.productSelect(code));
+			//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
+			model.addAttribute("sdto", Pservice.sizeSelect(code));
 			return "product_update/productViewPage";
 		}
 		
@@ -259,12 +285,7 @@ public class HomeController {
 			return "redirect:inventory";
 		}
 		
-		//관리자 상품 목록 수정, 삭제를 위한 조회
-		@RequestMapping("productSelect")
-		public String productSelect(ProductDTO pdto , Model model) {
-			model.addAttribute("pdto", Pservice.productSelect("CD4373-002"));
-			return "productUpdate_Delete/productSelect";
-		}
+		
 		/*상품관리*/
 		@RequestMapping("inventory")
 		public String inventory(Inventory_PagingVO vo, Model model
