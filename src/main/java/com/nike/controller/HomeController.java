@@ -108,8 +108,10 @@ public class HomeController {
 		//리뷰 저장
 		@RequestMapping(value="reviewsave", method=RequestMethod.POST)
 		public String reviewsave(ReviewDTO rdto, HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file) {
-			String url1 = reviewUploadService.restore(file);
-			rdto.setImage(url1);
+			if(file!=null) {
+				String url1 = reviewUploadService.restore(file);
+				rdto.setImage(url1);
+			}
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
@@ -127,7 +129,7 @@ public class HomeController {
 //			rdto.setId(id);
 //			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
-			rdto.setReviewnum(5);
+			rdto.setReviewNum(8);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
 			System.out.println("====================================================="+rdto.getImage());
 			return "board/reviewform";
@@ -142,21 +144,31 @@ public class HomeController {
 //			rdto.setId(id);
 //			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
-			rdto.setReviewnum(1);
+			rdto.setReviewNum(8);
+			reviewUploadService.deletefile(rdto.getImage());
 			reviewservice.reviewdelete(rdto);
 			return "redirect:reviewintro";
 		}
 		
 		//마이페이지 나의 리뷰 수정하기
 		@RequestMapping("reviewmodify")
-		public String reviewmodify(HttpServletRequest request, ReviewDTO rdto,  @RequestParam(value="file", required=false) MultipartFile file) {
-			String beforefile = request.getParameter("beforefile");
+		public String reviewmodify(HttpServletRequest request, ReviewDTO rdto,  
+				@RequestParam(value="file", required=false) MultipartFile file,
+				@RequestParam(value="reviewnum") String reviewnum,
+				@RequestParam(value="beforefile") String beforefile) {
 			reviewUploadService.deletefile(beforefile);
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
+			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId(id);
-			String url1 = reviewUploadService.restore(file);
-			rdto.setImage(url1);
+			if(file!=null) {
+				System.out.println("=====================================파일있음");
+				System.out.println("=====================================" + file);
+				String url1 = reviewUploadService.restore(file);
+				rdto.setImage(url1);
+				}
+			System.out.println("===========================beforefile+"+beforefile);
+			reviewUploadService.deletefile(beforefile);
 			reviewservice.reviewmodify(rdto);
 			return "redirect:reviewintro";
 		}

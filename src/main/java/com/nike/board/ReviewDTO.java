@@ -22,6 +22,12 @@ public class ReviewDTO {
 	private String image = " ";
 	
 	
+	public int getReviewnum() {
+		return reviewnum;
+	}
+	public void setReviewnum(int reviewnum) {
+		this.reviewnum = reviewnum;
+	}
 	public String getCodename() {
 		return codename;
 	}
@@ -60,14 +66,6 @@ public class ReviewDTO {
 	}
 	
 	
-	
-	
-	public int getReviewnum() {
-		return reviewnum;
-	}
-	public void setReviewnum(int reviewnum) {
-		this.reviewnum = reviewnum;
-	}
 	public String getReviewtitle() {
 		return reviewtitle;
 	}

@@ -21,8 +21,8 @@ public class ReviewUploadService {
 		
 		try {
 			// 파일 정보
-			System.out.println("============================================service"+multipartFile);
 			String originFilename = multipartFile.getOriginalFilename();
+			System.out.println("originFilename : " + originFilename);
 			String extName
 				= originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
 			Long size = multipartFile.getSize();
@@ -30,7 +30,6 @@ public class ReviewUploadService {
 			// 서버에서 저장 할 파일 이름
 			String saveFileName = genSaveFileName(extName);
 			
-			System.out.println("originFilename : " + originFilename);
 			System.out.println("extensionName : " + extName);
 			System.out.println("size : " + size);
 			System.out.println("saveFileName : " + saveFileName);
@@ -79,10 +78,15 @@ public class ReviewUploadService {
 		return result;
 	}
 	
+	//파일 삭제하는 메서드
 	public void deletefile(String filepath) {
-		String deletePath = SAVE_PATH + filepath;
+		String deletePath = SAVE_PATH + "/" + filepath;
 		File deletefile = new File(deletePath);
-		deletefile.delete();
+		System.out.println("====================================service" + deletefile.getPath());
+		if(deletefile.exists()==true) {			
+			deletefile.delete();
+			System.out.println("파일이 삭제됩니다.");
+		}
 		
 	}
 }

@@ -355,10 +355,10 @@
 					</tr>
 				</table>
 				<div align="center" style="margin-top:50px;">
-					<input type="hidden" name="reviewnum" value="${reviewnum }">
-					<input hidden="beforefile" value="${rdto.image }">
+					<input type="hidden" name="reviewnum" value="${rdto.reviewnum}">
+					<input type="hidden" name="beforefile" value="${rdto.image}">
 					<input type="submit" value="리뷰수정" class="goreview"><br>
-					<input type="button" value="리뷰삭제" class="deletereview" onclick="location.href='reviewdelete?num=${reviewnum}'">
+					<input type="button" value="리뷰삭제" class="deletereview" onclick="location.href='reviewdelete?num=${rdto.reviewnum}'">
 				</div>
 			</form>
 		</div>
