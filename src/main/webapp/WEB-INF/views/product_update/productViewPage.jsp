@@ -11,11 +11,17 @@
 	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
 	function genderbuttonclick(clicked_id){
 		var gender = 1;
+		var genderlabel = document.getElementById('subtitle');
+		console.log(genderlabel)
+		
 		if(clicked_id == "men"){
 			gender=1;
+			genderlabel.innerHTML = "남"
 		}else if(clicked_id == "women"){
 			gender=2;
+			genderlabel.innerHTML = "여"
 		}else if(clicked_id == "kids"){
+			genderlabel.innerHTML = "키즈"
 			gender=3;
 		}
 		console.log(gender);
@@ -324,7 +330,7 @@
 <%@include file="../product_header.jsp" %>
 <div class="bodyback">
 <label class="maintitle">상품 수정</label>
-<form action="producUpdate" enctype="multipart/form-data" method="post" onsubmit="return checkcode()">
+<form action="producUpdate" enctype="multipart/form-data" method="post"">
 	<div class="bodyinside">
 	<!-- 클릭한 상품 정보들 가져와서 수정값 입력 받기 -->
 	<div class="subinput">
@@ -332,7 +338,7 @@
 	</div>
 	<div class="subinput">
 		<label class="subtitle">상품 번호</label>
-		<input type="text" name="code" value="${quickProduct.code }">
+		<input type="text" name="code" value="${quickProduct.code }" readonly>
 	</div>
 	<div class="subinput">
 		<label class="subtitle">상품명</label>
@@ -355,7 +361,7 @@
 		</select>
 	</div>
 	<div class="subinput">
-		<label class="subtitle">성별 : ${quickProduct.gender }</label>
+		<font style="font-size:20px; margin:20px;">성별 : </font><label id="subtitle" class="subtitle" style="margin-left:-20px;">${quickProduct.gender }</label>
 		<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
 		<input type="checkbox" id="1" name="gender" value="men" hidden="">
 		<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
@@ -393,31 +399,37 @@
 		<input type="file" id="productImg6" name="file6" hidden="">
 		<div class="rowimg">
 			<div class="select_img1">
-			<img src="image/plus.png" id="img1" name="" />	
+			<img src="${quickProduct.image1}" id="img1" name="" />	
 			<input type="text" id="image1" name="image1" value="" hidden="">
 			</div>
 			<div class="select_img2">
-			<img src="image/plus.png" id="img2" name=""/>
+			<img src="${quickProduct.image2 }" id="img2" name=""/>
 			<input type="text" id="image2" name="image2" value="" hidden="">
 			</div>
 			<div class="select_img3">
-			<img src="image/plus.png" id="img3" name=""/>
+			<img src="${quickProduct.image3 }" id="img3" name=""/>
 			<input type="text" id="image3" name="image3" value="" hidden="">
 			</div>
 		</div>
 			<div class="rowimg">
 			<div class="select_img4">
-			<img src="image/plus.png" id="img4" name=""/>
+			<img src="${quickProduct.image4 }" id="img4" name=""/>
 			<input type="text" id="image4" name="image4" value="" hidden="">
 			</div>
 			<div class="select_img5">
-			<img src="image/plus.png" id="img5" name=""/>
+			<img src="${quickProduct.image5  }" id="img5" name=""/>
 			<input type="text" id="image5" name="image5" value="" hidden="">
 			</div>
 			<div class="select_img6">
-			<img src="image/plus.png" id="img6" name=""/>
+			<img src="${quickProduct.image6  }" id="img6" name=""/>
 			<input type="text" id="image6" name="image6" value="" hidden="">
 			</div>
+			<input type="hidden" name="beforefile1" value="${quickProduct.image1}">
+			<input type="hidden" name="beforefile2" value="${quickProduct.image2}">
+			<input type="hidden" name="beforefile3" value="${quickProduct.image3}">
+			<input type="hidden" name="beforefile4" value="${quickProduct.image4}">
+			<input type="hidden" name="beforefile5" value="${quickProduct.image5}">
+			<input type="hidden" name="beforefile6" value="${quickProduct.image6}">
 		</div>
 	</div>	
 	<div class="subinput">

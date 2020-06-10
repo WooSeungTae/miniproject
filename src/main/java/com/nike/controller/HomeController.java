@@ -64,6 +64,8 @@ public class HomeController {
 	FileUploadService fileUploadService;
 	@Autowired
 	ReviewUploadService reviewUploadService;
+	@Autowired
+	FileUploadService fileUploadService2;
 	
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
@@ -72,6 +74,10 @@ public class HomeController {
 	/*리뷰파일 업로드 경로*/
 	@Resource(name="uploadPath2")
 	private String uploadPath2;
+	
+	/*관리자 파일 수정 업로드*/
+	@Resource(name="uploadPath3")
+	private String uploadPath3;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -178,18 +184,71 @@ public class HomeController {
 				return "redirect:reviewintro";
 			}
 		}
+		/*상품 등록*/
+		@RequestMapping("product_input")
+		public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
+				@RequestParam(value="file1", required=false) MultipartFile file1,
+				@RequestParam(value="file2", required=false) MultipartFile file2,
+				@RequestParam(value="file3", required=false) MultipartFile file3,
+				@RequestParam(value="file4", required=false) MultipartFile file4,
+				@RequestParam(value="file5", required=false) MultipartFile file5,
+				@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
+			String code = pdto.getCode();
+			if(Pservice.codeSearch(model, code) == 1) {
+				System.out.println("등록 실행");
+				if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
+				if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
+				if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
+				if(pdto.getImage4().equals("image4")) {String url4 = fileUploadService.restore(file4);pdto.setImage4(url4);}
+				if(pdto.getImage5().equals("image5")) {String url5 = fileUploadService.restore(file5);pdto.setImage5(url5);}
+				if(pdto.getImage6().equals("image6")) {String url6 = fileUploadService.restore(file6);pdto.setImage6(url6);}
+				Pservice.product_input(pdto);
+				Pservice.product_size(sizedto);
+			}
+			return "redirect:product_management";
+		}
+
+		//관리자 상품관리 - 수정기능
+		@RequestMapping("productupdate")
+		public String productupdate(Product_sizeDTO sizedto, ProductDTO pdto,
+				@RequestParam(value="file1", required=false) MultipartFile file1,
+				@RequestParam(value="file2", required=false) MultipartFile file2,
+				@RequestParam(value="file3", required=false) MultipartFile file3,
+				@RequestParam(value="file4", required=false) MultipartFile file4,
+				@RequestParam(value="file5", required=false) MultipartFile file5,
+				@RequestParam(value="file6", required=false) MultipartFile file6,
+				@RequestParam(value="beforefile1") String beforefile1,
+				@RequestParam(value="beforefile2") String beforefile2,
+				@RequestParam(value="beforefile3") String beforefile3,
+				@RequestParam(value="beforefile4") String beforefile4,
+				@RequestParam(value="beforefile5") String beforefile5,
+				@RequestParam(value="beforefile6") String beforefile6) {
+				if(file1.getOriginalFilename()!="") {
+					String url1 = fileUploadService2.restore(file1);
+					pdto.setImage1(url1);
+//					ProductService.product_update(pdto);
+//					ProductService.size_update(sizedto);
+//					fileUploadService2.
+				return "redirect:reviewintro";
+			}else {
+				//reviewservice.reviewitem(rdto);
+				return "redirect:reviewintro";
+			}
+			
+				//Pservice.size_update(sizedto);
+			//return "redirect:inventory";
+		}
 		
+		//관리자 상품관리폼(수정)
+		@RequestMapping("productview")
+		public String productview(@RequestParam("code") String code,Model model) {
+			return "product_update/productViewPage";
+		}
 		
 		//마이페이지 나의 리뷰 보여주기
 		@RequestMapping("reviewintro")
 		public String reviewintro(HttpServletRequest request, Model model) {
 			return "myPage/myPageReviewintro";
-		}
-		//관리자 상품관리(수정)
-		@RequestMapping("productUpdate")
-		public String productUpdate(@RequestParam("code") String code,Model model) {
-			Pservice.codeSearch(model, code);
-			return "product_update/productUpdatePage";
 		}
 		
 		//관리자 상품관리(삭제)
@@ -339,29 +398,6 @@ public class HomeController {
 
 	
 
-	/*상품 등록*/
-	@RequestMapping("product_input")
-	public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
-			@RequestParam(value="file1", required=false) MultipartFile file1,
-			@RequestParam(value="file2", required=false) MultipartFile file2,
-			@RequestParam(value="file3", required=false) MultipartFile file3,
-			@RequestParam(value="file4", required=false) MultipartFile file4,
-			@RequestParam(value="file5", required=false) MultipartFile file5,
-			@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
-		String code = pdto.getCode();
-		if(Pservice.codeSearch(model, code) == 1) {
-			System.out.println("등록 실행");
-			if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
-			if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
-			if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
-			if(pdto.getImage4().equals("image4")) {String url4 = fileUploadService.restore(file4);pdto.setImage4(url4);}
-			if(pdto.getImage5().equals("image5")) {String url5 = fileUploadService.restore(file5);pdto.setImage5(url5);}
-			if(pdto.getImage6().equals("image6")) {String url6 = fileUploadService.restore(file6);pdto.setImage6(url6);}
-			Pservice.product_input(pdto);
-			Pservice.product_size(sizedto);
-		}
-		return "redirect:product_management";
-	}
 	
 	/*상품 등록 페이지*/
 	@RequestMapping("product_management")

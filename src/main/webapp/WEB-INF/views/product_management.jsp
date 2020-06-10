@@ -388,7 +388,7 @@
 		<input type="file" id="productImg6" name="file6" hidden="">
 		<div class="rowimg">
 			<div class="select_img1">
-			<img src="image/plus.png" id="img1" name="" />	
+			<img src="image/plus.png" id="img1" name="" src="">	
 			<input type="text" id="image1" name="image1" value="" hidden="">
 			</div>
 			<div class="select_img2">
