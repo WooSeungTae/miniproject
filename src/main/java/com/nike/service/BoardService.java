@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import com.nike.board.Boardqa_PagingVO;
 import com.nike.board.QABoardDAO;
 import com.nike.board.QABoardDTO;
+import com.nike.board.ReviewDAO;
+import com.nike.board.ReviewDTO;
+import com.nike.order.OrderCare_PagingVO;
 
 @Service
 public class BoardService {
@@ -26,5 +29,14 @@ public class BoardService {
 	public int qatotal(String code) {
 		return qdao.qatotal(code);
 	}
+	/*Q & A 게시판 전체 갯 수*/
+	public int countqna() {	
+		return qdao.countqna();
+	}
+	/*Q & A 게시판 전체 보기*/
+	public List<QABoardDTO> selectqna(OrderCare_PagingVO vo) {
+		return qdao.selectqna(vo);
+	}
+	
 	
 }

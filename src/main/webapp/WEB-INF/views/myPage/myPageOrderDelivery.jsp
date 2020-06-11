@@ -12,7 +12,6 @@
 	.order_hr {
 		border: solid 0.5px #e8ebed;
 	}
-	
 	.order_text {
 		font-size: 11.5px;
 		font-weight: bold;
@@ -22,13 +21,13 @@
 	text-decoration:none; 
 	color:black;
 	}
-	td, th{
-		font-size: 11px;
-
-	}
 	.order_img{
 		width: 150px;
 		height: 135px;
+	}
+
+	td, th{
+		font-size: 11px;
 	}
 	td{
 	padding: 15px 0;
@@ -59,14 +58,23 @@
 		});
 	});
 
+	function chageSrc(obj) {
+		var imgId = obj.id;
+		var imgName = obj.src;
+		imgName = imgName.toLowerCase();
+		var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
+		var lastName = imgName.substring(imgName.indexOf('.') + 1);
+		lastName = lastName.toUpperCase();
+		var changeName = firstName + lastName;
+		document.getElementById(imgId).src = changeName;
+		console.log(changeName);
+	}
+	
 </script>
 <body>
-	<header>
-		<c:import url="/header"></c:import>
-	</header>
-	<div
-		style="width: 80%; margin: auto; padding-top: 20px; padding-bottom: 250px;">
-		<c:import url="/aside"></c:import>
+<c:import url="/header"></c:import>
+	<div style="width: 80%; margin: auto; margin-top: 170px; padding-bottom: 25px;">
+<c:import url="/aside"></c:import>
 		<!-- 마이페이지 상단  -->
 		<section>
 		<div>
@@ -87,29 +95,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="orderDate">2020.06.02
-							<p>	<a href="#">[20200602-0123456]</a> </p> 
-						</td>
-						<td class="image1"><a href=""><img src="image/pd3-3.PNG" onerror="" alt="" class="order_img"></a></td>
-						<td class="product">
-							<strong class="CodeName"><a	href=""	class="order_a">나이키 에어 줌 페가수스 37</a></strong>
-							<div class="orderSize">[사이즈 : 220]</div>
-						</td>
-						<td class="count">1</td>
-						<td class="price">
-							<strong>19,000원</strong>
-						</td>
-						<td class="delivery">
-							<p>배송완료</p>
-						</td>
-						<td class="service">
-							<input type="button" value="주문취소"><br><br>
-							<input type="button" value="구매확정">
-						</td>
-					</tr>
-				</tbody>
-				<tbody>
 					<c:forEach items="${list }" var="list">
 					<tr>
 						<td class="orderDate">
@@ -118,7 +103,8 @@
 						</td>
 						<td class="image1">
 							<a href="/nike/productdetail?code=${list.code }">
-							<img src="${list.image1 }" class="order_img"></a>
+							<img id="${list.code }" src="/nike/${list.image1 }" 
+							class="order_img" onerror="this.onerror=null; chageSrc(this)"></a>
 						</td>
 						<td class="product">
 							<strong class="CodeName"><a	href=""	class="order_a">${list.codeName }</a></strong>
@@ -145,8 +131,6 @@
 		
 		<hr class="order_hr">
 	</div>
-	<footer>
-		<c:import url="/footer"></c:import>
-	</footer>
+<c:import url="/footer"></c:import>
 </body>
 </html>
