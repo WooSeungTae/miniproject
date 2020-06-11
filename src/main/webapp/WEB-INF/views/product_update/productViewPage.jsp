@@ -10,18 +10,31 @@
 <script type="text/javascript">
 	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
 	function genderbuttonclick(clicked_id){
+		if(document.getElementById('men').classList == 'button6' && clicked_id == "kids"){
+			document.getElementById('men').classList.add('button5');
+			document.getElementById('men').classList.remove('button6');
+			document.getElementById(1).checked = false;
+		}
+		if(document.getElementById('women').classList == 'button6' && clicked_id == "kids"){
+			document.getElementById('women').classList.add('button5');
+			document.getElementById('women').classList.remove('button6');
+			document.getElementById(2).checked = false;
+		}
+		if(document.getElementById('kids').classList == 'button6' && (clicked_id == "men" || clicked_id == "women")){
+			document.getElementById('kids').classList.add('button5');
+			document.getElementById('kids').classList.remove('button6');
+			document.getElementById(3).checked = false;
+		}
 		var gender = 1;
 		var genderlabel = document.getElementById('subtitle');
 		console.log(genderlabel)
 		
+		
 		if(clicked_id == "men"){
 			gender=1;
-			genderlabel.innerHTML = "남"
 		}else if(clicked_id == "women"){
 			gender=2;
-			genderlabel.innerHTML = "여"
 		}else if(clicked_id == "kids"){
-			genderlabel.innerHTML = "키즈"
 			gender=3;
 		}
 		console.log(gender);
@@ -35,6 +48,19 @@
 			document.getElementById(clicked_id).classList.remove('button6');
 			document.getElementById(gender).checked = false;
 		}
+		if(document.getElementById('men').classList == 'button6' && document.getElementById('women').classList == 'button6'){
+			genderlabel.innerHTML = "공용"
+		}
+		else if(document.getElementById('women').classList == 'button6'){
+			genderlabel.innerHTML = "여자"
+		}
+		else if(document.getElementById('kids').classList == 'button6'){
+			genderlabel.innerHTML = "키즈"
+		}
+		else if(document.getElementById('men').classList == 'button6'){
+			genderlabel.innerHTML = "남자"
+		}
+		
 	}
 	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
 	
@@ -235,8 +261,10 @@
 				size.innerHTML += "<label class='subtitle' id='330'>330 사이즈 수량</label>"
 				size.innerHTML += "<input id='330' name='size330' type='text' value='${sdto.size330}'><br id='size330'>"
 			}
-			
-			
+				
+			if(${sdto.gender}=="남자"){
+				
+			}
 		}
 	</script>
 <style type="text/css">
