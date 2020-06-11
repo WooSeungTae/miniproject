@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.care.mybatis.boardMapper.reviewMapper">
+	<mapper namespace="com.care.mybatis.boardMapper.reviewMapper">
 	
 	<!--리뷰 등록-->
 	<insert id="reviewsave" parameterType="Rdto">
@@ -34,4 +34,37 @@
 	<select id="reviewsearch" parameterType="Integer">
 		select * from review where reviewnum=#{reviewnum}
 	</select>
-</mapper>
+	
+	<!-- 상세페이지  코드검색 리뷰 게시물 조회 -->
+	<select id="rvlist" resultType="Rdto">
+				SELECT *
+		FROM (SELECT ROWNUM RN, A.*
+		FROM (SELECT *
+		FROM review where code=#{code} ORDER BY writeDate
+		)A)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	  	<!-- 상세페이지 코드검색 리뷰 게시물 총갯수 -->
+  	<select id="rvtotal" resultType="int">
+  		select count(*) from review where code=#{code}
+  	</select>
+	
+	<!-- 코드별 Q &A 게시물 총갯수 -->
+  	<select id="countreview" resultType="int">
+  		select count(*) from review
+  	</select>
+  	
+  	<!-- 페이징 처리 후 Q & A 조회 -->
+	<select id="selectreview" resultType="Rdto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM review 
+							ORDER BY reviewnum DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	</mapper>

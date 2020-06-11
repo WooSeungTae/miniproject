@@ -78,8 +78,8 @@
 </style>
 </head>
 <body>
-<header><c:import url="/header"></c:import></header>
-	<div style="width: 100%; margin: auto; padding-bottom: 100px;">
+<c:import url="/header"></c:import>
+	<div style="width: 100%; margin: auto; padding-bottom: 100px; margin-top: 132px;">
 		<div class="img_main"></div>
 		<div class="parent">
 			<div class="first">
@@ -110,6 +110,6 @@
 			</a>
 		</div>
 	</div>
-<footer><c:import url="/footer"></c:import></footer>
+<c:import url="/footer"></c:import>
 </body>
 </html>
