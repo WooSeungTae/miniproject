@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nike.board.ReviewDAO;
 import com.nike.board.ReviewDTO;
+import com.nike.order.OrderCare_PagingVO;
 
 @Service
 public class ReviewService {
@@ -38,5 +39,14 @@ public class ReviewService {
 	//마이페이지 나의 리뷰 수정하기
 	public void reviewmodify(ReviewDTO rdto) {
 		rdao.reviewmodify(rdto);
+	}
+	
+	/*review 게시판 전체 갯 수*/
+	public int countreview() {
+		return rdao.countreview();
+	}
+	/*review 게시판 전체 보기*/
+	public List<ReviewDTO> selectreview(OrderCare_PagingVO vo) {
+		return rdao.selectreview(vo);
 	}
 }

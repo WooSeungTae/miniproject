@@ -101,14 +101,16 @@ public class HomeController {
 	public String home(Locale locale, Model model, 
 			@RequestParam(value="code", required=false) String code,
 			HttpSession session) {
-		String access_Token = kakao.getAccessToken(code);
-	    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-	    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
-	    if (userInfo.get("email") != null) {
-	        session.setAttribute("id", userInfo.get("email"));
-	        session.setAttribute("name", userInfo.get("nickname"));
-	        session.setAttribute("access_Token", access_Token);
-	    }
+		if(code != null) {
+			String access_Token = kakao.getAccessToken(code);
+		    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
+		    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+		    if (userInfo.get("email") != null) {
+		    	session.setAttribute("id", userInfo.get("email"));
+		    	session.setAttribute("name", userInfo.get("nickname"));
+		    	session.setAttribute("access_Token", access_Token);
+		    }
+		}
 		return "/sminj/main";
 	}
 	
@@ -807,5 +809,43 @@ public class HomeController {
 	public String qnaview() {
 		return "board/QnA_view";
 
+	}
+	/*Q & A 게시판 전체 보기*/
+	@RequestMapping("QnA_board")
+	public String qnaboard(OrderCare_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = bservice.countqna();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",bservice.selectqna(vo));
+		return "board/QnA_board";
+	}
+	/*review 게시판 전체 보기*/
+	@RequestMapping("review_board")
+	public String review_board(OrderCare_PagingVO vo, Model model
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = reviewservice.countreview();
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",reviewservice.selectreview(vo));
+		return "board/review_board";
 	}
 }
