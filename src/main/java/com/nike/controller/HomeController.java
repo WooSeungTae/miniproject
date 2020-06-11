@@ -813,14 +813,12 @@ public class HomeController {
 	public String qnaview() {
 		return "board/QnA_view";
 	}
-<<<<<<< HEAD
 	/*상세 페이지에서 리뷰 게시판 보기*/
 	@RequestMapping("Review_board")
 	public String Review_board() {
 		return "board/Review_board";
 	}
 	
-=======
 	/*Q & A 게시판 전체 보기*/
 	@RequestMapping("QnA_board")
 	public String qnaboard(OrderCare_PagingVO vo, Model model
@@ -859,5 +857,4 @@ public class HomeController {
 		model.addAttribute("viewAll",reviewservice.selectreview(vo));
 		return "board/review_board";
 	}
->>>>>>> minhoeyk
 }

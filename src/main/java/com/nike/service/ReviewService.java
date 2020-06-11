@@ -45,7 +45,6 @@ public class ReviewService {
 		rdao.reviewmodify(rdto);
 	}
 	
-<<<<<<< HEAD
 	/*코드별 리뷰 게시글 총 개수*/
 	public int rvtotal(String code) {
 		return rdao.rvtotal(code);
@@ -55,7 +54,7 @@ public class ReviewService {
 	public void rvlist(Model model,Board_PagingVO voRV) {
 		model.addAttribute("rvlist", rdao.rvlist(voRV));
 		model.addAttribute("paging", voRV);
-=======
+	}
 	/*review 게시판 전체 갯 수*/
 	public int countreview() {
 		return rdao.countreview();
@@ -63,6 +62,5 @@ public class ReviewService {
 	/*review 게시판 전체 보기*/
 	public List<ReviewDTO> selectreview(OrderCare_PagingVO vo) {
 		return rdao.selectreview(vo);
->>>>>>> minhoeyk
 	}
 }
