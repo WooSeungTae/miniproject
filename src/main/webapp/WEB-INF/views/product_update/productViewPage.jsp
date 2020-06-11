@@ -263,7 +263,11 @@
 			}
 				
 			if(${sdto.gender}=="남자"){
-				
+				document.getElementById('men').classList.add('button6');
+				document.getElementById('men').classList.remove('button5');
+			}else(${sdto.gender}=="여자"){
+				document.getElementById('women').classList.add('buuton6');
+				document.getElementById('women').classList.remove('button5');
 			}
 		}
 	</script>
