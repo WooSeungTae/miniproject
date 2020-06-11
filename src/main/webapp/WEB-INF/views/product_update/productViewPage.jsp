@@ -64,8 +64,7 @@
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img1 img").attr("src", data.target.result);        
-			     $("#image1").val('image1');
+			     $(".select_img1 img").attr("src", data.target.result); 
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
@@ -76,8 +75,7 @@
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img2 img").attr("src", data.target.result);        
-			     $("#image2").val('image2');        
+			     $(".select_img2 img").attr("src", data.target.result);
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
@@ -88,8 +86,7 @@
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img3 img").attr("src", data.target.result);        
-			     $("#image3").val('image3');       
+			     $(".select_img3 img").attr("src", data.target.result);
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
@@ -100,8 +97,7 @@
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img4 img").attr("src", data.target.result);        
-			     $("#image4").val('image4');      
+			     $(".select_img4 img").attr("src", data.target.result);
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
@@ -112,8 +108,7 @@
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img5 img").attr("src", data.target.result);        
-			     $("#image5").val('image5');      
+			     $(".select_img5 img").attr("src", data.target.result);
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
@@ -124,8 +119,7 @@
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img6 img").attr("src", data.target.result);        
-			     $("#image6").val('image6');      
+			     $(".select_img6 img").attr("src", data.target.result);
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
@@ -421,11 +415,11 @@
 <%@include file="../product_header.jsp" %>
 <div class="bodyback">
 <label class="maintitle">상품 수정</label>
-<form action="producUpdate" enctype="multipart/form-data" method="post">
+<form action="productupdate" enctype="multipart/form-data" method="post">
 	<div class="bodyinside">
 	<!-- 클릭한 상품 정보들 가져와서 수정값 입력 받기 -->
 	<div class="subinput">
-		<img src="${pdto.image1 }">
+		<img src="${pdto.image1 }" style="width:320px; height:320px;">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">상품 번호</label>
@@ -433,15 +427,15 @@
 	</div>
 	<div class="subinput">
 		<label class="subtitle">상품명</label>
-		<input type="text" name="codename" placeholder="${pdto.codename }" >
+		<input type="text" name="codename" placeholder="${pdto.codename }" value="${pdto.codename }">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">color</label>
-		<input type="text" name="codecolor" placeholder="${pdto.codecolor }">
+		<input type="text" name="codecolor" placeholder="${pdto.codecolor }" value="${pdto.codecolor }">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">금액</label>
-		<input type="text" name="price" placeholder="${pdto.price }">
+		<input type="text" name="price" placeholder="${pdto.price }" value="${pdto.price }">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">분류 : ${pdto.category }</label>
@@ -490,44 +484,42 @@
 		<input type="file" id="productImg6" name="file6" hidden="">
 		<div class="rowimg">
 			<div class="select_img1">
-			<img src="${pdto.image1}" id="img1" name="" onerror="this.src='image/plus.png'"/>	
-			<input type="text" id="image1" name="image1" value="" hidden="">
+			<img src="${pdto.image1}" id="img1" name="image1" onerror="this.src='image/plus.png'"/>	
+			<input type="text" id="image1" name="image1" value="${pdto.image1 }" hidden="">
 			</div>
 			<div class="select_img2">
-			<img src="${pdto.image2 }" id="img2" name="" onerror="this.src='image/plus.png'"/>
-			<input type="text" id="image2" name="image2" value="" hidden="">
+			<img src="${pdto.image2 }" id="img2" name="image2" onerror="this.src='image/plus.png'"/>
+			<input type="text" id="image2" name="image2" value="${pdto.image2 }" hidden="">
 			</div>
 			<div class="select_img3">
-			<img src="${pdto.image3 }" id="img3" name="" onerror="this.src='image/plus.png'"/>
-			<input type="text" id="image3" name="image3" value="" hidden="">
+			<img src="${pdto.image3 }" id="img3" name="image3" onerror="this.src='image/plus.png'"/>
+			<input type="text" id="image3" name="image3" value="${pdto.image3 }" hidden="">
 			</div>
 		</div>
 			<div class="rowimg">
 			<div class="select_img4">
-			<img src="${pdto.image4 }" id="img4" name="" onerror="this.src='image/plus.png'"/>
-			<input type="text" id="image4" name="image4" value="" hidden="">
+			<img src="${pdto.image4 }" id="img4" name="image4" onerror="this.src='image/plus.png'"/>
+			<input type="text" id="image4" name="image4" value="${pdto.image4 }" hidden="">
 			</div>
 			<div class="select_img5">
-			<img src="${pdto.image5  }" id="img5" name="" onerror="this.src='image/plus.png'"/>
-			<input type="text" id="image5" name="image5" value="" hidden="">
+			<img src="${pdto.image5  }" id="img5" name="image5" onerror="this.src='image/plus.png'"/>
+			<input type="text" id="image5" name="image5" value="${pdto.image5 }" hidden="">
 			</div>
 			<div class="select_img6">
-			<img src="${pdto.image6  }" id="img6" name="" onerror="this.src='image/plus.png'"/>
-			<input type="text" id="image6" name="image6" value="" hidden="">
+			<img src="${pdto.image6  }" id="img6" name="image6" onerror="this.src='image/plus.png'"/>
+			<input type="text" id="image6" name="image6" value="${pdto.image6 }" hidden="">
 			</div>
-			<input type="hidden" name="beforefile1" value="${pdto.image1}">
-			<input type="hidden" name="beforefile2" value="${pdto.image2}">
-			<input type="hidden" name="beforefile3" value="${pdto.image3}">
-			<input type="hidden" name="beforefile4" value="${pdto.image4}">
-			<input type="hidden" name="beforefile5" value="${pdto.image5}">
-			<input type="hidden" name="beforefile6" value="${pdto.image6}">
+			<!--input type="hidden" name="beforefile1" value="${pdto.image1}"-->
 		</div>
 	</div>	
 	<div class="subinput">
 		<label class="subtitle">내용</label><br>
 		<textarea rows="5" cols="20" name="contents" >${pdto.contents }</textarea>
 	</div>
-	<div><input class="button6" type="submit" value="수정 완료"></div>
+	<div>
+		<input class="button6" type="submit" value="수정 완료">
+		<input class="button5" type="button" value="삭제" onclick="location.href='productDelete?code=${pdto.code}'">
+	</div>
 </form>
 </div>
 </body>

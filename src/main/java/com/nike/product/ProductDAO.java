@@ -146,6 +146,12 @@ public class ProductDAO {
 	//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
 	public Product_sizeDTO sizeSelect(String code) {
 		return sqlSession.selectOne(nameSpace+".sizeSelect", code);
+	}
+	
+	//관리자 사이즈 삭제하기 위한 기능
+	public void sizeDelete(String code) {
+		sqlSession.delete(nameSpace+".sizeDelete", code);
+		
 	}	
 	
 }

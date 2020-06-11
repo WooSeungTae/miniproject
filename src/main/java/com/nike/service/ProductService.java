@@ -325,5 +325,12 @@ public class ProductService {
 	}
 
 
+	//관리자 사이즈 삭제하기 위한 기능
+	public void sizeDelete(String code) {
+		Pdao.sizeDelete(code);
+		
+	}
+
+
 
 }
