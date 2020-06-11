@@ -215,6 +215,16 @@
    		
 	</script>
 	<script type="text/javascript">
+		function buttoncheck(){
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+			if(!document.fo.ordersize.value){
+				alert("사이즈를 선택해주세요!!!");
+				return false;
+			}
+			
+		}
+	</script>
+	<script type="text/javascript">
 		window.onload = function(){
 			var noadd = document.getElementById("noadd")
 			console.log(noadd);
@@ -304,7 +314,7 @@
 								</h1>
 							</div>
 							<div class="pinfo-item-box">
-								<form name="fo" method="GET" >
+								<form name="fo" method="GET" onsubmit="return buttoncheck()">
 									<input type="hidden" name="code" value="${pdto.code }">
 									<div class="option-wrap">
 										<div class="size-grid-type padding radius">
@@ -353,7 +363,7 @@
 											<div>
 												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
-														<input class="directorder" type="submit" value="바로구매" formaction="checkoutQuick" >
+														<input class="directorder" type="submit" value="바로구매" formaction="checkoutQuick">
 														<input type="submit" class="shoppingcart" value="장바구니" formaction="cartSave">
 													</div>
 												</div>
