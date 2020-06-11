@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nike.board.Board_PagingVO;
-import com.nike.board.Boardqa_PagingVO;
 import com.nike.board.ReviewDAO;
 import com.nike.board.ReviewDTO;
 import com.nike.order.OrderCare_PagingVO;
