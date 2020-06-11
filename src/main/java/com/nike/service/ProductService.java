@@ -259,6 +259,9 @@ public class ProductService {
 
 	/*상품 등록 기본 정보*/
 	public void product_input(ProductDTO pdto) {
+		if(pdto.getGender().equals("남,여")) {
+	         pdto.setGender("공용");
+	      }
 		Pdao.product_input(pdto);
 	}
 	/*상품 등록 사이즈별 수량*/
@@ -308,6 +311,9 @@ public class ProductService {
 	}
 	//관리자 상품관리 - 수정기능
 	public void product_update(ProductDTO pdto) {
+		if(pdto.getGender().equals("남,여")) {
+	         pdto.setGender("공용");
+	      }
 		Pdao.product_update(pdto);
 		
 	}

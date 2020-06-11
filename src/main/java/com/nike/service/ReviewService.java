@@ -39,4 +39,9 @@ public class ReviewService {
 	public void reviewmodify(ReviewDTO rdto) {
 		rdao.reviewmodify(rdto);
 	}
+	
+	//남이 나의 리뷰를 볼 때
+	public ReviewDTO reviewsearch(int reviewnum) {
+		return rdao.reviewsearch(reviewnum);
+	}
 }

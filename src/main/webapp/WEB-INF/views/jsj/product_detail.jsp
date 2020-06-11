@@ -312,14 +312,26 @@
 											<div class="product-option_radio square">
 												<div class="opt-list">
 													<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
-													<c:forEach var="ordersize" begin="230" end="330" step="10">
-														<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick(this.id)">
-														<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
-														<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
-														<br>
-														</c:if>
-													</c:forEach>
-													
+													<c:choose>
+														<c:when test="${pdto.gender!='키즈' }">
+															<c:forEach var="ordersize" begin="230" end="330" step="10">
+																<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick(this.id)">
+																<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
+																<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
+																<br>
+																</c:if>
+															</c:forEach>
+														</c:when>
+														<c:otherwise>
+															<c:forEach var="ordersize" begin="80" end="160" step="10">
+																<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick(this.id)">
+																<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
+																<c:if test="${ordersize%120 eq 0}">
+																<br>
+																</c:if>
+															</c:forEach>
+														</c:otherwise>
+													</c:choose>
 												</div>
 											</div>
 											</div>

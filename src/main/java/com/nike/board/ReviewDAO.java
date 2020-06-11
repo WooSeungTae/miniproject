@@ -37,4 +37,9 @@ public class ReviewDAO {
 	public void reviewmodify(ReviewDTO rdto) {
 		sqlSession.update(namespace+".reviewmodify", rdto);
 	}
+	
+	//남이 나의 리뷰를 볼 때
+	public ReviewDTO reviewsearch(int reviewnum) {
+		return sqlSession.selectOne(namespace+".reviewsearch", reviewnum);
+	}
 }

@@ -98,7 +98,12 @@ public class HomeController {
 		
 		return "/sminj/main";
 	}
-	
+		//남이 나의 리뷰를 볼 때
+		@RequestMapping("reviewsearch")
+		public String reviewsearch(@RequestParam(value="reviewnum", required=false) int reviewnum, Model model) {
+			model.addAttribute("rdto", reviewservice.reviewsearch(reviewnum));
+			return "/board/review_Search";
+		}
 		//리뷰 등록
 		@RequestMapping("reviewform")
 		public String review(HttpServletRequest request, Model model) {

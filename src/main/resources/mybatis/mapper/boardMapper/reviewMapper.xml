@@ -29,4 +29,9 @@
 	<update id="reviewmodify" parameterType="Rdto">
 		update review set reviewtitle=#{reviewtitle}, reviewcontents=#{reviewcontents}, star_input=#{star_input}, rating=#{rating}, rating2=#{rating2}, rating3=#{rating3}, rating4=#{rating4}, image=#{image} where id=#{id} and reviewnum=#{reviewnum}
 	</update>
+	
+	<!-- 남이 나의 리뷰를 볼 때 -->
+	<select id="reviewsearch" parameterType="Integer">
+		select * from review where reviewnum=#{reviewnum}
+	</select>
 </mapper>
