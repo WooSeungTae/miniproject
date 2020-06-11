@@ -2,26 +2,14 @@ package com.nike.service;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import com.nike.memberInfo.MemberInfoDAO;
-import com.nike.memberInfo.MemberInfoDTO;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
-import com.nike.product.ProductDTO;
-import com.nike.memberInfo.MemberInfoDAO;
-
-import com.nike.memberInfo.MemberInfoDAO;
-import com.nike.memberInfo.MemberInfoDTO;
-
 @Service
 public class MemberService {
 	@Autowired
@@ -38,7 +26,7 @@ public class MemberService {
 			return 1;
 		}
 		
-}
+	}
 	public void searchId(Model model,String idtel) {
 		model.addAttribute("searchId", dao.searchId(idtel));
 	}
@@ -86,6 +74,24 @@ public class MemberService {
 	public MemberInfoDTO account(String id) {
 		return dao.account(id);
 	}
-	
-	
+	/* 마이페이지 회원 기존비밀번호 조회 */
+	public String beforePwd(String id) {
+		return dao.beforePwd(id);
+	}
+	/* 마이페이지 회원 비밀번호 변경 */
+	public void pwdModify(MemberInfoDTO dto) {
+		dao.pwdModify(dto);
+	}
+	/* 마이페이지 회원탈퇴 */
+	public void userDelete(MemberInfoDTO dto) {
+		dao.userDelete(dto);
+	}
+	/* 로그아웃 */
+	public void logout(HttpSession mySession) {
+		mySession.invalidate();
+	}
+	/* 로그인한 회원이름 출력 */
+	public String nameget(String id) {
+		return dao.nameget(id);
+	}
 }

@@ -9,9 +9,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.springframework.ui.Model;
 
+import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDAO;
 import com.nike.product.ProductDTO;
 import com.nike.product.Product_PagingVO;
@@ -258,6 +259,9 @@ public class ProductService {
 
 	/*상품 등록 기본 정보*/
 	public void product_input(ProductDTO pdto) {
+		if(pdto.getGender().equals("남,여")) {
+			pdto.setGender("공용");
+		}
 		Pdao.product_input(pdto);
 	}
 	/*상품 등록 사이즈별 수량*/
@@ -272,14 +276,14 @@ public class ProductService {
 	
 
 	
-	//관리자 상품 목록 수정, 삭제를 위한 조회
-	public ProductDTO productSelect(String code) {
-		return Pdao.productSelect(code);
-	}
 		
-	//관리자 상품 삭제하기 위한 기능
-	public void productDelete(String code) {		
-		Pdao.productDelete(code);	
+	//상품 관리 페이지 상품 갯수를 가져오는 기능
+	public int countProduct() {
+		return Pdao.countProduct();
+	}
+	//상품 관리 페이지 상품을 가져오는 기능
+	public List<ProductDTO> selectProduct(Inventory_PagingVO vo) {
+		return Pdao.selectProduct(vo);
 	}
 	
 	//장바구니에 대표사진 저장하는 기능
@@ -296,6 +300,33 @@ public class ProductService {
 	public int priceget(String code) {
 		return Pdao.priceget(code);
 	}
+
+	//관리자 상품 목록 수정, 삭제를 위한 조회(상품)
+	public ProductDTO productSelect(String code) {
+		return Pdao.productSelect(code);
+	}
+	//관리자 상품 삭제하기 위한 기능
+	public void productDelete(String code) {		
+		Pdao.productDelete(code);	
+	}
+	//관리자 상품관리 - 수정기능
+	public void product_update(ProductDTO pdto) {
+		Pdao.product_update(pdto);
+		
+	}
+
+	//관리자 상품관리 - 수정기능2
+	public void size_update(Product_sizeDTO sizedto) {
+		Pdao.size_update(sizedto);
+		
+	}
+
+
+	//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
+	public Product_sizeDTO sizeSelect(String code) {
+		return Pdao.sizeSelect(code);
+	}
+
 
 
 }

@@ -308,14 +308,8 @@
 														<div class="product-price">
 															<p class="product-display-price">
 																<script type="text/javascript">
-																	var price = $
-																	{
-																		AllListMen.price
-																	};
-																	document
-																			.write(price
-																					.toLocaleString()
-																					+ ' 원');
+																	var price = ${AllListMen.price};
+																	document.write(price.toLocaleString()+ ' 원');
 																</script>
 															</p>
 														</div>

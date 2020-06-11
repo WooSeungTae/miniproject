@@ -8,9 +8,6 @@ public class Board_PagingVO {
 	private String codename;
 	private String code;
 
-
-
-
 	public Board_PagingVO() {}
 		
 	public Board_PagingVO(int total, int nowPage) {
@@ -163,6 +160,5 @@ public class Board_PagingVO {
 	public void setEnd(int end) {
 		this.end = end;
 	}
-
 
 }

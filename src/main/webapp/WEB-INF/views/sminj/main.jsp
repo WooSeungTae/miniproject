@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,92 +8,108 @@
 <title>나이키. Just Do It. Nike.com</title>
 <style>
 
-/*전체 가운데 정렬*/
-	#wrapper{
-	max-width: 1920px;
-	max-height:1600px;
-	margin: auto;
-	margin-bottom: 450px;
-	}
-	
 /*첫 메인 사진*/
-	.img1{
-	background-image:url(''); 
-	background-color: pink;
-	width:95%;
-	height:700px;
-	margin: auto;
+	.img_main{
+	background:url('image/NikeMain.png');
+	background-size: cover;
+	width: 94%;
+	height: 700px;
+	margin-top: -7px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 80px;
 	}
 	
 /*사진 가로정렬 3개*/
-	.img1-1{
-	background-image:url(''); 
-	background-color: skyblue;
-	width:32%;
-	height:500px;
-	float: left;
+	.parent{
+	    width: 94%;
+	    display: flex;
+	    margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 80px;
 	}
-	.img1-2{
-	background-image:url(''); 
-	background-color: skyblue;
-	width:32%;
-	height:500px;
-	float: left;
-	margin-left: 15px;
+	
+	.first {
+	    flex:1;
+	    box-sizing: border-box;
 	}
-	.img1-3{
-	background-image:url(''); 
-	background-color: skyblue;
-	width:32%;
-	height:500px;
-	float: left;
-	margin-left: 15px;
+	.first img{
+		width:458px;
+		height: 580px;
+	}
+	
+	.second{
+	    flex:1;
+	    margin: 0px 10px;
+	    box-sizing: border-box;
+	}
+	.second img{
+		width:458px;
+		height: 580px;
+	}
+	
+	.third{
+	    flex:1;
+	    box-sizing: border-box;
+	}
+	.third img{
+		width:458px;
+		height: 580px;
+	}
+	
+	.parent a{
+	color:black;
+	text-decoration: none;
+	}
+	.first .second .third a{
+	color:black;
+	text-decoration: none;
+	}
+	.font_h4{
+	font-size: 17.5px;
 	}
 	
 /*사진 가로정렬 3개-2*/
-	.img2-1{
-	background-image:url(''); 
-	background-color: orange;
-	width:33%;
-	height:500px;
-	float: left;
+	.comboImg{
+		width:94%;
+		margin-left: auto;
+		margin-right: auto;
 	}
-	.img2-2{
-	background-image:url(''); 
-	background-color: gray;
-	width:33%;
-	height:500px;
-	float: left;
-	}
-	.img2-3{
-	background-image:url(''); 
-	background-color: orange;
-	width:33%;
-	height:500px;
-	float: left;
-	}
-
 </style>
 </head>
 <body>
-<%@include file="header.jsp" %>
-
-<div id="wrapper">
-		<div class="img1"></div>
-	<br><br><br>
-	<div style="height:500px; margin: auto;">
-		<div class="img1-1"></div>
-		<div class="img1-2"></div>
-		<div class="img1-3"></div>
+<c:import url="/header"></c:import>
+	<div style="width: 100%; margin: auto; padding-bottom: 100px; margin-top: 132px;">
+		<div class="img_main"></div>
+		<div class="parent">
+			<div class="first">
+				<a href="/nike/Women"> <img src="image/zebraGirl.png"
+					alt="zebraGirl">
+				</a> <a href="/nike/Women">
+					<h4 class="font_h4">여성 컬렉션 보러가기</h4>
+				</a>
+			</div>
+			<div class="second">
+				<a href="/nike/Men"> <img src="image/TheQuiett.png"
+					alt="TheQuiett">
+				</a> <a href="/nike/Men" class="secondImg">
+					<h4 class="font_h4">남성 컬렉션 보러가기</h4>
+				</a>
+			</div>
+			<div class="third">
+				<a href="/nike/Kids"> <img src="image/babyGirl.png"
+					alt="babyGirl">
+				</a> <a href="/nike/Kids" class="secondImg">
+					<h4 class="font_h4">키즈 컬렉션 보러가기</h4>
+				</a>
+			</div>
+		</div>
+		<div class="comboImg">
+			<a href="#">
+				<img src="image/comboImg.png">
+			</a>
+		</div>
 	</div>
-	<br><br><br>
-	<div style="height:500px; margin: auto;">
-		<div class="img2-1"></div>
-		<div class="img2-2"></div>
-		<div class="img2-3"></div>
-	</div>
-</div>
-	
-<%@include file="footer.jsp" %>
+<c:import url="/footer"></c:import>
 </body>
 </html>

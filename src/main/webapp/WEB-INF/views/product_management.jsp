@@ -8,8 +8,56 @@
 <title>상품등록</title>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+	<!-- 등록에서 안누르고 넘겼을때 처리 -->
+	function checkcode(){
+		if(!document.product.code.value){
+			document.product.code.focus();
+			alert("상품 번호를 입력하세요.");	
+			return false;
+		}
+		if(!document.product.codename.value){
+			document.product.codename.focus();
+			alert("제목를 입력하세요.");	
+			return false;
+		}
+		if(!document.product.codecolor.value){
+			document.product.codecolor.focus();
+			alert("색상을 입력하세요.");	
+			return false;
+		}
+		if(!document.product.price.value){
+			document.product.price.focus();
+			alert("가격을 입력하세요.");	
+			return false;
+		}
+		if(!document.product.image1.value){
+			alert("첫번째 이미지를 넣어주세요.");	
+			return false;
+		}
+		if(!document.product.contents.value){
+			document.product.contents.focus();
+			alert("내용을 입력하세요.");	
+			return false;
+		}
+	}
+	
 	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
 	function genderbuttonclick(clicked_id){
+		if(document.getElementById('men').classList == 'button6' && clicked_id == "kids"){
+			document.getElementById('men').classList.add('button5');
+			document.getElementById('men').classList.remove('button6');
+			document.getElementById(1).checked = false;
+		}
+		if(document.getElementById('women').classList == 'button6' && clicked_id == "kids"){
+			document.getElementById('women').classList.add('button5');
+			document.getElementById('women').classList.remove('button6');
+			document.getElementById(2).checked = false;
+		}
+		if(document.getElementById('kids').classList == 'button6' && (clicked_id == "men" || clicked_id == "women")){
+			document.getElementById('kids').classList.add('button5');
+			document.getElementById('kids').classList.remove('button6');
+			document.getElementById(3).checked = false;
+		}
 		var gender = 1;
 		if(clicked_id == "men"){
 			gender=1;
@@ -29,17 +77,18 @@
 			document.getElementById(clicked_id).classList.remove('button6');
 			document.getElementById(gender).checked = false;
 		}
+
 	}
 	<!-- 버튼을 누를경우  해당 버튼 색이 변하는 기능 -->
+	
 	function sizebuttonclick(clicked_id){
 		var gender = clicked_id+1;
-		console.log(gender);
 		if(document.getElementById(clicked_id).classList == 'button5'){
 			document.getElementById(clicked_id).classList.add('button6');
 			document.getElementById(clicked_id).classList.remove('button5');
 			document.getElementById(gender).checked = true;
 			size.innerHTML += "<label class='subtitle' id='"+clicked_id+2+"'>"+clicked_id+" 사이즈 수량</label>"
-			size.innerHTML += "<input id='"+clicked_id+3+"' name='size"+clicked_id+"' type='text'><br id='"+clicked_id+4+"'>"
+			size.innerHTML += "<input onKeyPress='return numkeyCheck(event)' id='"+clicked_id+3+"' name='size"+clicked_id+"' type='text'><br id='"+clicked_id+4+"'>"
 		}
 		else{
 			document.getElementById(clicked_id).classList.add('button5');
@@ -50,7 +99,9 @@
 			document.getElementById('size').removeChild(document.getElementById(clicked_id+4));
 		}
 	}
+
 	<!-- 이미지 삽입시 삽입한 이미지로 바뀜 -->
+	
 	$(document).ready(function(){
 		$("#productImg1").change(function(){
 			   if(this.files && this.files[0]) {
@@ -178,26 +229,32 @@
 	}
 	/*이미지 div 크기*/
 	.select_img1{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img2{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img3{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img4{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img5{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
 	.select_img6{
+		margin : 10px;
 		width: 300px;
 		height: 300px;
 	}
@@ -280,7 +337,7 @@
 	  opacity: 0.3;
 	}
 	/*맨 위에 있는 제목*/
-	.maintitle {font-family: monospace; font-size: 30px; }
+	.maintitle {font-family: monospace; font-size: 30px; font-weight: bold;}
 	/*안에 있는 제목*/
 	.subtitle {font-size: 20px; margin: 20px;}
 	/*input 크기*/
@@ -306,16 +363,16 @@
  	}
 	/*안에 있는 div부분*/
 	.bodyinside {background: white; padding: 10px; margin-top:20px; 
-				height: 50%; border: 2px solid #BECDFF;}
+				height: 50%; border: 2px solid #d2d2d2;}
 	/*body전체 부분(배경)*/
-	.bodyback {background: #DCEBFF; padding: 20px;}
+	.bodyback {padding: 20px;}
 </style>
 </head>
 <body style="margin: 0px;">
-
+<%@include file="product_header.jsp" %>
 <div class="bodyback">
-<label class="maintitle">상품 등록</label><hr>
-<form action="product_input" enctype="multipart/form-data" method="post" onsubmit="return checkcode()">
+<label class="maintitle">상품 등록</label>
+<form action="product_input" enctype="multipart/form-data" method="post" name="product" onsubmit="return checkcode()">
 	<div class="bodyinside">
 	<div class="subinput">
 		<label class="subtitle">상품 번호</label>
@@ -331,7 +388,7 @@
 	</div>
 	<div class="subinput">
 		<label class="subtitle">금액</label>
-		<input type="text" name="price">
+		<input type="text" name="price" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
 	</div>
 	<div class="subinput">
 		<label class="subtitle">분류</label>
@@ -344,11 +401,11 @@
 	<div class="subinput">
 		<label class="subtitle">성별</label>
 		<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
-		<input type="checkbox" id="1" name="gender" value="men" hidden="">
+		<input type="checkbox" id="1" name="gender" value="남" hidden="">
 		<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
-		<input type="checkbox" id="2" name="gender" value="women" hidden="">
+		<input type="checkbox" id="2" name="gender" value="여" hidden="">
 		<input type="button" class="button5" value="KIDS" id="kids" onclick="genderbuttonclick(this.id)">
-		<input type="checkbox" id="3" name="gender" value="kids" hidden="">
+		<input type="checkbox" id="3" name="gender" value="키즈" hidden="">
 	</div>
 	</div>
 	<div class="subinput">
@@ -380,7 +437,7 @@
 		<input type="file" id="productImg6" name="file6" hidden="">
 		<div class="rowimg">
 			<div class="select_img1">
-			<img src="image/plus.png" id="img1" name="" />	
+			<img src="image/plus.png" id="img1" name="" src="">	
 			<input type="text" id="image1" name="image1" value="" hidden="">
 			</div>
 			<div class="select_img2">

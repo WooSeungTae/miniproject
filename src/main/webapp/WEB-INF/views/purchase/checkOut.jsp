@@ -235,6 +235,7 @@
 		document.getElementById(imgId).src = changeName;
 		console.log(changeName);
 	}
+	
 </script>
 
 
@@ -440,12 +441,12 @@
 									</script>
 					</div>
 					<br> <a href="cart">장바구니로 이동</a><br>
+					
 
 				</section>
 			</div>
 		</div>
 		<!--  히든 내용 -->
-		
 		<c:choose>
 			<c:when test="${sessionScope.id!=null }">		
 		<input type="hidden" name = "id" value="${sessionScope.id }">

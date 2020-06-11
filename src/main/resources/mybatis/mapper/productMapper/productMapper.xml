@@ -3,12 +3,65 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.productMapper.productMapper">
+
+	<!-- 관리자 상품관리 - 수정기능 -->
+	<update id="product_update" parameterType="Pdto">
+		update product set codename=#{codename}, codecolor=#{codecolor}, price=#{price},
+		category=#{category}, gender=#{gender}, contents=#{contents},
+		image1=#{image1}, image2=#{image2}, image3=#{image3}, image4=#{image4}, image5=#{image5}, image6=#{image6}
+		where code=#{code}
+	</update>
+	
+	<!-- 관리자 상품관리 - 수정기능 -->
+	<update id="size_update" parameterType="Pdto_size">
+		update sizetable 
+		set size80=#{size80}, size90=#{size90}, size100=#{size100}, size110=#{size110},
+		size120=#{size120}, size130=#{size130}, size140=#{size140}, size150=#{size150}, size160=#{size160},
+		size220=#{size220}, size230=#{size230}, size240=#{size240}, size250=#{size250}, 
+		size260=#{size260}, size270=#{size270}, size280=#{size280}, size290=#{size290},
+		size300=#{size300}, size310=#{size310}, size320=#{size320}, size330=#{size330}
+		where code=#{code} 
+	</update>
+	
+	
+	<!-- 관리자 상품 목록 수정, 삭제를 위한 조회(상품) -->
+	<select id="productSelect" parameterType="String" resultType="Pdto">
+		select * from product where code=#{code}
+	</select>
+	
+	<select id="sizeSelect" parameterType="String" resultType="Pdto_size">
+		select * from sizetable where code=#{code}
+	</select>
+	<!-- 상품 삭제 -->
+	<delete id="productDelete">
+		delete from product where code=#{code}
+	</delete>
+
+	<!-- 멤버 목록 수 -->
+	<select id="countproduct" resultType="int">
+		SELECT COUNT(*) FROM product
+	</select>
+	
+	<!-- 페이징 처리 후 게시글 조회 -->
+	<select id="selectproduct" resultType="Pdto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM product 
+							ORDER BY joindate DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
 	<!-- 세부상품 페이지 조회  -->
 	<select id="productdetail" resultType="Pdto" parameterType="String">
 		select * from product where code=#{code}
 	</select>
 	<!-- 신발 전체 검색 -->
-	<select id="AllList" resultType="Pdto">
+	<select id="AllList" resultType="Pdto" >
 		select * from product
 	</select>
 	
