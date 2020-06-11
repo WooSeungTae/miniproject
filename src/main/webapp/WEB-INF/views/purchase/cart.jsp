@@ -191,7 +191,7 @@
 															<img id ="${cartitem.image1 }" src="${cartitem.image1 }" alt="나이키 데이브레이크-타입" onerror="this.onerror=null; chageSrc(this)">
 														</span>
 														<div class="info-wrap">
-															<div class="tit">${cartitem.codename }</div>
+															<a href="productdetail?code=${code }"><div class="tit">${cartitem.codename }</div></a>
 															<div class="style-code">${cartitem.code }</div>
 															<div class="current-option-wrap">
 																<span class="opt">사이즈 : ${cartitem.ordersize }</span>
