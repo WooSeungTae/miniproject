@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nike.order.OrderCare_PagingVO;
+
 @Repository
 public class ReviewDAO {
 	
@@ -37,6 +39,7 @@ public class ReviewDAO {
 	public void reviewmodify(ReviewDTO rdto) {
 		sqlSession.update(namespace+".reviewmodify", rdto);
 	}
+<<<<<<< HEAD
 	
 	/*코드별 리뷰 리스트 총 개수*/
 	public int rvtotal(String code) {
@@ -46,5 +49,14 @@ public class ReviewDAO {
 	/*코드별 리뷰 리스트 조회*/
 	public List<ReviewDTO> rvlist(Board_PagingVO vo) {
 		return sqlSession.selectList(namespace+".rvlist",vo);
+=======
+
+	public int countreview() {
+		return sqlSession.selectOne(namespace+".countreview");
+	}
+
+	public List<ReviewDTO> selectreview(OrderCare_PagingVO vo) {
+		return sqlSession.selectList(namespace+".selectreview",vo);
+>>>>>>> minhoeyk
 	}
 }
