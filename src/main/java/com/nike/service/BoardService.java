@@ -2,6 +2,9 @@ package com.nike.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -17,6 +20,26 @@ import com.nike.order.OrderCare_PagingVO;
 public class BoardService {
 	@Autowired
 	private QABoardDAO qdao;
+	
+	/*Q&A 게시물 수정*/
+	public void qaupdate(QABoardDTO Qdto) {
+		qdao.qaupdate(Qdto);
+	}
+	
+	/*Q&A 게시물 삭제*/
+	public void qadelete(QABoardDTO Qdto) {
+		qdao.qadelete(Qdto);
+	}
+	
+	/*Q&A 게시물 등록*/
+	public void qaregister(QABoardDTO Qdto) {
+		qdao.qaregister(Qdto);
+	}
+	/*Q&A 게시물 상세보기*/
+	public void qnaview(Model model, String indexnum) {
+		model.addAttribute("qnaview", qdao.qnaview(indexnum));
+	}
+	
 	
 	/*코드별 Q&A 게시물 리턴*/
 	public List<QABoardDTO> qalist(Board_PagingVO vo) {

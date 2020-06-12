@@ -15,8 +15,16 @@ public class QABoardDTO {
 	private Date modifyDate;
 	private String passwd;
 	private int hit;
-
+	private int rn;
 	
+	
+
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
 	public int getIndexnum() {
 		return indexnum;
 	}

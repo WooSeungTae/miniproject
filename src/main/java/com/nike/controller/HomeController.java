@@ -797,15 +797,40 @@ public class HomeController {
 		model.addAttribute("list", list);
 		return "myPage/myPageOrderDelivery";
 	}
-	/*Q & A 게시판 작성*/
+	/*Q&A 게시물 등록*/
+	@RequestMapping("qaregister")
+	public String qaregister(QABoardDTO Qdto) {
+		bservice.qaregister(Qdto);
+		System.out.println("등록 실행");
+		return "myPage/myPage";
+	}
+	/*Q&A 게시물 수정*/
+	@RequestMapping("qaupdate")
+	public String qaupdate(QABoardDTO Qdto) {
+		bservice.qaupdate(Qdto);
+		return "myPage/myPage";
+	}
+	
+	/*Q&A 게시물 삭제*/
+	@RequestMapping("qadelete")
+	public String qadelete(QABoardDTO Qdto) {
+		bservice.qadelete(Qdto);
+		return "myPage/myPage";
+	}
+	
+	/*Q & A 게시판 작성화면 */
 	@RequestMapping("qnawrite")
 	public String qnaviewPage() {
 		
-		return "board/QnA_write";
+		return "myPage/myPage";
 	}
 	/*상세 페이지에서 Q & A 게시판 보기*/
 	@RequestMapping("qnaview")
-	public String qnaview() {
+	public String qnaview(Model model,HttpServletRequest request) {
+		String code = request.getParameter("code");
+		String indexnum = request.getParameter("indexnum");
+		bservice.qnaview(model,indexnum);
+		Pservice.codeSearch(model, code);	
 		return "board/QnA_view";
 	}
 	/*상세 페이지에서 리뷰 게시판 보기*/
@@ -885,5 +910,16 @@ public class HomeController {
 		String strJson = mapper.writeValueAsString(list);
 		return strJson;
 	}
+	/*reply댓글 보기*/
+	@RequestMapping("reply")
+	public String reply() {
+		return "board/reply";
+	}
 	
+	/*로그인 체크 LogChecking*/
+	@RequestMapping("LogChecking")
+	public String LogChecking() {
+		return "LogChecking";
+	}
+
 }

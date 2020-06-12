@@ -205,19 +205,19 @@
 				let html = "<table class='bordertable'>";
 				html += "<tr id='boardtitle'><th>번호</th><th colspan='2'>제목</th><th>작성자</th>"
 				+"<th>작성일</th><th style='display: none;'>코드번호</th></tr>"		
-			 	if(result.length == null){                
-		       		html+="<tr><td colspan='5' style='padding:30px;'>데이터가 없습니다.</td></tr>"
+			 	if(result.length == 0){                
+		       		html+="<tr><th colspan='5' style='padding:30px;'>데이터가 없습니다.</th></tr>"
 		       	}else{
-		       		html+="<tr class='contentqa'>"
 		       		for(var i=0;i<result.length;i++){
-		       		html+="<tr id='rvtablebody'><th style='width: 10%;'>"+result[i].reviewnum+"</th>"+
+		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th style='width: 10%;'><img id='imgreview' src='/nike/"+result[i].image+"'></th>"+
 						"<th id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' onclick='test(this)'>"+result[i].reviewtitle+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
-						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].reviewnum+result[i].reviewtitle+"qnanike'  colspan='5' style='display:none;'>"
+						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].reviewnum+result[i].reviewtitle+"qnanike'  colspan='5' style='display:none;'></tr>"
 		       		}
+		       	}
 				html+="</table>"
 				html+="<div style='display:block; text-align:center;'>"
 				calcstartendPage(page);
@@ -232,7 +232,6 @@
 					}
 				html+="</div>"
 				$("#rvtablediv").html(html);
-				}
 			},
 		error : function() {
 			alert("문제가 발생 했습니다!!");
@@ -255,7 +254,7 @@
 	var pageqa = 1;
 	var cntPerPageqa = 3;//Q & A 행수 지정
 	var totalqa = ${totalqa}; // Q & A 토탈페이지
-	var endpageqa = Math.ceil(totalqa / cntPerPage); //Q & A  페이지 갯수
+	var endpageqa = Math.ceil(totalqa / cntPerPage); //Q & A  페이지 갯수 
 	var cntPageqa = 5; //페이지 보이는 수
 	var startPageqa=0; //제일 앞에 보이는 페이지수
 	var lastPageqa=0; //마지막에 보이는 페이지수
@@ -276,18 +275,19 @@
 				html += "<tr id='boardtitle'><th>번호</th><th>제목</th><th>작성자</th>"
 				+"<th>작성일</th><th style='display: none;'>코드번호</th></tr>"	
 				console.log(result.length);
-			 	if(result.length == null){                
-		       		html+="<tr><td colspan='4' style='padding:30px;'>데이터가 없습니다.</td></tr>"
+			 	if(result.length == 0){     
+			 		console.log("0 진입");
+		       		html +="<tr><th colspan='4' style='padding:30px;'>데이터가 없습니다.</th></tr>"
 		       	}else{
-		       		html+="<tr class='contentqa'>"
 		       		for(var i=0;i<result.length;i++){
-		       		html+="<tr id='rvtablebody'><th style='width: 10%;'>"+result[i].indexnum+"</th>"+
+		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th id='"+result[i].indexnum+result[i].title+"' style='width: 60%;' onclick='test(this)'>"+result[i].title+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
-						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].indexnum+result[i].title+"qnanike'  colspan='5' style='display:none;'>"
+						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].indexnum+result[i].title+"qnanike'  colspan='5' style='display:none;'></tr>"
 		       		}
+		       	}
 				html+="</table>"
 				html+="<div style='display:block; text-align:center;'>"
 				calcstartqaendqaPageqa(pageqa);
@@ -302,7 +302,6 @@
 					}
 				html+="</div>"
 				$("#QAtablediv").html(html);
-				}
 			},
 		error : function() {
 			alert("문제가 발생 했습니다!!");
@@ -407,9 +406,6 @@
 		</c:import>
 	</header>
 	<section class="wrapper">
-	<br><br><br>
-	<button type="button" onclick="RVPaging(2)">클릭</button>
-
 		<section class="content-area" style="height: 80%;">
 			<section>
 				<article>
@@ -665,10 +661,11 @@
 			</section>
 		</section>
 	</section>
-	<div class="reviewTitle" style="margin-top: 700px;">
+	<div class="reviewTitle" style="margin-top: 100px;">
 		<h2 align="center">REVIEW</h2>
 		<br>
 		<div id="rvtablediv"></div>
+		
 	</div>
 	<br>
 	<br>
