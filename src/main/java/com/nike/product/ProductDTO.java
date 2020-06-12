@@ -20,10 +20,19 @@ public class ProductDTO {
 	private String image6 = " ";
 	private String contents = " "; 
 	private String price = "0";
+	private String colorcnt;
 	private Date joindate;
 	
 	
 	
+
+
+	public String getColorcnt() {
+		return colorcnt;
+	}
+	public void setColorcnt(String colorcnt) {
+		this.colorcnt = colorcnt;
+	}
 	public Date getJoindate() {
 		return joindate;
 	}

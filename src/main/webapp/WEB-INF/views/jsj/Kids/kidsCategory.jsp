@@ -204,6 +204,29 @@
 		var changeName = firstName + lastName;
 		document.getElementById(imgId).src = changeName;
 	}
+	
+	/*사진공간 들어갔을떄*/
+	function over(list){
+		var colorsu = list+1;
+		var colorpic = list+2;
+		document.getElementById(colorsu).style.display="none";
+		document.getElementById(colorpic).style.display="";
+		
+	}
+	/*사진공간으로 나왔을때 */
+	function overout(list){
+		var colorsu = list+1;
+		var colorpic = list+2;
+		document.getElementById(colorsu).style.display="";
+		document.getElementById(colorpic).style.display="none";
+	}
+	
+	/*작은사진   mouseover*/
+	function imgchange(obj){
+		var changeimg = obj.src
+		var imgc = obj.className;
+		document.getElementById(imgc).src = changeimg;
+	}
 </script>
 
 <meta charset="UTF-8">
@@ -266,7 +289,7 @@
 								<div class="item-list-wrap">
 									<c:forEach var="AllListKids" items="${AllListKidsCategory }">
 										<div class="ncss-col">
-											<div class="a-product">
+											<div class="a-product" id = "${AllListKids.code}" onmouseover='over(this.id)' onmouseout="overout(this.id)">
 												<div class="a-product-image">
 													<a href="productdetail?code=${AllListKids.code}">
 														<div class="a-product-image-wrapper">
@@ -294,12 +317,21 @@
 																</span>
 															</div>
 															<div id="item-color-opt" class="product-colorways-number">
-																<span class="text-color-secondary">
-																<c:forEach var ="num" items="${codeNameList }">
-																	<c:if test="${num.key==AllListKids.codename}">
-																		${num.value } 컬러
-																	</c:if>													
-																</c:forEach>
+																<span id = "${AllListKids.code}1" class="text-color-secondary">
+																<c:forEach var ="color" items="${selectcolor }">
+																	<c:if test="${color.codename==AllListKids.codename }">
+																	${color.colorcnt } 종류
+																	</c:if>
+																</c:forEach></span>
+																<span id="${AllListKids.code}2" class="imgcolorpic" style="display:none ;">
+																	<c:forEach var ="imgcolor" items="${AllListKidsCategory }">
+																		<c:if test="${imgcolor.codename==AllListKids.codename }">
+																		<img class="${AllListKids.code }" id="${imgcolor.image1 }"
+																	style="width: 50px; margin: auto;"
+																	src="/nike/${imgcolor.image1 }"
+																	onerror="this.onerror=null; chageSrc(this)" onmouseover='imgchange(this)'>
+																		</c:if>
+																	</c:forEach>
 																</span>
 															</div>
 														</div>
