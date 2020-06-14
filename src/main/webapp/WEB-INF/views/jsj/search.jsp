@@ -208,25 +208,30 @@ document.getElementById(imgId).src = changeName;
 
 /*사진공간 들어갔을떄*/
 function over(list){
-	var colorsu = list+1;
-	var colorpic = list+2;
+	var colorsu1 = list;
+	var colorsu = colorsu1.substring(0,colorsu1.length-2)+1+'kn';
+	var colorpic = colorsu1.substring(0,colorsu1.length-2)+2+'kn';
 	document.getElementById(colorsu).style.display="none";
 	document.getElementById(colorpic).style.display="";
 	
 }
 /*사진공간으로 나왔을때 */
 function overout(list){
-	var colorsu = list+1;
-	var colorpic = list+2;
+	var colorsu1 = list;
+	var colorsu = colorsu1.substring(0,colorsu1.length-2)+1+'kn';
+	var colorpic = colorsu1.substring(0,colorsu1.length-2)+2+'kn';
 	document.getElementById(colorsu).style.display="";
 	document.getElementById(colorpic).style.display="none";
 }
+
 /*작은사진   mouseover*/
 function imgchange(obj){
-	var changeimg = obj.src
+	var changeimg1 = obj.src
+	var changeimg= changeimg1.substring(changeimg1.indexOf("/nike"));
 	var imgc = obj.className;
 	document.getElementById(imgc).src = changeimg;
 }
+
 </script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -325,7 +330,7 @@ function imgchange(obj){
 								<div class="item-list-wrap">
 									<c:forEach var="search" items="${searchCode }">
 										<div class="ncss-col">
-											<div class="a-product" id = "${search.code}" onmouseover='over(this.id)' onmouseout="overout(this.id)">
+											<div class="a-product" id = "${search.code}nk" onmouseover='over(this.id)' onmouseout="overout(this.id)">
 												<div class="a-product-image">
 													<a href="/nike/productdetail?code=${search.code}">
 														<div class="a-product-image-wrapper">
@@ -353,14 +358,14 @@ function imgchange(obj){
 																</span>
 															</div>
 															<div id="item-color-opt" class="product-colorways-number">
-																<span id = "${search.code}1" class="text-color-secondary">
+																<span id = "${search.code}1kn" class="text-color-secondary">
 																<c:forEach var ="color" items="${selectcolor }">
 																	<c:if test="${color.codename==search.codename }">
 																	${color.colorcnt } 종류
 																	</c:if>
 																</c:forEach>
 																</span>
-																<span id="${search.code}2" class="imgcolorpic" style="display:none ;">
+																<span id="${search.code}2kn" class="imgcolorpic" style="display:none ;">
 																	<c:forEach var ="imgcolor" items="${searchCode }">
 																		<c:if test="${imgcolor.codename==search.codename }">
 																		<img class="${search.code }" id="${imgcolor.image1 }"

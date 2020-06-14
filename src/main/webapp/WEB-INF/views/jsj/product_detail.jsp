@@ -206,7 +206,7 @@
 				html += "<tr id='boardtitle'><th>번호</th><th colspan='2'>제목</th><th>작성자</th>"
 				+"<th>작성일</th><th style='display: none;'>코드번호</th></tr>"		
 			 	if(result.length == 0){                
-		       		html+="<tr><th colspan='5' style='padding:30px;'>데이터가 없습니다.</th></tr>"
+		       		html+="<tr><th colspan='5' style='padding:30px;'>리뷰가 없습니다.</th></tr>"
 		       	}else{
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
@@ -277,7 +277,7 @@
 				console.log(result.length);
 			 	if(result.length == 0){     
 			 		console.log("0 진입");
-		       		html +="<tr><th colspan='4' style='padding:30px;'>데이터가 없습니다.</th></tr>"
+		       		html +="<tr><th colspan='4' style='padding:30px;'>작성하신 Q&A가 없습니다.</th></tr>"
 		       	}else{
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
