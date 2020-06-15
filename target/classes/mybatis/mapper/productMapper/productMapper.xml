@@ -56,6 +56,11 @@
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
+	<!-- 신발 전체 컬러 수량 조회 -->
+	<select id="selectcolor" resultType="Pdto">
+	select codename,count(*) colorcnt from PRODUCT group by codename
+	</select>
+	
 	<!-- 세부상품 페이지 조회  -->
 	<select id="productdetail" resultType="Pdto" parameterType="String">
 		select * from product where code=#{code}
@@ -184,6 +189,26 @@
 	<select id="priceget" resultType="String" parameterType="String">
 		select price from product where code=#{code}
 	</select>
-
+	
+	
+	<!-- 검색기능 상품 관리 총갯수 -->
+  	<select id="countsearchproduct" resultType="int">
+  		select count(*) from product where ${search_key} like '%'||#{search}||'%'
+  	</select>
+	
+	<!-- 상품관리 검색기능 -->
+  	<select id="productserch" resultType="Pdto">
+  		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM product 
+							where ${search_key} like '%'||#{search}||'%' ORDER BY joindate DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
 </mapper>
 

@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nike.board.SearchBoardDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 
 @Repository
@@ -24,7 +25,6 @@ public class ProductDAO {
 		
 	/*남자 전체신발 조회*/
 	public List<ProductDTO> allListMen(Product_PagingVO vo) {
-		System.out.println(vo.getNowPage());
 		return sqlSession.selectList(nameSpace+".AllListMen",vo);
 	}
 	/*여자 전체신발 조회*/
@@ -69,6 +69,12 @@ public class ProductDAO {
 	
 	
 	/* ======== 갯수  ========== */
+	/*신발 컬러 갯수*/
+	public List<ProductDTO> selectcolor() {
+		return sqlSession.selectList(nameSpace+".selectcolor");
+	}
+	
+	
 	/*gender별 신발 전체 개수*/
 	public int genderTotal(String gender) {
 		return sqlSession.selectOne(nameSpace+".countProduct",gender);
@@ -146,6 +152,15 @@ public class ProductDAO {
 	//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
 	public Product_sizeDTO sizeSelect(String code) {
 		return sqlSession.selectOne(nameSpace+".sizeSelect", code);
+	}
+
+	/*관리자 상품 관리 검색 갯수*/
+	public int searchShose(SearchBoardDTO searchdto) {
+		return sqlSession.selectOne(nameSpace+".countsearchproduct",searchdto);
+	}
+	/*관리자 상품 관리 검색*/
+	public List<ProductDTO> productserch(InventoryCare_PagingVO vo) {
+		return sqlSession.selectList(nameSpace+".productserch",vo);
 	}	
 	
 }

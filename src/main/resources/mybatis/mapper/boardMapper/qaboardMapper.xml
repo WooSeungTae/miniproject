@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.care.mybatis.boardMapper.qaboardMapper">
-  	<!-- qa전체 리스트 보기 -->
-  	<select id="qalist" resultType="Qdto">
-  		SELECT *
+
+<mapper namespace="com.care.mybatis.boardMapper.qaboardMapper">
+	<!-- qa 코드별 전체 리스트 보기 -->
+	<select id="qalist" resultType="Qdto">
+		SELECT *
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM QABOARD where code=#{code} ORDER BY writeDate
+		FROM QABOARD where
+		code=#{code} ORDER BY writeDate
 		)A)
-		WHERE RN BETWEEN #{startqa} AND #{endqa}
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 코드별 Q &A 게시물 총갯수 -->
+	<select id="countqna" resultType="int">
+		select count(*) from QABOARD
+	</select>
+
+	<!-- 페이징 처리 후 Q & A 조회 -->
+	<select id="selectqna" resultType="Qdto">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT *
+		FROM qaboard
+		ORDER BY indexnum DESC
+		) A
+		)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 코드별 Q &A 게시물 총갯수 -->
+	<select id="qatotal" resultType="int">
+		select count(*) from QABOARD where code=#{code}
+	</select>
+
+	<!-- Q&A 게시물 등록 -->
+	<insert id="qaregister">
+		insert into qaboard (indexnum,id,code,codename,name,titlelist,title,content)
+		values
+		(indexnumber.nextval,#{id},#{code},#{codename},#{name},#{titlelist},#{title},#{content})
+
+	</insert>
+	<!-- Q&A게시물 상세 보기 -->
+	<select id="qnaview" resultType="Qdto">
+		select * from QABOARD where indexnum=#{indexnum}
+	</select>
+	<!-- Q&A게시물 수정 -->
+	<update id="qaupdate">
+		update QABOARD set titlelist=#{titlelist},title=#{title},content=#{content}
+		where indexnum=#{indexnum}
+	</update>
+	<!-- Q&A게시물 삭제 -->
+	<delete id="qadelete">
+		delete QABOARD where indexnum=#{indexnum}
+	</delete>
+  	
+  	<!--Q&A 관리자 페이지 삭제-->
+  	<delete id="QnA_board_care_delete" parameterType="String">
+		delete from qaboard where indexnum=#{indexnum}
+	</delete>
+	
+	<!-- 검색기능 Q&A 게시물 총갯수 -->
+  	<select id="searchQnAcount" resultType="int">
+  		select count(*) from QABOARD where ${search_key} like '%'||#{search}||'%'
   	</select>
-  	<!-- 코드별 Q &A 게시물 총갯수 -->
-  	<select id="qatotal" resultType="int">
-  		select count(*) from QABOARD where code=#{code}
+	
+	<!-- Q&A 검색기능 -->
+  	<select id="searchQnA" resultType="Qdto">
+  		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM qaboard 
+							where ${search_key} like '%'||#{search}||'%' ORDER BY indexnum DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
   	</select>
-  
-  
   </mapper>
+
