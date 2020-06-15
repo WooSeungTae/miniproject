@@ -1,19 +1,12 @@
 package com.nike.service;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
 import com.nike.board.Board_PagingVO;
 import com.nike.board.QABoardDAO;
 import com.nike.board.QABoardDTO;
-import com.nike.board.ReviewDAO;
-import com.nike.board.ReviewDTO;
 import com.nike.order.OrderCare_PagingVO;
 
 @Service

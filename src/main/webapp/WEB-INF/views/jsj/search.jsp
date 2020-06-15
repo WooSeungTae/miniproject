@@ -368,10 +368,10 @@ function imgchange(obj){
 																<span id="${search.code}2kn" class="imgcolorpic" style="display:none ;">
 																	<c:forEach var ="imgcolor" items="${searchCode }">
 																		<c:if test="${imgcolor.codename==search.codename }">
-																		<img class="${search.code }" id="${imgcolor.image1 }"
+																	<a href="productdetail?code=${search.code }"><img class="${search.code }" id="${imgcolor.image1 }"
 																	style="width: 50px; margin: auto;"
 																	src="/nike/${imgcolor.image1 }"
-																	onerror="this.onerror=null; chageSrc(this)" onmouseover='imgchange(this)'>
+																	onerror="this.onerror=null; chageSrc(this)" onmouseover='imgchange(this)'></a>
 																		</c:if>
 																	</c:forEach>
 																</span>

@@ -46,6 +46,11 @@
 	<select id="orderView" parameterType="String" resultType="Ddto">
 		select * from orderDetailsInfo where id=#{id}
 	</select>
+
+		<!-- 구매 수량 삭제 -->
+	<update id="sizeDelete">
+		update sizetable set size${ordersize}=size${ordersize}-#{count} where code=#{code}
+	</update>
 </mapper>
 
 
