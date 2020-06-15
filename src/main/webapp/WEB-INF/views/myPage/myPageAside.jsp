@@ -61,7 +61,7 @@
 		<div>
 			<ul>
 				<li class="aside_title">쇼핑정보</li>
-				<li><a href="orders" class="aside_a">주문 배송</a></li>
+				<li><a href="orderList" class="aside_a">주문 배송</a></li>
 				<li><a href="returnable" class="aside_a">취소/반품</a></li>
 			</ul>
 		</div>

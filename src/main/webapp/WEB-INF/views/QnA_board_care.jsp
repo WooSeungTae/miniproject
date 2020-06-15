@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>QnA 관리</title>
 <style type="text/css">
 	/*회원 목록 테이블에 나타난 회원정보 테이블모양*/
 	.membertable {
@@ -29,7 +31,7 @@
 	/*안에 있는 제목*/
 	.subtitle {font-size: 20px; margin: 20px; }
 	/*body전체 부분(배경)*/
-	.bodyback {margin-top:150px; padding: 20px;}
+	.bodyback {margin-top:50px; padding: 20px;}
 	/*안에 있는 div부분*/
 	.bodyinside {background: white; padding: 10px; margin-top:20px; 
 				height: 50%; border: 2px solid #d2d2d2;}
@@ -63,17 +65,23 @@
 <script>
 	function selChange() {
 		var sel = document.getElementById('cntPerPage').value;
-		location.href="QnA_board?nowPage=${paging.nowPage}&cntPerPage="+sel;
+		location.href="QnA_board_care_care?nowPage=${paging.nowPage}&cntPerPage="+sel;
+	}
+	function delete_btn(id) {
+		  
+		var con = confirm("정말 삭제하시겠습니까?");
+		
+		if(con){
+			location.href="QnA_board_care_delete?indexnum="+id
+		}
 	}
 </script>
-<meta charset="UTF-8">
-<title>Q & A</title>
 </head>
 <body>
+<%@include file="product_header.jsp" %>
 <c:set var="size" value="${viewAll.size()}"/>
-<c:import url="/header"></c:import>
 <div class="bodyback">
-<p align="center" class="maintitle">Q & A</p>
+<p align="center" class="maintitle">Q & A 관리</p>
 <div class="bodyinside">
 <div id="outter">
 	<div class="pagingoption">
@@ -89,23 +97,26 @@
 		</select>
 	</div>
 	 <table class="membertable" >
-		<tr class="tablehead"><th>번호</th><th>상품 정보</th><th>카테고리</th><th style="width: 500px;">제목</th><th>작성자</th><th>작성일</th></tr>
+		<tr class="tablehead"><th>번호</th><th>상품 정보</th><th>카테고리</th><th style="width: 500px;">제목</th><th>작성자</th><th>작성일</th><th>게시물 삭제</th></tr>
 		<c:choose>
 			<c:when test="${size ne 0}">
 				<c:forEach items="${viewAll }" var="dto">
-				<tr align="center"><td>${dto.indexnum}</td><td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td><td>${dto.titlelist}</td>
-				<td>${dto.title}</td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
+				<tr align="center"><td>${dto.indexnum}</td>
+				<td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td>
+				<td>${dto.titlelist}</td><td>${dto.title}</td><td>${dto.name }</td><td>${dto.writeDate}</td>
+				<td><input id="${dto.indexnum }" type="button" value="삭제" onclick="delete_btn(this.id)"></td>
+				</tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
-				<tr align="center"><th colspan="6">등록된 정보가 없습니다</th></tr>
+				<tr align="center"><th colspan="7">등록된 정보가 없습니다</th></tr>
 			</c:otherwise>
 		</c:choose>
 	</table>
 	<div class="pagingdiv">
 	<div class="paging">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="QnA_board?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
+			<a href="QnA_board_care?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -113,17 +124,17 @@
 					<a class="active">${p }</a>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="QnA_board?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+					<a href="QnA_board_care?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="QnA_board?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
+			<a href="QnA_board_care?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
 		</c:if>
 	</div>
 	</div>
 	<div class="bodyinside">
-		<form action="searchQnA">
+		<form action="searchQnA_care">
 		<select name="search_key">
 			<option value="title" selected="selected">제목</option>
 			<option value="name">이름</option>
@@ -137,6 +148,6 @@
 </div>
 </div>
 </div>
-<c:import url="/footer"></c:import>
+<!-- 게시판 목록이 뜸  http://1004web.kr/board_HJSp58/7837 예시-->
 </body>
 </html>

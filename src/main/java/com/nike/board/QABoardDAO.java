@@ -30,13 +30,23 @@ public class QABoardDAO {
 	public int countqna() {
 		return sqlSession.selectOne(namespace+".countqna");
 	}
+	
 	/*Q & A 게시판 전체 보기*/
-	public List<QABoardDTO> selectqna(Board_PagingVO vo) {
+	public List<QABoardDTO> selectqna(OrderCare_PagingVO vo) {
 		return sqlSession.selectList(namespace+".selectqna",vo);
 	}
-	/*Q & A 게시판 전체 보기*/
-	public List<QABoardDTO> selectqna1(OrderCare_PagingVO vo) {
-		return sqlSession.selectList(namespace+".selectqna",vo);
+	/*Q&A 관리자 페이지 삭제*/
+	public void QnA_board_care_delete(String indexnum) {
+		sqlSession.delete(namespace+".QnA_board_care_delete",indexnum);
+		
+	}
+	/*Q&A 게시판 검색*/
+	public List<QABoardDTO> searchQnA(OrderCare_PagingVO dto) {
+		return sqlSession.selectList(namespace+".searchQnA",dto);
+	}
+	/*Q&A 게시판 검색 갯수*/
+	public int searchQnAcount(SearchBoardDTO searchdto) {
+		return sqlSession.selectOne(namespace+".searchQnAcount",searchdto);
 	}
 	
 	/*Q&A 게시물 상세보기*/

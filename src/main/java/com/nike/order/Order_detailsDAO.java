@@ -18,8 +18,16 @@ public class Order_detailsDAO {
 		
 	}
 	/* 주문내역 및 배송현황 조회 */
-	public List<Order_detailsDTO> orderView(String id) {
-		return sqlSession.selectList(namespace+".orderView", id);
+	public List<Order_detailsDTO> orderList(String id) {
+		return sqlSession.selectList(namespace+".orderList", id);
+	}
+	/* 주문내역 및 배송현황 페이지 - 배송 상태 */
+	public void delivery(Order_detailsDTO Ddto) {
+		sqlSession.update(namespace+".delivery",Ddto);
+	}
+	/* 주문내역 및 배송현황 조회 */
+	public List<Order_detailsDTO> orderList_num(String ordernum) {
+		return sqlSession.selectList(namespace+".orderList_num", ordernum);
 	}
 
 }

@@ -32,6 +32,7 @@
 		)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
+
 	<!-- 코드별 Q &A 게시물 총갯수 -->
 	<select id="qatotal" resultType="int">
 		select count(*) from QABOARD where code=#{code}
@@ -57,5 +58,29 @@
 	<delete id="qadelete">
 		delete QABOARD where indexnum=#{indexnum}
 	</delete>
+  	
+  	<!--Q&A 관리자 페이지 삭제-->
+  	<delete id="QnA_board_care_delete" parameterType="String">
+		delete from qaboard where indexnum=#{indexnum}
+	</delete>
+	
+	<!-- 검색기능 Q&A 게시물 총갯수 -->
+  	<select id="searchQnAcount" resultType="int">
+  		select count(*) from QABOARD where ${search_key} like '%'||#{search}||'%'
+  	</select>
+	
+	<!-- Q&A 검색기능 -->
+  	<select id="searchQnA" resultType="Qdto">
+  		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM qaboard 
+							where ${search_key} like '%'||#{search}||'%' ORDER BY indexnum DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+  	</select>
+  </mapper>
 
-</mapper>

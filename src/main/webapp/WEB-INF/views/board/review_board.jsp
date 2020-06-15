@@ -33,6 +33,7 @@
 	/*안에 있는 div부분*/
 	.bodyinside {background: white; padding: 10px; margin-top:20px; 
 				height: 50%; border: 2px solid #d2d2d2;}
+	.bodyinside select{width:100px; height:25px;}
 	/*페이징 옵션*/
 	.pagingoption{float: right;margin: 10px;}
 	.pagingoption select{
@@ -122,7 +123,14 @@
 	</div>
 	</div>
 	<div class="bodyinside">
-		<form action="">
+		<form action="searchreview">
+		<select name="search_key">
+			<option value="reviewtitle" selected="selected">제목</option>
+			<option value="name">이름</option>
+			<option value="id">id</option>
+			<option value="code">상품 번호</option>
+			<option value="codename">상품 이름</option>
+		</select>
 		<input type="text" name="search"> <input type="submit" value="검색">
 		</form>
 	</div>

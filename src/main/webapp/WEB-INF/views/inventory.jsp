@@ -34,6 +34,7 @@
 	/*안에 있는 div부분*/
 	.bodyinside {background: white; padding: 10px; margin-top:20px; 
 				height: 50%; border: 2px solid #d2d2d2;}
+	.bodyinside select{width:100px; height:25px;}
 	/*페이징 옵션*/
 	.pagingoption{float: right;margin: 10px;}
 	.pagingoption select{
@@ -89,7 +90,7 @@
 	
 </script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 관리</title>
 </head>
 <body>
 <c:set var="size" value="${searchCode.size()}"/>
@@ -98,8 +99,14 @@
 <p class="maintitle">상품 관리</p>
 <div class="bodyinside">
 <form action="productserch">
-<label>검색할 상품명</label>
-<input type="text" name="codename"> <input type="submit" value="검색">
+		<select name="search_key">
+			<option value="category" selected="selected">상품 종류</option>
+			<option value="gender">성별</option>
+			<option value="code">상품 코드</option>
+			<option value="codename">상품 이름</option>
+			<option value="codecolor">상품 색상</option>
+		</select>
+		<input type="text" name="search" > <input type="submit" value="검색">
 </form>
 </div>
 <div class="bodyinside">
@@ -130,7 +137,7 @@
 				<td>${dto.codename}</td><td>${dto.codecolor}</td><td>${dto.category}</td>
 				<td>${dto.price}</td><td>${dto.gender}</td>
 				<td><button onclick="location.href='productview?code=${dto.code}'">수정</button></td>
-				<td><button id="${dto.code}" onclick="delete_btn(this.id)">삭제</td></tr>
+				<td><button id="${dto.code}" onclick="delete_btn(this.id)">삭제</button></td></tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
