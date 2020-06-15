@@ -32,7 +32,7 @@
 		)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-<<<<<<< HEAD
+
 	<!-- 코드별 Q &A 게시물 총갯수 -->
 	<select id="qatotal" resultType="int">
 		select count(*) from QABOARD where code=#{code}
@@ -58,14 +58,6 @@
 	<delete id="qadelete">
 		delete QABOARD where indexnum=#{indexnum}
 	</delete>
-
-</mapper>
-=======
-	
-  	<!-- 코드별 Q &A 게시물 총갯수 -->
-  	<select id="qatotal" resultType="int">
-  		select count(*) from QABOARD where code=#{code}
-  	</select>
   	
   	<!--Q&A 관리자 페이지 삭제-->
   	<delete id="QnA_board_care_delete" parameterType="String">
@@ -91,4 +83,4 @@
 		WHERE RN BETWEEN #{start} AND #{end}
   	</select>
   </mapper>
->>>>>>> minhoeyk
+

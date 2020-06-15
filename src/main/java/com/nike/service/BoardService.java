@@ -61,15 +61,12 @@ public class BoardService {
 	public int countqna() {	
 		return qdao.countqna();
 	}
+	
 	/*Q & A 게시판 전체 보기*/
-	public List<QABoardDTO> selectqna(Board_PagingVO vo) {
+	public List<QABoardDTO> selectqna(OrderCare_PagingVO vo) {
 		return qdao.selectqna(vo);
 	}
-<<<<<<< HEAD
-	/*Q & A 게시판 전체 보기*/
-	public List<QABoardDTO> selectqna1(OrderCare_PagingVO vo) {
-		return qdao.selectqna1(vo);
-=======
+
 	/*Q&A 관리자 페이지 삭제*/
 	public void QnA_board_care_delete(String indexnum) {
 		qdao.QnA_board_care_delete(indexnum);
@@ -81,7 +78,6 @@ public class BoardService {
 	/*Q&A 게시판 검색 갯수*/
 	public int searchQnAcount(SearchBoardDTO searchdto) {
 		return qdao.searchQnAcount(searchdto);
->>>>>>> minhoeyk
 	}
 	
 	

@@ -39,7 +39,7 @@ public class ReviewDAO {
 	public void reviewmodify(ReviewDTO rdto) {
 		sqlSession.update(namespace+".reviewmodify", rdto);
 	}
-<<<<<<< HEAD
+
 	
 	/*코드별 리뷰 리스트 총 개수*/
 	public int rvtotal(String code) {
@@ -51,9 +51,9 @@ public class ReviewDAO {
 		return sqlSession.selectList(namespace+".rvlist",vo);
 	}
 	
-=======
+
 	/*review 게시판 전체 갯 수*/
->>>>>>> minhoeyk
+
 	public int countreview() {
 		return sqlSession.selectOne(namespace+".countreview");
 	}

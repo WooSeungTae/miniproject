@@ -30,12 +30,9 @@ public class QABoardDAO {
 	public int countqna() {
 		return sqlSession.selectOne(namespace+".countqna");
 	}
+	
 	/*Q & A 게시판 전체 보기*/
-	public List<QABoardDTO> selectqna(Board_PagingVO vo) {
-		return sqlSession.selectList(namespace+".selectqna",vo);
-	}
-	/*Q & A 게시판 전체 보기*/
-	public List<QABoardDTO> selectqna1(OrderCare_PagingVO vo) {
+	public List<QABoardDTO> selectqna(OrderCare_PagingVO vo) {
 		return sqlSession.selectList(namespace+".selectqna",vo);
 	}
 	/*Q&A 관리자 페이지 삭제*/

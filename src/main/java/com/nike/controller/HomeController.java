@@ -40,14 +40,11 @@ import com.nike.service.ProductService;
 import com.nike.service.ReviewService;
 import com.nike.service.ReviewUploadService;
 import com.nike.board.ReviewDTO;
-<<<<<<< HEAD
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nike.board.Board_PagingVO;
-=======
 import com.nike.board.SearchBoardDTO;
 import com.nike.board.Boardqa_PagingVO;
->>>>>>> minhoeyk
 import com.nike.board.QABoardDAO;
 import com.nike.board.QABoardDTO;
 import com.nike.memberInfo.MemberInfoDTO;
@@ -897,7 +894,7 @@ public class HomeController {
 		}
 		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging",vo);
-		model.addAttribute("viewAll",bservice.selectqna1(vo));
+		model.addAttribute("viewAll",bservice.selectqna(vo));
 		return "board/QnA_board";
 	}
 	/*review 게시판 전체 보기*/
@@ -919,7 +916,7 @@ public class HomeController {
 		model.addAttribute("viewAll",reviewservice.selectreview(vo));
 		return "board/review_board";
 	}
-<<<<<<< HEAD
+
 	/*review 페이징 ajax*/
 	@PostMapping(value= "ajax_RV",produces="application/json; charset=utf8")
 	@ResponseBody
@@ -965,7 +962,7 @@ public class HomeController {
 		return "LogChecking";
 	}
 
-=======
+
 	/*Q & A게시판 검색*/
 	@RequestMapping("searchQnA")
 	public String searchQnA(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
@@ -1117,6 +1114,5 @@ public class HomeController {
 		reviewservice.review_board_care_delete(reviewnum);
 		return "redirect:review_board_care";
 	}
-	
->>>>>>> minhoeyk
+
 }
