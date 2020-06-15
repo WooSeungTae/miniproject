@@ -788,13 +788,38 @@ public class HomeController {
 		return "sminj/userDelete";
 	}
 	/* 주문내역 및 배송현황 조회 */
-	@RequestMapping("orders")
+	@RequestMapping("orderList")
 	public String orderView(Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
-		List<Order_detailsDTO> list = orderservice.orderView(id);
-		model.addAttribute("list", list);
+		List<Order_detailsDTO> orderList = orderservice.orderList(id);
+		model.addAttribute("orderList", orderList);
 		return "myPage/myPageOrderDelivery";
+	}
+	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
+	
+	@RequestMapping("orderView")
+	public String orderView(OrderDTO Odto, Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
+		String ordernum = (String)  request.getParameter("ordernum");
+		System.out.println(ordernum);
+		List<Order_detailsDTO> orderList = orderservice.orderList_num(ordernum);
+		System.out.println(orderList.get(0).getOrdernum());
+		List<OrderDTO> orderView = orderservice.orderView_num(ordernum);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("orderView", orderView);
+		return "sminj/orderView";
+	}
+	/*	
+	@RequestMapping("orderView")
+	public String orderView() {
+		return "sminj/orderView";
+	}
+*/
+	/* 주문내역 및 배송현황 페이지 - 배송 상태 */
+	@RequestMapping(value="/myPage/myPageOrderDelivery", method=RequestMethod.POST)
+	public String delivery(Order_detailsDTO Ddto) {
+		orderservice.delivery(Ddto);
+		return "redirect:/myPage/myPageOrderDelivery?=" + Ddto.getOrdernum();
 	}
 	/*Q & A 게시판 작성*/
 	@RequestMapping("qnawrite")

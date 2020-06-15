@@ -16,7 +16,15 @@ public class OrderDTO {
 	private String delivery;
 	private Date orderdate;
 	private String mile="0";
+	private String cancelPrice;
 	
+
+	public String getCancelPrice() {
+		return cancelPrice;
+	}
+	public void setCancelPrice(String cancelPrice) {
+		this.cancelPrice = cancelPrice;
+	}
 	public String getName() {
 		return name;
 	}

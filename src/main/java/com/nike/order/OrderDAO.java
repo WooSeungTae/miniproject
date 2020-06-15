@@ -80,5 +80,13 @@ public class OrderDAO {
 		
 	}
 
+	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
+	public List<OrderDTO> orderView(String id){
+		return sqlSession.selectList(namespace+".orderView",id);
+	}
+	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
+	public List<OrderDTO> orderView_num(String ordernum){
+		return sqlSession.selectList(namespace+".orderView_num",ordernum);
+	}
 
 }

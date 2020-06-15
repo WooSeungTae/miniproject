@@ -30,34 +30,30 @@
 		font-size: 11px;
 	}
 	td{
-	padding: 15px 0;
-    text-align: center;
-    vertical-align: middle;
-    word-wrap: break-word;
-    border-top: 1px solid #e8e8e8;
+		padding: 15px 0;
+	    text-align: center;
+	    vertical-align: middle;
+	    word-wrap: break-word;
+	    border-top: 1px solid #e8e8e8;
 	}
 	th{
 		padding: 10px 0;
 	    font-weight: normal;
 	    vertical-align: middle;
 	}
-	.orderDate{
+	.orderDate a{
+		color:#2E2E2E;
+	}
+	.delivery{
+		color:#b22222;
+	}
+	.orderSize{
+		color:#848484;
+		margin-top: 5px;
 	}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-
-	$(document).ready(function(){
-		$('.orderCancel').click(function(){
-			alert('확인 버튼을 클릭하면 주문이 취소됩니다.')
-			$('.delivery').text("주문취소");
-		});
-		$('.orderFinish').click(function(){
-			alert('구매확정이 완료되었습니다.')
-			$('.delivery').text("배송완료");
-		});
-	});
-
 	function chageSrc(obj) {
 		var imgId = obj.id;
 		var imgName = obj.src;
@@ -69,13 +65,21 @@
 		document.getElementById(imgId).src = changeName;
 		console.log(changeName);
 	}
-	
+
+		$('.orderCancel').click(function(){
+			alert('확인 버튼을 클릭하면 주문이 취소됩니다.')
+			$('.delivery').val("주문취소");
+		});
+		$('.orderFinish').click(function(){
+			alert('구매확정이 완료되었습니다.')
+			$('.delivery').val("배송완료");
+		});
 </script>
 <body>
 <c:import url="/header"></c:import>
 	<div style="width: 80%; margin: auto; margin-top: 170px; padding-bottom: 25px;">
 <c:import url="/aside"></c:import>
-		<!-- 마이페이지 상단  -->
+			<!-- 마이페이지 상단  -->
 		<section>
 		<div>
 			<h2>주문내역/배송현황</h2>
@@ -83,6 +87,7 @@
 			<hr class="order_hr">
 		</div><br>
 			<table style="border: solid 0.5px #e8ebed; width: 70%;">
+			<!-- 테이블 th(제목) 고정 부분 -->
 				<thead>
 					<tr class="order_th">
 						<th>주문일자<br>[주문번호]</th>
@@ -95,36 +100,54 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list }" var="list">
+					<c:forEach items="${orderList }" var="orderList">
 					<tr>
+			<!-- 주문일자, 주문번호 -->		
 						<td class="orderDate">
-							<fmt:formatDate value="${list.orderDate }" pattern="yyyy.MM.dd"/>
-							<p><a href="#">[${list.ordernum }]</a></p> 
+							<fmt:formatDate value="${orderList.orderDate }" pattern="yyyy.MM.dd"/>
+							<p><a href="/nike/orderView?ordernum=${orderList.ordernum }">[${orderList.ordernum }]</a></p> 
 						</td>
+			<!-- 구매 사진 이미지 -->		
 						<td class="image1">
-							<a href="/nike/productdetail?code=${list.code }">
-							<img id="${list.code }" src="/nike/${list.image1 }" 
+							<a href="/nike/productdetail?code=${orderList.code }">
+							<img id="${orderList.code }" src="/nike/${orderList.image1 }" 
 							class="order_img" onerror="this.onerror=null; chageSrc(this)"></a>
 						</td>
+			<!-- 상품 이름, 상품 사이즈 -->	
 						<td class="product">
-							<strong class="CodeName"><a	href=""	class="order_a">${list.codeName }</a></strong>
-							<div class="orderSize">[사이즈 : ${list.ordersize }]</div>
+							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderlist.codeName }</a></strong>
+							<div class="orderSize">[사이즈 : ${orderList.ordersize }]</div>
 						</td>
-						<td class="count">${list.count }</td>
+			<!-- 구매할 수량 -->		
+						<td class="count">${orderList.count }</td>
+			<!-- 구매 가격 -->		
 						<td class="price">
 							<strong>
-							<fmt:formatNumber value="${list.price }" pattern="###,###,###"/>
+							<fmt:formatNumber value="${orderList.price * orderList.count }" pattern="###,###,###"/>
 							</strong>
 						</td>
-						<td class="">
-							<p class="delivery">${list.delivery }</p>
+			<!-- 배송상태 -->		
+						<td>
+							<p class="delivery">${orderList.delivery }</p>
 						</td>
-						<td class="service">
-							<a href="orderCancel"><input type="button" value="주문취소" class="orderCancel"></a><br><br>
-							<a href="orderFinish"><input type="button" value="구매확정" class="orderFinish"></a>
+			<!-- 배송상태 변경 위한 버튼 -->		
+						<td class="deliveryChange">
+							<form role="form" method="post" class="deliveryForm">
+								<input type="hidden" name="ordernum" value="${orderList.ordernum }">
+								<input type="hidden" name="delivery" class="delivery" value="">
+							
+								<input type="button" class="orderCancel" value="주문취소" name="orderCancel" id="orderCancel"><br><br>
+								<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish">
+							</form>
 						</td>
 					</tr>
 					</c:forEach>
+				</tbody>
+			<!-- 주문 내역 없을 때 출력될 내용 -->		
+				<tbody class="displaynone">
+					<tr>
+						<td colspan="7" class="empty">주문 내역이 없습니다</td>
+					</tr>
 				</tbody>
 			</table>
 		</section><br>

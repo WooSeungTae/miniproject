@@ -130,7 +130,23 @@ public class OrderService {
 	}
 	
 	/* 주문내역 및 배송현황 조회 */
-	public List<Order_detailsDTO> orderView(String id) {
-		return Ddao.orderView(id);
+	public List<Order_detailsDTO> orderList(String id) {
+		return Ddao.orderList(id);
+	}
+	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
+	public List<OrderDTO> orderView(String id){
+		return Odao.orderView(id);
+	}
+	/* 주문내역 및 배송현황 조회 */
+	public List<Order_detailsDTO> orderList_num(String ordernum) {
+		return Ddao.orderList_num(ordernum);
+	}
+	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
+	public List<OrderDTO> orderView_num(String ordernum){
+		return Odao.orderView_num(ordernum);
+	}
+	/* 주문내역 및 배송현황 페이지 - 배송 상태 */
+	public void delivery(Order_detailsDTO Ddto) {
+		Ddao.delivery(Ddto);
 	}
 }
