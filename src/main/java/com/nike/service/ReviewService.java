@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nike.board.Board_PagingVO;
-import com.nike.board.Boardqa_PagingVO;
 import com.nike.board.ReviewDAO;
 import com.nike.board.ReviewDTO;
 import com.nike.order.OrderCare_PagingVO;
@@ -60,6 +59,13 @@ public class ReviewService {
 		model.addAttribute("rvlist", rdao.rvlist(voRV));
 		model.addAttribute("paging", voRV);
 	}
+	
+	/*코드별 리뷰 리턴*/
+	public List<ReviewDTO> rvlist(Board_PagingVO voRV) {
+		return rdao.rvlist(voRV);
+		
+	}
+	
 	/*review 게시판 전체 갯 수*/
 	public int countreview() {
 		return rdao.countreview();

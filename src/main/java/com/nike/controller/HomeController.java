@@ -5,6 +5,7 @@ import java.io.File;
 import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +22,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,9 +40,11 @@ import com.nike.service.ProductService;
 import com.nike.service.ReviewService;
 import com.nike.service.ReviewUploadService;
 import com.nike.board.ReviewDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nike.board.Board_PagingVO;
-import com.nike.board.Boardqa_PagingVO;
 import com.nike.board.QABoardDAO;
+import com.nike.board.QABoardDTO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
@@ -153,8 +158,8 @@ public class HomeController {
 			String reviewnum = request.getParameter("reviewnum");
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
-//			rdto.setId(id);
-//			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			rdto.setId(id);
+			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
 			rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
@@ -375,21 +380,12 @@ public class HomeController {
 
 	/*세부 상품 조회*/
 	@RequestMapping("/productdetail")
-	public String productdetail(Model model, HttpServletRequest request,Boardqa_PagingVO vo,Board_PagingVO voRV
-			,@RequestParam(value="nowPageqa", required=false)String nowPageqa
-			,@RequestParam(value="nowPage", required=false)String nowPage) {
+	public String productdetail(Model model, HttpServletRequest request) {
 		String code = request.getParameter("code");
 		int totalqa = bservice.qatotal(code); //Q&A게시판 코드로 검색했을경우 검색물 총 개수
-		if (nowPageqa == null) {nowPageqa = "1";} //Q&A게시판 최초 페이지 할당
-		vo = new Boardqa_PagingVO(totalqa, Integer.parseInt(nowPageqa), code); //Q&A게시판 vo객체 페이징 번호 부여
-		vo.setCode(code); //Q&A게시판 코드값 세팅
-		bservice.qalist(model,vo); //Q&A게시판 페이징 검색
-	
-		int total = reviewservice.rvtotal(code); //review게시판 코드로 검색했을경우 검색물 총 개수
-		if (nowPage == null) {nowPage = "1";} //review게시판 최초 페이지 할당 
-		voRV = new Board_PagingVO(total, Integer.parseInt(nowPage), code); //review게시판 voRV객체 페이징 번호 부여
-		voRV.setCode(code); //review게시판 코드값 세팅
-		reviewservice.rvlist(model, voRV);		
+		int totalrv = reviewservice.rvtotal(code); //review게시판 코드로 검색했을경우 검색물 총 개수
+		model.addAttribute("totalqa", totalqa);
+		model.addAttribute("totalrv", totalrv);
 		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
@@ -432,7 +428,6 @@ public class HomeController {
 	public String catalogMenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
 				, @RequestParam(value="nowPage", required=false)String nowPage) {
 		int total = Pservice.categoryGenderAll("남자", category);
-		System.out.println("남자신발 토탈 번호 : " + total);
 		if (nowPage == null) {nowPage = "1";}
 		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
 		Pservice.allListMenCategory(model,vo);
@@ -827,15 +822,40 @@ public class HomeController {
 		model.addAttribute("list", list);
 		return "myPage/myPageOrderDelivery";
 	}
-	/*Q & A 게시판 작성*/
+	/*Q&A 게시물 등록*/
+	@RequestMapping("qaregister")
+	public String qaregister(QABoardDTO Qdto) {
+		bservice.qaregister(Qdto);
+		System.out.println("등록 실행");
+		return "myPage/myPage";
+	}
+	/*Q&A 게시물 수정*/
+	@RequestMapping("qaupdate")
+	public String qaupdate(QABoardDTO Qdto) {
+		bservice.qaupdate(Qdto);
+		return "myPage/myPage";
+	}
+	
+	/*Q&A 게시물 삭제*/
+	@RequestMapping("qadelete")
+	public String qadelete(QABoardDTO Qdto) {
+		bservice.qadelete(Qdto);
+		return "myPage/myPage";
+	}
+	
+	/*Q & A 게시판 작성화면 */
 	@RequestMapping("qnawrite")
 	public String qnaviewPage() {
 		
-		return "board/QnA_write";
+		return "myPage/myPage";
 	}
 	/*상세 페이지에서 Q & A 게시판 보기*/
 	@RequestMapping("qnaview")
-	public String qnaview() {
+	public String qnaview(Model model,HttpServletRequest request) {
+		String code = request.getParameter("code");
+		String indexnum = request.getParameter("indexnum");
+		bservice.qnaview(model,indexnum);
+		Pservice.codeSearch(model, code);	
 		return "board/QnA_view";
 	}
 	/*상세 페이지에서 리뷰 게시판 보기*/
@@ -860,7 +880,7 @@ public class HomeController {
 		}
 		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging",vo);
-		model.addAttribute("viewAll",bservice.selectqna(vo));
+		model.addAttribute("viewAll",bservice.selectqna1(vo));
 		return "board/QnA_board";
 	}
 	/*review 게시판 전체 보기*/
@@ -882,4 +902,49 @@ public class HomeController {
 		model.addAttribute("viewAll",reviewservice.selectreview(vo));
 		return "board/review_board";
 	}
+	/*review 페이징 ajax*/
+	@PostMapping(value= "ajax_RV",produces="application/json; charset=utf8")
+	@ResponseBody
+	public String ajax_RV(Board_PagingVO bdto) throws JsonProcessingException {
+		String code = bdto.getCode();
+		int nowPage = bdto.getNowPage();
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+		int total = reviewservice.rvtotal(code); //review게시판 코드로 검색했을경우 검색물 총 개수
+		Board_PagingVO voRV = new Board_PagingVO();
+		voRV = new Board_PagingVO(total, nowPage, code); //review게시판 voRV객체 페이징 번호 부여
+		voRV.setCode(code); //review게시판 코드값 세팅
+		list = reviewservice.rvlist(voRV);
+		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+		String strJson = mapper.writeValueAsString(list);
+		return strJson;
+	}
+	
+	/*Q&A 페이징 ajax*/
+	@PostMapping(value= "ajax_QA",produces="application/json; charset=utf8")
+	@ResponseBody
+	public String ajax_QA(Board_PagingVO bdto) throws JsonProcessingException {
+		String code = bdto.getCode();
+		int nowPage = bdto.getNowPage();
+		List<QABoardDTO> list = new ArrayList<QABoardDTO>();
+		int total = bservice.qatotal(code); //Q&A게시판 코드로 검색했을경우 검색물 총 개수
+		Board_PagingVO voRV = new Board_PagingVO();
+		voRV = new Board_PagingVO(total, nowPage, code); //Q&A게시판 voRV객체 페이징 번호 부여
+		voRV.setCode(code); //Q&A게시판 코드값 세팅
+		list = bservice.qalist(voRV);
+		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+		String strJson = mapper.writeValueAsString(list);
+		return strJson;
+	}
+	/*reply댓글 보기*/
+	@RequestMapping("reply")
+	public String reply() {
+		return "board/reply";
+	}
+	
+	/*로그인 체크 LogChecking*/
+	@RequestMapping("LogChecking")
+	public String LogChecking() {
+		return "LogChecking";
+	}
+
 }
