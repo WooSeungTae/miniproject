@@ -6,6 +6,10 @@
 <html>
 <head>
 <style type="text/css">
+	img{
+		width:320px;
+		height:230px;
+	}
 	/*회원 목록 테이블에 나타난 회원정보 테이블모양*/
 	.membertable {
 		width : 100%;

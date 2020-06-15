@@ -397,7 +397,16 @@
    		
 
 </script>
-
+<script type="text/javascript">
+		function buttoncheck(){
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+			if(!document.fo.ordersize.value){
+				alert("사이즈를 선택해주세요!!!");
+				return false;
+			}
+			
+		}
+	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -496,7 +505,7 @@
 									</h1>
 								</div>
 								<div class="pinfo-item-box">
-									<form name="fo" method="GET">
+									<form name="fo" method="GET" onsubmit="return buttoncheck()">
 										<input type="hidden" name="code" value="${pdto.code }">
 										<div class="option-wrap">
 											<div class="size-grid-type padding radius">

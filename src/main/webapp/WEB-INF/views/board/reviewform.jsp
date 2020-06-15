@@ -346,7 +346,7 @@
 								<input type="file" id="productImg1" name="file" hidden="">
 								<div class="rowimg">
 									<div class="select_img1">
-										<img src="${rdto.image }" id="img1" />	
+										<img src="${rdto.image }" id="img1" onerror="this.src='image/plus.png'"/>	
 										<input type="text" id="image1" name="image" value="" hidden="">
 									</div>
 								</div>

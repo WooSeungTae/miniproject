@@ -55,6 +55,7 @@ import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
+import com.nike.order.Cart_PagingVO;
 import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
@@ -123,7 +124,12 @@ public class HomeController {
 		}
 		return "/sminj/main";
 	}
-	
+		//남이 나의 리뷰를 볼 때
+		@RequestMapping("reviewsearch")
+		public String reviewsearch(@RequestParam(value="reviewnum", required=false) int reviewnum, Model model) {
+			model.addAttribute("rdto", reviewservice.reviewsearch(reviewnum));
+			return "/board/review_Search";
+		}
 		//리뷰 등록
 		@RequestMapping("reviewform")
 		public String review(HttpServletRequest request, Model model) {
@@ -242,42 +248,53 @@ public class HomeController {
 				@RequestParam(value="file3", required=false) MultipartFile file3,
 				@RequestParam(value="file4", required=false) MultipartFile file4,
 				@RequestParam(value="file5", required=false) MultipartFile file5,
-				@RequestParam(value="file6", required=false) MultipartFile file6,
-				@RequestParam(value="beforefile1") String beforefile1,
-				@RequestParam(value="beforefile2") String beforefile2,
-				@RequestParam(value="beforefile3") String beforefile3,
-				@RequestParam(value="beforefile4") String beforefile4,
-				@RequestParam(value="beforefile5") String beforefile5,
-				@RequestParam(value="beforefile6") String beforefile6) {
+				@RequestParam(value="file6", required=false) MultipartFile file6) {
+				System.out.println("========================================pdto" + pdto.getCode());
+				System.out.println("==========================================pdto" + pdto.getImage1());
+				System.out.println("===========================================file1"+file1.getOriginalFilename());
 				if(file1.getOriginalFilename()!="") {
 					String url1 = fileUploadService2.restore(file1);
-					pdto.setImage1(url1);
-					fileUploadService2.deletefile(beforefile1);
+					if(url1!=pdto.getImage1()&&pdto.getImage1()!=null) {
+						System.out.println("================================url1" + url1);
+						System.out.println("================================beforefile1===" + pdto.getImage1());
+						fileUploadService2.deletefile(pdto.getImage1());
+						pdto.setImage1(url1);
+					}
 				}
 				if(file2.getOriginalFilename()!="") {
 					String url2 = fileUploadService2.restore(file2);
-					pdto.setImage2(url2);
-					fileUploadService2.deletefile(beforefile2);
+					if(url2!=pdto.getImage2()&&pdto.getImage2()!=null) {
+						fileUploadService2.deletefile(pdto.getImage2());
+						pdto.setImage2(url2);
+					}
 				}
 				if(file3.getOriginalFilename()!="") {
 					String url3 = fileUploadService2.restore(file3);
-					pdto.setImage3(url3);
-					fileUploadService2.deletefile(beforefile3);
+					if(url3!=pdto.getImage3()&&pdto.getImage3()!=null) {
+						fileUploadService2.deletefile(pdto.getImage3());
+						pdto.setImage3(url3);
+					}
 				}
 				if(file4.getOriginalFilename()!="") {
 					String url4 = fileUploadService2.restore(file4);
-					pdto.setImage4(url4);
-					fileUploadService2.deletefile(beforefile4);
+					if(url4!=pdto.getImage4()&&pdto.getImage4()!=null) {
+						fileUploadService2.deletefile(pdto.getImage4());
+						pdto.setImage4(url4);
+					}
 				}
 				if(file5.getOriginalFilename()!="") {
 					String url5 = fileUploadService2.restore(file5);
-					pdto.setImage5(url5);
-					fileUploadService2.deletefile(beforefile5);
+					if(url5!=pdto.getImage5()&&pdto.getImage5()!=null) {
+						fileUploadService2.deletefile(pdto.getImage5());
+						pdto.setImage5(url5);
+					}
 				}
 				if(file6.getOriginalFilename()!="") {
 					String url6 = fileUploadService2.restore(file6);
-					pdto.setImage6(url6);
-					fileUploadService2.deletefile(beforefile6);
+					if(url6!=pdto.getImage6()&&pdto.getImage6()!=null) {
+						fileUploadService2.deletefile(pdto.getImage6());
+						pdto.setImage6(url6);
+					}
 				}
 				Pservice.product_update(pdto);
 				Pservice.size_update(sizedto);
@@ -290,7 +307,9 @@ public class HomeController {
 		@RequestMapping("productview")
 		public String productview(@RequestParam("code") String code,Model model) {
 			//관리자 상품 목록 수정, 삭제를 위한 조회(상품)
+			ProductDTO pdto = Pservice.productSelect(code);
 			model.addAttribute("pdto", Pservice.productSelect(code));
+			System.out.println("===========================================" + pdto.getImage1());
 			//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
 			model.addAttribute("sdto", Pservice.sizeSelect(code));
 			return "product_update/productViewPage";
@@ -306,7 +325,14 @@ public class HomeController {
 		@RequestMapping("productDelete")
 		public String productDelete(@RequestParam("code") String code) {
 			System.out.println(code);
+			fileUploadService2.deletefile(Pservice.productSelect(code).getImage1());
+			fileUploadService2.deletefile(Pservice.productSelect(code).getImage2());
+			fileUploadService2.deletefile(Pservice.productSelect(code).getImage3());
+			fileUploadService2.deletefile(Pservice.productSelect(code).getImage4());
+			fileUploadService2.deletefile(Pservice.productSelect(code).getImage5());
+			fileUploadService2.deletefile(Pservice.productSelect(code).getImage6());
 			Pservice.productDelete(code);
+			Pservice.sizeDelete(code);
 			return "redirect:inventory";
 		}
 		
@@ -673,18 +699,38 @@ public class HomeController {
 
 	/*장바구니*/
 	@RequestMapping("cart")
-	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+	public String cart(Cart_PagingVO cpvo, ShoppingCartDTO sdto, HttpServletRequest request, Model model,
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage",required=false)String cntPerPage) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
+		int total = orderservice.countcart(id);
+		if(total>0) {
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "3";
+			}else if(nowPage == null) {
+				nowPage = "1";
+			}else if(cntPerPage == null) {
+				cntPerPage = "3";
+			}
+			cpvo = new Cart_PagingVO(id, total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			System.out.println("=====================================" + orderservice.cartpaging(cpvo));
+			model.addAttribute("paging", cpvo);
+			/*장바구니 DB에서 회원별 리스트 가져오기*/
+			model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
+			
+		}
+		
 		/*장바구니 DB에서 리스트 개수 가져오기*/
 		System.out.println("==========================================" + orderservice.countcart(id));
-		model.addAttribute("cartcount", orderservice.countcart(id));
-		/*장바구니 DB에서 회원별 리스트 가져오기*/
-		model.addAttribute("cartlist", orderservice.selectcart(id));
+		model.addAttribute("cartcount", total);
 		/*장바구니 DB에서 회원별 총 금액 가져오기*/
 		model.addAttribute("totalprice", orderservice.totalprice(id));
 		return "purchase/cart";
 	}
+	
+	
 	
 	/*장바구니 옵션창 뜨게 함*/
 	@RequestMapping("cartoption")

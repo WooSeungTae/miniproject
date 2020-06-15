@@ -401,6 +401,12 @@
 	</div>
 	<div class="subinput">
 		<label class="subtitle">성별</label>
+      	<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
+      	<input type="checkbox" id="1" name="gender" value="남" hidden="">
+      	<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
+      	<input type="checkbox" id="2" name="gender" value="여" hidden="">
+      	<input type="button" class="button5" value="KIDS" id="kids" onclick="genderbuttonclick(this.id)">
+      	<input type="checkbox" id="3" name="gender" value="키즈" hidden="">
 		<input type="button" class="button5" value="MEN" id="men" onclick="genderbuttonclick(this.id)">
 		<input type="checkbox" id="1" name="gender" value="남" hidden="">
 		<input type="button" class="button5" value="WOMEN" id="women"  onclick="genderbuttonclick(this.id)">
@@ -470,6 +476,7 @@
 		<textarea rows="10" cols="50" name="contents"></textarea>
 	</div>
 	<div><input class="button6" type="submit" value="등록"></div>
+	</div>
 </form>
 </div>
 </body>

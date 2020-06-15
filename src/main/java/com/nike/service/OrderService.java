@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.nike.order.Cart_PagingVO;
 import com.nike.order.OrderCare_PagingVO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -164,4 +166,9 @@ public class OrderService {
 	public void delivery(Order_detailsDTO Ddto) {
 		Ddao.delivery(Ddto);
 	}
+	/*장바구니 관리 물품 일정량만 가져옴(페이징 기능)*/
+	public List<ShoppingCartDTO> cartpaging(Cart_PagingVO cpvo) {
+		return Odao.cartpaing(cpvo);
+	}
+	
 }

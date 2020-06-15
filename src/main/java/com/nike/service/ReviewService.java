@@ -45,6 +45,11 @@ public class ReviewService {
 		rdao.reviewmodify(rdto);
 	}
 	
+	//남이 나의 리뷰를 볼 때
+	public ReviewDTO reviewsearch(int reviewnum) {
+		return rdao.reviewsearch(reviewnum);
+	}
+	
 	/*코드별 리뷰 게시글 총 개수*/
 	public int rvtotal(String code) {
 		return rdao.rvtotal(code);
@@ -69,6 +74,7 @@ public class ReviewService {
 	/*review 게시판 전체 보기*/
 	public List<ReviewDTO> selectreview(OrderCare_PagingVO vo) {
 		return rdao.selectreview(vo);
+
 	}
 	/*review 관리자 페이지 삭제*/
 	public void review_board_care_delete(String reviewnum) {	

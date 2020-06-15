@@ -15,7 +15,7 @@
 			max-width:1440px; margin:0 auto;
 		}
 		.contents{
-			margin-top:40px;
+			margin-top:200px;
 		}
 		.cart-title{
 			padding:0; margin:0 0 15px 0; text-align:center; font-size:28px; line-height:24px;
@@ -181,7 +181,7 @@
 									<a class="btn-cart-delete-All" href="cartAlldelete" onclick="alldelete()">전체삭제</a>
 								</div>
 								<c:choose>
-									<c:when test="${cartlist.size()!=0}">
+									<c:when test="${cartcount>0}">
 										<input type="hidden" name="cartlist" value="${cartlist }">
 										<c:forEach items="${cartlist }" var="cartitem">
 											<div class="product-opt_cart">
@@ -191,7 +191,7 @@
 															<img id ="${cartitem.image1 }" src="${cartitem.image1 }" alt="나이키 데이브레이크-타입" onerror="this.onerror=null; chageSrc(this)">
 														</span>
 														<div class="info-wrap">
-															<div class="tit">${cartitem.codename }</div>
+															<a href="productdetail?code=${cartitem.code }"><div class="tit">${cartitem.codename }</div></a>
 															<div class="style-code">${cartitem.code }</div>
 															<div class="current-option-wrap">
 																<span class="opt">사이즈 : ${cartitem.ordersize }</span>
@@ -227,8 +227,28 @@
 									<br>
 									<hr align="left" style="color: gray; width: 85%; border: 5;">
 								</div>
-							</c:otherwise>
+								</c:otherwise>
 						</c:choose>
+							<div class="pagingdiv">
+								<div class="paging">		
+								<c:if test="${paging.startPage != 1 }">
+									<a href="cart?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<a class="active">${p }</a>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<a href="cart?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<a href="cart?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
+								</c:if>
+								</div>
+							</div>
 						</div>
 						<div class="product-checkout">
 							<strong class="tit">주문예정금액</strong>

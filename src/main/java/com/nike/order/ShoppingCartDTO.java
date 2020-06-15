@@ -1,5 +1,7 @@
 package com.nike.order;
 
+import java.util.Date;
+
 public class ShoppingCartDTO {
 	private String id;
 	private String codename;
@@ -8,7 +10,7 @@ public class ShoppingCartDTO {
 	private String ordersize;
 	private String image1; 
 	private int price;
-	
+	private Date joindate;
 	
 	
 	public String getOrdersize() {
@@ -54,6 +56,12 @@ public class ShoppingCartDTO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public Date getJoindate() {
+		return joindate;
+	}
+	public void setJoindate(Date joindate) {
+		this.joindate = joindate;
 	}
 
 }
