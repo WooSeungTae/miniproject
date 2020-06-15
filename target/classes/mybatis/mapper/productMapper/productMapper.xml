@@ -189,6 +189,26 @@
 	<select id="priceget" resultType="String" parameterType="String">
 		select price from product where code=#{code}
 	</select>
-
+	
+	
+	<!-- 검색기능 상품 관리 총갯수 -->
+  	<select id="countsearchproduct" resultType="int">
+  		select count(*) from product where ${search_key} like '%'||#{search}||'%'
+  	</select>
+	
+	<!-- 상품관리 검색기능 -->
+  	<select id="productserch" resultType="Pdto">
+  		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM product 
+							where ${search_key} like '%'||#{search}||'%' ORDER BY joindate DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
 </mapper>
 

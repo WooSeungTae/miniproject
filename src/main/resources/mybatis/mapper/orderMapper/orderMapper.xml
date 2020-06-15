@@ -39,7 +39,7 @@
 	</select>
 	<!-- 주문 확인클릭시 수정 -->
 	<update id="deliveryChange" parameterType="String">
-		update orderInfo set delivery=#{delivery} where orderNum=#{orderNum}
+		update orderInfo set delivery=#{delivery} where orderNum=#{ordernum}
 	</update>
 
 	<!-- 주문내역 및 배송현황 조회 -->
