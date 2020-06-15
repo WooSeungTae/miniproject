@@ -123,7 +123,7 @@
 	</div>
 	</div>
 	<div class="bodyinside">
-		<form action="">
+		<form action="searchQnA">
 		<select name="search_key">
 			<option value="title" selected="selected">제목</option>
 			<option value="name">이름</option>

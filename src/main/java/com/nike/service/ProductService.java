@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.nike.board.SearchBoardDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.product.InventoryCare_PagingVO;
 import com.nike.product.Inventory_PagingVO;
 import com.nike.product.ProductDAO;
 import com.nike.product.ProductDTO;
@@ -177,6 +179,16 @@ public class ProductService {
 	//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
 	public Product_sizeDTO sizeSelect(String code) {
 		return Pdao.sizeSelect(code);
+	}
+
+
+	/*관리자 상품 관리 검색 갯수*/
+	public int searchShose(SearchBoardDTO searchdto) {
+		return Pdao.searchShose(searchdto);
+	}
+	/*관리자 상품 관리 검색*/
+	public List<ProductDTO> productserch(InventoryCare_PagingVO vo) {
+		return Pdao.productserch(vo);
 	}
 
 

@@ -49,7 +49,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nike.board.Board_PagingVO;
 import com.nike.board.CommentDTO;
-import com.nike.board.QABoardDAO;
+import com.nike.board.SearchBoardDTO;
 import com.nike.board.QABoardDTO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
@@ -313,10 +313,36 @@ public class HomeController {
 		
 		/*상품관리*/
 		@RequestMapping("inventory")
-		public String inventory(Inventory_PagingVO vo, Model model
+		public String inventory(Inventory_PagingVO vo, Model model, HttpSession session
 				, @RequestParam(value="nowPage", required=false)String nowPage
 				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-			int total = Pservice.countProduct();
+			String id = (String) session.getAttribute("id");
+			if(id != null) {
+				if(id.equals("admin")) {
+					int total = Pservice.countProduct();
+					if (nowPage == null && cntPerPage == null) {
+						nowPage = "1";
+						cntPerPage = "5";
+					} else if (nowPage == null) {
+						nowPage = "1";
+					} else if (cntPerPage == null) { 
+						cntPerPage = "5";
+					}
+					vo = new Inventory_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+					model.addAttribute("paging",vo);
+					model.addAttribute("searchCode",Pservice.selectProduct(vo));
+					return "inventory";	
+				}
+				else return"redirect:/";
+			}
+			else return"redirect:/";
+		}
+		/*상품 관리 페이지 검색기능*/
+		@RequestMapping("productserch")
+		public String productserch(InventoryCare_PagingVO vo, Model model,SearchBoardDTO searchdto
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			int total = (int)Pservice.searchShose(searchdto);
 			if (nowPage == null && cntPerPage == null) {
 				nowPage = "1";
 				cntPerPage = "5";
@@ -325,21 +351,11 @@ public class HomeController {
 			} else if (cntPerPage == null) { 
 				cntPerPage = "5";
 			}
-			vo = new Inventory_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			vo = new InventoryCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			vo.setSearch_key(searchdto.getSearch_key());
+			vo.setSearch(searchdto.getSearch());
 			model.addAttribute("paging",vo);
-			model.addAttribute("searchCode",Pservice.selectProduct(vo));
-			return "inventory";
-		}
-		/*상품 관리 페이지 검색기능*/
-		@RequestMapping("productserch")
-		public String productserch(Product_PagingVO vo, Model model
-				, @RequestParam(value="nowPage", required=false)String nowPage
-				, @RequestParam(value="cntPerPage", required=false)String cntPerPage
-				, @RequestParam("codename") String codename) {
-			Double total = (double)Pservice.searchShose(codename);
-			if (nowPage == null) {nowPage = "1";}
-			vo = new Product_PagingVO(total,Integer.parseInt(nowPage),codename);
-			Pservice.searchCode(model,vo);
+			model.addAttribute("searchCode",Pservice.productserch(vo));
 			return "inventory";
 		}
 	
@@ -459,27 +475,41 @@ public class HomeController {
 	
 	/*상품 등록 페이지*/
 	@RequestMapping("product_management")
-	public String product_management() {
-		return "product_management";
+	public String product_management(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		if(id != null) {
+			if(id.equals("admin")) {
+					return "product_management";
+			}
+			else return"redirect:/";
+		}
+		else return"redirect:/";
 	}
 	/*고객관리*/
 	@GetMapping("customer_care")
-	public String customer_care(MemberInfo_PagingVO vo, Model model
+	public String customer_care(MemberInfo_PagingVO vo, Model model, HttpSession session
 								, @RequestParam(value="nowPage", required=false)String nowPage
 								, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-		int total = service.countBoard();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
+		String id = (String) session.getAttribute("id");
+		if(id != null) {
+			if(id.equals("admin")) {
+				int total = service.countBoard();
+				if (nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "5";
+				} else if (nowPage == null) {
+					nowPage = "1";
+				} else if (cntPerPage == null) { 
+					cntPerPage = "5";
+				}
+				vo = new MemberInfo_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+				model.addAttribute("paging",vo);
+				model.addAttribute("viewAll",service.selectBoard(vo));
+				return "customer_care";
+			}
+			else return"redirect:/";
 		}
-		vo = new MemberInfo_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging",vo);
-		model.addAttribute("viewAll",service.selectBoard(vo));
-		return "customer_care";
+		else return"redirect:/";
 	}
 	/*고객관리 페이지 검색기능*/
 	@RequestMapping("memberserch")
@@ -501,22 +531,29 @@ public class HomeController {
 	}
 	/*주문관리*/
 	@RequestMapping("order_care")
-	public String order_care(OrderCare_PagingVO vo, Model model
+	public String order_care(OrderCare_PagingVO vo, Model model, HttpSession session
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-		int total = orderservice.countOrder();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
+		String id = (String) session.getAttribute("id");
+		if(id != null) {
+			if(id.equals("admin")) {
+				int total = orderservice.countOrder();
+				if (nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "5";
+				} else if (nowPage == null) {
+					nowPage = "1";
+				} else if (cntPerPage == null) { 
+					cntPerPage = "5";
+				}
+				vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+				model.addAttribute("paging",vo);
+				model.addAttribute("viewAll",orderservice.selectorder(vo));
+				return "order_care";
+			}
+			else return"redirect:/";
 		}
-		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging",vo);
-		model.addAttribute("viewAll",orderservice.selectorder(vo));
-		return "order_care";
+		else return"redirect:/";
 	}
 	@RequestMapping("deliveryChange")
 	public String deliveryChange(OrderDTO Odto) {
@@ -795,13 +832,37 @@ public class HomeController {
 		return "sminj/userDelete";
 	}
 	/* 주문내역 및 배송현황 조회 */
-	@RequestMapping("orders")
+	@RequestMapping("orderList")
 	public String orderView(Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
-		List<Order_detailsDTO> list = orderservice.orderView(id);
-		model.addAttribute("list", list);
+		List<Order_detailsDTO> orderList = orderservice.orderList(id);
+		model.addAttribute("orderList", orderList);
 		return "myPage/myPageOrderDelivery";
+	}
+	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
+	@RequestMapping("orderView")
+	public String orderView(OrderDTO Odto, Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
+		String ordernum = (String)  request.getParameter("ordernum");
+		System.out.println(ordernum);
+		List<Order_detailsDTO> orderList = orderservice.orderList_num(ordernum);
+		System.out.println(orderList.get(0).getOrdernum());
+		List<OrderDTO> orderView = orderservice.orderView_num(ordernum);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("orderView", orderView);
+		return "sminj/orderView";
+	}
+	/*	
+	@RequestMapping("orderView")
+	public String orderView() {
+		return "sminj/orderView";
+	}
+*/
+	/* 주문내역 및 배송현황 페이지 - 배송 상태 변경*/
+	@RequestMapping(value="/myPage/myPageOrderDelivery", method=RequestMethod.POST)
+	public String delivery(Order_detailsDTO Ddto) {
+		orderservice.delivery(Ddto);
+		return "redirect:/myPage/myPageOrderDelivery?=" + Ddto.getOrdernum();
 	}
 	/*Q&A 게시물 등록*/
 	@RequestMapping("qaregister")
@@ -861,7 +922,7 @@ public class HomeController {
 		}
 		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging",vo);
-		model.addAttribute("viewAll",bservice.selectqna1(vo));
+		model.addAttribute("viewAll",bservice.selectqna(vo));
 		return "board/QnA_board";
 	}
 	/*review 게시판 전체 보기*/
@@ -883,6 +944,7 @@ public class HomeController {
 		model.addAttribute("viewAll",reviewservice.selectreview(vo));
 		return "board/review_board";
 	}
+
 	/*review 페이징 ajax*/
 	@PostMapping(value= "ajax_RV",produces="application/json; charset=utf8")
 	@ResponseBody
@@ -963,6 +1025,159 @@ public class HomeController {
 	@RequestMapping("LogChecking")
 	public String LogChecking() {
 		return "LogChecking";
+	}
+
+
+	/*Q & A게시판 검색*/
+	@RequestMapping("searchQnA")
+	public String searchQnA(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = bservice.searchQnAcount(searchdto);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		vo.setSearch_key(searchdto.getSearch_key());
+		vo.setSearch(searchdto.getSearch());
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",bservice.searchQnA(vo));
+		return "board/QnA_board";
+	}
+	/*review게시판 검색*/
+	@RequestMapping("searchreview")
+	public String searchreview(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = reviewservice.searchreviewcount(searchdto);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		vo.setSearch_key(searchdto.getSearch_key());
+		vo.setSearch(searchdto.getSearch());
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",reviewservice.searchreview(vo));
+		return "board/review_board";
+	}
+	/*Q & A게시판 검색 관리자 페이지*/
+	@RequestMapping("searchQnA_care")
+	public String searchQnA_care(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = bservice.searchQnAcount(searchdto);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		vo.setSearch_key(searchdto.getSearch_key());
+		vo.setSearch(searchdto.getSearch());
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",bservice.searchQnA(vo));
+		return "QnA_board_care";
+	}
+	/*review게시판 검색 관리자 페이지*/
+	@RequestMapping("searchreview_care")
+	public String searchreview_care(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		int total = reviewservice.searchreviewcount(searchdto);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		vo.setSearch_key(searchdto.getSearch_key());
+		vo.setSearch(searchdto.getSearch());
+		model.addAttribute("paging",vo);
+		model.addAttribute("viewAll",reviewservice.searchreview(vo));
+		return "review_board_care";
+	}
+	/*Q & A 관리자 게시판 전체 보기*/
+	@RequestMapping("QnA_board_care")
+	public String qnaboard_care(OrderCare_PagingVO vo, Model model, HttpSession session
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		String id = (String) session.getAttribute("id");
+
+		if(id != null) {
+					if(id.equals("admin")) {
+		
+				int total = bservice.countqna();
+				if (nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "5";
+				} else if (nowPage == null) {
+					nowPage = "1";
+				} else if (cntPerPage == null) { 
+					cntPerPage = "5";
+				}
+				vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+				model.addAttribute("paging",vo);
+				model.addAttribute("viewAll",bservice.selectqna(vo));
+				return "QnA_board_care";
+				}
+				else return"redirect:/";
+			}
+			else return"redirect:/";
+	}
+	
+	/*review 게시판 전체 보기*/
+	@RequestMapping("review_board_care")
+	public String review_board_care(OrderCare_PagingVO vo, Model model, HttpSession session
+			, @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		String id = (String) session.getAttribute("id");
+		if(id != null) {
+			if(id.equals("admin")) {
+				int total = reviewservice.countreview();
+				if (nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "5";
+				} else if (nowPage == null) {
+					nowPage = "1";
+				} else if (cntPerPage == null) { 
+					cntPerPage = "5";
+				}
+				vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+				model.addAttribute("paging",vo);
+				model.addAttribute("viewAll",reviewservice.selectreview(vo));
+				return "review_board_care";
+			}
+			else return"redirect:/";
+		}
+		else return"redirect:/";
+	}
+	/*Q&A 관리자 페이지 삭제*/
+	@RequestMapping("QnA_board_care_delete")
+	public String QnA_board_care_delete(@RequestParam("indexnum") String indexnum) {
+		bservice.QnA_board_care_delete(indexnum);
+		return "redirect:QnA_board_care";
+	}
+	/*review 관리자 페이지 삭제*/
+	@RequestMapping("review_board_care_delete")
+	public String review_board_care_delete(@RequestParam("reviewnum") String reviewnum) {
+		reviewservice.review_board_care_delete(reviewnum);
+		return "redirect:review_board_care";
 	}
 
 }

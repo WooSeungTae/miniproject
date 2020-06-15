@@ -39,6 +39,7 @@ public class ReviewDAO {
 	public void reviewmodify(ReviewDTO rdto) {
 		sqlSession.update(namespace+".reviewmodify", rdto);
 	}
+
 	
 	/*코드별 리뷰 리스트 총 개수*/
 	public int rvtotal(String code) {
@@ -50,11 +51,28 @@ public class ReviewDAO {
 		return sqlSession.selectList(namespace+".rvlist",vo);
 	}
 	
+
+	/*review 게시판 전체 갯 수*/
+
 	public int countreview() {
 		return sqlSession.selectOne(namespace+".countreview");
 	}
-
+	/*review 게시판 전체 보기*/
 	public List<ReviewDTO> selectreview(OrderCare_PagingVO vo) {
 		return sqlSession.selectList(namespace+".selectreview",vo);
 	}
+	/*review 관리자 페이지 삭제*/
+	public void review_board_care_delete(String reviewnum) {
+		sqlSession.delete(namespace+".review_board_care_delete",reviewnum);
+	}
+	/*review게시판 검색 갯수*/
+	public int searchreviewcount(SearchBoardDTO searchdto) {
+		return sqlSession.selectOne(namespace+".searchreviewcount",searchdto);
+	}
+	/*review게시판 검색*/
+	public List<ReviewDTO> searchreview(OrderCare_PagingVO vo) {
+		return sqlSession.selectList(namespace+".searchreview",vo);
+	}
+
+
 }

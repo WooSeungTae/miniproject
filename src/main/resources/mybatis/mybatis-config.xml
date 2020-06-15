@@ -16,6 +16,8 @@
 		<typeAlias type="com.nike.board.Board_PagingVO" alias="Bdto"/>
 		<typeAlias type="com.nike.board.QABoardDTO" alias="Qdto"/>
 		<typeAlias type="com.nike.board.CommentDTO" alias="Cdto"/>
+		<typeAlias type="com.nike.board.SearchBoardDTO" alias="SBdto"/>
+		<typeAlias type="com.nike.order.OrderCare_PagingVO" alias="OCdto"/>
 	</typeAliases>
 </configuration>
 

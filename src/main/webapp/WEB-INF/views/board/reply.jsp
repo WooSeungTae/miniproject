@@ -37,10 +37,9 @@
 	
 	function ajax_comment(){
 		
-	if(document.getElementById("commentcontent").innerHTML==''){
+	if(document.getElementById("commentcontent").value==''){
 		alert('댓글 내용을 입력하세요');
 	}
-	document.getElementById("commentcontent").value='';
 	$.ajax({
 		url : "replyregister",
 		type : "POST",
@@ -48,6 +47,7 @@
 		success : function(result){
 			list();
 	             
+	document.getElementById("commentcontent").value=' ';
 		},
 		error : function() {
 			alert("문제가 발생 했습니다!!");

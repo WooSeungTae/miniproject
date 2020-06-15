@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nike.board.SearchBoardDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.Order_detailsDTO;
 
@@ -155,6 +156,15 @@ public class ProductDAO {
 	//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
 	public Product_sizeDTO sizeSelect(String code) {
 		return sqlSession.selectOne(nameSpace+".sizeSelect", code);
+	}
+
+	/*관리자 상품 관리 검색 갯수*/
+	public int searchShose(SearchBoardDTO searchdto) {
+		return sqlSession.selectOne(nameSpace+".countsearchproduct",searchdto);
+	}
+	/*관리자 상품 관리 검색*/
+	public List<ProductDTO> productserch(InventoryCare_PagingVO vo) {
+		return sqlSession.selectList(nameSpace+".productserch",vo);
 	}	
 	
 }
