@@ -79,13 +79,12 @@ public class OrderDAO {
 		sqlSession.update(namespace2+".cartoptionchange", sdto);
 		
 	}
-<<<<<<< HEAD
 	
 	/*장바구니 관리 물품 일정량만 가져옴(페이징 기능)*/
 	public List<ShoppingCartDTO> cartpaing(Cart_PagingVO cpvo) {
 		return sqlSession.selectList(namespace2+".cartpaing", cpvo);
-=======
-
+	}
+	
 	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
 	public List<OrderDTO> orderView(String id){
 		return sqlSession.selectList(namespace+".orderView",id);
@@ -93,7 +92,6 @@ public class OrderDAO {
 	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
 	public List<OrderDTO> orderView_num(String ordernum){
 		return sqlSession.selectList(namespace+".orderView_num",ordernum);
->>>>>>> 287802ab29c23964a4193859291371abe6e5ef52
 	}
 
 }

@@ -67,9 +67,7 @@
 					)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-<<<<<<< HEAD
-	</mapper>
-=======
+
 	
 	<!--review 관리자 페이지 삭제-->
   	<delete id="review_board_care_delete" parameterType="String">
@@ -95,4 +93,3 @@
 		WHERE RN BETWEEN #{start} AND #{end}
   	</select>
 </mapper>
->>>>>>> 287802ab29c23964a4193859291371abe6e5ef52

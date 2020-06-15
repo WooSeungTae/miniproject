@@ -186,12 +186,11 @@ public class ProductService {
 	}
 
 
-<<<<<<< HEAD
 	//관리자 사이즈 삭제하기 위한 기능
 	public void sizeDelete(String code) {
 		Pdao.sizeDelete(code);
-		
-=======
+	}
+	
 	/*관리자 상품 관리 검색 갯수*/
 	public int searchShose(SearchBoardDTO searchdto) {
 		return Pdao.searchShose(searchdto);
@@ -199,7 +198,6 @@ public class ProductService {
 	/*관리자 상품 관리 검색*/
 	public List<ProductDTO> productserch(InventoryCare_PagingVO vo) {
 		return Pdao.productserch(vo);
->>>>>>> 287802ab29c23964a4193859291371abe6e5ef52
 	}
 
 
