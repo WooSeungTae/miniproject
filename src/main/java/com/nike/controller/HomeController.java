@@ -49,6 +49,7 @@ import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
+import com.nike.order.Cart_PagingVO;
 import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
@@ -653,18 +654,40 @@ public class HomeController {
 
 	/*장바구니*/
 	@RequestMapping("cart")
-	public String cart(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+	public String cart(Cart_PagingVO cpvo, ShoppingCartDTO sdto, HttpServletRequest request, Model model,
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage",required=false)String cntPerPage) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
+		int total = orderservice.countcart(id);
+		if(total>0) {
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "3";
+			}else if(nowPage == null) {
+				nowPage = "1";
+			}else if(cntPerPage == null) {
+				cntPerPage = "3";
+			}
+			cpvo = new Cart_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			cpvo.setId(id);
+			cpvo.setTotal(total);
+			cpvo.setNowPage(Integer.parseInt(nowPage));
+			cpvo.setCntPerPage(Integer.parseInt(cntPerPage));
+			/*장바구니 DB에서 회원별 리스트 가져오기*/
+			model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
+			
+		}
+		
 		/*장바구니 DB에서 리스트 개수 가져오기*/
 		System.out.println("==========================================" + orderservice.countcart(id));
-		model.addAttribute("cartcount", orderservice.countcart(id));
-		/*장바구니 DB에서 회원별 리스트 가져오기*/
-		model.addAttribute("cartlist", orderservice.selectcart(id));
+		model.addAttribute("cartcount", total);
 		/*장바구니 DB에서 회원별 총 금액 가져오기*/
 		model.addAttribute("totalprice", orderservice.totalprice(id));
 		return "purchase/cart";
 	}
+	
+	
 	
 	/*장바구니 옵션창 뜨게 함*/
 	@RequestMapping("cartoption")

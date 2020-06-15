@@ -373,7 +373,6 @@
    			}
    		}
 
-<<<<<<< HEAD
 	</script>
 	<script type="text/javascript">
 		function buttoncheck(){
@@ -386,9 +385,6 @@
 		}
 	</script>
 	<script type="text/javascript">
-=======
-   		
->>>>>>> master
 		window.onload = function(){
 			var noadd = document.getElementById("noadd");
 			console.log(noadd);
@@ -509,10 +505,6 @@
 										<span class="tit" style="font-size: 30px; color: #000;">${pdto.codename }</span>
 									</h1>
 								</div>
-<<<<<<< HEAD
-								<h1 class="title-wrap">
-									<span class="tit" style="font-size:30px; color:#000;">${pdto.codename }</span>
-								</h1>
 							</div>
 							<div class="pinfo-item-box">
 								<form name="fo" method="GET" onsubmit="return buttoncheck()">
@@ -543,29 +535,7 @@
 															</c:forEach>
 														</c:otherwise>
 													</c:choose>
-=======
-								<div class="pinfo-item-box">
-									<form name="fo" method="GET">
-										<input type="hidden" name="code" value="${pdto.code }">
-										<div class="option-wrap">
-											<div class="size-grid-type padding radius">
-												<strong class="tit">사이즈 선택</strong>
-												<div class="product-option_radio square">
-													<div class="opt-list">
-														<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
-														<c:forEach var="ordersize" begin="230" end="330" step="10">
-															<input type="button" class="button5" name="ordersize"
-																value="${ordersize}" id="${ordersize}"
-																onclick="sizebuttonclick(this.id)">
-															<input type="radio" id="${ordersize*10 }"
-																name="ordersize" value="${ordersize }" hidden="">
-															<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
-																<br>
-															</c:if>
-														</c:forEach>
-
 													</div>
->>>>>>> master
 												</div>
 											</div>
 											<div class="stocked-wrap line" id="set-restock-alarm"
@@ -589,14 +559,11 @@
 											<div>
 												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
-<<<<<<< HEAD
 														<input class="directorder" type="submit" value="바로구매" formaction="checkoutQuick">
 														<input type="submit" class="shoppingcart" value="장바구니" formaction="cartSave">
-=======
 														<input class="directorder" type="submit" value="바로구매"
 															formaction="checkoutQuick"> <input type="submit"
 															class="shoppingcart" value="장바구니" formaction="cartSave">
->>>>>>> master
 													</div>
 												</div>
 											</div>

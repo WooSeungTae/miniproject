@@ -79,6 +79,10 @@ public class OrderDAO {
 		sqlSession.update(namespace2+".cartoptionchange", sdto);
 		
 	}
-
+	
+	/*장바구니 관리 물품 일정량만 가져옴(페이징 기능)*/
+	public List<ShoppingCartDTO> cartpaing(Cart_PagingVO cpvo) {
+		return sqlSession.selectList(namespace2+".cartpaing", cpvo);
+	}
 
 }

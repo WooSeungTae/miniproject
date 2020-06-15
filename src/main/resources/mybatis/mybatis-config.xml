@@ -15,6 +15,7 @@
 		<typeAlias type="com.nike.board.ReviewDTO" alias="Rdto"/>
 		<typeAlias type="com.nike.board.Board_PagingVO" alias="Bdto"/>
 		<typeAlias type="com.nike.board.QABoardDTO" alias="Qdto"/>
+		<typeAlias type="com.nike.order.Cart_PagingVO" alias="Cpdto"/>
 	</typeAliases>
 </configuration>
 

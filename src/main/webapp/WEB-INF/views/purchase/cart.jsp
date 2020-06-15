@@ -229,6 +229,26 @@
 								</div>
 							</c:otherwise>
 						</c:choose>
+							<div class="pagingdiv">
+								<div class="paging">		
+								<c:if test="${paging.startPage != 1 }">
+									<a href="inventory?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<a class="active">${p }</a>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<a href="inventory?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<a href="inventory?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
+								</c:if>
+								</div>
+							</div>
 						</div>
 						<div class="product-checkout">
 							<strong class="tit">주문예정금액</strong>
