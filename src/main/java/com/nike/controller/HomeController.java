@@ -292,8 +292,52 @@ public class HomeController {
 		
 		//마이페이지 나의 리뷰 보여주기
 		@RequestMapping("reviewintro")
-		public String reviewintro(HttpServletRequest request, Model model) {
+		public String reviewintro(HttpSession session, Model model,OrderCare_PagingVO vo
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			SearchBoardDTO searchdto = new SearchBoardDTO();
+			searchdto.setSearch_key("id");
+			searchdto.setSearch((String)session.getAttribute("id"));
+			int total = reviewservice.searchreviewcount(searchdto);
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) { 
+				cntPerPage = "5";
+			}
+			vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			vo.setSearch_key("id");
+			vo.setSearch((String)session.getAttribute("id"));
+			model.addAttribute("paging",vo);
+			model.addAttribute("viewAll",reviewservice.searchreview(vo));
 			return "myPage/myPageReviewintro";
+		}
+		
+		/*마이페이지 QnA*/
+		@RequestMapping("mypageQnA")
+		public String myreviewlistall(HttpSession session,Model model,OrderCare_PagingVO vo
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			SearchBoardDTO searchdto = new SearchBoardDTO();
+			searchdto.setSearch_key("id");
+			searchdto.setSearch((String)session.getAttribute("id"));
+			int total = bservice.searchQnAcount(searchdto);
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) { 
+				cntPerPage = "5";
+			}
+			vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			vo.setSearch_key("id");
+			vo.setSearch((String)session.getAttribute("id"));
+			model.addAttribute("paging",vo);
+			model.addAttribute("viewAll",bservice.searchQnA(vo));
+			return "myPage/mypageQnA";
 		}
 		
 		//관리자 상품관리(삭제)
@@ -761,11 +805,6 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping("myreviewlistall")
-	public String myreviewlistall() {
-		return "myPage/myPagemyReviewlistall";
-	}
-	
 	@RequestMapping("towritelistall")
 	public String myPageTowritelistall() {
 		return "myPage/myPageTowritelistall";
@@ -1114,5 +1153,4 @@ public class HomeController {
 		reviewservice.review_board_care_delete(reviewnum);
 		return "redirect:review_board_care";
 	}
-
 }

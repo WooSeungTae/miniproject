@@ -47,6 +47,7 @@
 </style>
 </head>
 <body>
+
 	<!--  왼쪽 사이드바 부분 -->
 	<aside style="float: left; margin: 0px 30px 0px 0px; height: auto;">
 		<div class="MyPage"><h1>MY PAGE</h1></div>
@@ -71,6 +72,7 @@
 				<li class="aside_title">활동정보</li>
 				<li><a href="mileage" class="aside_a">나의 MILE</a></li>
 				<li><a href="reviewintro" class="aside_a">상품리뷰</a></li>
+				<li><a href="mypageQnA" class="aside_a">나의 Q&A</a></li>
 			</ul>
 		</div>
 		<hr class="aside_hr">

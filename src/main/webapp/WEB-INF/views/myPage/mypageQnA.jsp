@@ -63,11 +63,11 @@
 <script>
 	function selChange() {
 		var sel = document.getElementById('cntPerPage').value;
-		location.href="reviewintro?nowPage=${paging.nowPage}&cntPerPage="+sel;
+		location.href="mypageQnA?nowPage=${paging.nowPage}&cntPerPage="+sel;
 	}
 </script>
 <meta charset="UTF-8">
-<title>나의 상품리뷰</title>
+<title>나의 Q&A</title>
 </head>
 <body>
 	<header>
@@ -94,23 +94,23 @@
 					</select>
 				</div>
 				 <table class="membertable" >
-					<tr class="tablehead"><th>번호</th><th>상품 정보</th><th style="width: 500px;">제목</th><th>작성자</th><th>작성일</th></tr>
+					<tr class="tablehead"><th>번호</th><th>상품 정보</th><th>카테고리</th><th style="width: 500px;">제목</th><th>작성자</th><th>작성일</th></tr>
 					<c:choose>
 						<c:when test="${size ne 0}">
 							<c:forEach items="${viewAll }" var="dto">
-							<tr align="center"><td>${dto.reviewnum}</td><td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td>
-							<td>${dto.reviewtitle}</td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
+							<tr align="center"><td>${dto.indexnum}</td><td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td><td>${dto.titlelist}</td>
+							<td>${dto.title}</td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<tr align="center"><th colspan="5">등록된 정보가 없습니다</th></tr>
+							<tr align="center"><th colspan="6">등록된 정보가 없습니다</th></tr>
 						</c:otherwise>
 					</c:choose>
 				</table>
 				<div class="pagingdiv">
 				<div class="paging">		
 					<c:if test="${paging.startPage != 1 }">
-						<a href="reviewintro?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
+						<a href="mypageQnA?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
 					</c:if>
 					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 						<c:choose>
@@ -118,12 +118,12 @@
 								<a class="active">${p }</a>
 							</c:when>
 							<c:when test="${p != paging.nowPage }">
-								<a href="reviewintro?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+								<a href="mypageQnA?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 							</c:when>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${paging.endPage != paging.lastPage}">
-						<a href="reviewintro?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
+						<a href="mypageQnA?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
 					</c:if>
 				</div>
 				</div>
