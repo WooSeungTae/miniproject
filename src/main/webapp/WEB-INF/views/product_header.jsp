@@ -58,8 +58,11 @@
 	<div class="headericon"><a href="customer_care">
 	<img src="image/customer.png" class="headerimg"><label>고객 관리</label></a>
 	</div>
-	<div class="headericon"><a href="board_care">
-	<img src="image/board.png" class="headerimg"><label>게시판 관리</label></a>
+	<div class="headericon"><a href="QnA_board_care">
+	<img src="image/qna.png" class="headerimg"><label>Q&A 관리</label></a>
+	</div>
+	<div class="headericon"><a href="review_board_care">
+	<img src="image/board.png" class="headerimg"><label>REVIEW 관리</label></a>
 	</div>
 	<div class="headericon"><a href="order_care">
 	<img src="image/order.png" class="headerimg"><label>주문 관리</label></a>

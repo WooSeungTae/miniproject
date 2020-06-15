@@ -12,6 +12,7 @@ import com.nike.board.QABoardDAO;
 import com.nike.board.QABoardDTO;
 import com.nike.board.ReviewDAO;
 import com.nike.board.ReviewDTO;
+import com.nike.board.SearchBoardDTO;
 import com.nike.order.OrderCare_PagingVO;
 
 @Service
@@ -36,6 +37,18 @@ public class BoardService {
 	/*Q & A 게시판 전체 보기*/
 	public List<QABoardDTO> selectqna(OrderCare_PagingVO vo) {
 		return qdao.selectqna(vo);
+	}
+	/*Q&A 관리자 페이지 삭제*/
+	public void QnA_board_care_delete(String indexnum) {
+		qdao.QnA_board_care_delete(indexnum);
+	}
+	/*Q&A 게시판 검색*/
+	public List<QABoardDTO> searchQnA(OrderCare_PagingVO dto) {
+		return qdao.searchQnA(dto);
+	}
+	/*Q&A 게시판 검색 갯수*/
+	public int searchQnAcount(SearchBoardDTO searchdto) {
+		return qdao.searchQnAcount(searchdto);
 	}
 	
 	

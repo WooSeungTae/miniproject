@@ -30,6 +30,7 @@
 	/*안에 있는 div부분*/
 	.bodyinside {background: white; padding: 10px; margin-top:20px; 
 				height: 50%; border: 2px solid #d2d2d2;}
+	.bodyinside select{width:100px; height:25px;}
 	/*페이징 옵션*/
 	.pagingoption{float: right;margin: 10px;}
 	.pagingoption select{
@@ -60,6 +61,14 @@
 	function selChange() {
 		var sel = document.getElementById('cntPerPage').value;
 		location.href="customer_care?nowPage=${paging.nowPage}&cntPerPage="+sel;
+	}
+	function delete_btn(id) {
+		  
+		var con = confirm("정말 삭제하시겠습니까?");
+		
+		if(con){
+			location.href="memberdelete?id="+id
+		}
 	}
 </script>
 <meta charset="UTF-8">
@@ -99,7 +108,7 @@
 				<c:forEach items="${viewAll }" var="dto">
 				<tr align="center"><td>${dto.id}</td><td>${dto.name}</td><td>${dto.address}</td>
 				<td>${dto.gender}</td><td>${dto.birth}</td><td>${dto.tel}</td>
-				<td><a href="memberdelete?id=${dto.id}"><input type="button" value="삭제"></a></td></tr>
+				<td><input type="button" value="삭제" id="${dto.id}" onclick="delete_btn(this.id)"></td></tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
