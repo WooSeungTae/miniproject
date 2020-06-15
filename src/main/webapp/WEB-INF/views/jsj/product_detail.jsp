@@ -373,18 +373,7 @@
    			}
    		}
 
-	</script>
-	<script type="text/javascript">
-		function buttoncheck(){
-			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			if(!document.fo.ordersize.value){
-				alert("사이즈를 선택해주세요!!!");
-				return false;
-			}
-			
-		}
-	</script>
-	<script type="text/javascript">
+   		
 		window.onload = function(){
 			var noadd = document.getElementById("noadd");
 			console.log(noadd);
@@ -407,7 +396,16 @@
   		}
 
 </script>
-
+<script type="text/javascript">
+		function buttoncheck(){
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+			if(!document.fo.ordersize.value){
+				alert("사이즈를 선택해주세요!!!");
+				return false;
+			}
+			
+		}
+	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -505,36 +503,26 @@
 										<span class="tit" style="font-size: 30px; color: #000;">${pdto.codename }</span>
 									</h1>
 								</div>
-							</div>
-							<div class="pinfo-item-box">
-								<form name="fo" method="GET" onsubmit="return buttoncheck()">
-									<input type="hidden" name="code" value="${pdto.code }">
-									<div class="option-wrap">
-										<div class="size-grid-type padding radius">
-											<strong class="tit">사이즈 선택</strong>
-											<div class="product-option_radio square">
-												<div class="opt-list">
-													<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
-													<c:choose>
-														<c:when test="${pdto.gender!='키즈' }">
-															<c:forEach var="ordersize" begin="230" end="330" step="10">
-																<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick(this.id)">
-																<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
-																<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
+								<div class="pinfo-item-box">
+									<form name="fo" method="GET" onsubmit="return buttoncheck()">
+										<input type="hidden" name="code" value="${pdto.code }">
+										<div class="option-wrap">
+											<div class="size-grid-type padding radius">
+												<strong class="tit">사이즈 선택</strong>
+												<div class="product-option_radio square">
+													<div class="opt-list">
+														<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
+														<c:forEach var="ordersize" begin="230" end="330" step="10">
+															<input type="button" class="button5" name="ordersize"
+																value="${ordersize}" id="${ordersize}"
+																onclick="sizebuttonclick(this.id)">
+															<input type="radio" id="${ordersize*10 }"
+																name="ordersize" value="${ordersize }" hidden="">
+															<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
 																<br>
-																</c:if>
-															</c:forEach>
-														</c:when>
-														<c:otherwise>
-															<c:forEach var="ordersize" begin="80" end="160" step="10">
-																<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick(this.id)">
-																<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
-																<c:if test="${ordersize%120 eq 0}">
-																<br>
-																</c:if>
-															</c:forEach>
-														</c:otherwise>
-													</c:choose>
+															</c:if>
+														</c:forEach>
+
 													</div>
 												</div>
 											</div>
@@ -559,8 +547,6 @@
 											<div>
 												<div class="status-wrap btn-wrap radius">
 													<div class="order-wrap">
-														<input class="directorder" type="submit" value="바로구매" formaction="checkoutQuick">
-														<input type="submit" class="shoppingcart" value="장바구니" formaction="cartSave">
 														<input class="directorder" type="submit" value="바로구매"
 															formaction="checkoutQuick"> <input type="submit"
 															class="shoppingcart" value="장바구니" formaction="cartSave">

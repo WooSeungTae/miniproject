@@ -5,9 +5,11 @@ public class Cart_PagingVO {
 		private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
 		private int cntPage = 5;
 		private String id;
+		
 		public Cart_PagingVO() {
 		}
-		public Cart_PagingVO(int total, int nowPage, int cntPerPage) {
+		public Cart_PagingVO(String id, int total, int nowPage, int cntPerPage) {
+			setId(id);
 			setNowPage(nowPage);
 			setCntPerPage(cntPerPage);
 			setTotal(total);

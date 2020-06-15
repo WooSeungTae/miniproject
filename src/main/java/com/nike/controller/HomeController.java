@@ -669,11 +669,9 @@ public class HomeController {
 			}else if(cntPerPage == null) {
 				cntPerPage = "3";
 			}
-			cpvo = new Cart_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-			cpvo.setId(id);
-			cpvo.setTotal(total);
-			cpvo.setNowPage(Integer.parseInt(nowPage));
-			cpvo.setCntPerPage(Integer.parseInt(cntPerPage));
+			cpvo = new Cart_PagingVO(id, total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			System.out.println("=====================================" + orderservice.cartpaging(cpvo));
+			model.addAttribute("paging", cpvo);
 			/*장바구니 DB에서 회원별 리스트 가져오기*/
 			model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
 			
