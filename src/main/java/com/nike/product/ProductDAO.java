@@ -24,7 +24,6 @@ public class ProductDAO {
 		
 	/*남자 전체신발 조회*/
 	public List<ProductDTO> allListMen(Product_PagingVO vo) {
-		System.out.println(vo.getNowPage());
 		return sqlSession.selectList(nameSpace+".AllListMen",vo);
 	}
 	/*여자 전체신발 조회*/
@@ -69,6 +68,12 @@ public class ProductDAO {
 	
 	
 	/* ======== 갯수  ========== */
+	/*신발 컬러 갯수*/
+	public List<ProductDTO> selectcolor() {
+		return sqlSession.selectList(nameSpace+".selectcolor");
+	}
+	
+	
 	/*gender별 신발 전체 개수*/
 	public int genderTotal(String gender) {
 		return sqlSession.selectOne(nameSpace+".countProduct",gender);

@@ -20,8 +20,16 @@ public class ReviewDTO {
 	private int rating3 = 0;
 	private int rating4 = 0;
 	private String image = " ";
+	private int rn;
 	
 	
+	
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
 	public int getReviewnum() {
 		return reviewnum;
 	}
