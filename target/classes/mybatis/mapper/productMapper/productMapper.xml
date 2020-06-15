@@ -160,6 +160,11 @@
 	select * from product where code=#{code}
 	</select>
 	
+	<!-- 상품별 사이즈 검색 -->
+	<select id="searchSizecode" resultType="int">
+		select size${ordersize} from sizetable where code=#{code}  
+	</select>
+
 
 	<!-- ===========Paging========= -->
 	<!-- gender별 페이지수 -->
@@ -189,6 +194,5 @@
 	<select id="priceget" resultType="String" parameterType="String">
 		select price from product where code=#{code}
 	</select>
-
 </mapper>
 

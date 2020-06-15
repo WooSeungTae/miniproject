@@ -1,12 +1,15 @@
 package com.nike.service;
 
 import java.util.List;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nike.order.OrderCare_PagingVO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
@@ -15,6 +18,7 @@ import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDAO;
 import com.nike.order.Order_detailsDTO;
 import com.nike.order.ShoppingCartDTO;
+import com.nike.product.ProductDAO;
 
 @Service
 public class OrderService {
@@ -24,20 +28,31 @@ public class OrderService {
 	private Order_detailsDAO Ddao;
 	@Autowired
 	private MemberInfoDAO dao;
+	@Autowired
+	private ProductDAO Pdao;
+	
 	private String orderNum;
 	
 	/*구매후 등록*/
-	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+	public void productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request){
 		orderNum="Order";
 		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
 		orderNum = orderNum + format.format(new Date());
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
+		String code = request.getParameter("code");
+		String ordersize = request.getParameter("ordersize");
+		String count=request.getParameter("count");
+//		if(Pdao.searchSizecode(Ddto)<1) {
+//			System.out.println("작은거 확인");
+//			return;
+//		}
 		if(id!=null) {dao.mileageModify(dto);}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
 		Ddao.buyRegisterDetails(Ddto);
+		Ddao.sizeDelete(Ddto);
 	}
 	
 	/*구매후 등록*/
@@ -79,7 +94,6 @@ public class OrderService {
 	/*장바구니 DB에서 회원별 리스트 가져오기*/
 	public List<ShoppingCartDTO> selectcart(String id) {
 		
-		System.out.println(Odao.selectcart(id));
 		return Odao.selectcart(id);
 	}
 	

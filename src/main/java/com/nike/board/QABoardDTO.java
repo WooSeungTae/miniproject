@@ -3,7 +3,7 @@ package com.nike.board;
 import java.sql.Date;
 
 public class QABoardDTO {
-	private int indexnum;
+	private String indexnum;
 	private String id;
 	private String code;
 	private String codename;
@@ -25,10 +25,11 @@ public class QABoardDTO {
 	public void setRn(int rn) {
 		this.rn = rn;
 	}
-	public int getIndexnum() {
+
+	public String getIndexnum() {
 		return indexnum;
 	}
-	public void setIndexnum(int indexnum) {
+	public void setIndexnum(String indexnum) {
 		this.indexnum = indexnum;
 	}
 	public String getTitlelist() {

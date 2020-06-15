@@ -24,7 +24,7 @@ public class Product_sizeDTO {
 	private String size310 = "0";
 	private String size320 = "0";
 	private String size330 = "0";
-	
+
 	
 	public String getCode() {
 		return code;

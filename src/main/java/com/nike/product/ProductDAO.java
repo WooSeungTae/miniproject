@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.order.Order_detailsDTO;
 
 @Repository
 public class ProductDAO {
@@ -64,7 +65,10 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".searchCode",vo);
 	}
 	
-
+	/*상품별 사이즈 검색 */
+	public int searchSizecode(Order_detailsDTO Ddto) {
+		return sqlSession.selectOne(nameSpace+".searchSizecode",Ddto);
+	}
 	
 	
 	/* ======== 갯수  ========== */

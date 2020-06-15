@@ -55,41 +55,19 @@
 		var writeId = '${qnaview.id}';
 		var check = document.getElementById("readonlycheck");
 		console.log(sessionId==writeId);
+		if(sessionId=="")$('#readonlycheck').attr('readonly', true); //설정
 		if(sessionId==writeId){
 			$('#readonlycheck').attr('readonly', false); //해제 
 		}else{
 			$('#readonlycheck').attr('readonly', true); //설정
 		}
 		
-	function ajax_qacomment(){
-		var form = {
-				indexnum : '${param.indexnum}'		
-		}
-		
-		$.ajax({
-			url : "qnaview",
-			type : "POST",
-			data :form,
-			success : function(result){
-				let html = "";
-				for(var i=0;i<result.length;i++){
-					html+="<h3>작성자 : "+result[i].writer +"</h3>&nbsp;&nbsp; 작성일 : "+result[i].reg_date+"</h3>"+
-					"<h3>"+result[i].content +"</h3><hr><br>"
-				}
-			$('.replycontent').html(html);
-			},
-			error : function() {
-				alert("문제가 발생 했습니다!!");
-			}
-		});
-	}
-
 	}	
 </script>
 
 
 </head>
-<body onload='idcheck();ajax_qacomment()'>
+<body onload='idcheck();list()'>
 
 <c:import url="/header"></c:import>
 <div class = "bodyQ">
@@ -127,6 +105,7 @@
 		<th>작성자</th>
 		<td><input id="readonlycheck" type="text" name="name" style="width: 99%;" value="${qnaview.name }" >
 		<input type="hidden" readonly name="id" style="width: 99%;" value="${qnaview.id }">
+		<input type="hidden" readonly name="writer" style="width: 99%;" value="${sessionScope.id }">
 		<input type="hidden" readonly name="indexnum" style="width: 99%;" value="${qnaview.indexnum }">
 		</td>
 			</tr>
@@ -138,8 +117,9 @@
 	<input type="button" value ="목록으로" onclick="location.href='window.history.back()'">
 	</div> 
 	</form><br><br>
-	<c:import url="/reply"></c:import>
-	<div class="replycontent"></div>
+	<c:import url="/reply">
+		<c:param name="indexnum" value="${qnaview.indexnum}"></c:param>
+	</c:import>
 </div>
 </body>
 </html>
