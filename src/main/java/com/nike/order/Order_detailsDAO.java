@@ -29,5 +29,10 @@ public class Order_detailsDAO {
 	public List<Order_detailsDTO> orderList_num(String ordernum) {
 		return sqlSession.selectList(namespace+".orderList_num", ordernum);
 	}
+	
+	/* 구매 수량 삭제*/
+	public void sizeDelete(Order_detailsDTO Ddto) {
+		sqlSession.update(namespace+".sizeDelete",Ddto);
+	}
 
 }

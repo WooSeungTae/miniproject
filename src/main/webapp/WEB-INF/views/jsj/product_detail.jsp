@@ -211,7 +211,7 @@
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th style='width: 10%;'><img id='imgreview' src='/nike/"+result[i].image+"'></th>"+
-						"<th id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' onclick='test(this)'>"+result[i].reviewtitle+"</th>"+
+						"<th id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' >"+result[i].reviewtitle+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
@@ -281,7 +281,7 @@
 		       	}else{
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
-						"<th id='"+result[i].indexnum+result[i].title+"' style='width: 60%;' onclick='test(this)'>"+result[i].title+"</th>"+
+						"<th id='"+result[i].indexnum+"' style='width: 60%;' onclick='qna(this.id)'>"+result[i].title+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
@@ -403,16 +403,17 @@
 
    		
    		/*qa제목클릭*/
-     		function test(obj){
-
-   			var namev = $('[id*=qnanike]');
-			for(var i =0 ;i<namev.length;i++){
-				var getid = namev[i].id
-				document.getElementById(getid).style.display='none';   	
-			}
-   			var name = obj.id+'qnanike'
-   			document.getElementById(name).style.display="";   			
-  		}
+			function qna(clickid){
+   			console.log(clickid);
+  			location.href="/nike/qnaview?indexnum="+clickid+"&code="+'${pdto.code}';
+   		}
+   		
+   		/*리뷰 제목 클릭*/
+   			function reviewclick(clickrvid){
+   			console.log(clickrvid);
+  			location.href="/nike/qnaview?indexnum="+clickrvid+"&code="+'${pdto.code}';
+   		}
+   		
 
 </script>
 <script type="text/javascript">

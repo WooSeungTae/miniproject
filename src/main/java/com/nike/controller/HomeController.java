@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +17,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.http.HttpRequest;
+import org.apache.http.protocol.HTTP;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +37,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nike.service.BoardService;
+import com.nike.service.CommentService;
 import com.nike.service.FileUploadService;
 import com.nike.service.KakaoAPI;
 import com.nike.service.FileUploadService2;
@@ -45,9 +50,8 @@ import com.nike.board.ReviewDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nike.board.Board_PagingVO;
+import com.nike.board.CommentDTO;
 import com.nike.board.SearchBoardDTO;
-import com.nike.board.Boardqa_PagingVO;
-import com.nike.board.QABoardDAO;
 import com.nike.board.QABoardDTO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
@@ -89,6 +93,9 @@ public class HomeController {
 	BoardService bservice;
 	Cart_Cookie cartcookie;
 	
+	@Autowired
+	CommentService cservice;
+
 	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
@@ -315,8 +322,52 @@ public class HomeController {
 		
 		//마이페이지 나의 리뷰 보여주기
 		@RequestMapping("reviewintro")
-		public String reviewintro(HttpServletRequest request, Model model) {
+		public String reviewintro(HttpSession session, Model model,OrderCare_PagingVO vo
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			SearchBoardDTO searchdto = new SearchBoardDTO();
+			searchdto.setSearch_key("id");
+			searchdto.setSearch((String)session.getAttribute("id"));
+			int total = reviewservice.searchreviewcount(searchdto);
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) { 
+				cntPerPage = "5";
+			}
+			vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			vo.setSearch_key("id");
+			vo.setSearch((String)session.getAttribute("id"));
+			model.addAttribute("paging",vo);
+			model.addAttribute("viewAll",reviewservice.searchreview(vo));
 			return "myPage/myPageReviewintro";
+		}
+		
+		/*마이페이지 QnA*/
+		@RequestMapping("mypageQnA")
+		public String myreviewlistall(HttpSession session,Model model,OrderCare_PagingVO vo
+				, @RequestParam(value="nowPage", required=false)String nowPage
+				, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			SearchBoardDTO searchdto = new SearchBoardDTO();
+			searchdto.setSearch_key("id");
+			searchdto.setSearch((String)session.getAttribute("id"));
+			int total = bservice.searchQnAcount(searchdto);
+			if (nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "5";
+			} else if (nowPage == null) {
+				nowPage = "1";
+			} else if (cntPerPage == null) { 
+				cntPerPage = "5";
+			}
+			vo = new OrderCare_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			vo.setSearch_key("id");
+			vo.setSearch((String)session.getAttribute("id"));
+			model.addAttribute("paging",vo);
+			model.addAttribute("viewAll",bservice.searchQnA(vo));
+			return "myPage/mypageQnA";
 		}
 		
 		//관리자 상품관리(삭제)
@@ -439,7 +490,7 @@ public class HomeController {
 	@RequestMapping("/Kids")
 	public String catalogKids(Product_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.genderAll("키즈");
+		int total = Pservice.kisdAll("키즈");
 		if (nowPage == null) {nowPage = "1";}
 		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
 		Pservice.allListKids(model,vo);
@@ -881,11 +932,8 @@ public class HomeController {
 	@RequestMapping("checkoutCart")
 	public String checkoutCart(Model model,@SessionAttribute(value="id",required=false) String id) {
 		if(id!=null) {service.searchId(model, id);}
-		else {return "redirect:loginPage";}
 		model.addAttribute("cartlist",orderservice.selectcart(id));
-		System.out.println("아이디 : "+id);
 		model.addAttribute("totalmoney", orderservice.totalprice(id));
-		System.out.println("홈컨트롤 : "+orderservice.selectcart(id));
 		return "purchase/checkOutCart";
 	}
 
@@ -899,17 +947,12 @@ public class HomeController {
 	
 	/*구매후 등록*/
 	@RequestMapping("productBuyCart")
-	public String productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+	public String productBuyCart(ShoppingCartDTO sdto,OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
-		orderservice.productBuyCart(Odto,Ddto,dto,request);
+		orderservice.productBuyCart(Odto,Ddto,dto,request,sdto);
 		return "myPage/myPage";
 	}
 	
-	
-	@RequestMapping("myreviewlistall")
-	public String myreviewlistall() {
-		return "myPage/myPagemyReviewlistall";
-	}
 	
 	@RequestMapping("towritelistall")
 	public String myPageTowritelistall() {
@@ -1030,7 +1073,7 @@ public class HomeController {
 	@RequestMapping("qnawrite")
 	public String qnaviewPage() {
 		
-		return "myPage/myPage";
+		return "board/QnA_write";
 	}
 	/*상세 페이지에서 Q & A 게시판 보기*/
 	@RequestMapping("qnaview")
@@ -1119,11 +1162,79 @@ public class HomeController {
 		String strJson = mapper.writeValueAsString(list);
 		return strJson;
 	}
+	
 	/*reply댓글 보기*/
 	@RequestMapping("reply")
-	public String reply() {
+	public String reply(CommentDTO Cdto) {
+		
 		return "board/reply";
 	}
+	
+	/*댓글 등록*/
+	@PostMapping(value= "replyregister",produces="application/json; charset=utf8")
+	@ResponseBody
+	public String replyregister(Model model, CommentDTO Cdto) throws JsonProcessingException{
+		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분ss초");
+		Date time = new Date(); 
+		String date = format.format(time);
+		String indexnum = Cdto.getIndexnum();
+		Cdto.setRegisterdate(date);
+		cservice.replyregister(Cdto);
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		Cdto.setIndexnum(indexnum);
+		list = cservice.searchComment(indexnum);
+		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+		String strJson = mapper.writeValueAsString(list);
+		return strJson;
+	}
+	
+	/*댓글보기*/
+	@PostMapping(value= "replyview",produces="application/json; charset=utf8")
+	@ResponseBody
+		public String replyview(CommentDTO Cdto) throws JsonProcessingException {
+			List<CommentDTO> list = new ArrayList<CommentDTO>();
+			String indexnum = Cdto.getIndexnum();
+			Cdto.setIndexnum(indexnum);
+			list = cservice.searchComment(indexnum);
+			ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+			String strJson = mapper.writeValueAsString(list);
+			return strJson;
+	}
+	
+	/*댓글 수정*/
+	@PostMapping(value= "replyUpdate", produces="application/json; charset=utf8")
+	@ResponseBody
+		public String replyUpdate(CommentDTO Cdto) throws JsonProcessingException {
+		System.out.println("댓글내용 : "+Cdto.getContentComment());
+		System.out.println("댓글번호 : "+Cdto.getNumComment());
+		System.out.println("인뎃스넘 : "+Cdto.getIndexnum());
+		cservice.replyUpdate(Cdto);
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		list = cservice.searchComment(Cdto.getIndexnum());
+		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+		String strJson = mapper.writeValueAsString(list);
+		System.out.println(strJson);
+		return strJson;
+		
+	}
+	
+	/*댓글 삭제*/
+	@PostMapping(value= "replyDelete", produces="application/json; charset=utf8")
+	@ResponseBody
+	public String replyDelete(CommentDTO Cdto) throws JsonProcessingException {
+		System.out.println("실행되나??왜안됨?");
+		System.out.println("번호 : " +Cdto.getNumComment());
+		cservice.replyDelete(Cdto);
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		list = cservice.searchComment(Cdto.getIndexnum());
+		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+		String strJson = mapper.writeValueAsString(list);
+		System.out.println(strJson);
+		return strJson;
+		
+	}
+	
+	
 	
 	/*로그인 체크 LogChecking*/
 	@RequestMapping("LogChecking")
@@ -1283,5 +1394,4 @@ public class HomeController {
 		reviewservice.review_board_care_delete(reviewnum);
 		return "redirect:review_board_care";
 	}
-
 }
