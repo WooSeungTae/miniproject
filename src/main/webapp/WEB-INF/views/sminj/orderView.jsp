@@ -65,6 +65,7 @@
 	}
 </style>
 <body>
+<c:set var="order" value="${order }"></c:set>
 <c:import url="/header"></c:import>
 	<div style="width: 80%; margin: auto; margin-top: 170px; padding-bottom: 25px;">
 <c:import url="/aside"></c:import>
@@ -73,7 +74,6 @@
 		<h2>ORDER DETAIL</h2>
 	</div>
 	<div>
-	
 		<input id="" name="" value="" type="hidden">
 		<div>
 			<!-- 주문정보 -->
@@ -84,14 +84,16 @@
 
 				<div class="orderView">
 					<table>
+		
 						<tbody>
+						
 							<tr>
 								<th scope="row">주문번호</th>
-								<td>${orderView_num.ordernum }</td>
+								<td>${ordernum }</td>
 							</tr>
 							<tr>
 								<th scope="row">주문일자</th>
-								<td>${orderView_num.orderDate }</td>
+								<td>${orderdate }</td>
 							</tr>
 						</tbody>
 					</table>
@@ -104,6 +106,7 @@
 				</div>
 				<div class="orderView">
 					<table class="">
+					<c:forEach items="${orderView}" var="orderView_num">
 						<tbody>
 							<tr class="">
 								<th scope="row">총 주문금액</th>
@@ -111,8 +114,6 @@
 									<span class=""> <strong>${orderView_num.totalprice }</strong>원 </span>
 								</td>
 							</tr>
-						</tbody>
-						<tbody class="">
 							<tr class="">
 								<th scope="row">마일리지 사용 금액</th>
 								<td><strong>${orderView_num.mile }</strong> Mile</td>
@@ -127,9 +128,11 @@
 							</tr>
 							<tr class="">
 								<th scope="row">결제수단</th>
+							
 								<td><strong><span>무통장 입금</span></strong></td>
 							</tr>
 						</tbody>
+						</c:forEach>
 					</table>
 				</div>
 			</div>
@@ -140,23 +143,16 @@
 			<!-- 테이블 th(제목) 고정 부분 -->
 				<thead>
 					<tr class="order_th">
-						<th>주문일자<br>[주문번호]</th>
 						<th>이미지</th>
 						<th>상품정보</th>
 						<th>수량</th>
 						<th>상품구매금액</th>
 						<th>주문처리상태</th>
-						<th>취소/반품</th>
 					</tr>
 				</thead>
 				<tbody class="">
 					<c:forEach items="${orderList }" var="orderList">
 					<tr>
-			<!-- 주문일자, 주문번호 -->		
-						<td class="orderDate">
-							<fmt:formatDate value="${orderList.orderDate }" pattern="yyyy.MM.dd"/>
-							<p><a href="#">[${orderList.ordernum }]</a></p> 
-						</td>
 			<!-- 구매 사진 이미지 -->		
 						<td class="image1">
 							<a href="/nike/productdetail?code=${orderList.code }">
@@ -165,7 +161,7 @@
 						</td>
 			<!-- 상품 이름, 상품 사이즈 -->	
 						<td class="product">
-							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderlist.codeName }</a></strong>
+							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderList.codeName }</a></strong>
 							<div class="orderSize">[사이즈 : ${orderList.ordersize }]</div>
 						</td>
 			<!-- 구매할 수량 -->		
@@ -181,15 +177,8 @@
 							<p class="delivery">${orderList.delivery }</p>
 						</td>
 			<!-- 배송상태 변경 위한 버튼 -->		
-						<td class="deliveryChange">
-							<form role="form" method="post" class="deliveryForm">
-								<input type="hidden" name="ordernum" value="${orderList.ordernum }">
-								<input type="hidden" name="delivery" class="delivery" value="">
 							
-								<input type="button" class="orderCancel" value="주문취소" name="orderCancel" id="orderCancel"><br><br>
-								<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish">
-							</form>
-						</td>
+								
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -225,7 +214,6 @@
 				</div>
 			</div>
 		</div>
-	
 	</div>
 </section>
 </div>

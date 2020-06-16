@@ -554,6 +554,16 @@ public class HomeController {
 		orderservice.deliveryChange(Odto);
 		return "redirect:order_care";
 	}
+	@RequestMapping("orderdeliveryChange")
+	public String orderdeliveryChange(OrderDTO Odto,Order_detailsDTO Ddto, 
+			@RequestParam("ordernum") String ordernum,@RequestParam("delivery") String delivery) {
+		System.out.println("-------홈 컨트롤러 실행시작");
+		//orderservice.delivery(Ddto);
+		System.out.println("오더서비스 디테ㅣ");
+		orderservice.deliveryChange(Odto);
+		System.out.println("디테일 dao 주문취소 완료");
+		return "redirect:orderList";
+	}
 	@RequestMapping("orderserch")
 	public String orderserch(Model model,@RequestParam("id") String id) {
 		model.addAttribute("viewAll",orderservice.orderserch(id));
@@ -829,7 +839,7 @@ public class HomeController {
 	}
 	/* 주문내역 및 배송현황 조회 */
 	@RequestMapping("orderList")
-	public String orderView(Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
+	public String orderList(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		List<Order_detailsDTO> orderList = orderservice.orderList(id);
@@ -839,27 +849,18 @@ public class HomeController {
 	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
 	@RequestMapping("orderView")
 	public String orderView(OrderDTO Odto, Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
-		String ordernum = (String)  request.getParameter("ordernum");
-		System.out.println(ordernum);
+		String ordernum = (String) request.getParameter("ordernum");
 		List<Order_detailsDTO> orderList = orderservice.orderList_num(ordernum);
-		System.out.println(orderList.get(0).getOrdernum());
+		String orderdate = request.getParameter("orderDate");
 		List<OrderDTO> orderView = orderservice.orderView_num(ordernum);
+		model.addAttribute("order",orderList.get(0).getDelivery());
+		model.addAttribute("ordernum", ordernum);
+		model.addAttribute("orderdate", orderdate);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderView", orderView);
 		return "sminj/orderView";
 	}
-	/*	
-	@RequestMapping("orderView")
-	public String orderView() {
-		return "sminj/orderView";
-	}
-*/
-	/* 주문내역 및 배송현황 페이지 - 배송 상태 변경*/
-	@RequestMapping(value="/myPage/myPageOrderDelivery", method=RequestMethod.POST)
-	public String delivery(Order_detailsDTO Ddto) {
-		orderservice.delivery(Ddto);
-		return "redirect:/myPage/myPageOrderDelivery?=" + Ddto.getOrdernum();
-	}
+
 	/*Q&A 게시물 등록*/
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {

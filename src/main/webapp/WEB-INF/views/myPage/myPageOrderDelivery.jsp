@@ -66,16 +66,10 @@
 		console.log(changeName);
 	}
 
-		$('.orderCancel').click(function(){
-			alert('확인 버튼을 클릭하면 주문이 취소됩니다.')
-			$('.delivery').val("주문취소");
-		});
-		$('.orderFinish').click(function(){
-			alert('구매확정이 완료되었습니다.')
-			$('.delivery').val("배송완료");
-		});
+
 </script>
 <body>
+<c:set var="size" value="${orderList.size()}"/>
 <c:import url="/header"></c:import>
 	<div style="width: 80%; margin: auto; margin-top: 170px; padding-bottom: 25px;">
 <c:import url="/aside"></c:import>
@@ -99,13 +93,16 @@
 						<th>취소/반품</th>
 					</tr>
 				</thead>
+				<c:choose>
+					<c:when test="${size ne 0}">
+			
 				<tbody>
 					<c:forEach items="${orderList }" var="orderList">
 					<tr>
 			<!-- 주문일자, 주문번호 -->		
 						<td class="orderDate">
 							<fmt:formatDate value="${orderList.orderDate }" pattern="yyyy.MM.dd"/>
-							<p><a href="/nike/orderView?ordernum=${orderList.ordernum }">[${orderList.ordernum }]</a></p> 
+							<p><a href="/nike/orderView?ordernum=${orderList.ordernum }&orderDate=${orderList.orderDate}">[${orderList.ordernum }]</a></p> 
 						</td>
 			<!-- 구매 사진 이미지 -->		
 						<td class="image1">
@@ -115,7 +112,7 @@
 						</td>
 			<!-- 상품 이름, 상품 사이즈 -->	
 						<td class="product">
-							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderlist.codeName }</a></strong>
+							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderList.codeName }</a></strong>
 							<div class="orderSize">[사이즈 : ${orderList.ordersize }]</div>
 						</td>
 			<!-- 구매할 수량 -->		
@@ -131,24 +128,46 @@
 							<p class="delivery">${orderList.delivery }</p>
 						</td>
 			<!-- 배송상태 변경 위한 버튼 -->		
-						<td class="deliveryChange">
-							<form role="form" method="post" class="deliveryForm">
-								<input type="hidden" name="ordernum" value="${orderList.ordernum }">
-								<input type="hidden" name="delivery" class="delivery" value="">
-							
-								<input type="button" class="orderCancel" value="주문취소" name="orderCancel" id="orderCancel"><br><br>
-								<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish">
-							</form>
-						</td>
+							<c:choose>
+								<c:when test="${orderList.delivery eq '입금중' }">
+								<td>
+									<a href="deliveryChange?ordernum=${orderList.ordernum }&delivery=주문취소111">
+									<input type="button"  value="주문취소"></a>
+								</td>
+								</c:when>
+								<c:otherwise>
+								<td>
+									<input type="button" class="orderCancel" value="주문취소" name="orderCancel" id="orderCancel" disabled="disabled">
+								</td>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${orderList.delivery eq '배송중' }">
+								<td>
+									<a href="deliveryChange?ordernum=${orderList.ordernum }">
+									<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish"></a>
+								</td>
+								</c:when>
+								<c:otherwise>
+								<td>
+									<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish" disabled="disabled">
+								</td>
+								</c:otherwise>
+							</c:choose>
 					</tr>
 					</c:forEach>
 				</tbody>
-			<!-- 주문 내역 없을 때 출력될 내용 -->		
+			</c:when>
+			<c:otherwise>
+			
+				<!-- 주문 내역 없을 때 출력될 내용 -->		
 				<tbody class="displaynone">
 					<tr>
 						<td colspan="7" class="empty">주문 내역이 없습니다</td>
 					</tr>
 				</tbody>
+			</c:otherwise>
+		</c:choose>
 			</table>
 		</section><br>
 		
