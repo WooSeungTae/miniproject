@@ -485,7 +485,7 @@ public class HomeController {
 	@RequestMapping("/Kids")
 	public String catalogKids(Product_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.genderAll("키즈");
+		int total = Pservice.kisdAll("키즈");
 		if (nowPage == null) {nowPage = "1";}
 		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
 		Pservice.allListKids(model,vo);

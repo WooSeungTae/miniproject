@@ -83,10 +83,18 @@ public class ProductDAO {
 	public int genderTotal(String gender) {
 		return sqlSession.selectOne(nameSpace+".countProduct",gender);
 	}
+	/*KIDS 신발 전체 개수*/
+	public int kisdAll(String gender) {
+		return sqlSession.selectOne(nameSpace+".kisdAll",gender);
+	}
 	
 	/*Category and gender별 신발 전체 개수*/
 	public int categoryGenderTotal(HashMap<String,String> hm) {
 		return sqlSession.selectOne(nameSpace+".countProductGender",hm);
+	}
+	/*Category and kids 신발 전체 개수*/
+	public int categoryKidsTotal(HashMap<String,String> hm) {
+		return sqlSession.selectOne(nameSpace+".categoryKidsTotal",hm);
 	}
 	
 	/*신발 검색 전체 개수*/
