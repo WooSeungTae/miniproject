@@ -32,7 +32,8 @@ public class OrderService {
 	private MemberInfoDAO dao;
 	@Autowired
 	private ProductDAO Pdao;
-	
+	@Autowired
+	private OrderService orderservice;
 	private String orderNum;
 	
 	/*구매후 등록*/
@@ -58,7 +59,7 @@ public class OrderService {
 	}
 	
 	/*구매후 등록*/
-	public void productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+	public void productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request,ShoppingCartDTO sdto) {
 		orderNum="Order";
 		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss");
 		orderNum = orderNum + format.format(new Date());
@@ -85,6 +86,9 @@ public class OrderService {
 			Ddto.setOrdersize(ordersize[i]);
 			Ddto.setPrice(price[i]);
 			Ddao.sizeDelete(Ddto);
+			sdto.setCode(code[i]);
+			sdto.setId(id);
+			orderservice.cartitemdelete(sdto);
 			Ddao.buyRegisterDetails(Ddto);
 		}
 	}
