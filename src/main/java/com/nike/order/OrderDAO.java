@@ -18,7 +18,6 @@ public class OrderDAO {
 
 	/*구매 물품 등록*/
 	public void buyRegister(OrderDTO Odto) {
-		System.out.println("마일 ; "+Odto.getMile());
 		sqlSession.insert(namespace+".buyRegister",Odto);
 	}
 

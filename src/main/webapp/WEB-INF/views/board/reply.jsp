@@ -33,35 +33,43 @@
 			}
 		});
 	}
-	/*등록후 댓글 불러오기*/
-	
-	function ajax_comment(){
-		
-	if(document.getElementById("commentcontent").value==''){
-		alert('댓글 내용을 입력하세요');
-	}
-	$.ajax({
-		url : "replyregister",
-		type : "POST",
-		data :$("#fo").serialize(),
-		success : function(result){
-			list();
-	             
-	document.getElementById("commentcontent").value=' ';
-		},
-		error : function() {
-			alert("문제가 발생 했습니다!!");
-		}
-	});
-}
 
+	/*등록후 댓글 불러오기*/
+
+	function ajax_comment() {
+		var nullckeck = document.getElementById("commentcontent").value;
+		if (!nullckeck) {
+			alert("댓글을 입력하여 주세요")
+			return;
+		} else {
+			$.ajax({
+				url : "replyregister",
+				type : "POST",
+				data : $("#fo").serialize(),
+				success : function(result) {
+					list();
+					document.getElementById("commentcontent").value ='';
+				},
+				error : function() {
+					alert("문제가 발생 했습니다!!");
+				}
+			});
+		}
+	}
 </script>
+<style type="text/css">
+	/*리플 css*/
+	.replycontent{
+		text-align: left;
+	}
+
+</style>
 </head>
 <body onload="list()">
 <form id ="fo" method="post">
 <div>
-<div>
-<h3>Comments </h3>
+<div class="replyset">
+<h3 align="left">Comments </h3>
 <hr>
 <textarea  id ="commentcontent"name = "contentComment" style="width: 98%;" rows="7" cols=""></textarea>
 <input type="hidden" name = "indexnum" value = "${param.indexnum }">
