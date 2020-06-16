@@ -1079,14 +1079,12 @@ public class HomeController {
 		String date = format.format(time);
 		String indexnum = Cdto.getIndexnum();
 		Cdto.setRegisterdate(date);
-		System.out.println("댓글아약스 실행");
 		cservice.replyregister(Cdto);
 		List<CommentDTO> list = new ArrayList<CommentDTO>();
 		Cdto.setIndexnum(indexnum);
 		list = cservice.searchComment(indexnum);
 		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 		String strJson = mapper.writeValueAsString(list);
-		System.out.println(strJson);
 		return strJson;
 	}
 	
@@ -1100,9 +1098,42 @@ public class HomeController {
 			list = cservice.searchComment(indexnum);
 			ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 			String strJson = mapper.writeValueAsString(list);
-			System.out.println(strJson);
 			return strJson;
 	}
+	
+	/*댓글 수정*/
+	@PostMapping(value= "replyUpdate", produces="application/json; charset=utf8")
+	@ResponseBody
+		public String replyUpdate(CommentDTO Cdto) throws JsonProcessingException {
+		System.out.println("댓글내용 : "+Cdto.getContentComment());
+		System.out.println("댓글번호 : "+Cdto.getNumComment());
+		System.out.println("인뎃스넘 : "+Cdto.getIndexnum());
+		cservice.replyUpdate(Cdto);
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		list = cservice.searchComment(Cdto.getIndexnum());
+		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+		String strJson = mapper.writeValueAsString(list);
+		System.out.println(strJson);
+		return strJson;
+		
+	}
+	
+	/*댓글 삭제*/
+	@PostMapping(value= "replyDelete", produces="application/json; charset=utf8")
+	@ResponseBody
+	public String replyDelete(CommentDTO Cdto) throws JsonProcessingException {
+		System.out.println("실행되나??왜안됨?");
+		System.out.println("번호 : " +Cdto.getNumComment());
+		cservice.replyDelete(Cdto);
+		List<CommentDTO> list = new ArrayList<CommentDTO>();
+		list = cservice.searchComment(Cdto.getIndexnum());
+		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+		String strJson = mapper.writeValueAsString(list);
+		System.out.println(strJson);
+		return strJson;
+		
+	}
+	
 	
 	
 	/*로그인 체크 LogChecking*/

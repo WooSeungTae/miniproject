@@ -6,15 +6,27 @@ import java.text.SimpleDateFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CommentDTO {
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+9")
-	private int numComment;
+	private String numComment;
 	private String indexnum ;
 	private String contentComment;
 	private String writer;
 	private String registerdate;
+	private String id;
 	
 	
 	
+	public String getNumComment() {
+		return numComment;
+	}
+	public void setNumComment(String numComment) {
+		this.numComment = numComment;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getRegisterdate() {
 		return registerdate;
 	}
@@ -26,12 +38,6 @@ public class CommentDTO {
 	}
 	public void setIndexnum(String indexnum) {
 		this.indexnum = indexnum;
-	}
-	public int getNumComment() {
-		return numComment;
-	}
-	public void setNumComment(int numComment) {
-		this.numComment = numComment;
 	}
 	public String getContentComment() {
 		return contentComment;

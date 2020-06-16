@@ -23,8 +23,16 @@ public class CommentService {
 	/*댓글 indexnum으로 조회*/
 	public List<CommentDTO> searchComment(String indexnum){
 		return Cdao.searchComment(indexnum);
-		
-		
 	}
+	
+	/*댓글 수정*/
+	public void replyUpdate(CommentDTO Cdto) {
+		Cdao.replyUpdate(Cdto);
+	} 
+			
+	/*댓글 삭제*/
+	public void replyDelete(CommentDTO Cdto) {
+		Cdao.replyDelete(Cdto);
+	} 
 	
 }

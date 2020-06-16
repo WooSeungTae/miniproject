@@ -24,4 +24,14 @@ public class CommentDAO {
 	public List<CommentDTO> searchComment(String indexnum){
 		 return sqlSession.selectList(namespace+".searchComment",indexnum);
 	}
+	
+	/*댓글 수정*/
+	public void replyUpdate(CommentDTO Cdto){
+		 sqlSession.update(namespace+".replyUpdate",Cdto);
+	}
+	/*댓글 삭제*/
+	public void replyDelete(CommentDTO Cdto){
+		System.out.println("댓글 삭제 번호 : "+Cdto.getNumComment());
+		 sqlSession.delete(namespace+".replyDelete",Cdto);
+	}
 }

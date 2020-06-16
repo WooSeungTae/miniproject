@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,8 +25,14 @@
 			success : function(result){
 				let html = "";
 				for(var i=0;i<result.length;i++){
-					html+="<h3>작성자 : "+result[i].writer +"&nbsp;&nbsp; 작성일 : "+result[i].registerdate+"</h3>"+
-					"<h3>"+result[i].contentComment +"</h3><hr><br>"
+					html+="<b>작성자 : "+result[i].writer +"&nbsp;&nbsp;&nbsp;&nbsp; </b> 작성일 : "+
+					result[i].registerdate+"<br><input type='hidden' id = 'idcheck' value=''>"
+					if('${sessionScope.id }'==result[i].id){
+					html+="<textarea  id ='"+result[i].numComment+"'name ='contentComment' style='width: 98%;' rows='4' cols=''>"+result[i].contentComment+"</textarea>"
+					+"<div align='right'><button class='"+result[i].indexnum+"' id ='"+result[i].numComment+"' style='text-align: right;' onclick='replyUpdate(this)'>수정</button>&nbsp;<button class='"+result[i].indexnum+"' id ='"+result[i].numComment+"'  style='text-align: right;' onclick='replyDelete(this)'>삭제</button></div><br>"
+					}else{
+						html+="<h3>"+result[i].contentComment +"</h3><hr><br>"
+					}
 				}
 			$('.replycontent').html(html);
 			},
@@ -56,6 +64,57 @@
 			});
 		}
 	}
+	
+	/*댓글 수정후 불러오기*/
+	
+	function replyUpdate(obj){
+		var contentid=obj.id;	
+		var content = document.getElementById(contentid).value;
+			form = {
+				contentComment : content, 	
+				numComment : obj.id,
+				indexnum : obj.className	
+			}		
+			console.log(content);
+			console.log(form);
+		$.ajax({
+			url : "replyUpdate",
+			type : "POST",
+			data : form,
+			success : function(result) {
+				list();
+				alert("수정되었습니다.")
+			},
+			error : function(result) {
+				console.log(result);			
+				alert("문제가 발생 했습니다!!");
+			}
+		});
+	}
+	
+	/*댓글 삭제*/
+	
+	function replyDelete(obj){
+		var contentid=obj.id;	
+		form = {
+				numComment : obj.id,	
+				indexnum : obj.className
+			}	
+		var content = document.getElementById(contentid).value;
+		$.ajax({
+			url : "replyDelete",
+			type : "POST",
+			data : form,
+			success : function(result) {
+				list();
+			},
+			error : function(result) {
+				console.log(result);			
+				alert("문제가 발생 했습니다!!");
+			}
+		});
+	}
+	
 </script>
 <style type="text/css">
 	/*리플 css*/
@@ -74,9 +133,12 @@
 <textarea  id ="commentcontent"name = "contentComment" style="width: 98%;" rows="4" cols=""></textarea>
 <input type="hidden" name = "indexnum" value = "${param.indexnum }">
 <input type="hidden" name = "writer" value = "${sessionScope.name }"> 
+<input type="hidden" name = "id" value = "${sessionScope.id }">
 </div>
 <div align="right" ><input style="margin-right: 2%;" type="button" value="등록" onclick="ajax_comment()"></div>
 </div>
+
+
 </form>
 <div class="replycontent"></div>
 </body>
