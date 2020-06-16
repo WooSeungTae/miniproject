@@ -43,6 +43,10 @@ public class ProductService {
 	public int genderAll(String gender) {
 		return Pdao.genderTotal(gender);
 	}
+	/*KIDS 신발 전체 개수*/
+	public int kisdAll(String gender) {
+		return Pdao.kisdAll(gender);
+	}
 	
 	/*Category and gender별 신발 전체 개수*/
 	public int categoryGenderAll(String gender,String category) {
@@ -50,6 +54,13 @@ public class ProductService {
 		hm.put("gender", gender);
 		hm.put("category",category);
 		return Pdao.categoryGenderTotal(hm);
+	}
+	/*Category and kids 신발 전체 개수*/
+	public int categoryKidsAll(String gender,String category) {
+		HashMap<String,String> hm = new LinkedHashMap<String, String>();
+		hm.put("gender", gender);
+		hm.put("category",category);
+		return Pdao.categoryKidsTotal(hm);
 	}
 	
 	/*신발 검색 전체 개수*/

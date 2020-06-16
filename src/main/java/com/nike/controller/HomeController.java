@@ -485,7 +485,7 @@ public class HomeController {
 	@RequestMapping("/Kids")
 	public String catalogKids(Product_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.genderAll("키즈");
+		int total = Pservice.kisdAll("키즈");
 		if (nowPage == null) {nowPage = "1";}
 		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
 		Pservice.allListKids(model,vo);
@@ -832,7 +832,6 @@ public class HomeController {
 	@RequestMapping("checkoutCart")
 	public String checkoutCart(Model model,@SessionAttribute(value="id",required=false) String id) {
 		if(id!=null) {service.searchId(model, id);}
-		else {return "redirect:loginPage";}
 		model.addAttribute("cartlist",orderservice.selectcart(id));
 		model.addAttribute("totalmoney", orderservice.totalprice(id));
 		return "purchase/checkOutCart";
@@ -848,9 +847,9 @@ public class HomeController {
 	
 	/*구매후 등록*/
 	@RequestMapping("productBuyCart")
-	public String productBuyCart(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
+	public String productBuyCart(ShoppingCartDTO sdto,OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
-		orderservice.productBuyCart(Odto,Ddto,dto,request);
+		orderservice.productBuyCart(Odto,Ddto,dto,request,sdto);
 		return "myPage/myPage";
 	}
 	
