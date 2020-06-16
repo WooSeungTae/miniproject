@@ -71,7 +71,7 @@
 <div class="replyset">
 <h3 align="left">Comments </h3>
 <hr>
-<textarea  id ="commentcontent"name = "contentComment" style="width: 98%;" rows="7" cols=""></textarea>
+<textarea  id ="commentcontent"name = "contentComment" style="width: 98%;" rows="4" cols=""></textarea>
 <input type="hidden" name = "indexnum" value = "${param.indexnum }">
 <input type="hidden" name = "writer" value = "${sessionScope.name }"> 
 </div>

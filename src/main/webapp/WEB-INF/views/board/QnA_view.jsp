@@ -55,11 +55,11 @@
 		var writeId = '${qnaview.id}';
 		var check = document.getElementById("readonlycheck");
 		console.log(sessionId==writeId);
-		if(sessionId=="")$('#readonlycheck').attr('readonly', true); //설정
-		if(sessionId==writeId){
-			$('#readonlycheck').attr('readonly', false); //해제 
+		if(!sessionId)$('#readonlycheck').prop('readOnly',true); //설정
+		if(sessionId!=writeId){
+			$('#readonlycheck').prop('readOnly',true); //설정
 		}else{
-			$('#readonlycheck').attr('readonly', true); //설정
+			$('#readonlycheck').prop('readOnly',false); //해제 
 		}
 		
 	}	
@@ -97,19 +97,23 @@
 	<tr>
 		<th>제목</th>
 		<td style="vertical-align: middle;">
-		<input type="text" name="titlelist" style="width: 15%; min-width: 50px;" value="${qnaview.titlelist }" >
-		<input id="readonlycheck" readonly type="text" name="title" style="width: 80%; min-width: 500px;" value="${qnaview.title }"  >
+		<input type="text" readOnly name="titlelist" style="width: 15%; min-width: 50px;" value="${qnaview.titlelist }" >
+		<input id="readonlycheck" type="text" name="title" style="width: 80%; min-width: 500px;" value="${qnaview.title }"  >
 		</td>
 	</tr>
 	<tr>
 		<th>작성자</th>
-		<td><input id="readonlycheck" type="text" name="name" style="width: 99%;" value="${qnaview.name }" >
-		<input type="hidden" readonly name="id" style="width: 99%;" value="${qnaview.id }">
-		<input type="hidden" readonly name="writer" style="width: 99%;" value="${sessionScope.id }">
-		<input type="hidden" readonly name="indexnum" style="width: 99%;" value="${qnaview.indexnum }">
+		<td><input type="text" readOnly name="name" style="width: 99%;" value="${qnaview.name }" >
+		<input type="hidden"  name="id" style="width: 99%;" value="${qnaview.id }">
+		<input type="hidden"  name="writer" style="width: 99%;" value="${sessionScope.id }">
+		<input type="hidden"  name="indexnum" style="width: 99%;" value="${qnaview.indexnum }">
 		</td>
 			</tr>
-	<tr><th>내용</th><td><textarea id="readonlycheck" readonly name = "content" style="width: 99%;" rows="25" cols=""  >${qnaview. content}</textarea></td></tr>
+	<tr><th>내용</th><td>
+	<c:if test="${sessionScope.id==qnaview.id }"><textarea id="readonlycheck" name = "content" style="width: 99%;" rows="25" cols=""  >${qnaview. content}</textarea></c:if>
+	<c:if test="${sessionScope.id!=qnaview.id }"><div>${qnaview. content}</div></c:if>
+	</td>
+	</tr>
 	</table>
 	</div>
 	<div align="right">
