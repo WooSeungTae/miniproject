@@ -343,6 +343,25 @@
 		}
 	
 	}
+	function sizebuttonclick2(clicked_id){
+		var radio = clicked_id*10;
+		document.getElementById("80").className = "button5";
+		document.getElementById("90").className = "button5";
+		document.getElementById("100").className = "button5";
+		document.getElementById("110").className = "button5";
+		document.getElementById("120").className = "button5";
+		document.getElementById("130").className = "button5";
+		document.getElementById("140").className = "button5";
+		document.getElementById("150").className = "button5";
+		document.getElementById("160").className = "button5";
+		if(document.getElementById(clicked_id).className == "button5"){
+			document.getElementById(clicked_id).className = "button6";
+			document.getElementById(radio).checked = true;
+		}else if(document.getElementById(clicked_id).className == "button6"){
+			document.getElementById(clicked_id).className = "button5";
+		}
+	
+	}
 
 	function chageSrc(obj){
   			var imgId = obj.id;
@@ -512,17 +531,29 @@
 												<div class="product-option_radio square">
 													<div class="opt-list">
 														<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
-														<c:forEach var="ordersize" begin="230" end="330" step="10">
-															<input type="button" class="button5" name="ordersize"
-																value="${ordersize}" id="${ordersize}"
-																onclick="sizebuttonclick(this.id)">
-															<input type="radio" id="${ordersize*10 }"
-																name="ordersize" value="${ordersize }" hidden="">
-															<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
-																<br>
-															</c:if>
-														</c:forEach>
-
+														<c:choose>
+															<c:when test="${pdto.gender!='키즈'}">
+																<c:forEach var="ordersize" begin="230" end="330" step="10">
+																	<input type="button" class="button5" name="ordersize"
+																		value="${ordersize}" id="${ordersize}"
+																		onclick="sizebuttonclick(this.id)">
+																	<input type="radio" id="${ordersize*10 }"
+																		name="ordersize" value="${ordersize }" hidden="">
+																	<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
+																		<br>
+																	</c:if>
+																</c:forEach>
+															</c:when>
+															<c:otherwise>
+																<c:forEach var="ordersize" begin="80" end="160" step="10">
+																	<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick2(this.id)">
+																	<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
+																	<c:if test="${ordersize%120 eq 0}">
+																	<br>
+																	</c:if>
+																</c:forEach>
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</div>
 											</div>
