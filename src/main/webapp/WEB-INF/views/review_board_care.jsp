@@ -102,7 +102,7 @@
 			<c:when test="${size ne 0}">
 				<c:forEach items="${viewAll }" var="dto">
 				<tr align="center"><td>${dto.reviewnum}</td><td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td>
-				<td>${dto.reviewtitle}</td><td>${dto.name }</td><td>${dto.writeDate}</td>
+				<td><a href="reviewsearch?reviewnum=${dto.reviewnum}">${dto.reviewtitle}</a></td><td>${dto.name }</td><td>${dto.writeDate}</td>
 				<td><input type="button" value="삭제" id="${dto.reviewnum}" onclick="delete_btn(this.id)"></td>
 				</tr>
 				</c:forEach>

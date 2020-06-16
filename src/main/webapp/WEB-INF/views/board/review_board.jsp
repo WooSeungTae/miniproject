@@ -94,7 +94,7 @@
 			<c:when test="${size ne 0}">
 				<c:forEach items="${viewAll }" var="dto">
 				<tr align="center"><td>${dto.reviewnum}</td><td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td>
-				<td>${dto.reviewtitle}</td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
+				<td><a href="reviewsearch?reviewnum=${dto.reviewnum}">${dto.reviewtitle}</a></td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>

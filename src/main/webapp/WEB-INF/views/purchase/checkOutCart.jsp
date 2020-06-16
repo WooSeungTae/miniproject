@@ -13,8 +13,7 @@
 }
 /*주문내역 사진*/
 #quickImg{
-	width: 100%;
-	max-width : 150px;
+	width: 180px;
 	vertical-align: top;
 	position: relative;
 	top:0px;
@@ -47,7 +46,8 @@
 .addr input[type=text] {
 	margin-bottom: 20px;
 	padding: 10px;
-	width: 350px;
+	width: 70%;
+	min-width :100px;
 	height: 13px;
 	font-size: 15px;	
 	font-weight: 800;
@@ -60,7 +60,8 @@
 
 /*배송선택 스타일*/
 .ordermemo {
-    width: 250px; /* 원하는 너비설정 */
+    width: 50%; /* 원하는 너비설정 */
+    min-width :100px;
     padding: .55em .4em; /* 여백으로 높이 설정 */
     font-family: inherit;  /* 폰트 상속 */
     border: 1px solid #999;
@@ -70,10 +71,11 @@
     margin-bottom: 5px;
 	font-weight: bold;
 	font-size: 15px;
+	
 }
 /*배송메모 직접 입력란*/
 #ordermemo{
-	width: 780px;
+	width: 90%;
 	height: 15px;
 }
 /*배송방식 선택*/
@@ -242,7 +244,7 @@
 </head>
 <body >
 	<c:import url="/header"></c:import>
-	<div class="checkOut" style="width: 70%; margin: auto; padding-top: 80px;">
+	<div class="checkOut" style="width: 70%; margin: auto; padding-top: 80px; margin-top: 80px;">
 		<div class="" style="text-align: center;">
 			<h1>주문결제</h1>
 		</div>
@@ -374,8 +376,8 @@
 						</div>
 						<div style="float: left; width: 20%;">검색</div>
 						<div>
-							<c:if test="${sessionScope.id!=null}"><input style="width: 780px;" id = "addr" name="addr" type="text" value="${searchId.address}" placeholder="나머지 주소 입력"></c:if>
-							<c:if test="${sessionScope.id==null}"><input style="width: 780px;" id = "addr" name="addr" type="text" value="" placeholder="나머지 주소 입력"></c:if>
+							<c:if test="${sessionScope.id!=null}"><input style="width: 90%;" id = "addr" name="addr" type="text" value="${searchId.address}" placeholder="나머지 주소 입력"></c:if>
+							<c:if test="${sessionScope.id==null}"><input style="width: 90%;" id = "addr" name="addr" type="text" value="" placeholder="나머지 주소 입력"></c:if>
 						</div>
 					</div>
 					<select class ="ordermemo" id = "ordermemo1" onchange="changordermemo(this.value)">

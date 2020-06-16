@@ -6,9 +6,8 @@
 
 	<!-- orderInfo 테이블에 저장 -->
 	<insert id="buyRegister" parameterType="Odto">
-		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname
-		,bank,id,totalprice,ordernum,mile) values(#{name},#{tel},#{addr},
-		#{ordermemo},#{ordertype},#{bankname},#{bank},#{id},#{totalprice},#{ordernum},#{mile})
+		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname,bank,id,totalprice,ordernum,mile) 
+		values(#{name},#{tel},#{addr},#{ordermemo},#{ordertype},#{bankname},#{bank},#{id},#{totalprice},#{ordernum},#{mile})
 	</insert>
 	
 	<!-- orderDetailsInfo 테이블에 저장 -->
@@ -49,6 +48,11 @@
 	<select id="orderList" parameterType="String" resultType="Ddto">
 		select * from orderDetailsInfo where id=#{id}
 	</select>
+
+		<!-- 구매 수량 삭제 -->
+	<update id="sizeDelete">
+		update sizetable set size${ordersize}=size${ordersize}-#{count} where code=#{code}
+	</update>
 	<!-- 
 	  주문내역 상세페이지 - 주문자 및 결제정보
 	 [주문자이름,전화번호,주소,배송메모,배송타입,은행,계좌,총가격,마일리지] -->

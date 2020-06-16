@@ -29,6 +29,12 @@
 	<update id="reviewmodify" parameterType="Rdto">
 		update review set reviewtitle=#{reviewtitle}, reviewcontents=#{reviewcontents}, star_input=#{star_input}, rating=#{rating}, rating2=#{rating2}, rating3=#{rating3}, rating4=#{rating4}, image=#{image} where id=#{id} and reviewnum=#{reviewnum}
 	</update>
+	
+	<!-- 남이 나의 리뷰를 볼 때 -->
+	<select id="reviewsearch" parameterType="Integer" resultType="Rdto">
+		select * from review where reviewnum=#{reviewnum}
+	</select>
+	
 	<!-- 상세페이지  코드검색 리뷰 게시물 조회 -->
 	<select id="rvlist" resultType="Rdto">
 				SELECT *
@@ -61,6 +67,7 @@
 					)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
+
 	
 	<!--review 관리자 페이지 삭제-->
   	<delete id="review_board_care_delete" parameterType="String">

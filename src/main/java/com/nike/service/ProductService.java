@@ -43,6 +43,10 @@ public class ProductService {
 	public int genderAll(String gender) {
 		return Pdao.genderTotal(gender);
 	}
+	/*KIDS 신발 전체 개수*/
+	public int kisdAll(String gender) {
+		return Pdao.kisdAll(gender);
+	}
 	
 	/*Category and gender별 신발 전체 개수*/
 	public int categoryGenderAll(String gender,String category) {
@@ -50,6 +54,13 @@ public class ProductService {
 		hm.put("gender", gender);
 		hm.put("category",category);
 		return Pdao.categoryGenderTotal(hm);
+	}
+	/*Category and kids 신발 전체 개수*/
+	public int categoryKidsAll(String gender,String category) {
+		HashMap<String,String> hm = new LinkedHashMap<String, String>();
+		hm.put("gender", gender);
+		hm.put("category",category);
+		return Pdao.categoryKidsTotal(hm);
 	}
 	
 	/*신발 검색 전체 개수*/
@@ -114,10 +125,11 @@ public class ProductService {
 	/*상품 등록 기본 정보*/
 	public void product_input(ProductDTO pdto) {
 		if(pdto.getGender().equals("남,여")) {
-			pdto.setGender("공용");
+	         pdto.setGender("공용");
 		}
 		Pdao.product_input(pdto);
 	}
+
 	/*상품 등록 사이즈별 수량*/
 	public void product_size(Product_sizeDTO sizedto) {
 		Pdao.product_size(sizedto);
@@ -165,6 +177,9 @@ public class ProductService {
 	}
 	//관리자 상품관리 - 수정기능
 	public void product_update(ProductDTO pdto) {
+		if(pdto.getGender().equals("남,여")) {
+	         pdto.setGender("공용");
+	      }
 		Pdao.product_update(pdto);
 		
 	}
@@ -182,6 +197,11 @@ public class ProductService {
 	}
 
 
+	//관리자 사이즈 삭제하기 위한 기능
+	public void sizeDelete(String code) {
+		Pdao.sizeDelete(code);
+	}
+	
 	/*관리자 상품 관리 검색 갯수*/
 	public int searchShose(SearchBoardDTO searchdto) {
 		return Pdao.searchShose(searchdto);

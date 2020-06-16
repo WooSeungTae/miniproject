@@ -43,6 +43,21 @@
 	<update id="cartoptionchange" parameterType="Sdto">
 		update shoppingcart set ordersize=#{ordersize}, count=#{count} where id=#{id} and code=#{code}
 	</update>
+	
+	<!-- 페이징 처리 후 장바구니 조회 -->
+	<select id="cartpaing" resultType="Sdto" parameterType="Cpdto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM shoppingcart
+							WHERE id=#{id} 
+							ORDER BY joindate DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
 </mapper>
 
 

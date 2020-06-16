@@ -41,6 +41,11 @@ public class ReviewDAO {
 	}
 
 	
+	//남이 나의 리뷰를 볼 때
+	public ReviewDTO reviewsearch(int reviewnum) {
+		return sqlSession.selectOne(namespace+".reviewsearch", reviewnum);
+	}
+	
 	/*코드별 리뷰 리스트 총 개수*/
 	public int rvtotal(String code) {
 		return sqlSession.selectOne(namespace+".rvtotal",code);
@@ -60,6 +65,7 @@ public class ReviewDAO {
 	/*review 게시판 전체 보기*/
 	public List<ReviewDTO> selectreview(OrderCare_PagingVO vo) {
 		return sqlSession.selectList(namespace+".selectreview",vo);
+
 	}
 	/*review 관리자 페이지 삭제*/
 	public void review_board_care_delete(String reviewnum) {
