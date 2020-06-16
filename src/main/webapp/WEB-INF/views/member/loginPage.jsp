@@ -38,9 +38,7 @@
 				&redirect_uri=http://localhost:8080/nike
 				&response_type=code">
 	            <img style="width: 360px;" src="image/kakao_login_large_wide.png"></a>
-			</div>
-			<span ><font size="2" color="gray">회원이 아니신가요?</font></span>
-			<a href="memberJoin">회원가입</a><br><br>
+			</div><br>
 			<span><font size="2" color="gray">회원이 아니신가요?</font></span>
 			<a href="memberJoin" style="color:black; font-size: 12px;">회원가입</a><br><br>
 			<!-- 비회원 주문 페이지 만들어야함 -->

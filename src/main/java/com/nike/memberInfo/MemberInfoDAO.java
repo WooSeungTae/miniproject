@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nike.order.OrderDTO;
+import com.nike.order.ShoppingCartDTO;
 import com.nike.product.ProductDTO;
 
 import java.util.List;
@@ -28,8 +29,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberInfoDAO {
-
-	private static final String namespace = "com.care.mybatis.memberMapper.memberMapper";
+	private  final String sNamespace = "com.care.mybatis.orderMapper.ShoppingCartMapper";
+	private  final String oNamespace = "com.care.mybatis.orderMapper.orderMapper";
+	private  final String namespace = "com.care.mybatis.memberMapper.memberMapper";
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -106,8 +109,11 @@ public class MemberInfoDAO {
 		sqlSession.update(namespace+".pwdModify",dto);
 	}
 	/* 마이페이지 회원탈퇴 */
-	public void userDelete(MemberInfoDTO dto) {
-		sqlSession.delete(namespace+".userDelete",dto);
+	public void userDelete(MemberInfoDTO dto ) {			// 각 테이블 별로 해당 아이디에 대한 데이터 값들 삭제
+		sqlSession.delete(namespace+".userDelete",dto);		//(memberInfo table)
+		sqlSession.delete(sNamespace+".suserDelete",dto);	//(shoppingcart table)
+		sqlSession.delete(oNamespace+".oduserDelete",dto);	//(orderDetailsInfo table)
+		sqlSession.delete(oNamespace+".ouserDelete",dto);	//(orderInfo table)
 	}
 	/* 로그인시 이름출력 */
 	public String nameget(String id) {

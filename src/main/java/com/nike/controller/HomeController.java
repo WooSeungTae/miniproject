@@ -129,6 +129,22 @@ public class HomeController {
 		}
 		return "/sminj/main";
 	}
+	
+		
+	//최근 주문 내역 페이지
+			@RequestMapping("myPage1")
+			public String myPage1(HttpServletRequest request, Model model) {
+				HttpSession mySession = request.getSession();
+				String id = (String) mySession.getAttribute("id");
+				System.out.println("====================="+id);
+				orderservice.myPage1(id);
+				model.addAttribute("Ddto",orderservice.myPage1(id));
+				System.out.println(orderservice.myPage1(id));
+				List<Order_detailsDTO> list = orderservice.myPage1(id);
+				System.out.println(list.get(0).getOrderDate());
+				return "product_update/myPage1";
+			}
+	
 		//남이 나의 리뷰를 볼 때
 		@RequestMapping("reviewsearch")
 		public String reviewsearch(@RequestParam(value="reviewnum", required=false) int reviewnum, Model model) {
@@ -643,7 +659,7 @@ public class HomeController {
 	/*마이페이지*/
 	@RequestMapping("myPage")
 	public String myPage() {
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*마이페이지 사이드*/
@@ -942,15 +958,20 @@ public class HomeController {
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
 		orderservice.productBuy(Odto,Ddto,dto,request);
-		return "myPage/myPage";
+		return "product_update/myPage1";
 	}
 	
 	/*구매후 등록*/
 	@RequestMapping("productBuyCart")
 	public String productBuyCart(ShoppingCartDTO sdto,OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
+<<<<<<< HEAD
 		orderservice.productBuyCart(Odto,Ddto,dto,request,sdto);
 		return "myPage/myPage";
+=======
+		orderservice.productBuyCart(Odto,Ddto,dto,request);
+		return "redirect:myPage1";
+>>>>>>> kimsj
 	}
 	
 	
