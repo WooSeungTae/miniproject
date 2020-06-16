@@ -80,7 +80,7 @@
 		<div>
 		<div>
 		<c:set var="size" value="${viewAll.size()}"/>
-			<p class="maintitle">나의 리뷰모아 보기</p>
+			<p class="maintitle">나의 Q&A모아 보기</p>
 				<div class="pagingoption">
 					<select id="cntPerPage" name="sel" onchange="selChange()">
 						<option value="5"
@@ -99,7 +99,7 @@
 						<c:when test="${size ne 0}">
 							<c:forEach items="${viewAll }" var="dto">
 							<tr align="center"><td>${dto.indexnum}</td><td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td><td>${dto.titlelist}</td>
-							<td>${dto.title}</td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
+							<td><a href="qnaview?code=${dto.code}&indexnum=${dto.indexnum}">${dto.title}</a></td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>

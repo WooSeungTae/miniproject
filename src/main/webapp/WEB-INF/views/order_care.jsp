@@ -107,13 +107,13 @@
 				<td>${dto.totalprice}</td><td>${dto.ordertype }</td><td>${dto.ordernum}</td>
 				<td>${dto.delivery}</td><td>${dto.ordermemo}</td>
 				<c:choose>
-					<c:when test="${dto.delivery eq '배송중' or dto.delivery eq '입금확인중'}">
+					<c:when test="${dto.delivery eq '배송중' or dto.delivery eq '입금중'}">
 						<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=배송중"><input type="button" value="입금 확인"></a></td>
-						<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=입금확인중"><input type="button" value="배송 취소"></a></td>
+						<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=입금중"><input type="button" value="배송 취소"></a></td>
 					</c:when>
 					<c:otherwise>
 						<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=배송중"><input type="button" value="입금 확인" disabled="disabled"></a></td>
-						<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=입금확인중"><input type="button" value="배송 취소" disabled="disabled"></a></td>
+						<td><a href="deliveryChange?ordernum=${dto.ordernum }&delivery=입금중"><input type="button" value="배송 취소" disabled="disabled"></a></td>
 					</c:otherwise>				
 				</c:choose>
 				</tr>

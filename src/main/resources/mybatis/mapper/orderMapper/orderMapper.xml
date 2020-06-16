@@ -5,9 +5,8 @@
 <mapper namespace="com.care.mybatis.orderMapper.orderMapper">
 	<!-- orderInfo 테이블에 저장 -->
 	<insert id="buyRegister" parameterType="Odto">
-		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname
-		,bank,id,totalprice,ordernum,mile) values(#{name},#{tel},#{addr},
-		#{ordermemo},#{ordertype},#{bankname},#{bank},#{id},#{totalprice},#{ordernum},#{mile})
+		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname,bank,id,totalprice,ordernum,mile) 
+		values(#{name},#{tel},#{addr},#{ordermemo},#{ordertype},#{bankname},#{bank},#{id},#{totalprice},#{ordernum},#{mile})
 	</insert>
 	
 	<!-- orderDetailsInfo 테이블에 저장 -->
