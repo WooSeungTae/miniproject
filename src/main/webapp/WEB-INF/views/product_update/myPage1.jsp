@@ -1,31 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	th{
+
+	.table1 th{
 		font-size:11px;
 		font-weight: 500;
 		vertical-align: middle;
 	 }
-	 tr{
+	.table1 tr{
 	 	display: table-row;
 	 	vertical-align: inherit;
 	 	border-color: inherit;
 	 }
-	 td{
+	.table1 td{
 	 	font-size: 11px;
 	 	text-align: center;
 	 	padding-left: 0;
 	 	padding-right: 0;
 	 	padding: 14px 10px;
 	 }
-	 img{
-	 	width: 133px;
+	 .table1 img{
+	 	width: 143px;
 	 	vertical-align: middle;
 	 	border: none;
 	 	margin: 0;
@@ -33,18 +36,40 @@
 	 	cursor: pointer;
 	 }
 	 
+	 .btnSubmit{
+	 	display: inline-block;
+	 	box-sizing: border-box;
+	 	padding: 2px 8px;
+	 	border: 1px solid transparent;
+	 	border-radius: 0;
+	 	font-size: 11px;
+	 	line-height: 18px;
+	 	text-decoration: none;
+	 	vertical-align: middle;
+	 	text-align: center;
+	 	color: #fff;
+	 	background-color: #333;
+	 }
 	 
 </style>
+<script type="text/javascript">
+	function chageSrc(obj) {
+			var imgId = obj.id;
+			var imgName = obj.src;
+			imgName = imgName.toLowerCase();
+			var firstName = imgName.substring(0, imgName.indexOf('.') + 1);
+			var lastName = imgName.substring(imgName.indexOf('.') + 1);
+			lastName = lastName.toUpperCase();
+			var changeName = firstName + lastName;
+			document.getElementById(imgId).src = changeName;
+			console.log(changeName);
+		}
+</script>
 </head>
 <body>
-	<c:import url="/header"></c:import>
-<div  style="width: 90%; margin: auto; padding-top: 80px;">
-	<c:import url="/aside"></c:import>
-<title>마이페이지</title>
-</head>
-<body>
+<form action="myPage1">
 <c:import url="/header"></c:import>
-	<div style="width: 60%; margin: auto; padding-top: 80px;">
+	<div style="width: 90%; margin: auto; padding-top: 80px; margin-top: 50px;">
 <c:import url="/aside"></c:import>
 	<!--  마이페이지 상단  -->
 	<div>
@@ -55,15 +80,11 @@
 	<div style="margin: 40px 0 10;">
 		<h5>주문 상품 정보</h5>
 	</div>
-	<table>
+	<table class="table1">
 		<colgroup>
-			<col style="width:135px;">
-			<col style="width:133px;">
-			<col style="width:230px;">
-			<col style="width:31px;">
-			<col style="width:111px;">
-			<col style="width:111px;">
-			<col style="width:111px;">
+			<col width="110px;">
+			<col width="143px;">
+			<col width="180px;">
 		</colgroup>
 		<thead style="display: table-header-group; vertical-align: middle; border-color: inherit; background: #eaeaea;">
 			<tr>
@@ -78,29 +99,22 @@
 		</thead>
 		<tbody>
 			<tr>
-				<!-- 임의로 값들 넣어둠 주문한 상품과 정보를 불러와서 넣어줘야함 -->
-				<td>2020-06-06<br><a href="#" style="text-decoration: underline; font-weight: 500;">[20200606-00002329]</a></td>
-				<td><a href="#"><img src="image/pd1-1.png"></a></td> 
-				<td><h4>나이키  리액트 Men</h4></td>
-				<td>1</td>
-				<td><h4>129,000</h4></td>
-				<td>배송중</td>
+				<c:forEach var="Ddto" items="${Ddto }">
+					<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</a></td>
+					<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></a></td> 
+					<td><h4>${Ddto.codename}<br>size : ${Ddto.ordersize }</h4></td>
+					<td>${Ddto.count }</td>
+					<td><h4>KRW <fmt:formatNumber value="${Ddto.price}" pattern="#,###"/></h4></td>
+					<td>배송완료<br><a href="towritelistall" class="btnSubmit">구매후기</a></td>
 				<td>-</td>
 			</tr>
+				</c:forEach>
 		</tbody>
 	</table>
 </div>
-	<!-- 최근 등록 주문 내역 -->
-	<section>
-	<br><br><br><br><br>
-	<img src="/nike/image/nike.jpg">
-	
-	
-	<hr>
-	</section>
-	
-	<!-- 가운데 부분 -->
-	</div>
+<div style="padding: 300px 0 0 0;">
 <c:import url="/footer"></c:import>
+</div>
+</form>
 </body>
 </html>

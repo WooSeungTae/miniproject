@@ -254,7 +254,7 @@
 	var pageqa = 1;
 	var cntPerPageqa = 3;//Q & A 행수 지정
 	var totalqa = ${totalqa}; // Q & A 토탈페이지
-	var endpageqa = Math.ceil(totalqa / cntPerPage); //Q & A  페이지 갯수 
+	var endpageqa = Math.ceil(totalqa / cntPerPage);  //Q & A  페이지 갯수 
 	var cntPageqa = 5; //페이지 보이는 수
 	var startPageqa=0; //제일 앞에 보이는 페이지수
 	var lastPageqa=0; //마지막에 보이는 페이지수

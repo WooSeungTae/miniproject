@@ -170,5 +170,10 @@ public class OrderService {
 	public List<ShoppingCartDTO> cartpaging(Cart_PagingVO cpvo) {
 		return Odao.cartpaing(cpvo);
 	}
+
+	//최근 주문 내역 페이지
+		public List<Order_detailsDTO> myPage1(String id) {
+			return Ddao.myPage1(id);
+		}
 	
 }

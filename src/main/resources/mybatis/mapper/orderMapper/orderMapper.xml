@@ -3,6 +3,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.care.mybatis.orderMapper.orderMapper">
+
+	<!-- 회원탈퇴 시 해당 유저 정보 삭제  (orderInfo table)-->
+	<delete id="ouserDelete" parameterType="dto">
+		delete from orderInfo where id=#{id} 
+	</delete>
+	
+	<!-- 회원탈퇴 시 해당 유저 정보 삭제  (orderDetailsInfo table)-->
+	<delete id="oduserDelete" parameterType="dto">
+		delete from orderDetailsInfo where id=#{id}
+	</delete>
+	
+	<!-- 최근 주문 내역  -->
+	<select id="myPage1" resultType="Ddto" parameterType="String">
+		select * from orderDetailsInfo where id=#{id}
+	</select>
+
 	<!-- orderInfo 테이블에 저장 -->
 	<insert id="buyRegister" parameterType="Odto">
 		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname
