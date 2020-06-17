@@ -168,7 +168,7 @@ public class HomeController {
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
-			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			//rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
 			rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));

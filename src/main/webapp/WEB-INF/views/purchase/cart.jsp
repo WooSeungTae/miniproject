@@ -111,7 +111,7 @@
 			margin:0; padding:0; border:0; vertical-align:baseline;
 		}
 		.item-price{
-			margin-top:0;
+			width:100%; margin-top:0; display:table;
 		}
 		.label{
 			font-size:14px; display:table-cell; color:#000; font-weight:500; letter-spacing:-1px;
@@ -120,7 +120,7 @@
 			display:table-cell; text-align:right;
 		}
 		.delivery-price{
-			width:100%; display:table; margin-top:20px;
+			width:100%; display:table; margin-top:20px; 
 		}
 		.price-sale{
 			color:#fa5400; display:table-cell; text-align:right;
@@ -129,11 +129,26 @@
 			color:#fa5400; display:table-cell; text-align:right;
 		}
 		.btn-link{
-			margin-top:15px; background-color:#fb5302; font-size:14x; font-weight:bold; color:#fff;
+			margin-top:15px; background-color:#fb5302; font-size:14x; font-weight:bold; color:#fff; width:100%;
 		}
 		a:link{
 			text-decoration:none;
 		}
+		/*페이지 div부분*/
+		.pagingdiv{text-align: center; margin: 10px;}
+		.paging{display: inline-block;}
+		.paging a{
+		color: black;
+		float: left;
+		padding: 8px 16px;
+		text-decoration: none;
+		transition: background-color .3s;
+		}
+		.paging a.active{
+		background-color: black;
+		color: white;
+		}
+		.paging a:hover:not(.active) {background-color: #ddd;}
 	</style>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
@@ -251,7 +266,7 @@
 							</div>
 						</div>
 						<div class="product-checkout">
-							<strong class="tit">주문예정금액</strong>
+							<strong class="tit" style="text-align:center;">주문예정금액</strong>
 							<div class="product-checkout_in-box">
 								<div class="info-price">
 									<span class="item-price">

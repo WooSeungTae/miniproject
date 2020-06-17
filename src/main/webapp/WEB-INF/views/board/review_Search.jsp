@@ -148,17 +148,37 @@
 	</style>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
-		window.onload = function(){
+		function start(){
 			$('input:radio[name=star_input]:input[value='+${rdto.star_input}+']').attr("checked", true);
 			$('input:radio[name=rating]:input[value='+${rdto.rating}+']').attr("checked", true);
 			$('input:radio[name=rating2]:input[value='+${rdto.rating2}+']').attr("checked", true);
 			$('input:radio[name=rating3]:input[value='+${rdto.rating3}+']').attr("checked", true);
 			$('input:radio[name=rating4]:input[value='+${rdto.rating4}+']').attr("checked", true);
-			
 		}	
+	
+	
+		$(document).ready(function(){
+			$("#productImg1").change(function(){
+			   if(this.files && this.files[0]) {
+			    var reader = new FileReader;
+			    reader.onload = function(data) {
+			     $(".select_img1 img").attr("src", data.target.result);        
+			     $("#image1").val('image1');
+			    }
+			    reader.readAsDataURL(this.files[0]);
+			   }
+			  });
+		});
+		$(document).ready(function() {
+			$("#img1").click(function() {
+				$("#productImg1").click();
+			});
+		});
+	
+		
 	</script>
 </head>
-<body onload="list()">
+<body onload="start();list()">
 	<header>
 		<c:import url="../sminj/header.jsp">
 		</c:import>
@@ -186,21 +206,21 @@
 					<td>
 						<span class="star_input">
 							<span class="input">
-	    						<input type="radio" name="star_input" value="1" id="p1">
+	    						<input type="radio" name="star_input" value="1" id="p1" disabled="disabled">
 	    						<label for="p1">1</label>
-						    	<input type="radio" name="star_input" value="2" id="p2">
+						    	<input type="radio" name="star_input" value="2" id="p2" disabled="disabled">
 						    	<label for="p2">2</label>
-						    	<input type="radio" name="star_input" value="3" id="p3">
+						    	<input type="radio" name="star_input" value="3" id="p3" disabled="disabled">
 						    	<label for="p3">3</label>
-						    	<input type="radio" name="star_input" value="4" id="p4">
+						    	<input type="radio" name="star_input" value="4" id="p4" disabled="disabled">
 						    	<label for="p4">4</label>
-						    	<input type="radio" name="star_input" value="5" id="p5">
+						    	<input type="radio" name="star_input" value="5" id="p5" disabled="disabled">
 						    	<label for="p5">5</label>
 					  		</span>
+					  		<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+							<script src="js/star.js"></script>
 					  		<output for="star_input"><b>${rdto.star_input }</b>점</output>						
 						</span>
-						<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-						<script src="js/star.js"></script>
 					</td>
 				</tr>
 				<tr>
@@ -215,25 +235,25 @@
 					<td>편안함</td>
 					<td>
 						<div class="rating">
-							<input type="radio" name="rating" id="rate10" value="10">
+							<input type="radio" name="rating" id="rate10" value="10" disabled="disabled">
 							<label for="rate10">10</label>
-							<input type="radio" name="rating" id="rate9" value="9">
+							<input type="radio" name="rating" id="rate9" value="9" disabled="disabled">
 							<label for="rate9">9</label>
-							<input type="radio" name="rating" id="rate8" value="8">
+							<input type="radio" name="rating" id="rate8" value="8" disabled="disabled">
 							<label for="rate8">8</label>
-							<input type="radio" name="rating" id="rate7" value="7">
+							<input type="radio" name="rating" id="rate7" value="7" disabled="disabled">
 							<label for="rate7">7</label>
-							<input type="radio" name="rating" id="rate6" value="6">
+							<input type="radio" name="rating" id="rate6" value="6" disabled="disabled">
 							<label for="rate6">6</label>
-							<input type="radio" name="rating" id="rate5" value="5">
+							<input type="radio" name="rating" id="rate5" value="5" disabled="disabled">
 							<label for="rate5">5</label>
-							<input type="radio" name="rating" id="rate4" value="4">
+							<input type="radio" name="rating" id="rate4" value="4" disabled="disabled">
 							<label for="rate4">4</label>
-							<input type="radio" name="rating" id="rate3" value="3">
+							<input type="radio" name="rating" id="rate3" value="3" disabled="disabled">
 							<label for="rate3">3</label>
-							<input type="radio" name="rating" id="rate2" value="2">
+							<input type="radio" name="rating" id="rate2" value="2" disabled="disabled">
 							<label for="rate2">2</label>
-							<input type="radio" name="rating" id="rate1" value="1">
+							<input type="radio" name="rating" id="rate1" value="1" disabled="disabled">
 							<label for="rate1">1</label>
 						</div>
 					</td>
@@ -243,25 +263,25 @@
 					<td>
 						<div class="rating2">
 							<input type="hidden" name="rating2" id="rating2_hidden" value="${rdto.rating2 }">
-							<input type="radio" name="rating2" id="rate2_10" value="10">
+							<input type="radio" name="rating2" id="rate2_10" value="10" disabled="disabled">
 							<label for="rate2_10">10</label>
-							<input type="radio" name="rating2" id="rate2_9" value="9">
+							<input type="radio" name="rating2" id="rate2_9" value="9" disabled="disabled">
 							<label for="rate2_9">9</label>
-							<input type="radio" name="rating2" id="rate2_8" value="8">
+							<input type="radio" name="rating2" id="rate2_8" value="8" disabled="disabled">
 							<label for="rate2_8">8</label>
-							<input type="radio" name="rating2" id="rate2_7" value="7">
+							<input type="radio" name="rating2" id="rate2_7" value="7" disabled="disabled">
 							<label for="rate2_7">7</label>
-							<input type="radio" name="rating2" id="rate2_6" value="6">
+							<input type="radio" name="rating2" id="rate2_6" value="6" disabled="disabled">
 							<label for="rate2_6">6</label>
-							<input type="radio" name="rating2" id="rate2_5" value="5">
+							<input type="radio" name="rating2" id="rate2_5" value="5" disabled="disabled">
 							<label for="rate2_5">5</label>
-							<input type="radio" name="rating2" id="rate2_4" value="4">
+							<input type="radio" name="rating2" id="rate2_4" value="4" disabled="disabled">
 							<label for="rate2_4">4</label>
-							<input type="radio" name="rating2" id="rate2_3" value="3">
+							<input type="radio" name="rating2" id="rate2_3" value="3" disabled="disabled">
 							<label for="rate2_3">3</label>
-							<input type="radio" name="rating2" id="rate2_2" value="2">
+							<input type="radio" name="rating2" id="rate2_2" value="2" disabled="disabled">
 							<label for="rate2_2">2</label>
-							<input type="radio" name="rating2" id="rate2_1" value="1">
+							<input type="radio" name="rating2" id="rate2_1" value="1" disabled="disabled">
 							<label for="rate2_1">1</label>
 						</div>
 					</td>
@@ -271,25 +291,25 @@
 					<td>
 						<div class="rating3">
 							<input type="hidden" name="rating3" id="rating3_hidden" value="${rdto.rating3 }">
-							<input type="radio" name="rating3" id="rate3_10" value="10">
+							<input type="radio" name="rating3" id="rate3_10" value="10" disabled="disabled">
 							<label for="rate3_10">10</label>
-							<input type="radio" name="rating3" id="rate3_9" value="9">
+							<input type="radio" name="rating3" id="rate3_9" value="9" disabled="disabled">
 							<label for="rate3_9">9</label>
-							<input type="radio" name="rating3" id="rate3_8" value="8">
+							<input type="radio" name="rating3" id="rate3_8" value="8" disabled="disabled">
 							<label for="rate3_8">8</label>
-							<input type="radio" name="rating3" id="rate3_7" value="7">
+							<input type="radio" name="rating3" id="rate3_7" value="7" disabled="disabled">
 							<label for="rate3_7">7</label>
-							<input type="radio" name="rating3" id="rate3_6" value="6">
+							<input type="radio" name="rating3" id="rate3_6" value="6" disabled="disabled">
 							<label for="rate3_6">6</label>
-							<input type="radio" name="rating3" id="rate3_5" value="5">
+							<input type="radio" name="rating3" id="rate3_5" value="5" disabled="disabled">
 							<label for="rate3_5">5</label>
-							<input type="radio" name="rating3" id="rate3_4" value="4">
+							<input type="radio" name="rating3" id="rate3_4" value="4" disabled="disabled">
 							<label for="rate3_4">4</label>
-							<input type="radio" name="rating3" id="rate3_3" value="3">
+							<input type="radio" name="rating3" id="rate3_3" value="3" disabled="disabled">
 							<label for="rate3_3">3</label>
-							<input type="radio" name="rating3" id="rate3_2" value="2">
+							<input type="radio" name="rating3" id="rate3_2" value="2" disabled="disabled">
 							<label for="rate3_2">2</label>
-							<input type="radio" name="rating3" id="rate3_1" value="1">
+							<input type="radio" name="rating3" id="rate3_1" value="1" disabled="disabled">
 							<label for="rate3_1">1</label>
 						</div>
 					</td>
@@ -299,25 +319,25 @@
 					<td>
 						<div class="rating4">
 							<input type="hidden" name="rating4" id="rating4_hidden" value="${rdto.rating4 }">
-							<input type="radio" name="rating4" id="rate4_10" value="10">
+							<input type="radio" name="rating4" id="rate4_10" value="10" disabled="disabled">
 							<label for="rate4_10">10</label>
-							<input type="radio" name="rating4" id="rate4_9" value="9">
+							<input type="radio" name="rating4" id="rate4_9" value="9" disabled="disabled">
 							<label for="rate4_9">9</label>
-							<input type="radio" name="rating4" id="rate4_8" value="8">
+							<input type="radio" name="rating4" id="rate4_8" value="8" disabled="disabled">
 							<label for="rate4_8">8</label>
-							<input type="radio" name="rating4" id="rate4_7" value="7">
+							<input type="radio" name="rating4" id="rate4_7" value="7" disabled="disabled">
 							<label for="rate4_7">7</label>
-							<input type="radio" name="rating4" id="rate4_6" value="6">
+							<input type="radio" name="rating4" id="rate4_6" value="6" disabled="disabled">
 							<label for="rate4_6">6</label>
-							<input type="radio" name="rating4" id="rate4_5" value="5">
+							<input type="radio" name="rating4" id="rate4_5" value="5" disabled="disabled">
 							<label for="rate4_5">5</label>
-							<input type="radio" name="rating4" id="rate4_4" value="4">
+							<input type="radio" name="rating4" id="rate4_4" value="4" disabled="disabled">
 							<label for="rate4_4">4</label>
-							<input type="radio" name="rating4" id="rate4_3" value="3">
+							<input type="radio" name="rating4" id="rate4_3" value="3" disabled="disabled">
 							<label for="rate4_3">3</label>
-							<input type="radio" name="rating4" id="rate4_2" value="2">
+							<input type="radio" name="rating4" id="rate4_2" value="2" disabled="disabled">
 							<label for="rate4_2">2</label>
-							<input type="radio" name="rating4" id="rate4_1" value="1">
+							<input type="radio" name="rating4" id="rate4_1" value="1" disabled="disabled">
 							<label for="rate4_1">1</label>
 						</div>
 					</td>
