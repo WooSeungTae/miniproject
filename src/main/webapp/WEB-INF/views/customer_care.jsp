@@ -102,12 +102,12 @@
 	</div> <!-- 옵션선택 끝 -->
 <!-- 참고 홈페이지 https://ecsupport.cafe24.com/article/%EC%87%BC%ED%95%91%EB%AA%B0-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5/12/2026/?page= -->
 	 <table class="membertable" >
-		<tr class="tablehead"><th>아이디</th><th>이름</th><th>주소</th><th>성별</th><th>생년월일</th><th>전화번호</th><th>삭제</th></tr>
+		<tr class="tablehead"><th>아이디</th><th>이름</th><th>주소</th><th>성별</th><th>생년월일</th><th>전화번호</th><th>마일리지</th><th>삭제</th></tr>
 		<c:choose>
 			<c:when test="${size ne 0}">
 				<c:forEach items="${viewAll }" var="dto">
 				<tr align="center"><td>${dto.id}</td><td>${dto.name}</td><td>${dto.address}</td>
-				<td>${dto.gender}</td><td>${dto.birth}</td><td>${dto.tel}</td>
+				<td>${dto.gender}</td><td>${dto.birth}</td><td>${dto.tel}</td><td>${dto.mile }</td>
 				<td><input type="button" value="삭제" id="${dto.id}" onclick="delete_btn(this.id)"></td></tr>
 				</c:forEach>
 			</c:when>

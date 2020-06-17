@@ -220,6 +220,7 @@
 </style>
 </head>
 <body>
+<c:set var="size" value="${id}"/>
 	<header id="headerAll_css">
 		<div id="header_firstRow">
 			<span>
@@ -244,7 +245,7 @@
 						</div>
 					</span>
 				</c:when>
-				<c:when test = "${name eq '관리자'}">
+				<c:when test = "${id eq 'admin'}">
 					<span>
 						<div class="rightTop_admin">
 							<ul class="rightTop_admin_menu">
@@ -262,7 +263,7 @@
 						</div>
 					</span>
 				</c:when>
-				<c:when test = '${id ne admin }'>
+				<c:when test = "${id ne 'admin' }">
 					<span>
 						<div class="rightTop_login">
 							<ul class="rightTop_login_menu">

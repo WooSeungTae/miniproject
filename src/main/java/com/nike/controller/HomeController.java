@@ -126,6 +126,18 @@ public class HomeController {
 		    if (userInfo.get("email") != null) {
 		    	session.setAttribute("id", userInfo.get("email"));
 		    	session.setAttribute("name", userInfo.get("nickname"));
+		    	if(memberservice.memberserch((String)userInfo.get("email")) == null) {
+			    	MemberInfoDTO dto = new MemberInfoDTO();
+			    	dto.setId((String)userInfo.get("email"));
+			    	dto.setName((String)userInfo.get("nickname"));
+			    	if(userInfo.get("gender").equals("male")) {
+			    		dto.setGender("남자");
+			    	}
+			    	else {
+			    		dto.setGender("여자");
+			    	}
+			    	memberservice.kakaoUserSave(dto);
+		    	}
 		    	session.setAttribute("access_Token", access_Token);
 		    }
 		}
@@ -458,7 +470,7 @@ public class HomeController {
 			mySession.setAttribute("id", dto.getId());
 			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
 			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
-			return "sminj/main";
+			return "redirect:/";
 		}
 	}
 	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
@@ -648,16 +660,19 @@ public class HomeController {
 	@RequestMapping("deliveryChange")
 	public String deliveryChange(OrderDTO Odto) {
 		orderservice.deliveryChange(Odto);
+		orderservice.delivery(Odto);
 		return "redirect:order_care";
 	}
 	@RequestMapping("orderdeliveryChange")
-	public String orderdeliveryChange(OrderDTO Odto,Order_detailsDTO Ddto, 
-			@RequestParam("ordernum") String ordernum,@RequestParam("delivery") String delivery) {
-		System.out.println("-------홈 컨트롤러 실행시작");
-		//orderservice.delivery(Ddto);
-		System.out.println("오더서비스 디테ㅣ");
+	public String orderdeliveryChange(OrderDTO Odto) {
 		orderservice.deliveryChange(Odto);
-		System.out.println("디테일 dao 주문취소 완료");
+		orderservice.delivery(Odto);
+		return "redirect:orderList";
+	}
+	@RequestMapping("orderdeliveryCancel")
+	public String orderdeliveryCancel(OrderDTO Odto) {
+		//orderservice.orderdeliveryCancel(Odto);
+		orderservice.delivery(Odto);
 		return "redirect:orderList";
 	}
 	@RequestMapping("orderserch")
@@ -681,14 +696,23 @@ public class HomeController {
 	}
 	/*회원가입*/
 	@RequestMapping("memberJoin")
-	public String memberJoin() {
+	public String memberJoin(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+
+		if(id == null) {
 		return "member/memberJoin";
+		}
+		else return"redirect:/";
 	}
 	
 	/*로그인페이지*/
 	@RequestMapping("loginPage")
-	public String loginPage() {
+	public String loginPage(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		if(id == null) {
 		return "member/loginPage";
+		}
+		else return"redirect:/";
 	}
 	
 	/*비밀번호 찾을때 전화번호 or 아이디로 검색*/
@@ -706,10 +730,6 @@ public class HomeController {
 		return "member/loginPage";
 	}
 	
-	@RequestMapping("TestMainPage")
-	public String TestMainPage() {
-		return "member/TestMainPage";
-	}
 	@RequestMapping("userReset")
 	public String userReset() {
 		return "member/userReset";
@@ -1005,7 +1025,7 @@ public class HomeController {
 	}
 	@RequestMapping("/main")
 	public String main() {
-		return "sminj/main";
+		return "redirect:/";
 	}
 
 	/* 로그아웃 */
@@ -1015,7 +1035,7 @@ public class HomeController {
 			kakao.kakaoLogout((String)mySession.getAttribute("access_Token"));
 		}
 		memberservice.logout(mySession);
-		return "sminj/main";
+		return "redirect:/";
 	}
 	/* 회원비밀번호 변경 */
 	@RequestMapping("password")

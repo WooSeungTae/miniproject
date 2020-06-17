@@ -131,7 +131,7 @@
 							<c:choose>
 								<c:when test="${orderList.delivery eq '입금중' }">
 								<td>
-									<a href="deliveryChange?ordernum=${orderList.ordernum }&delivery=주문취소111">
+									<a href="orderdeliveryChange?ordernum=${orderList.ordernum }&delivery=주문취소">
 									<input type="button"  value="주문취소"></a>
 								</td>
 								</c:when>
@@ -144,7 +144,7 @@
 							<c:choose>
 								<c:when test="${orderList.delivery eq '배송중' }">
 								<td>
-									<a href="deliveryChange?ordernum=${orderList.ordernum }">
+									<a href="orderdeliveryChange?ordernum=${orderList.ordernum }&delivery=배송완료">
 									<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish"></a>
 								</td>
 								</c:when>

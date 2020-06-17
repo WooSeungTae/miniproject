@@ -39,6 +39,10 @@ public class MemberInfoDAO {
 	public void saveUserInfo(MemberInfoDTO dto) {
 		sqlSession.insert(namespace+".saveUserInfo",dto);
 	}
+	/* 카카오톡 로그인시 회원가입 */
+	public void kakaoUserSave(MemberInfoDTO dto) {
+		sqlSession.insert(namespace+".kakaoUserSave",dto);
+	}
 
 	public int loginChk(MemberInfoDTO dto) {
 		MemberInfoDTO dto2 = sqlSession.selectOne(namespace+".loginChk",dto);

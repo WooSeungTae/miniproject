@@ -5,6 +5,21 @@
 <html>
 <head>
 <style>
+/*페이지 div부분*/
+.pagingdiv{text-align: center; margin: 10px;}
+.paging{display: inline-block;}
+	.paging a{
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	}
+	.paging a.active{
+	background-color: black;
+	color: white;
+	}
+	.paging a:hover:not(.active) {background-color: #ddd;}
 .wrapper {
 	font-family: "Noto Sans KR", "Malgun Gothic", "MalgunGothic", Dotum,
 		Helevtica, Arial, sans-serif;
@@ -371,14 +386,15 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-										<div style="display: block; text-align: center;">		
+	<div class="pagingdiv">
+	<div class="paging">
 		<c:if test="${paging.startPage != 1 }">
 			<a href="Women?nowPage=${paging.startPage - 1 }">이전</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
 				<c:when test="${p == paging.nowPage }">
-					<b>${p }</b>
+					<a class="active">${p }</a>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
 					<a href="Women?nowPage=${p }">${p }</a>
@@ -388,6 +404,7 @@
 		<c:if test="${paging.endPage != paging.lastPage}">
 			<a href="Women?nowPage=${paging.endPage+1 }">다음</a>
 		</c:if>
+	</div>
 	</div>
 				</div>
 			</article>
