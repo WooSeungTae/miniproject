@@ -12,16 +12,9 @@ public class Order_detailsDTO {
 	private String ordersize ;
 	private String price;
 	private String image1;
-	private String codeName;
 	private String delivery;
 	private Date orderDate;
 	
-	public String getCodeName() {
-		return codeName;
-	}
-	public void setCodeName(String codeName) {
-		this.codeName = codeName;
-	}
 	public String getDelivery() {
 		return delivery;
 	}

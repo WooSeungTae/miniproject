@@ -34,5 +34,10 @@ public class Order_detailsDAO {
 	public void sizeDelete(Order_detailsDTO Ddto) {
 		sqlSession.update(namespace+".sizeDelete",Ddto);
 	}
+	//최근 주문 내역 페이지
+		public List<Order_detailsDTO> myPage1(String id) {
+			return sqlSession.selectList(namespace+".myPage1", id);
+		}
+
 
 }

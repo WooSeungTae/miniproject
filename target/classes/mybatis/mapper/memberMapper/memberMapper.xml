@@ -14,11 +14,11 @@
 	</update>
  	<!-- 회원가입 정보 입력 받기 -->
 	<insert id="saveUserInfo" parameterType="dto">
-		insert into memberinfo(id,pwd,name,tel,birth) values(#{id},#{pwd},#{name},#{tel},#{birth})
+		insert into memberinfo(id,pwd,name,address,tel,birth,question,gender,mile,answer) values(#{id},#{pwd},#{name},#{address},#{tel},#{birth},#{question},#{gender},2000,#{answer})
 	</insert>
 	
 	<select id="loginChk" parameterType="dto" resultType="dto">
-		select * from memberinfo where id=#{id}
+		select * from memberinfo where id=#{id} and pwd=#{pwd}
 	</select>
 	
 	<!-- 회원정보 수정 -->

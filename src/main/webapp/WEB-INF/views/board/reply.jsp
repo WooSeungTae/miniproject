@@ -12,7 +12,7 @@
 <script type="text/javascript">
 
 /*시작시 댓글 불러오기*/
-	//$(document).ready(function(){
+  	//$(document).ready(function(){
 	function list(){
 		var form = {
 				indexnum : '${param.indexnum }'		
@@ -26,10 +26,12 @@
 				let html = "";
 				for(var i=0;i<result.length;i++){
 					html+="<b>작성자 : "+result[i].writer +"&nbsp;&nbsp;&nbsp;&nbsp; </b> 작성일 : "+
-					result[i].registerdate+"<br><input type='hidden' id = 'idcheck' value=''>"
+					result[i].registerdate+"<input type='hidden' id = 'idcheck' value=''>"
 					if('${sessionScope.id }'==result[i].id){
-					html+="<textarea  id ='"+result[i].numComment+"'name ='contentComment' style='width: 98%;' rows='4' cols=''>"+result[i].contentComment+"</textarea>"
-					+"<div align='right'><button class='"+result[i].indexnum+"' id ='"+result[i].numComment+"' style='text-align: right;' onclick='replyUpdate(this)'>수정</button>&nbsp;<button class='"+result[i].indexnum+"' id ='"+result[i].numComment+"'  style='text-align: right;' onclick='replyDelete(this)'>삭제</button></div><br>"
+					html+="<b><span class ='"+result[i].numComment+result[i].writer+"'  onclick='modifycontent(this.className)' style='text'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶ 수정하기 &nbsp; &nbsp;</span>&nbsp;&nbsp;"
+					+"<span class='"+result[i].indexnum+"' id ='"+result[i].numComment+"'  style='text-align: right;' onclick='replyDelete(this)'>▷ 삭제하기 </span></b><h3>"
+					+result[i].contentComment +"</h3><hr><br>"+"<div id ='"+result[i].numComment+result[i].writer+"' style='display:none ;'><textarea  id ='"+result[i].numComment+result[i].id+"'name ='contentComment' style='width: 98%;' rows='4' cols=''>"+result[i].contentComment+"</textarea>"
+					+"<div align='right'><button class='"+result[i].indexnum+"' id ='"+result[i].numComment+"' style='text-align: right;' onclick='replyUpdate(this)'>수정완료</button></div></div><br>"
 					}else{
 						html+="<h3>"+result[i].contentComment +"</h3><hr><br>"
 					}
@@ -42,6 +44,8 @@
 		});
 	}
 
+	
+	
 	/*등록후 댓글 불러오기*/
 
 	function ajax_comment() {
@@ -65,10 +69,23 @@
 		}
 	}
 	
+	
+	/*댓글 수정하기 위한 창 display:""*/
+	function modifycontent(contid){
+		var select = document.getElementById(contid);
+		console.log(select.style.display);
+		if(select.style.display=='none'){
+			select.style.display="";
+		}else{
+		select.style.display="none";
+		}
+	}
+	
 	/*댓글 수정후 불러오기*/
 	
 	function replyUpdate(obj){
-		var contentid=obj.id;	
+		var contentid=obj.id+'${sessionScope.id}';
+		console.log(contentid);
 		var content = document.getElementById(contentid).value;
 			form = {
 				contentComment : content, 	

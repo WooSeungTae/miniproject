@@ -1,62 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style type="text/css">
-	.wrapper{min-height: 100%; max-width: 100%; margin: 20px; text-align: center; }
+	.wrapper{min-height: 100%; max-width: 100%; margin: 20px; text-align: center; margin-top: 150px; }
 	.section{display: block;}
 	.contentBox{box-sizing: content-box; padding: 10px;}
 	input{height: 20px; margin: 10px; padding: 7px;}
 	.button_01{margin-bottom: 10px !important; box-sizing: border-box;}
 	button{color:white; background-color: black; width: 270px; height: 40px; padding: 10px;}
 	td{max-width: 100px;} 
+/*주소검색 css*/
+	#checkOutButton {
+  background-color: #e9e9e9; /* Green */
+  border: none;
+  color: black;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight : 900;
+  border-radius: 8px;
+  box-shadow: 5px, 5px,5px,0px;
+}
 </style>
-
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 	//필수 정보 입력되었는지  확인하는 함수 
 	function checkValue() {
 		if(!document.memberInfo.id.value){
 			alert("아이디를 입력하세요.");	//memberinfo table에서 id칼럼이 primary key라서 창이 안뜸 해결방법 찾아야함
+			document.memberInfo.id.focus();
 			return false;
-		}
-		if(!document.memberInfo.pwd.value){
+		} else if(!document.memberInfo.pwd.value){
 			alert("비밀번호를 입력하세요.")
+			document.memberInfo.pwd.focus();
 			return false;
-		}
-		if(!document.memberInfo.name.value){
+		} else if(document.memberInfo.chkpwd.value != document.memberInfo.pwd.value){
+			alert("입력한 비밀번호와 다릅니다. 다시 입력해 주세요.")
+			document.memberInfo.chkpwd.value="";
+			document.memberInfo.chkpwd.focus();
+			return false;
+		} else if(!document.memberInfo.name.value){
 			alert("이름을 입력하세요.")
+			document.memberInfo.name.focus();
 			return false;
-		}
-		if(!document.memberInfo.tel.value){
+		} else if(!document.memberInfo.address.value){
+			alert("주소를 입력하세요.")
+			document.memberInfo.address.focus();
+			return false;
+		} else if(!document.memberInfo.tel.value){
 			alert("휴대폰 번호를 입력하세요.")
+			document.memberInfo.tel.focus();
 			return false;
-		}
-		if(!document.memberInfo.birth.value){
+		} else if(!document.memberInfo.birth.value){
 			alert("생년월일을  입력하세요.")
+			document.memberInfo.birth.focus();
 			return false;
-		}
-		if(!document.memberInfo.gender.value){
+		} else if(!document.memberInfo.question.value){
+			alert("질문을 선택해 주세요.")
+			document.memberInfo.question.focus();
+			return false;
+		} else if(!document.memberInfo.answer.value){
+			alert("질문의 답변을 입력해 주세요.")
+			document.memberInfo.answer.focus();
+			return false;
+		} else if(!document.memberInfo.gender.value){
 			alert("성별을  체크하세요.")
+			document.memberInfo.gender.focus();
 			return false;
-		}
-		if(!document.memberInfo.agree.checked){
+		} else if(!document.memberInfo.agree.checked){
 			alert("이용약관에 동의해 주세요.")
+			document.memberInfo.agree.focus();
 			return false;
-		}
-		if(!document.memberInfo.chkPrivacy.checked){
+		} else if(!document.memberInfo.chkPrivacy.checked){
 			alert("개인정보 수집 및 이용에 동의해 주세요.")
+			document.memberInfo.chkPrivacy.focus();
 			return false;
 		}
+		alert("회원가입을 축하드립니다.");
+	}
+	
+	/*주소검색*/
+	function addrsearch(){
+	   new daum.Postcode({
+	       oncomplete: function(data) {
+	    	   document.getElementById("addr").value=data.jibunAddress;
+	    	   console.log(data.jibunAddress);
+	    /*
+               alert(data.userSelectedType) // (J : 지번 , R : 도로명)
+               alert(data.jibunAddress)     // (지번 풀주소 반환)
+              alert(data.sido);            // 시반환(서울특별시)
+              alert(data.sigungu);         // 구반환(은평구) 
+              alert(data.bname);           // 동반환(갈현동)
+              alert(data.postcode);        // 우편번호 반환(6자리)
+              alert(data.zonecode);        // 우편번호 반환(5자리)
+              */
+	       },
+	       //shorthand : false 
+	   }).open();
 	}
 </script>
 </head>
 <body>
-<header>
-
-</header>
+<c:import url="/header"></c:import>
 	<form action="saveUserInfo" name="memberInfo" onsubmit="return checkValue()"> 
 		<section class="wrapper">
 			<h3>회원가입</h3>
@@ -68,10 +119,21 @@
 			<input type="password" name="pwd" placeholder="영문+숫자+특수문자 8~16자리(특수문자 괄호()는 사용불가)" size="50"><br>
 			<input type="password" name="chkpwd" placeholder="패스워드를 다시 입력해 주세요." size="50"><br>
 			<input type="text" name="name" placeholder="이름을  입력해 주세요." size="50"><br>
+			<input type="text" name="address" placeholder="주소검색" size="38"> <span id="checkOutButton" onclick='addrsearch()'>주소검색</span><br>
+			<input type="text" id="addr" name="address" placeholder="나머지주소입력" size="50"><br>
 			<input type="text" name="tel" placeholder="휴대폰 번호 '-'표 없이  입력해 주세요." size="50"><br>
 			<input type="text" name="birth" placeholder="생년월일 예)2020.01.01" size="50"><br>
-			<input type="radio" class="button_01" name="gender" value="man" >남성 		<!-- 버튼 이미지 변경 및 박스 만들어줘야함 -->
-			<input type="radio" class="button_01" name="gender" value="woman">여성 <br>
+			<select name="question" style="width: 380px; height: 38px;">
+				<option selected="selected" value="">질문을 선택하세요.</option>
+				<option value="당신의 보물 제1호는?">당신의 보물 제1호는?</option>
+				<option value="당신의 첫사랑의 이름은?">당신의 첫사랑의 이름은?</option>
+				<option value="좋아하는 색상은?">좋아하는 색상은?</option>
+				<option value="존경하는 위인은?">존경하는 위인은?</option>
+				<option value="당신의 통장 비밀번호는?">당신의 통장 비밀번호는?</option>
+			</select><br>
+			<input type="text" name="answer" placeholder="선택하신 질문의 답변을 입력해 주세요." size="50"><br>
+			<input type="radio" class="button_01" name="gender" value="남자" >남성	<!-- 버튼 이미지 변경 및 박스 만들어줘야함 -->
+			<input type="radio" class="button_01" name="gender" value="여자">여성 <br>
 			<div>
 				<font size="2" style="padding: 0 270px 0 0;"><b>이용약관</b></font><br>
 				<textarea rows="10" cols="62" style="font-size: 12px;" >나이키 이용약관 (추후 업뎃)
@@ -114,5 +176,6 @@
 			</div>
 		</section>
 	</form>
+	<c:import url="/footer"></c:import>
 </body>
 </html>

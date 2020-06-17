@@ -71,6 +71,7 @@
 			<ul>
 				<li class="aside_title">활동정보</li>
 				<li><a href="mileage" class="aside_a">나의 MILE</a></li>
+				<li><a href="myPage1" class="aside_a">최근 주문 내역</a></li>
 				<li><a href="reviewintro" class="aside_a">상품리뷰</a></li>
 				<li><a href="mypageQnA" class="aside_a">나의 Q&A</a></li>
 			</ul>
