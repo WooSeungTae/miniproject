@@ -105,7 +105,15 @@
   border-radius: 8px;
   box-shadow: 5px, 5px,5px,0px;
 }
-
+/*장바구니 글씨 css*/
+#cartcss{
+	text-decoration: none;
+	color: black;
+}
+#cartcss:visited{
+	text-decoration: none;
+	color: black;
+}
 
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -192,6 +200,7 @@
 			mile=s;
 			document.getElementById("mile").value=mile1;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
+	
 			
 		};
 		if(checkDely==1){
@@ -201,6 +210,7 @@
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
+			alert('선택하신 마일리지는 '+mile+'점으로 총결제 금액에서 차감합니다.')
 		}else{
 			mile=mile1;
 			total=price-mile;
@@ -208,6 +218,7 @@
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
+			alert('선택하신 마일리지는 '+mile+'점으로 총결제 금액에서 차감합니다.')
 		}
 		
 		}
@@ -470,6 +481,7 @@
 						</fieldset>						 
 					</div>
 					<br>
+					<br> <a href="cart" id="cartcss">장바구니 바로가기</a><br>
 					<br>
 					<!--  결제 클릭 -->
 					<div onclick='submitbuy()' id="buy" class="buy" >
@@ -478,7 +490,6 @@
 										document.write(price.toLocaleString()+' 원 결제');
 									</script>
 					</div>
-					<br> <a href="cart">장바구니로 이동</a><br>
 					
 
 				</section>
