@@ -189,13 +189,7 @@ public class HomeController {
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
-<<<<<<< HEAD
 			rdto.setReviewNum(Integer.parseInt(reviewnum));
-=======
-			//rdto.setReviewNum(Integer.parseInt(reviewnum));
-			rdto.setId("hong");
-			rdto.setReviewNum(9);
->>>>>>> 9b6d08f3e3eca686112567675c91ea94304cc972
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
 			return "board/reviewform";
 		}
@@ -206,10 +200,8 @@ public class HomeController {
 			String reviewnum = request.getParameter("reviewnum");
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
-//			rdto.setId(id);
-//			rdto.setReviewNum(Integer.parseInt(reviewnum));
-			rdto.setId("hong");
-			rdto.setReviewNum(9);
+			rdto.setId(id);
+			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			reviewUploadService.deletefile(rdto.getImage());
 			reviewservice.reviewdelete(rdto);
 			return "redirect:reviewintro";
