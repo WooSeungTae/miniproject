@@ -211,7 +211,7 @@
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th style='width: 10%;'><img id='imgreview' src='/nike/"+result[i].image+"'></th>"+
-						"<th id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' >"+result[i].reviewtitle+"</th>"+
+						"<th class='"+result[i].reviewnum+"' id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' onclick='reviewclick(this)'' >"+result[i].reviewtitle+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
@@ -284,8 +284,7 @@
 						"<th id='"+result[i].indexnum+"' style='width: 60%;' onclick='qna(this.id)'>"+result[i].title+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
-						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
-						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].indexnum+result[i].title+"qnanike'  colspan='5' style='display:none;'></tr>"
+						"<th style='display: none;'>"+result[i].code+"</th></tr></tr>"
 		       		}
 		       	}
 				html+="</table>"
@@ -409,9 +408,8 @@
    		}
    		
    		/*리뷰 제목 클릭*/
-   			function reviewclick(clickrvid){
-   			console.log(clickrvid);
-  			location.href="/nike/qnaview?indexnum="+clickrvid+"&code="+'${pdto.code}';
+   			function reviewclick(obj){
+   			location.href="/nike/reviewsearch?reviewnum="+obj.className;
    		}
    		
 

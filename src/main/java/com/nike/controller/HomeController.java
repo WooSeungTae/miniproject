@@ -3,6 +3,8 @@ package com.nike.controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -134,15 +136,13 @@ public class HomeController {
 	//최근 주문 내역 페이지
 			@RequestMapping("myPage1")
 			public String myPage1(HttpServletRequest request, Model model) {
-				HttpSession mySession = request.getSession();
-				String id = (String) mySession.getAttribute("id");
-				System.out.println("====================="+id);
-				orderservice.myPage1(id);
-				model.addAttribute("Ddto",orderservice.myPage1(id));
-				System.out.println(orderservice.myPage1(id));
-				List<Order_detailsDTO> list = orderservice.myPage1(id);
-				System.out.println(list.get(0).getOrderDate());
-				return "product_update/myPage1";
+					HttpSession mySession = request.getSession();
+					String id = (String) mySession.getAttribute("id");
+					orderservice.myPage1(id);
+					model.addAttribute("Ddto",orderservice.myPage1(id));
+					List<Order_detailsDTO> list = orderservice.myPage1(id);
+					
+					return "product_update/myPage1";					
 			}
 	
 		//남이 나의 리뷰를 볼 때
@@ -189,7 +189,7 @@ public class HomeController {
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
-			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			//rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
 			rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
@@ -451,8 +451,12 @@ public class HomeController {
 		}
 	
 	@RequestMapping("loginChk")
-	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
+	public String loginChk(HttpServletRequest request, HttpServletResponse response , MemberInfoDTO dto) throws IOException {
 		if(memberservice.loginChk(dto)==0) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('아이디 및 비밀번호가 틀렸습니다.');</script>"); 
+			out.flush();
 			return "member/loginPage";
 		}else {
 			HttpSession mySession = request.getSession();
@@ -759,6 +763,10 @@ public class HomeController {
 		sdto.setCode(code);
 		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
 		if(id!=null) {
+			sdto.setId(id);
+			sdto.setCode(code);
+			/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+			System.out.println("=========================================="+orderservice.checkitem(sdto));
 			if(orderservice.checkitem(sdto)==0) {
 				/*장바구니에 상품명 저장하는 기능*/
 				sdto.setCodename(Pservice.codnameget(sdto.getCode()));
@@ -766,6 +774,7 @@ public class HomeController {
 				sdto.setImage1(Pservice.image1get(sdto.getCode()));
 				/*장바구니에 가격 저장하는 기능*/
 				sdto.setPrice(Pservice.priceget(sdto.getCode())*sdto.getCount());
+				sdto.setPrice(Pservice.priceget(sdto.getCode()));
 				/*장바구니 DB에 값을 저장*/
 				orderservice.insertcart(sdto);
 				return "redirect:cart";
@@ -774,33 +783,33 @@ public class HomeController {
 				return "redirect:productdetail?code="+code;
 			}
 		}else {
-			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
-			sdto.setImage1(Pservice.image1get(sdto.getCode()));
-			sdto.setPrice(Pservice.priceget(sdto.getCode()));
-			String cookievalue = sdto.getCode() + "," + sdto.getCodename() + "," + sdto.getCount() + "," + sdto.getImage1() + "," +
-					sdto.getOrdersize() + "," + sdto.getPrice();
-			cartcookie = new Cart_Cookie();
-			cartcookie.createNewCookie("key" + i, cookievalue, 1, request, response);
-			System.out.println("====================================================================" + request);
-			System.out.println("=================================" + i + " : "  + cookievalue);
-			System.out.println("================================" + cartcookie.getValueList("key"+ i, request));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(0));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(1));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(2));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(3));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(4));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(5));
-			if(request.getCookies() != null) {
-				for(int k = 0; k <= i; k++) {
-					ShoppingCartDTO sdto2 = new ShoppingCartDTO();
-					sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
-					sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
-					sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
-					sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
-					sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
-					sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
-					//for(int j = 0; j < cartcookie.; j++) {
-					cart.add(sdto2);
+//			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+//			sdto.setImage1(Pservice.image1get(sdto.getCode()));
+//			sdto.setPrice(Pservice.priceget(sdto.getCode()));
+//			String cookievalue = sdto.getCode() + "," + sdto.getCodename() + "," + sdto.getCount() + "," + sdto.getImage1() + "," +
+//					sdto.getOrdersize() + "," + sdto.getPrice();
+//			cartcookie = new Cart_Cookie();
+//			cartcookie.createNewCookie("key" + i, cookievalue, 1, request, response);
+//			System.out.println("====================================================================" + request);
+//			System.out.println("=================================" + i + " : "  + cookievalue);
+//			System.out.println("================================" + cartcookie.getValueList("key"+ i, request));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(0));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(1));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(2));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(3));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(4));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(5));
+//			if(request.getCookies() != null) {
+//				for(int k = 0; k <= i; k++) {
+//					ShoppingCartDTO sdto2 = new ShoppingCartDTO();
+//					sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
+//					sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
+//					sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
+//					sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
+//					sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
+//					sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
+//					//for(int j = 0; j < cartcookie.; j++) {
+//					cart.add(sdto2);
 //					System.out.println("=============================================" + request);
 //					cartcookie = new Cart_Cookie();
 //					if(!cartcookie.isExist("nologin", request)) {
@@ -817,23 +826,24 @@ public class HomeController {
 //					System.out.println("==============================================ccc" + cartcookie.getValueList("nologin", request).get(i));
 //					model.addAttribute("cartlist", cartcookie.getValueList("nologin",  request));
 //				}
-				}
-				i++;
-				System.out.println("============================================================!!!!!!" + i);
-				model.addAttribute("cartcount", cart.size());
-				model.addAttribute("cartlist", cart);
-				for(int z = 0; z< cart.size(); z++) {
-					System.out.println(cart.get(z).getCode());
-					System.out.println(cart.get(z).getCodename());
-					System.out.println(cart.get(z).getCount());
-					System.out.println(cart.get(z).getImage1());
-					System.out.println(cart.get(z).getOrdersize());
-					System.out.println((cart.get(z).getPrice()));
-				}
-			}else {
-				model.addAttribute("cartcount", 0);
-			}
-			return "purchase/nologincart";
+//				}
+//				i++;
+//				System.out.println("============================================================!!!!!!" + i);
+//				model.addAttribute("cartcount", cart.size());
+//				model.addAttribute("cartlist", cart);
+//				for(int z = 0; z< cart.size(); z++) {
+//					System.out.println(cart.get(z).getCode());
+//					System.out.println(cart.get(z).getCodename());
+//					System.out.println(cart.get(z).getCount());
+//					System.out.println(cart.get(z).getImage1());
+//					System.out.println(cart.get(z).getOrdersize());
+//					System.out.println((cart.get(z).getPrice()));
+//				}
+//			}else {
+//				model.addAttribute("cartcount", 0);
+//			}
+//			return "purchase/nologincart";
+			return "redirect:loginPage";
 		}
 		
 	}
@@ -867,37 +877,40 @@ public class HomeController {
 				model.addAttribute("cartcount", total);
 				/*장바구니 DB에서 회원별 총 금액 가져오기*/
 				model.addAttribute("totalprice", orderservice.totalprice(id));
-			}
-		}else {
-			if(request.getCookies() != null) {
-			for(int k = 0; k <= 3; k++) {
-				ShoppingCartDTO sdto2 = new ShoppingCartDTO();
-				sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
-				sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
-				sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
-				sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
-				sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
-				sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
-				cart.add(sdto2);
-			}
-				model.addAttribute("cartcount", cart.size());
-				model.addAttribute("cartlist", cart);
-				for(int z = 0; z< cart.size(); z++) {
-					System.out.println(cart.get(z).getCode());
-					System.out.println(cart.get(z).getCodename());
-					System.out.println(cart.get(z).getCount());
-					System.out.println(cart.get(z).getImage1());
-					System.out.println(cart.get(z).getOrdersize());
-					System.out.println((cart.get(z).getPrice()));
-				}
 			}else {
-				model.addAttribute("cartcount", 0);
+				model.addAttribute("cartcount", total);
 			}
-			
+			return "purchase/cart";
+		}else {
+//			if(request.getCookies() != null) {
+//			for(int k = 0; k <= 3; k++) {
+//				ShoppingCartDTO sdto2 = new ShoppingCartDTO();
+//				sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
+//				sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
+//				sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
+//				sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
+//				sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
+//				sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
+//				cart.add(sdto2);
+//			}
+//				model.addAttribute("cartcount", cart.size());
+//				model.addAttribute("cartlist", cart);
+//				for(int z = 0; z< cart.size(); z++) {
+//					System.out.println(cart.get(z).getCode());
+//					System.out.println(cart.get(z).getCodename());
+//					System.out.println(cart.get(z).getCount());
+//					System.out.println(cart.get(z).getImage1());
+//					System.out.println(cart.get(z).getOrdersize());
+//					System.out.println((cart.get(z).getPrice()));
+//				}
+//			}else {
+//				model.addAttribute("cartcount", 0);
+//			}
+//			
+			return "redirect:loginPage";
 		}
-		return "purchase/cart";
 		
-	}
+	}	
 	
 	
 	
@@ -976,7 +989,7 @@ public class HomeController {
 	public String productBuyCart(ShoppingCartDTO sdto,OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
 		orderservice.productBuyCart(Odto,Ddto,dto,request,sdto);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	

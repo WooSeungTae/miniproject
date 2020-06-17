@@ -111,7 +111,11 @@
 			margin:0; padding:0; border:0; vertical-align:baseline;
 		}
 		.item-price{
+<<<<<<< HEAD
 			width:100%; display:table; margin-top:0;
+=======
+			width:100%; margin-top:0; display:table;
+>>>>>>> jsj
 		}
 		.label{
 			font-size:14px; display:table-cell; color:#000; font-weight:500; letter-spacing:-1px;
@@ -120,7 +124,7 @@
 			display:table-cell; text-align:right;
 		}
 		.delivery-price{
-			width:100%; display:table; margin-top:20px;
+			width:100%; display:table; margin-top:20px; 
 		}
 		.price-sale{
 			color:#fa5400; display:table-cell; text-align:right;
@@ -129,7 +133,11 @@
 			color:#fa5400; display:table-cell; text-align:right;
 		}
 		.btn-link{
+<<<<<<< HEAD
 			width:100%; margin-top:15px; background-color:#fb5302; font-size:14x; font-weight:bold; color:#fff;
+=======
+			margin-top:15px; background-color:#fb5302; font-size:14x; font-weight:bold; color:#fff; width:100%;
+>>>>>>> jsj
 		}
 		a:link{
 			text-decoration:none;
@@ -266,7 +274,7 @@
 							</div>
 						</div>
 						<div class="product-checkout">
-							<strong class="tit">주문예정금액</strong>
+							<strong class="tit" style="text-align:center;">주문예정금액</strong>
 							<div class="product-checkout_in-box">
 								<div class="info-price">
 									<span class="item-price">
