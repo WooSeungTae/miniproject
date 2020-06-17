@@ -965,13 +965,8 @@ public class HomeController {
 	@RequestMapping("productBuyCart")
 	public String productBuyCart(ShoppingCartDTO sdto,OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
-<<<<<<< HEAD
 		orderservice.productBuyCart(Odto,Ddto,dto,request,sdto);
-		return "myPage/myPage";
-=======
-		orderservice.productBuyCart(Odto,Ddto,dto,request);
 		return "redirect:myPage1";
->>>>>>> kimsj
 	}
 	
 	
