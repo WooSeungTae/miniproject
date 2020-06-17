@@ -749,8 +749,6 @@ public class HomeController {
 		sdto.setCode(code);
 		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
 		if(id!=null) {
-		if(id!=null) {
-			String code = request.getParameter("code");
 			sdto.setId(id);
 			sdto.setCode(code);
 			/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
