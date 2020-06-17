@@ -720,24 +720,28 @@ public class HomeController {
 	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
-		String code = request.getParameter("code");
-		sdto.setId(id);
-		sdto.setCode(code);
-		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
-		System.out.println("=========================================="+orderservice.checkitem(sdto));
-		if(orderservice.checkitem(sdto)==0) {
-			/*장바구니에 상품명 저장하는 기능*/
-			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
-			/*장바구니에 대표사진 저장하는 기능*/
-			sdto.setImage1(Pservice.image1get(sdto.getCode()));
-			/*장바구니에 가격 저장하는 기능*/
-			sdto.setPrice(Pservice.priceget(sdto.getCode()));
-			/*장바구니 DB에 값을 저장*/
-			orderservice.insertcart(sdto);
-			return "redirect:cart";
+		if(id!=null) {
+			String code = request.getParameter("code");
+			sdto.setId(id);
+			sdto.setCode(code);
+			/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+			System.out.println("=========================================="+orderservice.checkitem(sdto));
+			if(orderservice.checkitem(sdto)==0) {
+				/*장바구니에 상품명 저장하는 기능*/
+				sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+				/*장바구니에 대표사진 저장하는 기능*/
+				sdto.setImage1(Pservice.image1get(sdto.getCode()));
+				/*장바구니에 가격 저장하는 기능*/
+				sdto.setPrice(Pservice.priceget(sdto.getCode()));
+				/*장바구니 DB에 값을 저장*/
+				orderservice.insertcart(sdto);
+				return "redirect:cart";
+			}else {
+				model.addAttribute("noadd", -1);
+				return "redirect:productdetail?code="+code;
+			}
 		}else {
-			model.addAttribute("noadd", -1);
-			return "redirect:productdetail?code="+code;
+			return "redirect:loginPage";
 		}
 	}
 
@@ -748,30 +752,34 @@ public class HomeController {
 			@RequestParam(value="cntPerPage",required=false)String cntPerPage) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
-		int total = orderservice.countcart(id);
-		if(total>0) {
-			if(nowPage == null && cntPerPage == null) {
-				nowPage = "1";
-				cntPerPage = "3";
-			}else if(nowPage == null) {
-				nowPage = "1";
-			}else if(cntPerPage == null) {
-				cntPerPage = "3";
+		if(id!=null) {
+			int total = orderservice.countcart(id);
+			if(total>0) {
+				if(nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "3";
+				}else if(nowPage == null) {
+					nowPage = "1";
+				}else if(cntPerPage == null) {
+					cntPerPage = "3";
+				}
+				cpvo = new Cart_PagingVO(id, total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+				System.out.println("=====================================" + orderservice.cartpaging(cpvo));
+				model.addAttribute("paging", cpvo);
+				/*장바구니 DB에서 회원별 리스트 가져오기*/
+				model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
+				
 			}
-			cpvo = new Cart_PagingVO(id, total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-			System.out.println("=====================================" + orderservice.cartpaging(cpvo));
-			model.addAttribute("paging", cpvo);
-			/*장바구니 DB에서 회원별 리스트 가져오기*/
-			model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
 			
+			/*장바구니 DB에서 리스트 개수 가져오기*/
+			System.out.println("==========================================" + orderservice.countcart(id));
+			model.addAttribute("cartcount", total);
+			/*장바구니 DB에서 회원별 총 금액 가져오기*/
+			model.addAttribute("totalprice", orderservice.totalprice(id));
+			return "purchase/cart";
+		}else {
+			return "redirect:loginPage";
 		}
-		
-		/*장바구니 DB에서 리스트 개수 가져오기*/
-		System.out.println("==========================================" + orderservice.countcart(id));
-		model.addAttribute("cartcount", total);
-		/*장바구니 DB에서 회원별 총 금액 가져오기*/
-		model.addAttribute("totalprice", orderservice.totalprice(id));
-		return "purchase/cart";
 	}
 	
 	
