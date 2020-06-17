@@ -2,6 +2,8 @@ package com.nike.controller;
 
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -129,15 +131,13 @@ public class HomeController {
 	//최근 주문 내역 페이지
 			@RequestMapping("myPage1")
 			public String myPage1(HttpServletRequest request, Model model) {
-				HttpSession mySession = request.getSession();
-				String id = (String) mySession.getAttribute("id");
-				System.out.println("====================="+id);
-				orderservice.myPage1(id);
-				model.addAttribute("Ddto",orderservice.myPage1(id));
-				System.out.println(orderservice.myPage1(id));
-				List<Order_detailsDTO> list = orderservice.myPage1(id);
-				System.out.println(list.get(0).getOrderDate());
-				return "product_update/myPage1";
+					HttpSession mySession = request.getSession();
+					String id = (String) mySession.getAttribute("id");
+					orderservice.myPage1(id);
+					model.addAttribute("Ddto",orderservice.myPage1(id));
+					List<Order_detailsDTO> list = orderservice.myPage1(id);
+					
+					return "product_update/myPage1";					
 			}
 	
 		//남이 나의 리뷰를 볼 때
@@ -446,8 +446,12 @@ public class HomeController {
 		}
 	
 	@RequestMapping("loginChk")
-	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
+	public String loginChk(HttpServletRequest request, HttpServletResponse response , MemberInfoDTO dto) throws IOException {
 		if(memberservice.loginChk(dto)==0) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('아이디 및 비밀번호가 틀렸습니다.');</script>"); 
+			out.flush();
 			return "member/loginPage";
 		}else {
 			HttpSession mySession = request.getSession();

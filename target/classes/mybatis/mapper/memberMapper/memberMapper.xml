@@ -18,7 +18,7 @@
 	</insert>
 	
 	<select id="loginChk" parameterType="dto" resultType="dto">
-		select * from memberinfo where id=#{id}
+		select * from memberinfo where id=#{id} and pwd=#{pwd}
 	</select>
 	
 	<!-- 회원정보 수정 -->
