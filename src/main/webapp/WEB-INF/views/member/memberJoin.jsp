@@ -14,8 +14,21 @@
 	.button_01{margin-bottom: 10px !important; box-sizing: border-box;}
 	button{color:white; background-color: black; width: 270px; height: 40px; padding: 10px;}
 	td{max-width: 100px;} 
+/*주소검색 css*/
+	#checkOutButton {
+  background-color: #e9e9e9; /* Green */
+  border: none;
+  color: black;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight : 900;
+  border-radius: 8px;
+  box-shadow: 5px, 5px,5px,0px;
+}
 </style>
-
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 	//필수 정보 입력되었는지  확인하는 함수 
 	function checkValue() {
@@ -71,6 +84,26 @@
 		}
 		alert("회원가입을 축하드립니다.");
 	}
+	
+	/*주소검색*/
+	function addrsearch(){
+	   new daum.Postcode({
+	       oncomplete: function(data) {
+	    	   document.getElementById("addr").value=data.jibunAddress;
+	    	   console.log(data.jibunAddress);
+	    /*
+               alert(data.userSelectedType) // (J : 지번 , R : 도로명)
+               alert(data.jibunAddress)     // (지번 풀주소 반환)
+              alert(data.sido);            // 시반환(서울특별시)
+              alert(data.sigungu);         // 구반환(은평구) 
+              alert(data.bname);           // 동반환(갈현동)
+              alert(data.postcode);        // 우편번호 반환(6자리)
+              alert(data.zonecode);        // 우편번호 반환(5자리)
+              */
+	       },
+	       //shorthand : false 
+	   }).open();
+	}
 </script>
 </head>
 <body>
@@ -86,7 +119,8 @@
 			<input type="password" name="pwd" placeholder="영문+숫자+특수문자 8~16자리(특수문자 괄호()는 사용불가)" size="50"><br>
 			<input type="password" name="chkpwd" placeholder="패스워드를 다시 입력해 주세요." size="50"><br>
 			<input type="text" name="name" placeholder="이름을  입력해 주세요." size="50"><br>
-			<input type="text" name="address" placeholder="주소를 입력해 주세요." size="50"><br>
+			<input type="text" name="address" placeholder="주소검색" size="38"> <span id="checkOutButton" onclick='addrsearch()'>주소검색</span><br>
+			<input type="text" id="addr" name="address" placeholder="나머지주소입력" size="50"><br>
 			<input type="text" name="tel" placeholder="휴대폰 번호 '-'표 없이  입력해 주세요." size="50"><br>
 			<input type="text" name="birth" placeholder="생년월일 예)2020.01.01" size="50"><br>
 			<select name="question" style="width: 380px; height: 38px;">
