@@ -169,10 +169,7 @@ public class HomeController {
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
 			rdto.setReviewNum(Integer.parseInt(reviewnum));
-			rdto.setId("hong");
-			rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
-			System.out.println("====================================================="+rdto.getImage());
 			return "board/reviewform";
 		}
 		

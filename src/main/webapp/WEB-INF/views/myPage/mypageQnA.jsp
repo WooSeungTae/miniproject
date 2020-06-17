@@ -13,7 +13,7 @@
 	}
 	.membertable th,td{
 		border-bottom : 1px solid #d2d2d2;
-		padding: 10px;
+		padding: 20px;
 	}
 	.membertable a{
 		text-decoration: none;
@@ -94,7 +94,7 @@
 					</select>
 				</div>
 				 <table class="membertable" >
-					<tr class="tablehead"><th>번호</th><th>상품 정보</th><th>카테고리</th><th style="width: 500px;">제목</th><th>작성자</th><th>작성일</th></tr>
+					<tr class="tablehead"><th>번호</th><th>상품 정보</th><th>카테고리</th><th style="width: 150px;">제목</th><th>작성자</th><th>작성일</th></tr>
 					<c:choose>
 						<c:when test="${size ne 0}">
 							<c:forEach items="${viewAll }" var="dto">
