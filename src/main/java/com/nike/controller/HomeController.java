@@ -189,7 +189,7 @@ public class HomeController {
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
-			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			//rdto.setReviewNum(Integer.parseInt(reviewnum));
 			rdto.setId("hong");
 			rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
@@ -749,6 +749,12 @@ public class HomeController {
 		sdto.setCode(code);
 		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
 		if(id!=null) {
+		if(id!=null) {
+			String code = request.getParameter("code");
+			sdto.setId(id);
+			sdto.setCode(code);
+			/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+			System.out.println("=========================================="+orderservice.checkitem(sdto));
 			if(orderservice.checkitem(sdto)==0) {
 				/*장바구니에 상품명 저장하는 기능*/
 				sdto.setCodename(Pservice.codnameget(sdto.getCode()));
@@ -756,6 +762,7 @@ public class HomeController {
 				sdto.setImage1(Pservice.image1get(sdto.getCode()));
 				/*장바구니에 가격 저장하는 기능*/
 				sdto.setPrice(Pservice.priceget(sdto.getCode())*sdto.getCount());
+				sdto.setPrice(Pservice.priceget(sdto.getCode()));
 				/*장바구니 DB에 값을 저장*/
 				orderservice.insertcart(sdto);
 				return "redirect:cart";
@@ -891,7 +898,7 @@ public class HomeController {
 			return "redirect:loginPage";
 		}
 		
-	}
+	}	
 	
 	
 	
