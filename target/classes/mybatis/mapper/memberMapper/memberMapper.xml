@@ -16,7 +16,10 @@
 	<insert id="saveUserInfo" parameterType="dto">
 		insert into memberinfo(id,pwd,name,address,tel,birth,question,gender,mile,answer) values(#{id},#{pwd},#{name},#{address},#{tel},#{birth},#{question},#{gender},2000,#{answer})
 	</insert>
-	
+	<!-- 카카오톡 로그인시 회원가입 -->
+	<insert id="kakaoUserSave" parameterType="dto">
+		insert into memberinfo(id,name,gender,mile) values(#{id},#{name},#{gender},2000)
+	</insert>
 	<select id="loginChk" parameterType="dto" resultType="dto">
 		select * from memberinfo where id=#{id} and pwd=#{pwd}
 	</select>

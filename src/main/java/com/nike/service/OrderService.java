@@ -168,12 +168,8 @@ public class OrderService {
 		return Odao.orderView_num(ordernum);
 	}
 	/* 주문내역 및 배송현황 페이지 - 배송 상태 */
-	public void delivery(Order_detailsDTO Ddto) {
-		System.out.println("-----오더 서비스 실행시작");
-		System.out.println("오더 서비스 주문취소내용 : "+Ddto.getDelivery());
-		System.out.println("오더 서비스 오더넘버 : "+ Ddto.getOrdernum());
-		Ddao.delivery(Ddto);
-		System.out.println("-----오더 서비스 실행끝");
+	public void delivery(OrderDTO odto) {
+		Ddao.delivery(odto);
 	}
 	/*장바구니 관리 물품 일정량만 가져옴(페이징 기능)*/
 	public List<ShoppingCartDTO> cartpaging(Cart_PagingVO cpvo) {
