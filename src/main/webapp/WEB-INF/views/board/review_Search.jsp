@@ -159,7 +159,7 @@
 	</header>
 	<section class="wrapper">
 	<div align="center">
-		<h1>상품 리뷰 작성하기</h1>
+		<h1>상품 리뷰</h1>
 		<div style="margin-bottom:20px; height:20px;">
 		</div>
 			<table>
@@ -203,7 +203,7 @@
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td><textarea cols="50" rows="10" name="reviewcontents">${ rdto.reviewcontents}</textarea>
+					<td><textarea cols="50" rows="10" name="reviewcontents" readonly>${ rdto.reviewcontents}</textarea>
 				</td>
 				<tr>
 					<td>편안함</td>
