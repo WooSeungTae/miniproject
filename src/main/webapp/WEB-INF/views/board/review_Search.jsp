@@ -123,11 +123,6 @@
 			display: flex;
 		}
 	
-		/*이미지 위에 마우스를 올릴시 나타나는 기능*/
-		.select_img1:hover img {
-	  		border : 1px solid;
-	  		opacity: 0.3;
-		}
 		
 		#img1{
 			width: 300px;
@@ -157,23 +152,6 @@
 		}	
 	
 	
-		$(document).ready(function(){
-			$("#productImg1").change(function(){
-			   if(this.files && this.files[0]) {
-			    var reader = new FileReader;
-			    reader.onload = function(data) {
-			     $(".select_img1 img").attr("src", data.target.result);        
-			     $("#image1").val('image1');
-			    }
-			    reader.readAsDataURL(this.files[0]);
-			   }
-			  });
-		});
-		$(document).ready(function() {
-			$("#img1").click(function() {
-				$("#productImg1").click();
-			});
-		});
 	
 		
 	</script>
@@ -346,7 +324,6 @@
 					<td>사진</td>
 					<td align="center">
 						<div class="subinput">
-							<input type="file" id="productImg1" name="file" hidden="">
 							<div class="rowimg">
 								<div class="select_img1">
 									<img src="${rdto.image }" id="img1" onerror="this.src='image/plus.png'"/>	
