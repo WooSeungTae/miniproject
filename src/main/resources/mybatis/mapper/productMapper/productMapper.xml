@@ -98,7 +98,7 @@
 	<select id="AllListKids" resultType="Pdto">
 		SELECT * FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where (gender='키즈' or gender='공용') ORDER BY joindate,
+		FROM product where gender='키즈' ORDER BY joindate,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -129,7 +129,7 @@
 			SELECT *
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where (gender='키즈'or gender='공용') and category=#{category} ORDER BY joindate,
+		FROM product where gender='키즈' and category=#{category} ORDER BY joindate,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -165,15 +165,29 @@
 	select * from product where code=#{code}
 	</select>
 	
+	<!-- 상품별 사이즈 검색 -->
+	<select id="searchSizecode" resultType="int">
+		select size${ordersize} from sizetable where code=#{code}  
+	</select>
+
 
 	<!-- ===========Paging========= -->
 	<!-- gender별 페이지수 -->
 	<select id="countProduct" resultType="int">
 		select count(*) from product where gender=#{gender} or gender='공용'
 	</select>
+	<!-- kids 페이지수 -->
+	<select id="kisdAll" resultType="int">
+		select count(*) from product where gender=#{gender}
+	</select>
 	<!-- Category and gender별 페이지수 -->
 		<select id="countProductGender" resultType="int">
 		select count(*) from product where (gender=#{gender} or gender='공용') and category=#{category}
+	</select>
+	
+	<!-- Category and kids 신발 전체 개수 -->
+	<select id="categoryKidsTotal" resultType="int">
+		select count(*) from product where gender=#{gender} and category=#{category}
 	</select>
 	<!-- 검색어 입력하여 신발 찾기 -->
 	<select id="searchProduct" resultType="int">
@@ -194,8 +208,6 @@
 	<select id="priceget" resultType="String" parameterType="String">
 		select price from product where code=#{code}
 	</select>
-	
-	
 	<!-- 검색기능 상품 관리 총갯수 -->
   	<select id="countsearchproduct" resultType="int">
   		select count(*) from product where ${search_key} like '%'||#{search}||'%'
@@ -214,6 +226,6 @@
 					)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
-	
+
 </mapper>
 

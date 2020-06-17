@@ -138,6 +138,12 @@
 			background-color:#fff; color:#000; border:1px solid #000; width:350px; height:45px; border-radius:30px;
 			margin-bottom:10px;
 		}
+		/*댓글 창 크기*/
+		.reviewReply{
+			width: 50%;
+			margin: auto;
+			margin-top: -200px;
+		}
 	
 	</style>
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -152,7 +158,7 @@
 		}	
 	</script>
 </head>
-<body>
+<body onload="list()">
 	<header>
 		<c:import url="../sminj/header.jsp">
 		</c:import>
@@ -333,6 +339,11 @@
 			</table>
 		</div>
 	</section>
+		<div class="reviewReply">
+		<c:import url="/reply">
+		<c:param name="indexnum" value="${param.reviewnum}"></c:param>
+		</c:import>
+		</div>
 	<footer>
 		<c:import url="../sminj/footer.jsp">
 		</c:import>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nike.board.SearchBoardDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.order.Order_detailsDTO;
 
 @Repository
 public class ProductDAO {
@@ -65,7 +66,10 @@ public class ProductDAO {
 		return sqlSession.selectList(nameSpace+".searchCode",vo);
 	}
 	
-
+	/*상품별 사이즈 검색 */
+	public int searchSizecode(Order_detailsDTO Ddto) {
+		return sqlSession.selectOne(nameSpace+".searchSizecode",Ddto);
+	}
 	
 	
 	/* ======== 갯수  ========== */
@@ -79,10 +83,18 @@ public class ProductDAO {
 	public int genderTotal(String gender) {
 		return sqlSession.selectOne(nameSpace+".countProduct",gender);
 	}
+	/*KIDS 신발 전체 개수*/
+	public int kisdAll(String gender) {
+		return sqlSession.selectOne(nameSpace+".kisdAll",gender);
+	}
 	
 	/*Category and gender별 신발 전체 개수*/
 	public int categoryGenderTotal(HashMap<String,String> hm) {
 		return sqlSession.selectOne(nameSpace+".countProductGender",hm);
+	}
+	/*Category and kids 신발 전체 개수*/
+	public int categoryKidsTotal(HashMap<String,String> hm) {
+		return sqlSession.selectOne(nameSpace+".categoryKidsTotal",hm);
 	}
 	
 	/*신발 검색 전체 개수*/

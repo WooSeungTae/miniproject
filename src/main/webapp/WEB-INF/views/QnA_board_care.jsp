@@ -103,7 +103,7 @@
 				<c:forEach items="${viewAll }" var="dto">
 				<tr align="center"><td>${dto.indexnum}</td>
 				<td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td>
-				<td>${dto.titlelist}</td><td>${dto.title}</td><td>${dto.name }</td><td>${dto.writeDate}</td>
+				<td>${dto.titlelist}</td><td><a href="qnaview?code=${dto.code}&indexnum=${dto.indexnum}">${dto.title}</a></td><td>${dto.name }</td><td>${dto.writeDate}</td>
 				<td><input id="${dto.indexnum }" type="button" value="삭제" onclick="delete_btn(this.id)"></td>
 				</tr>
 				</c:forEach>

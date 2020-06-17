@@ -31,7 +31,7 @@
 	</update>
 	
 	<!-- 남이 나의 리뷰를 볼 때 -->
-	<select id="reviewsearch" parameterType="Integer">
+	<select id="reviewsearch" parameterType="Integer" resultType="Rdto">
 		select * from review where reviewnum=#{reviewnum}
 	</select>
 	

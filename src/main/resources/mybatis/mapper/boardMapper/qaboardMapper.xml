@@ -40,7 +40,7 @@
 
 	<!-- Q&A 게시물 등록 -->
 	<insert id="qaregister">
-		insert into qaboard (indexnum,id,code,codename,name,titlelist,title,content)
+		insert into qaboard ('qa'||indexnum,id,code,codename,name,titlelist,title,content)
 		values
 		(indexnumber.nextval,#{id},#{code},#{codename},#{name},#{titlelist},#{title},#{content})
 
