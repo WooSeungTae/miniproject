@@ -764,33 +764,33 @@ public class HomeController {
 				return "redirect:productdetail?code="+code;
 			}
 		}else {
-			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
-			sdto.setImage1(Pservice.image1get(sdto.getCode()));
-			sdto.setPrice(Pservice.priceget(sdto.getCode()));
-			String cookievalue = sdto.getCode() + "," + sdto.getCodename() + "," + sdto.getCount() + "," + sdto.getImage1() + "," +
-					sdto.getOrdersize() + "," + sdto.getPrice();
-			cartcookie = new Cart_Cookie();
-			cartcookie.createNewCookie("key" + i, cookievalue, 1, request, response);
-			System.out.println("====================================================================" + request);
-			System.out.println("=================================" + i + " : "  + cookievalue);
-			System.out.println("================================" + cartcookie.getValueList("key"+ i, request));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(0));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(1));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(2));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(3));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(4));
-			System.out.println("================================" + cartcookie.getValueList("key0", request).get(5));
-			if(request.getCookies() != null) {
-				for(int k = 0; k <= i; k++) {
-					ShoppingCartDTO sdto2 = new ShoppingCartDTO();
-					sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
-					sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
-					sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
-					sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
-					sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
-					sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
-					//for(int j = 0; j < cartcookie.; j++) {
-					cart.add(sdto2);
+//			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+//			sdto.setImage1(Pservice.image1get(sdto.getCode()));
+//			sdto.setPrice(Pservice.priceget(sdto.getCode()));
+//			String cookievalue = sdto.getCode() + "," + sdto.getCodename() + "," + sdto.getCount() + "," + sdto.getImage1() + "," +
+//					sdto.getOrdersize() + "," + sdto.getPrice();
+//			cartcookie = new Cart_Cookie();
+//			cartcookie.createNewCookie("key" + i, cookievalue, 1, request, response);
+//			System.out.println("====================================================================" + request);
+//			System.out.println("=================================" + i + " : "  + cookievalue);
+//			System.out.println("================================" + cartcookie.getValueList("key"+ i, request));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(0));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(1));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(2));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(3));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(4));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(5));
+//			if(request.getCookies() != null) {
+//				for(int k = 0; k <= i; k++) {
+//					ShoppingCartDTO sdto2 = new ShoppingCartDTO();
+//					sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
+//					sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
+//					sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
+//					sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
+//					sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
+//					sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
+//					//for(int j = 0; j < cartcookie.; j++) {
+//					cart.add(sdto2);
 //					System.out.println("=============================================" + request);
 //					cartcookie = new Cart_Cookie();
 //					if(!cartcookie.isExist("nologin", request)) {
@@ -807,23 +807,24 @@ public class HomeController {
 //					System.out.println("==============================================ccc" + cartcookie.getValueList("nologin", request).get(i));
 //					model.addAttribute("cartlist", cartcookie.getValueList("nologin",  request));
 //				}
-				}
-				i++;
-				System.out.println("============================================================!!!!!!" + i);
-				model.addAttribute("cartcount", cart.size());
-				model.addAttribute("cartlist", cart);
-				for(int z = 0; z< cart.size(); z++) {
-					System.out.println(cart.get(z).getCode());
-					System.out.println(cart.get(z).getCodename());
-					System.out.println(cart.get(z).getCount());
-					System.out.println(cart.get(z).getImage1());
-					System.out.println(cart.get(z).getOrdersize());
-					System.out.println((cart.get(z).getPrice()));
-				}
-			}else {
-				model.addAttribute("cartcount", 0);
-			}
-			return "purchase/nologincart";
+//				}
+//				i++;
+//				System.out.println("============================================================!!!!!!" + i);
+//				model.addAttribute("cartcount", cart.size());
+//				model.addAttribute("cartlist", cart);
+//				for(int z = 0; z< cart.size(); z++) {
+//					System.out.println(cart.get(z).getCode());
+//					System.out.println(cart.get(z).getCodename());
+//					System.out.println(cart.get(z).getCount());
+//					System.out.println(cart.get(z).getImage1());
+//					System.out.println(cart.get(z).getOrdersize());
+//					System.out.println((cart.get(z).getPrice()));
+//				}
+//			}else {
+//				model.addAttribute("cartcount", 0);
+//			}
+//			return "purchase/nologincart";
+			return "redirect:loginPage";
 		}
 		
 	}
@@ -857,35 +858,38 @@ public class HomeController {
 				model.addAttribute("cartcount", total);
 				/*장바구니 DB에서 회원별 총 금액 가져오기*/
 				model.addAttribute("totalprice", orderservice.totalprice(id));
-			}
-		}else {
-			if(request.getCookies() != null) {
-			for(int k = 0; k <= 3; k++) {
-				ShoppingCartDTO sdto2 = new ShoppingCartDTO();
-				sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
-				sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
-				sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
-				sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
-				sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
-				sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
-				cart.add(sdto2);
-			}
-				model.addAttribute("cartcount", cart.size());
-				model.addAttribute("cartlist", cart);
-				for(int z = 0; z< cart.size(); z++) {
-					System.out.println(cart.get(z).getCode());
-					System.out.println(cart.get(z).getCodename());
-					System.out.println(cart.get(z).getCount());
-					System.out.println(cart.get(z).getImage1());
-					System.out.println(cart.get(z).getOrdersize());
-					System.out.println((cart.get(z).getPrice()));
-				}
 			}else {
-				model.addAttribute("cartcount", 0);
+				model.addAttribute("cartcount", total);
 			}
-			
+			return "purchase/cart";
+		}else {
+//			if(request.getCookies() != null) {
+//			for(int k = 0; k <= 3; k++) {
+//				ShoppingCartDTO sdto2 = new ShoppingCartDTO();
+//				sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
+//				sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
+//				sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
+//				sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
+//				sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
+//				sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
+//				cart.add(sdto2);
+//			}
+//				model.addAttribute("cartcount", cart.size());
+//				model.addAttribute("cartlist", cart);
+//				for(int z = 0; z< cart.size(); z++) {
+//					System.out.println(cart.get(z).getCode());
+//					System.out.println(cart.get(z).getCodename());
+//					System.out.println(cart.get(z).getCount());
+//					System.out.println(cart.get(z).getImage1());
+//					System.out.println(cart.get(z).getOrdersize());
+//					System.out.println((cart.get(z).getPrice()));
+//				}
+//			}else {
+//				model.addAttribute("cartcount", 0);
+//			}
+//			
+			return "redirect:loginPage";
 		}
-		return "purchase/cart";
 		
 	}
 	
