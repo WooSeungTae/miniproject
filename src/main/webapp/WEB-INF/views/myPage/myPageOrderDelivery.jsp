@@ -112,7 +112,7 @@
 						</td>
 			<!-- 상품 이름, 상품 사이즈 -->	
 						<td class="product">
-							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderList.codeName }</a></strong>
+							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderList.codename }</a></strong>
 							<div class="orderSize">[사이즈 : ${orderList.ordersize }]</div>
 						</td>
 			<!-- 구매할 수량 -->		
