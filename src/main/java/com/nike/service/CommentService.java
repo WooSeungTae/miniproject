@@ -34,5 +34,9 @@ public class CommentService {
 	public void replyDelete(CommentDTO Cdto) {
 		Cdao.replyDelete(Cdto);
 	} 
+	/*게시글에 댓글 갯수*/
+	public int replyint(CommentDTO Cdto) {
+		return Cdao.replyint(Cdto);
+	}
 	
 }

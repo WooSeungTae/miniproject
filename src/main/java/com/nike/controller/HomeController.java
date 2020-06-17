@@ -1224,6 +1224,7 @@ public class HomeController {
 			String indexnum = Cdto.getIndexnum();
 			Cdto.setIndexnum(indexnum);
 			list = cservice.searchComment(indexnum);
+			//int replysu = cservice.replyint(Cdto);
 			ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 			String strJson = mapper.writeValueAsString(list);
 			return strJson;

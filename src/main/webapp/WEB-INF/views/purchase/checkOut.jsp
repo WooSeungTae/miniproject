@@ -268,8 +268,11 @@
 	function addrsearch(){
 	   new daum.Postcode({
 	       oncomplete: function(data) {
-	    	   document.getElementById("addr").value=data.jibunAddress;
-	    	   console.log(data.jibunAddress);
+	    		if(data.userSelectedType=="R"){ 
+				 document.getElementById("addr").value=data.roadAddress; //도로명 주소
+				}else{
+	    		 document.getElementById("addr").value=data.jibunAddress; //지번 주소
+				}
 	    /*
                alert(data.userSelectedType) // (J : 지번 , R : 도로명)
                alert(data.jibunAddress)     // (지번 풀주소 반환)
