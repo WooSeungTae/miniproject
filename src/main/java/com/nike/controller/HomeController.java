@@ -154,6 +154,7 @@ public class HomeController {
 					model.addAttribute("Ddto",orderservice.myPage1(id));
 					List<Order_detailsDTO> list = orderservice.myPage1(id);
 					
+					
 					return "product_update/myPage1";					
 			}
 	
@@ -970,7 +971,8 @@ public class HomeController {
 	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
 			,@Param("ordersize") String ordersize
 			,@Param("count") String count) {
-		if(id!=null)service.searchId(model, id);
+		if(id!=null) {service.searchId(model, id);}
+		else {return "redirect:loginPage";}
 		Pservice.codeSearch(model, code);
 		model.addAttribute("ordersize", ordersize);
 		model.addAttribute("count", count);
@@ -991,7 +993,7 @@ public class HomeController {
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
 		orderservice.productBuy(Odto,Ddto,dto,request);
-		return "product_update/myPage1";
+		return "redirect:myPage1";
 	}
 	
 	/*구매후 등록*/
@@ -1092,14 +1094,13 @@ public class HomeController {
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {
 		bservice.qaregister(Qdto);
-		System.out.println("등록 실행");
 		return "myPage/myPage";
 	}
 	/*Q&A 게시물 수정*/
 	@RequestMapping("qaupdate")
 	public String qaupdate(QABoardDTO Qdto) {
 		bservice.qaupdate(Qdto);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*Q&A 게시물 삭제*/
@@ -1111,8 +1112,9 @@ public class HomeController {
 	
 	/*Q & A 게시판 작성화면 */
 	@RequestMapping("qnawrite")
-	public String qnaviewPage() {
-		
+	public String qnaviewPage(Model model,HttpServletRequest request) {
+		String code = request.getParameter("code");
+		Pservice.codeSearch(model, code);
 		return "board/QnA_write";
 	}
 	/*상세 페이지에서 Q & A 게시판 보기*/
@@ -1236,6 +1238,7 @@ public class HomeController {
 			String indexnum = Cdto.getIndexnum();
 			Cdto.setIndexnum(indexnum);
 			list = cservice.searchComment(indexnum);
+			//int replysu = cservice.replyint(Cdto);
 			ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 			String strJson = mapper.writeValueAsString(list);
 			return strJson;

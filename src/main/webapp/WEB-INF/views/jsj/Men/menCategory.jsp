@@ -311,7 +311,7 @@
 										<div class="ncss-col">
 											<div class="a-product" id = "${AllListMen.code}nk" onmouseover='over(this.id)' onmouseout="overout(this.id)">
 												<div class="a-product-image">
-													<a href="productdetail?code=${AllListMen.code}">
+													<a href="/nike/productdetail?code=${AllListMen.code}">
 														<div class="a-product-image-wrapper">
 															<div class="a-image">
 																<img id="${AllListMen.code }"
@@ -347,7 +347,7 @@
 																<span  id="${AllListMen.code}2kn" class="imgcolorpic" style="display:none ;">
 																	<c:forEach var ="imgcolor" items="${AllListMenCategory }">
 																		<c:if test="${imgcolor.codename==AllListMen.codename }">
-																		<a href="productdetail?code=${AllListMen.code}"><img class="${AllListMen.code}" id="${imgcolor.image1 }"
+																		<a href="/nike/productdetail?code=${AllListMen.code}"><img class="${AllListMen.code}" id="${imgcolor.image1 }"
 																	style="width: 50px; margin: auto;"
 																	src="/nike/${imgcolor.image1 }"
 																	onerror="this.onerror=null; chageSrc(this)" onmouseover='imgchange(this)'></a>
@@ -384,7 +384,7 @@
 					<div class="pagingdiv">
 					<div class="paging">
 						<c:if test="${paging.startPage != 1 }">
-							<a href="Men?nowPage=${paging.startPage - 1 }">이전</a>
+							<a href="/nike/Men/category?category=${category }&nowPage=${paging.startPage - 1 }">이전</a>
 						</c:if>
 						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
 							var="p">
@@ -393,13 +393,13 @@
 									<a class="active">${p }</a>
 								</c:when>
 								<c:when test="${p != paging.nowPage }">
-									<a href="Men?nowPage=${p }">${p }</a>
+									<a href="/nike/Men/category?category=${category }&nowPage=${p }">${p }</a>
 								</c:when>
 							</c:choose>
 						</c:forEach>
 						<c:if test="${paging.endPage != paging.lastPage}">
 							<a
-								href="Men?nowPage=${paging.endPage+1 }">다음</a>
+								href="/nike/Men/category?category=${category }&nowPage=${paging.endPage+1 }">다음</a>
 						</c:if>
 					</div>
 					</div>

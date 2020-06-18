@@ -50,7 +50,10 @@ public class OrderService {
 //			System.out.println("작은거 확인");
 //			return;
 //		}
-		if(id!=null) {dao.mileageModify(dto);}
+		if(id!=null) {
+			dao.mileageModify(dto);
+			dao.mileageBuy(Odto);
+		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
@@ -66,6 +69,7 @@ public class OrderService {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 		if(id!=null) {dao.mileageModify(dto);
+					dao.mileageBuy(Odto);
 		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);

@@ -20,5 +20,10 @@
 		<delete id="replyDelete">
 			delete commenttable where numComment=#{numComment}
 		</delete>
+	<!-- 댓글 갯수 -->
+	<select id="replyint" resultType="int">
+		select count(*) from commenttable where numComment=#{numComment};
+	</select>	
+		
 	</mapper>
 	
