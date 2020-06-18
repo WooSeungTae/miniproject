@@ -28,7 +28,7 @@ public class OrderDAO {
 
 	/*장바구니 DB에서 회원별 리스트 가져오기*/
 	public List<ShoppingCartDTO> selectcart(String id) {
-				return sqlSession.selectList(namespace2+".selectcart", id);
+		return sqlSession.selectList(namespace2+".selectcart", id);
 	}
 	
 	/*장바구니 DB에서 리스트 개수 가져오기*/

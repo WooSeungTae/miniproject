@@ -52,7 +52,9 @@ public class OrderService {
 //		}
 		if(id!=null) {
 			dao.mileageModify(dto);
-			dao.mileageBuy(Odto);
+			//구매시 마일리지 테이블에 insert
+			dao.mileagetablebuy(Odto);
+			dao.mileagetablebuy2(Odto);
 		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
@@ -70,6 +72,9 @@ public class OrderService {
 		String id = (String) session.getAttribute("id");
 		if(id!=null) {dao.mileageModify(dto);
 					dao.mileageBuy(Odto);
+					//구매시 마일리지 테이블에 insert
+					dao.mileagetablebuy(Odto);
+					dao.mileagetablebuy2(Odto);
 		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);

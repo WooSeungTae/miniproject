@@ -57,6 +57,7 @@ import com.nike.board.SearchBoardDTO;
 import com.nike.board.QABoardDTO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.memberInfo.Mileage_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
 import com.nike.order.Cart_Cookie;
@@ -174,8 +175,8 @@ public class HomeController {
 			String codename = request.getParameter("codename");
 			model.addAttribute("id", id);
 			model.addAttribute("name", name);
-			model.addAttribute("code", "CN9600-002");
-			model.addAttribute("codename", "나이키 조이라이드 듀얼 런");
+			model.addAttribute("code", code);
+			model.addAttribute("codename", codename);
 			return "board/review_Register";
 		}
 		//ReviewDTO rdto, HttpServletRequest request,
@@ -470,12 +471,20 @@ public class HomeController {
 			mySession.setAttribute("id", dto.getId());
 			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
 			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
+			System.out.println("=================================" + dto.getId());
+			memberservice.loginmileage(dto.getId());
+			/*memberinfo 테이블 마일리지 업데이트*/
+			memberservice.mileageupdate2(dto);
 			return "redirect:/";
 		}
 	}
 	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
 	public String saveUserInfo(MemberInfoDTO dto) {
 		memberservice.saveUserInfo(dto);
+		/*회원가입 마일리지 2000점*/
+		memberservice.joinmileage(dto);
+		/*memberinfo 테이블 마일리지 업데이트*/
+		memberservice.mileageupdate(dto);
 		return "redirect:loginPage";
 	}
 
@@ -488,6 +497,7 @@ public class HomeController {
 		model.addAttribute("totalqa", totalqa);
 		model.addAttribute("totalrv", totalrv);
 		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
+		model.addAttribute("sdto", Pservice.sizeSelect(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
 
@@ -738,10 +748,25 @@ public class HomeController {
 	
 	/*마일리지 조회*/
 	@RequestMapping("mileage")
-	public String mileage(Model model, HttpServletRequest request) {
+	public String mileage(Mileage_PagingVO mvo, Model model, HttpServletRequest request,
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("mile", service.mileage(id));
+		int total = service.mileagelistcount(id);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		System.out.println("=============================================================" + total);
+		mvo = new Mileage_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", mvo);
+		model.addAttribute("milelist", service.mileagelist(mvo));
 		return "myPage/myPageMileage";
 	}
 	
@@ -766,7 +791,7 @@ public class HomeController {
 	
 	/*장바구니 DB에 값 저장하기*/
 	@RequestMapping("cartSave")
-	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model, HttpServletResponse response) throws UnsupportedEncodingException {
+	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model, HttpServletResponse response) throws IOException {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		String code = request.getParameter("code");
@@ -790,6 +815,9 @@ public class HomeController {
 				orderservice.insertcart(sdto);
 				return "redirect:cart";
 			}else {
+//				PrintWriter out = response.getWriter();
+//				out.println("<script>alert('장바구니에 이미 있는 상품입니다!');</script>"); 
+//				out.flush();
 				model.addAttribute("noadd", -1);
 				return "redirect:productdetail?code="+code;
 			}

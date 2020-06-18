@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.memberInfo.MileageDTO;
+import com.nike.memberInfo.Mileage_PagingVO;
 @Service
 public class MemberService {
 	@Autowired
@@ -101,5 +103,31 @@ public class MemberService {
 	/* 로그인한 회원이름 출력 */
 	public String nameget(String id) {
 		return dao.nameget(id);
+	}
+	/*회원가입 마일리지 2000점*/
+	public void joinmileage(MemberInfoDTO dto) {
+		dao.joinmileage(dto);
+		
+	}
+	/*memberinfo 테이블 마일리지 업데이트*/
+	public void mileageupdate(MemberInfoDTO dto) {
+		dao.mileageupdate(dto);
+	}
+	
+	/*로그인 마일리지 100점*/
+	public void loginmileage(String id) {
+		dao.loginmileage(id);
+	}
+	/*memberinfo 테이블 마일리지 업데이트2*/
+	public void mileageupdate2(MemberInfoDTO dto) {
+		dao.mileageupdate2(dto);
+	}
+	/*mileage 테이블 정보가져오기*/
+	public List<MileageDTO> mileagelist(Mileage_PagingVO mvo) {
+		return dao.mileagelist(mvo);
+	}
+
+	public int mileagelistcount(String id) {
+		return dao.mileagelistcount(id);
 	}
 }

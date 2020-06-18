@@ -262,13 +262,14 @@
 				size.innerHTML += "<input id='330' name='size330' type='text' value='${sdto.size330}'><br id='size330'>"
 			}
 				
-			if(${sdto.gender}=="남자"){
+			if(${pdto.gender}=="남자"){
 				document.getElementById('men').classList.add('button6');
 				document.getElementById('men').classList.remove('button5');
-			}else(${sdto.gender}=="여자"){
+			}else if(${pdto.gender}=="여자"){
 				document.getElementById('women').classList.add('buuton6');
 				document.getElementById('women').classList.remove('button5');
 			}
+		
 		}
 	</script>
 <style type="text/css">
