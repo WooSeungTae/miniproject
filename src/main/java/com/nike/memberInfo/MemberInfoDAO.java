@@ -135,7 +135,7 @@ public class MemberInfoDAO {
 	}
 	/*mileage 테이블 정보가져오기*/
 	public List<MileageDTO> mileagelist(String id) {
-		return sqlSession.selectList(namespace+"mileagelist", id);
+		return sqlSession.selectList(namespace+".mileagelist", id);
 	}
 
 }

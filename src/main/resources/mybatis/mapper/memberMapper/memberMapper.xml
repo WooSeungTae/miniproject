@@ -4,13 +4,13 @@
 
 <mapper namespace="com.care.mybatis.memberMapper.memberMapper">
 	<!-- mileage 테이블 정보가져오기-->
-	<select id="mileagelist" parameterType="String">
-		select * from mileage where id=#{id}
+	<select id="mileagelist" parameterType="String" resultType="mdto">
+		select * from mileage where id=#{id} order by savedate desc
 	</select>
 	
 	<!-- 로그인 마일리지 100점-->
 	<insert id="loginmileage" parameterType="String">
-		insert into mileage(id,savemileage,savedate,savereason) values(#{id},2000,sysdate,'로그인을 환영합니다')
+		insert into mileage(id,savemileage,savedate,savereason) values(#{id},100,sysdate,'로그인을 환영합니다')
 	</insert>
 	<!-- memberinfo 테이블 마일리지 업데이트2-->
 	<update id="udpatemileage2" parameterType="dto">
