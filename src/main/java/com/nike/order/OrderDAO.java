@@ -93,5 +93,9 @@ public class OrderDAO {
 	public List<OrderDTO> orderView_num(String ordernum){
 		return sqlSession.selectList(namespace+".orderView_num",ordernum);
 	}
+	/*주문 취소시에 물품 추가*/
+	public void deliveryCancel(Order_detailsDTO Ddto) {
+		sqlSession.update(namespace+".size_plus",Ddto);
+	}
 
 }

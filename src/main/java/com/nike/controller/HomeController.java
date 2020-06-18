@@ -255,7 +255,6 @@ public class HomeController {
 				@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
 			String code = pdto.getCode();
 			if(Pservice.codeSearch(model, code) == 1) {
-				System.out.println("등록 실행");
 				if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
 				if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
 				if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
@@ -664,17 +663,13 @@ public class HomeController {
 		return "redirect:order_care";
 	}
 	@RequestMapping("orderdeliveryChange")
-	public String orderdeliveryChange(OrderDTO Odto) {
+	public String orderdeliveryChange(OrderDTO Odto,Order_detailsDTO Ddto) {
 		orderservice.deliveryChange(Odto);
 		orderservice.delivery(Odto);
+		orderservice.deliveryCancel(Ddto);
 		return "redirect:orderList";
 	}
-	@RequestMapping("orderdeliveryCancel")
-	public String orderdeliveryCancel(OrderDTO Odto) {
-		//orderservice.orderdeliveryCancel(Odto);
-		orderservice.delivery(Odto);
-		return "redirect:orderList";
-	}
+	
 	@RequestMapping("orderserch")
 	public String orderserch(Model model,@RequestParam("id") String id) {
 		model.addAttribute("viewAll",orderservice.orderserch(id));

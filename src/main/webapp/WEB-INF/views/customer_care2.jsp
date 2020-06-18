@@ -30,6 +30,16 @@
 	.bodyinside {background: white; padding: 10px; margin-top:20px; 
 				height: 50%; border: 2px solid #d2d2d2;}
 </style>
+<script type="text/javascript">
+function delete_btn(id) {
+	  
+	var con = confirm("정말 삭제하시겠습니까?");
+	
+	if(con){
+		location.href="memberdelete?id="+id
+	}
+}
+</script>
 <meta charset="UTF-8">
 <title>고객관리</title>
 </head>
@@ -53,7 +63,7 @@
 		<c:when test="${not empty userid}">
 			<tr align="center"><td>${memberlist.id}</td><td>${memberlist.name}</td><td>${memberlist.address}</td>
 				<td>${memberlist.gender}</td><td>${memberlist.birth}</td><td>${memberlist.tel}</td>
-				<td><a href="memberdelete?id=${memberlist.id}"><input type="button" value="삭제"></a></td>
+				<td><input type="button" value="삭제" id="${memberlist.id}" onclick="delete_btn(this.id)"></td>
 			</tr>
 		</c:when>
 		<c:otherwise>

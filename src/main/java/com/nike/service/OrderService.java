@@ -143,9 +143,21 @@ public class OrderService {
 	}
 	/*주문 관리 물품 확인, 취소 기능*/
 	public void deliveryChange(OrderDTO Odto) {
-		System.out.println("서비스 실행");
 		Odao.deliveryChange(Odto);
 	}
+	/*주문 취소시에 물품 추가*/
+	public void deliveryCancel(Order_detailsDTO Ddto) {
+		String code[]=Ddto.getCode().split(",");
+		String ordersize[]=Ddto.getOrdersize().split(",");
+		String count[]=Ddto.getCount().split(",");
+		for(int i = 0 ; i<code.length;i++) {
+		Ddto.setCode(code[i]);
+		Ddto.setOrdersize(ordersize[i]);
+		Ddto.setCount(count[i]);
+		Odao.deliveryCancel(Ddto);
+		}
+	}
+	
 	/*주문 관리 물품 하나만 검색해 가져오기*/
 	public OrderDTO orderserch(String id) {
 		return Odao.orderserch(id);
