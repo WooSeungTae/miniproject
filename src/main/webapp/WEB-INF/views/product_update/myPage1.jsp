@@ -85,10 +85,8 @@
 			<col width="110px;">
 			<col width="143px;">
 			<col width="180px;">
-		</colgroup>
-		
+		</colgroup>		
 		<tbody>
-			<tr>
 				<c:choose>
 				<c:when test="${Ddto.size()!=0 }">
 					<thead style="display: table-header-group; vertical-align: middle; border-color: inherit; background: #eaeaea;">
@@ -103,13 +101,15 @@
 						</tr>
 					</thead>
 					<c:forEach var="Ddto" items="${Ddto }">
+					<tr>
 						<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</a></td>
 						<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></a></td> 
 						<td><h4>${Ddto.codename}<br>size : ${Ddto.ordersize }</h4></td>
 						<td>${Ddto.count }</td>
 						<td><h4>KRW <fmt:formatNumber value="${Ddto.price}" pattern="#,###"/></h4></td>
-						<td>배송완료<br><a href="towritelistall" class="btnSubmit">구매후기</a></td>
+						<td><b>${Ddto.delivery }</b><br><a href="reviewform" class="btnSubmit">구매후기</a></td>
 						<td>-</td>
+					</tr>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -118,7 +118,6 @@
 					<h2>최근 주문한 상품은 존재하지 않습니다.</h2>
 				</c:otherwise>
 				</c:choose>
-			</tr>
 		</tbody>
 	</table>
 </div>

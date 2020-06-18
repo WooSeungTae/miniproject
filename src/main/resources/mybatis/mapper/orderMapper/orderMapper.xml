@@ -16,7 +16,7 @@
 	
 	<!-- 최근 주문 내역  -->
 	<select id="myPage1" resultType="Ddto" parameterType="String">
-		select * from orderDetailsInfo where id=#{id}
+		select * from orderDetailsInfo where id=#{id} and delivery='배송완료'
 	</select>
 
 	<!-- orderInfo 테이블에 저장 -->

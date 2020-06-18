@@ -41,8 +41,6 @@
 			</div><br>
 			<span><font size="2" color="gray">회원이 아니신가요?</font></span>
 			<a href="memberJoin" style="color:black; font-size: 12px;">회원가입</a><br><br>
-			<!-- 비회원 주문 페이지 만들어야함 -->
-			<a href="" style="color:black; font-size: 12px;">비회원 주문 조회</a>
 		</div>
 	</form>
 </div>

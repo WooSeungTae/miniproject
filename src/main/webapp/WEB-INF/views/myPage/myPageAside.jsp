@@ -63,7 +63,7 @@
 			<ul>
 				<li class="aside_title">쇼핑정보</li>
 				<li><a href="orderList" class="aside_a">주문 배송</a></li>
-				<li><a href="returnable" class="aside_a">취소/반품</a></li>
+				<li><a href="myPage1" class="aside_a">최근 구매 내역</a></li>
 			</ul>
 		</div>
 		<hr class="aside_hr">
@@ -71,7 +71,6 @@
 			<ul>
 				<li class="aside_title">활동정보</li>
 				<li><a href="mileage" class="aside_a">나의 MILE</a></li>
-				<li><a href="myPage1" class="aside_a">최근 주문 내역</a></li>
 				<li><a href="reviewintro" class="aside_a">상품리뷰</a></li>
 				<li><a href="mypageQnA" class="aside_a">나의 Q&A</a></li>
 			</ul>
