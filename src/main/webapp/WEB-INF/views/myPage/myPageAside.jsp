@@ -72,8 +72,12 @@
 			<div class="aside_hr">
 				<ul>
 					<li class="aside_title">나의정보</li>
-					<li><a href="account" class="aside_a">회원정보 관리</a></li>
-					<li><a href="password" class="aside_a">비밀번호 변경</a></li>
+					<c:choose>
+					<c:when test = '${empty access_Token}'>
+						<li><a href="account" class="aside_a">회원정보 관리</a></li>
+						<li><a href="password" class="aside_a">비밀번호 변경</a></li>
+					</c:when>
+				</c:choose>
 					<li><a href="withdrawal" class="aside_a">회원 탈퇴</a></li>
 				</ul>
 			</div>

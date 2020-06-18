@@ -96,6 +96,7 @@ function delivery() {
 <body> 
 <c:set var="order" value="${order }"/>
 <c:import url="/header"/>
+<form id ="fo" action="orderdeliveryChange">
 <section>
 	<div class="wrap">
 		<c:import url="/aside"/>
@@ -217,8 +218,7 @@ function delivery() {
 							<c:choose>
 								<c:when test="${order eq '입금중' }">
 								<td>
-									<a href="orderdeliveryChange?ordernum=${ordernum }&delivery=취소완료">
-									<input type="button"  value="주문취소"></a>
+									<input type="submit"  value="주문취소">
 								</td>
 								</c:when>
 								<c:otherwise>
@@ -230,7 +230,7 @@ function delivery() {
 							<c:choose>
 								<c:when test="${order eq '배송중' }">
 								<td style="width: 72px;">
-									<a href="orderdeliveryChange?ordernum=${ordernum }&delivery=배송완료">
+									<a href="deliveryChange?ordernum=${ordernum }&delivery=배송완료">
 									<input type="button" value="구매확정"></a>
 								</td>
 								</c:when>
@@ -277,7 +277,7 @@ function delivery() {
 			</div>
 	</div>
 </section>
-<form id ="fo" action="orderdeliveryChange">
+
 <c:forEach items="${orderList }" var="orderList">
 <input type="hidden" name="code" value="${orderList.code }">
 <input type="hidden" name="ordersize" value="${orderList.ordersize }">
@@ -285,7 +285,6 @@ function delivery() {
 </c:forEach>
 <input type="hidden" name="ordernum" value="${ordernum }">
 <input type="hidden" name="delivery" value="주문취소">
-<input type="submit" value="주문 취소">
 </form>
 	<div style="float: left; width:100%;">
 		<c:import url="/footer"/>
