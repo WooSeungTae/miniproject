@@ -118,6 +118,7 @@
 	transition-duration: 0.4s;
 	cursor: pointer;
 	border: 2px solid #555555;
+	width: 100px; 
 }
 
 .button6 {
@@ -132,6 +133,7 @@
 	transition-duration: 0.4s;
 	cursor: pointer;
 	border: 2px solid #555555;
+	width: 100px; 
 }
 
 .button7 {
@@ -146,6 +148,7 @@
 	transition-duration: 0.4s;
 	cursor: pointer;
 	border: 2px solid #BDBDBD;
+	width: 100px; 
 }
 
 .directorder {
