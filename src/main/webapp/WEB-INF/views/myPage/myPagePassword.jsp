@@ -81,34 +81,50 @@
 	.pwd_gap{
 	margin-bottom: -10px;
 	}
+	/* 페이지 설정 */
+	.detail_div{
+		width:70%;
+		float:left;
+	}
+	.wrap{
+		margin-left: 15%;
+		margin-right: 10%;
+		margin-top: 160px;
+	}
 </style>
 </head>
 <body>
-<header><c:import url="/header"></c:import></header>
-<div style="width: 70%; margin: auto; padding-top: 80px; padding-bottom: 150px;">
-	<c:import url="/aside"></c:import>
-		<h2>비밀번호 변경</h2>
-		<form action="/nike/pwdSuccess">
-			<div class="pwd_gap">
-				<label class="pwd_modify_font">기존 비밀번호</label><br>
-				<input type="text" id="pwd" name="pwd" value="${pwd }" 
-					   readonly="readonly" class="pwd_modify_input"><br><br>
+<c:import url="/header"/>
+<section>
+	<div class="wrap">
+		<c:import url="/aside"/>
+			<div class="detail_div">
+				<h2>비밀번호 변경</h2>
+				<form action="/nike/pwdSuccess">
+					<div class="pwd_gap">
+						<label class="pwd_modify_font">기존 비밀번호</label><br>
+						<input type="text" id="pwd" name="pwd" value="${pwd }" 
+							   readonly="readonly" class="pwd_modify_input"><br><br>
+					</div>
+					<div class="pwd_gap" data-component-textfield>
+						<label class="pwd_modify_font">새 비밀번호</label><br>
+					 	<input type="password" name="newPwd" placeholder="새 비밀번호 입력" 
+						class="pwd_modify_new" required /><br><br>
+					</div>
+					<div class="pwd_gap" data-component-textfield>
+						<label class="pwd_modify_font">새 비밀번호 확인</label><br>
+						<input type="password" name="newPwdChk" placeholder="새 비밀번호 확인" 
+						class="pwd_modify_new" required /><br>
+						<div class="pwd_spanOk" id="alert-ok">비밀번호가 일치합니다.</div>
+				 		<div class="pwd_spanNo" id="alert-no">입력값이 일치하지 않습니다.</div>
+					</div><br><br>
+					<input type="submit" value="변경하기" class="pwd_modify_button">
+				</form>
 			</div>
-			<div class="pwd_gap" data-component-textfield>
-				<label class="pwd_modify_font">새 비밀번호</label><br>
-			 	<input type="password" name="newPwd" placeholder="새 비밀번호 입력" 
-				class="pwd_modify_new" required /><br><br>
-			</div>
-			<div class="pwd_gap" data-component-textfield>
-				<label class="pwd_modify_font">새 비밀번호 확인</label><br>
-				<input type="password" name="newPwdChk" placeholder="새 비밀번호 확인" 
-				class="pwd_modify_new" required /><br>
-				<div class="pwd_spanOk" id="alert-ok">비밀번호가 일치합니다.</div>
-		 		<div class="pwd_spanNo" id="alert-no">입력값이 일치하지 않습니다.</div>
-			</div><br><br>
-			<input type="submit" value="변경하기" class="pwd_modify_button">
-		</form>
-</div>
-<footer><c:import url="/footer"></c:import></footer>
+	</div>
+</section>
+	<div style="float: left; width:100%;">
+		<c:import url="/footer"/>
+	</div>
 </body>
 </html>

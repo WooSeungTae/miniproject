@@ -19,7 +19,7 @@
 	}
 	.userDelete_center{
 	text-align:center;
-	margin-bottom: -90px;
+	margin-top: 200px;
 	}
 	.userDelete_margin{
 	margin-top: 70px;
@@ -35,9 +35,9 @@
 </style>
 </head>
 <body style="width:100%; margin:auto;">
-<header><c:import url="/header"></c:import></header>
+<c:import url="/header"/>
 <section>
-	<form action="/nike/main">
+	<form action="/nike/">
 		<div class="userDelete_center">
 			<div class="userDelete_margin">
 				<div>
@@ -51,6 +51,6 @@
 		</div>
 	</form>
 </section>
-<footer><c:import url="/footer"></c:import></footer>
+<c:import url="/footer"></c:import>
 </body>
 </html>

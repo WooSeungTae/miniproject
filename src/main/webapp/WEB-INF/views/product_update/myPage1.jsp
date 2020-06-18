@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>최근 구매 내역 - 나이키</title>
 <style type="text/css">
 
 	.table1 th{
@@ -28,7 +28,8 @@
 	 	padding: 14px 10px;
 	 }
 	 .table1 img{
-	 	width: 143px;
+	 	width: 150px;
+		height: 135px;
 	 	vertical-align: middle;
 	 	border: none;
 	 	margin: 0;
@@ -50,7 +51,23 @@
 	 	color: #fff;
 	 	background-color: #333;
 	 }
-	 
+	 .detail_div{
+		width:70%;
+		float:left;
+	}
+	.wrap{
+		margin-left: 15%;
+		margin-right: 10%;
+		margin-top: 160px;
+	}
+	.order_hr {
+		border: solid 0.5px #e8ebed;
+	}
+	.order_text {
+		font-size: 11.5px;
+		font-weight: bold;
+		margin-bottom: 15px;
+	}
 </style>
 <script type="text/javascript">
 	function chageSrc(obj) {
@@ -67,64 +84,73 @@
 </script>
 </head>
 <body>
+<<<<<<< HEAD
 <c:import url="/header"></c:import>
 <form action="myPage1">
 	<div style="width: 90%; margin: auto; padding-top: 80px; margin-top: 50px;">
 <c:import url="/aside"></c:import>
+=======
+<form action="myPage1">
+<c:import url="/header"/>
+<section>
+	<div class="wrap">
+<c:import url="/aside"/>
+	<div class="detail_div">
+>>>>>>> smj
 	<!--  마이페이지 상단  -->
-	<div>
-	<h2>최근 주문 내역</h2>
-	<h5>*나이키가 당신의 모든 움직임을 응원합니다.</h5>
-	<hr>
-	</div>
-	<div style="margin: 40px 0 10;">
-		<h5>주문 상품 정보</h5>
-	</div>
-	<table class="table1">
+		<div>
+			<h2>최근 구매 내역</h2>
+			<div class="order_text">* 나이키가 당신의 모든 움직임을 응원합니다.</div>
+			<hr class="order_hr">
+		</div><br>
+	<table class="table1" style="width: 100%;">
 		<colgroup>
 			<col width="110px;">
 			<col width="143px;">
 			<col width="180px;">
 		</colgroup>
-		
-		<tbody>
-			<tr>
-				<c:choose>
+			<thead style="display: table-header-group; vertical-align: middle; border-color: inherit; background: #eaeaea;">
+				<tr>
+					<th scope="col">주문일자<br>[주문번호]</th>
+					<th scope="col">이미지</th>
+					<th scope="col">상품정보</th>
+					<th scope="col">수량</th>
+					<th scope="col">상품구매금액</th>
+					<th scope="col">주문처리상태</th>
+					<th scope="col">취소/교환/반품</th>
+				</tr>
+			</thead>
+			<c:choose>
 				<c:when test="${Ddto.size()!=0 }">
-					<thead style="display: table-header-group; vertical-align: middle; border-color: inherit; background: #eaeaea;">
-						<tr>
-							<th scope="col">주문일자<br>[주문번호]</th>
-							<th scope="col">이미지</th>
-							<th scope="col">상품정보</th>
-							<th scope="col">수량</th>
-							<th scope="col">상품구매금액</th>
-							<th scope="col">주문처리상태</th>
-							<th scope="col">취소/교환/반품</th>
-						</tr>
-					</thead>
+					<tbody>
 					<c:forEach var="Ddto" items="${Ddto }">
-						<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</a></td>
-						<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></a></td> 
+					<tr>
+						<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</td>
+						<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></td> 
 						<td><h4>${Ddto.codename}<br>size : ${Ddto.ordersize }</h4></td>
 						<td>${Ddto.count }</td>
 						<td><h4>KRW <fmt:formatNumber value="${Ddto.price}" pattern="#,###"/></h4></td>
 						<td>배송완료<br><a href="towritelistall" class="btnSubmit">구매후기</a></td>
 						<td>-</td>
+					</tr>
 					</c:forEach>
+					</tbody>
 				</c:when>
 				<c:otherwise>
-					<hr>
-					<br>
-					<h2>최근 주문한 상품은 존재하지 않습니다.</h2>
+					<tbody class="displaynone">
+						<tr>
+							<td colspan="7" class="empty" height="70px;">주문 내역이 없습니다</td>
+						</tr>
+					</tbody>
 				</c:otherwise>
-				</c:choose>
-			</tr>
-		</tbody>
+			</c:choose>
 	</table>
-</div>
-<div style="padding: 300px 0 0 0;">
-<c:import url="/footer"></c:import>
-</div>
+	</div>
+	</div>
+</section>
+	<div style="float: left; width:100%;">
+	<c:import url="/footer"/>
+	</div>
 </form>
 </body>
 </html>

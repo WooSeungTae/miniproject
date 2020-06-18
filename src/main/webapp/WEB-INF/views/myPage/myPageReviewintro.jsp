@@ -22,7 +22,7 @@
 	}
 	/*회원 목록 테이블 맨윗부분 적용 부분*/
 	.tablehead { color: white; background:#c8c8c8; font-family: monospace; 
-				font-size: 15px;}
+				font-size: 15px; }
 	/*회원 목록 테이블 정보 부분*/
 	.tablemain { font-family: monospace; font-size: 20px;}
 	/*맨 위에 있는 제목*/
@@ -60,6 +60,17 @@
 	color: white;
 	}
 	.paging a:hover:not(.active) {background-color: #ddd;}
+	
+	/* 페이지 설정 */
+	.detail_div{
+		width:70%;
+		float:left;
+	}
+	.wrap{
+		margin-left: 15%;
+		margin-right: 10%;
+		margin-top: 160px;
+	}
 </style>
 <script>
 	function selChange() {
@@ -71,17 +82,12 @@
 <title>나의 상품리뷰</title>
 </head>
 <body>
-	<header>
-		<c:import url="/header">
-		</c:import>
-	</header>
-
-	<div style="width: 60%; margin: auto; padding-top: 150px; padding-bottom: 700px;">
-		<div><c:import url="/aside"></c:import></div>
-		<div>
-		<div>
-		<c:set var="size" value="${viewAll.size()}"/>
-			<p class="maintitle">나의 리뷰모아 보기</p>
+<c:import url="/header"/>
+<section>
+	<div class="wrap">
+		<c:import url="/aside"/>
+			<div class="detail_div">
+				<h2>나의 리뷰 모아보기</h2>
 				<div class="pagingoption">
 					<select id="cntPerPage" name="sel" onchange="selChange()">
 						<option value="5"
@@ -130,11 +136,9 @@
 				</div>
 			</div>
 			</div>
-			</div>
-			
-	<footer>
-			<c:import url="/footer">
-			</c:import>
-	</footer>
+</section>
+	<div style="float: left; width:100%;">
+		<c:import url="/footer"/>
+	</div>
 </body>
 </html>

@@ -18,8 +18,8 @@
 		margin-bottom: 15px;
 	}
 	.order_a {
-	text-decoration:none; 
-	color:black;
+		text-decoration:none; 
+		color:black;
 	}
 	.order_img{
 		width: 150px;
@@ -51,6 +51,15 @@
 		color:#848484;
 		margin-top: 5px;
 	}
+	.detail_div{
+		width:70%;
+		float:left;
+	}
+	.wrap{
+		margin-left: 15%;
+		margin-right: 10%;
+		margin-top: 160px;
+	}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -65,22 +74,21 @@
 		document.getElementById(imgId).src = changeName;
 		console.log(changeName);
 	}
-
-
 </script>
 <body>
 <c:set var="size" value="${orderList.size()}"/>
-<c:import url="/header"></c:import>
-	<div style="width: 80%; margin: auto; margin-top: 170px; padding-bottom: 25px;">
-<c:import url="/aside"></c:import>
+<c:import url="/header"/>
+<section>
+	<div class="wrap">
+		<c:import url="/aside"/>
+			<div class="detail_div">
 			<!-- 마이페이지 상단  -->
-		<section>
-		<div>
-			<h2>주문내역/배송현황</h2>
-			<div class="order_text">* 나이키가 당신의 모든 움직임을 응원합니다.</div>
-			<hr class="order_hr">
-		</div><br>
-			<table style="border: solid 0.5px #e8ebed; width: 70%;">
+			<div>
+				<h2>주문내역/배송현황</h2>
+				<div class="order_text">* 나이키가 당신의 모든 움직임을 응원합니다.</div>
+				<hr class="order_hr">
+			</div><br>
+			<table style="border: solid 0.5px #e8ebed; width: 100%;">
 			<!-- 테이블 th(제목) 고정 부분 -->
 				<thead>
 					<tr class="order_th">
@@ -90,12 +98,10 @@
 						<th>수량</th>
 						<th>상품구매금액</th>
 						<th>주문처리상태</th>
-						<th>취소/반품</th>
 					</tr>
 				</thead>
 				<c:choose>
 					<c:when test="${size ne 0}">
-			
 				<tbody>
 					<c:forEach items="${orderList }" var="orderList">
 					<tr>
@@ -120,59 +126,34 @@
 			<!-- 구매 가격 -->		
 						<td class="price">
 							<strong>
-							<fmt:formatNumber value="${orderList.price * orderList.count }" pattern="###,###,###"/>
+							<fmt:formatNumber value="${orderList.price * orderList.count }" pattern="###,###,###"/>원
 							</strong>
 						</td>
 			<!-- 배송상태 -->		
 						<td>
 							<p class="delivery">${orderList.delivery }</p>
 						</td>
-			<!-- 배송상태 변경 위한 버튼 -->		
-							<c:choose>
-								<c:when test="${orderList.delivery eq '입금중' }">
-								<td>
-									<a href="orderdeliveryChange?ordernum=${orderList.ordernum }&delivery=주문취소">
-									<input type="button"  value="주문취소"></a>
-								</td>
-								</c:when>
-								<c:otherwise>
-								<td>
-									<input type="button" class="orderCancel" value="주문취소" name="orderCancel" id="orderCancel" disabled="disabled">
-								</td>
-								</c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${orderList.delivery eq '배송중' }">
-								<td>
-									<a href="orderdeliveryChange?ordernum=${orderList.ordernum }&delivery=배송완료">
-									<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish"></a>
-								</td>
-								</c:when>
-								<c:otherwise>
-								<td>
-									<input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish" disabled="disabled">
-								</td>
-								</c:otherwise>
-							</c:choose>
 					</tr>
 					</c:forEach>
 				</tbody>
 			</c:when>
 			<c:otherwise>
-			
-				<!-- 주문 내역 없을 때 출력될 내용 -->		
+		<!-- 주문 내역 없을 때 출력될 내용 -->		
 				<tbody class="displaynone">
 					<tr>
-						<td colspan="7" class="empty">주문 내역이 없습니다</td>
+						<td colspan="7" class="empty" height="70px;">주문 내역이 없습니다</td>
 					</tr>
 				</tbody>
 			</c:otherwise>
 		</c:choose>
 			</table>
-		</section><br>
-		
+		<br>
 		<hr class="order_hr">
+		</div>
 	</div>
-<c:import url="/footer"></c:import>
+</section>
+	<div style="float: left; width:100%;">
+	<c:import url="/footer"/>
+	</div>
 </body>
 </html>

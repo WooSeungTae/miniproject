@@ -12,7 +12,7 @@
 	table{
 		border: solid 0.5px #e8ebed; 
 		font-size: 11px;
-		width:70%;
+		width:100%;
 	}
 	th{
 		padding: 10px 0;
@@ -48,6 +48,9 @@
 		border: solid 0.5px #e8ebed; 
 		border-collapse: collapse;
 	}
+	.orderView tr{
+		
+	}
 	.orderView th{
 		padding: 10px 0;
 	    font-weight: normal;
@@ -63,6 +66,24 @@
 	    word-wrap: break-word;
 	    border: solid 0.5px #e8ebed; 
 	}
+	.btn_css input{
+		border-color: black;
+		background-color: black;
+		color: white;
+		font-size: 11px;
+		height: 25px;
+		width: 70px;
+	}
+	/* 페이지 설정 */
+	.detail_div{
+		width:70%;
+		float:left;
+	}
+	.wrap{
+		margin-left: 15%;
+		margin-right: 10%;
+		margin-top: 160px;
+	}
 </style>
 <script type="text/javascript">
 function delivery() {
@@ -72,159 +93,190 @@ function delivery() {
 	}
 }
 </script>
-<body>
-<c:set var="order" value="${order }"></c:set>
-<c:import url="/header"></c:import>
-	<div style="width: 80%; margin: auto; margin-top: 170px; padding-bottom: 25px;">
-<c:import url="/aside"></c:import>
+<body> 
+<c:set var="order" value="${order }"/>
+<c:import url="/header"/>
 <section>
-	<div class="titleArea">
-		<h2>ORDER DETAIL</h2>
-	</div>
-	<div>
-		<input id="" name="" value="" type="hidden">
-		<div>
-			<!-- 주문정보 -->
-			<div class="">
-				<div class="title">
-					<h3>주문정보</h3>
+	<div class="wrap">
+		<c:import url="/aside"/>
+			<div class="detail_div">
+				<div class="titleArea">
+					<h2>ORDER DETAIL</h2>
 				</div>
-
-				<div class="orderView">
+				<div>
+					<!-- 주문정보 -->
+					<div>
+						<div class="title">
+							<h3>주문정보</h3>
+						</div>
+						<div class="orderView">
+							<table>
+								<tbody>
+									<tr>
+										<th scope="row">주문번호</th>
+										<td>${ordernum }</td>
+									</tr>
+									<tr>
+										<th scope="row">주문일자</th>
+										<td>${orderdate }</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- 결제정보 -->
+					<div>
+						<div class="title">
+							<h3>결제정보</h3>
+						</div>
+						<div class="orderView">
+							<table class="">
+							<c:forEach items="${orderView}" var="orderView_num">
+								<tbody>
+									<tr>
+										<th scope="row">총 주문금액</th>
+										<td>
+											<strong><fmt:formatNumber value="${orderView_num.totalprice }" pattern="###,###,###"/>원</strong>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">마일리지 사용 금액</th>
+										<td>
+										<strong><fmt:formatNumber value="${orderView_num.mile }" pattern="###,###,###"/> Mile</strong>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">배송비</th>
+										<td><strong>0</strong> 원</td>
+									</tr>
+									<tr>
+										<th scope="row" style="background-color: #f7f7f7;">총 결제금액</th>
+										<td>
+											<strong style="color:#b22222; font-size: 15px;">
+											<fmt:formatNumber value="${orderView_num.totalprice - orderView_num.mile }" pattern="###,###,###"/>원</strong>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" style="background-color: #f7f7f7;">결제수단</th>
+										<td><strong>무통장 입금</strong></td>
+									</tr>
+								</tbody>
+								</c:forEach>
+							</table>
+						</div>
+					</div>
+					<br>
+					<!-- 주문상품 정보 -->
+					<div class="orderList">
 					<table>
-		
-						<tbody>
-						
-							<tr>
-								<th scope="row">주문번호</th>
-								<td>${ordernum }</td>
+					<!-- 테이블 th(제목) 고정 부분 -->
+						<thead>
+							<tr class="order_th">
+								<th>이미지</th>
+								<th>상품정보</th>
+								<th>수량</th>
+								<th>상품구매금액</th>
+								<th>주문처리상태</th>
 							</tr>
+						</thead>
+						<tbody class="">
+							<c:forEach items="${orderList }" var="orderList">
 							<tr>
-								<th scope="row">주문일자</th>
-								<td>${orderdate }</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!-- 결제정보 -->
-			<div class="">
-				<div class="title">
-					<h3>결제정보</h3>
-				</div>
-				<div class="orderView">
-					<table class="">
-					<c:forEach items="${orderView}" var="orderView_num">
-						<tbody>
-							<tr class="">
-								<th scope="row">총 주문금액</th>
+					<!-- 구매 사진 이미지 -->		
+								<td class="image1">
+									<a href="/nike/productdetail?code=${orderList.code }">
+									<img id="${orderList.code }" src="/nike/${orderList.image1 }" 
+									class="order_img" onerror="this.onerror=null; chageSrc(this)"></a>
+								</td>
+					<!-- 상품 이름, 상품 사이즈 -->	
+								<td class="product">
+									<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderList.codename }</a></strong>
+									<div class="orderSize">[사이즈 : ${orderList.ordersize }]</div>
+								</td>
+					<!-- 구매할 수량 -->		
+								<td class="count">${orderList.count }</td>
+					<!-- 구매 가격 -->		
+								<td class="price">
+									<strong>
+									<fmt:formatNumber value="${orderList.price * orderList.count }" pattern="###,###,###"/>원
+									</strong>
+								</td>
+					<!-- 배송상태 -->		
 								<td>
-									<span class=""> <strong>${orderView_num.totalprice }</strong>원 </span>
+									<p class="delivery">${orderList.delivery }</p>
 								</td>
 							</tr>
-							<tr class="">
-								<th scope="row">마일리지 사용 금액</th>
-								<td><strong>${orderView_num.mile }</strong> Mile</td>
-							</tr>
-							<tr class="">
-								<th scope="row">배송비</th>
-								<td><strong>0</strong> 원</td>
-							</tr>
-							<tr class="">
-								<th scope="row">총 결제금액</th>
-								<td><strong>${orderView_num.totalprice - orderView_num.mile }</strong>원</td>
-							</tr>
-							<tr class="">
-								<th scope="row">결제수단</th>
-							
-								<td><strong><span>무통장 입금</span></strong></td>
-							</tr>
-						</tbody>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-			<br>
-<!-- 주문상품 정보 -->
-			<div class="orderList">
-			<table>
-			<!-- 테이블 th(제목) 고정 부분 -->
-				<thead>
-					<tr class="order_th">
-						<th>이미지</th>
-						<th>상품정보</th>
-						<th>수량</th>
-						<th>상품구매금액</th>
-						<th>주문처리상태</th>
-					</tr>
-				</thead>
-				<tbody class="">
-					<c:forEach items="${orderList }" var="orderList">
-					<tr>
-			<!-- 구매 사진 이미지 -->		
-						<td class="image1">
-							<a href="/nike/productdetail?code=${orderList.code }">
-							<img id="${orderList.code }" src="/nike/${orderList.image1 }" 
-							class="order_img" onerror="this.onerror=null; chageSrc(this)"></a>
-						</td>
-			<!-- 상품 이름, 상품 사이즈 -->	
-						<td class="product">
-							<strong class="CodeName"><a	href="/nike/productdetail?code=${orderList.code }" class="order_a">${orderList.codename }</a></strong>
-							<div class="orderSize">[사이즈 : ${orderList.ordersize }]</div>
-						</td>
-			<!-- 구매할 수량 -->		
-						<td class="count">${orderList.count }</td>
-			<!-- 구매 가격 -->		
-						<td class="price">
-							<strong>
-							<fmt:formatNumber value="${orderList.price * orderList.count }" pattern="###,###,###"/>
-							</strong>
-						</td>
-			<!-- 배송상태 -->		
-						<td>
-							<p class="delivery">${orderList.delivery }</p>
-						</td>
-			<!-- 배송상태 변경 위한 버튼 -->		
-							
-								
-					</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-
-			<!-- 배송지정보 -->
-			<div class="">
-				<div class="title">
-					<h3>배송지정보</h3>
-				</div>
-				<div class="orderView">
-					<table>
-						<tbody>
-							<tr>
-								<th scope="row">받으시는분</th>
-								<td><span>${orderView_num.name }</span></td>
-							</tr>
-							<tr class="">
-								<th scope="row">주소</th>
-								<td><span>${orderView_num.addr }</span></td>
-							</tr>
-							<tr>
-								<th scope="row">휴대전화</th>
-								<td><span>${orderView_num.tel }</span></td>
-							</tr>
-							<tr>
-								<th scope="row">배송메시지</th>
-								<td><span>${orderView_num.ordermemo }</span></td>
-							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
+					</div>
+					<!-- 배송상태 변경 위한 버튼 -->	
+					<div class="btn_css" style="margin-top: 4px;">
+						<table style="border-color: white;">
+							<tr align="right">
+							<c:choose>
+								<c:when test="${order eq '입금중' }">
+								<td>
+									<a href="orderdeliveryChange?ordernum=${ordernum }&delivery=취소완료">
+									<input type="button"  value="주문취소"></a>
+								</td>
+								</c:when>
+								<c:otherwise>
+								<td>
+									<input type="button" value="주문취소" disabled="disabled">
+								</td>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${order eq '배송중' }">
+								<td style="width: 72px;">
+									<a href="orderdeliveryChange?ordernum=${ordernum }&delivery=배송완료">
+									<input type="button" value="구매확정"></a>
+								</td>
+								</c:when>
+								<c:otherwise>
+								<td style="width: 72px;">
+									<input type="button" value="구매확정" disabled="disabled">
+								</td>
+								</c:otherwise>
+							</c:choose>
+							</tr>
+						</table>
+					</div>
+					<!-- 배송지정보 -->
+					<div>
+						<div class="title">
+							<h3>배송지정보</h3>
+						</div>
+						<div class="orderView">
+							<table>
+							<c:forEach items="${orderView}" var="orderView_num">
+								<tbody>
+									<tr>
+										<th scope="row">받으시는분</th>
+										<td><span>${orderView_num.name }</span></td>
+									</tr>
+									<tr class="">
+										<th scope="row">주소</th>
+										<td><span>${orderView_num.addr }</span></td>
+									</tr>
+									<tr>
+										<th scope="row">휴대전화</th>
+										<td><span>${orderView_num.tel }</span></td>
+									</tr>
+									<tr>
+										<th scope="row">배송메시지</th>
+										<td><span>${orderView_num.ordermemo }</span></td>
+									</tr>
+								</tbody>
+							</c:forEach>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
 	</div>
 </section>
-</div>
 <form id ="fo" action="orderdeliveryChange">
 <c:forEach items="${orderList }" var="orderList">
 <input type="hidden" name="code" value="${orderList.code }">
@@ -236,5 +288,8 @@ function delivery() {
 <input type="submit" value="주문 취소">
 </form>
 <c:import url="/footer"></c:import>
+	<div style="float: left; width:100%;">
+		<c:import url="/footer"/>
+	</div>
 </body>
 </html>
