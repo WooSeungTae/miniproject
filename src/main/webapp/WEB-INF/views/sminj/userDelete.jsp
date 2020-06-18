@@ -51,6 +51,6 @@
 		</div>
 	</form>
 </section>
-<c:import url="/footer"></c:import>
+<c:import url="/footer"/>
 </body>
 </html>

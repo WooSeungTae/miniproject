@@ -35,7 +35,7 @@
 </style>
 </head>
 <body style="width:100%; margin:auto;">
-<header><c:import url="/header"></c:import></header>
+<c:import url="/header"/>
 <section>
 	<form action="/nike/">
 		<div class="pwdSuccess_center">
@@ -51,6 +51,6 @@
 		</div>
 	</form>
 </section>
-<footer><c:import url="/footer"></c:import></footer>
+<c:import url="/footer"/>
 </body>
 </html>

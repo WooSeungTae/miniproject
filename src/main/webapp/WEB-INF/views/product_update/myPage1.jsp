@@ -84,19 +84,12 @@
 </script>
 </head>
 <body>
-<<<<<<< HEAD
-<c:import url="/header"></c:import>
-<form action="myPage1">
-	<div style="width: 90%; margin: auto; padding-top: 80px; margin-top: 50px;">
-<c:import url="/aside"></c:import>
-=======
 <form action="myPage1">
 <c:import url="/header"/>
 <section>
 	<div class="wrap">
 <c:import url="/aside"/>
 	<div class="detail_div">
->>>>>>> smj
 	<!--  마이페이지 상단  -->
 		<div>
 			<h2>최근 구매 내역</h2>
@@ -108,7 +101,6 @@
 			<col width="110px;">
 			<col width="143px;">
 			<col width="180px;">
-<<<<<<< HEAD
 		</colgroup>
 			<thead style="display: table-header-group; vertical-align: middle; border-color: inherit; background: #eaeaea;">
 				<tr>
@@ -122,22 +114,12 @@
 				</tr>
 			</thead>
 			<c:choose>
-=======
-		</colgroup>		
-		<tbody>
-				<c:choose>
->>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 				<c:when test="${Ddto.size()!=0 }">
 					<tbody>
 					<c:forEach var="Ddto" items="${Ddto }">
 					<tr>
-<<<<<<< HEAD
 						<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</td>
 						<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></td> 
-=======
-						<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</a></td>
-						<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></a></td> 
->>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 						<td><h4>${Ddto.codename}<br>size : ${Ddto.ordersize }</h4></td>
 						<td>${Ddto.count }</td>
 						<td><h4>KRW <fmt:formatNumber value="${Ddto.price}" pattern="#,###"/></h4></td>
@@ -154,12 +136,7 @@
 						</tr>
 					</tbody>
 				</c:otherwise>
-<<<<<<< HEAD
 			</c:choose>
-=======
-				</c:choose>
-		</tbody>
->>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 	</table>
 	</div>
 	</div>

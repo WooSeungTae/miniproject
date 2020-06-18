@@ -287,7 +287,6 @@ function delivery() {
 <input type="hidden" name="delivery" value="주문취소">
 <input type="submit" value="주문 취소">
 </form>
-<c:import url="/footer"></c:import>
 	<div style="float: left; width:100%;">
 		<c:import url="/footer"/>
 	</div>

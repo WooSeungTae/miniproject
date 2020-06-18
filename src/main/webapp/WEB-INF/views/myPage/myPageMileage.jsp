@@ -46,7 +46,6 @@
 <title>나이키</title>
 </head>
 <body>
-<<<<<<< HEAD
 	<c:import url="/header"/>
 	<section class="wrapper">
 		<div class="wrap">
@@ -58,23 +57,6 @@
 					<span class="reserveMile"><label class="milelabel">${mile } </label>MiLE</span>
 				</div>	
 			</div>
-=======
-	<header>
-		<c:import url="/header">
-		</c:import>
-	</header>
-	<section class="wrapper" style="margin-top: 60px;">
-		<aside>
-			<c:import url="/aside">
-			</c:import>
-		</aside>
-		<div style="width: 75%; margin: auto; padding-top: 80px; float:right;">	
-			<h2>MiLE 현황</h2>
-			<div class="milecontent">
-				<span class="mile">현재 보유 MiLE</span> 
-				<span class="reserveMile"><label class="milelabel">${mile }</label>MiLE</span>
-			</div>	
->>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 		</div>
 	</section>
 	<div style="margin-top: 240px;">
