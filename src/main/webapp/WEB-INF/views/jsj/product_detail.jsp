@@ -211,9 +211,9 @@
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th style='width: 10%;'><img id='imgreview' src='/nike/"+result[i].image+"'></th>"+
-						"<th id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' >"+result[i].reviewtitle+"</th>"+
+						"<th class='"+result[i].reviewnum+"' id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' onclick='reviewclick(this)'' >"+result[i].reviewtitle+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
-						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
+						"<th style='width: 10%;'>"+chahgeDate(result[i].writeDate)+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
 						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].reviewnum+result[i].reviewtitle+"qnanike'  colspan='5' style='display:none;'></tr>"
 		       		}
@@ -254,7 +254,7 @@
 	var pageqa = 1;
 	var cntPerPageqa = 3;//Q & A 행수 지정
 	var totalqa = ${totalqa}; // Q & A 토탈페이지
-	var endpageqa = Math.ceil(totalqa / cntPerPage); //Q & A  페이지 갯수 
+	var endpageqa = Math.ceil(totalqa / cntPerPage);  //Q & A  페이지 갯수 
 	var cntPageqa = 5; //페이지 보이는 수
 	var startPageqa=0; //제일 앞에 보이는 페이지수
 	var lastPageqa=0; //마지막에 보이는 페이지수
@@ -283,9 +283,8 @@
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th id='"+result[i].indexnum+"' style='width: 60%;' onclick='qna(this.id)'>"+result[i].title+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
-						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
-						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
-						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].indexnum+result[i].title+"qnanike'  colspan='5' style='display:none;'></tr>"
+						"<th style='width: 10%;'>"+chahgeDate(result[i].writeDate)+"</th>"+
+						"<th style='display: none;'>"+result[i].code+"</th></tr></tr>"
 		       		}
 		       	}
 				html+="</table>"
@@ -343,6 +342,25 @@
 		}
 	
 	}
+	function sizebuttonclick2(clicked_id){
+		var radio = clicked_id*10;
+		document.getElementById("80").className = "button5";
+		document.getElementById("90").className = "button5";
+		document.getElementById("100").className = "button5";
+		document.getElementById("110").className = "button5";
+		document.getElementById("120").className = "button5";
+		document.getElementById("130").className = "button5";
+		document.getElementById("140").className = "button5";
+		document.getElementById("150").className = "button5";
+		document.getElementById("160").className = "button5";
+		if(document.getElementById(clicked_id).className == "button5"){
+			document.getElementById(clicked_id).className = "button6";
+			document.getElementById(radio).checked = true;
+		}else if(document.getElementById(clicked_id).className == "button6"){
+			document.getElementById(clicked_id).className = "button5";
+		}
+	
+	}
 
 	function chageSrc(obj){
   			var imgId = obj.id;
@@ -390,12 +408,25 @@
    		}
    		
    		/*리뷰 제목 클릭*/
-   			function reviewclick(clickrvid){
-   			console.log(clickrvid);
-  			location.href="/nike/qnaview?indexnum="+clickrvid+"&code="+'${pdto.code}';
+   			function reviewclick(obj){
+   			location.href="/nike/reviewsearch?reviewnum="+obj.className;
    		}
    		
-
+		/*날짜 변환 함수*/
+		function chahgeDate(date){
+			date =  new Date(parseInt(date));
+			year = date.getFullYear();
+			month = date.getMonth();
+			day = date.getDate();
+			hour = date.getHours();
+			minute = date.getMinutes();
+			second = date.getSeconds();
+			strDate = year+"-"+month+"-"+day;
+			return strDate;
+			
+		}
+		
+		
 </script>
 <script type="text/javascript">
 		function buttoncheck(){
@@ -513,17 +544,29 @@
 												<div class="product-option_radio square">
 													<div class="opt-list">
 														<!-- input type="hidden" id="ordersize" class="ordersize" name="ordersize"-->
-														<c:forEach var="ordersize" begin="230" end="330" step="10">
-															<input type="button" class="button5" name="ordersize"
-																value="${ordersize}" id="${ordersize}"
-																onclick="sizebuttonclick(this.id)">
-															<input type="radio" id="${ordersize*10 }"
-																name="ordersize" value="${ordersize }" hidden="">
-															<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
-																<br>
-															</c:if>
-														</c:forEach>
-
+														<c:choose>
+															<c:when test="${pdto.gender!='키즈'}">
+																<c:forEach var="ordersize" begin="230" end="330" step="10">
+																	<input type="button" class="button5" name="ordersize"
+																		value="${ordersize}" id="${ordersize}"
+																		onclick="sizebuttonclick(this.id)">
+																	<input type="radio" id="${ordersize*10 }"
+																		name="ordersize" value="${ordersize }" hidden="">
+																	<c:if test="${ordersize%270 eq 0 || ordersize%320 eq 0}">
+																		<br>
+																	</c:if>
+																</c:forEach>
+															</c:when>
+															<c:otherwise>
+																<c:forEach var="ordersize" begin="80" end="160" step="10">
+																	<input type="button" class="button5" name="ordersize" value="${ordersize}" id="${ordersize}" onclick="sizebuttonclick2(this.id)">
+																	<input type="radio" id="${ordersize*10 }" name="ordersize" value="${ordersize }" hidden="" >
+																	<c:if test="${ordersize%120 eq 0}">
+																	<br>
+																	</c:if>
+																</c:forEach>
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</div>
 											</div>

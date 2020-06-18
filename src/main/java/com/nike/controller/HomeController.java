@@ -2,6 +2,9 @@ package com.nike.controller;
 
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.ProcessBuilder.Redirect;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -12,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,6 +59,7 @@ import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
+import com.nike.order.Cart_Cookie;
 import com.nike.order.Cart_PagingVO;
 import com.nike.order.OrderCare_PagingVO;
 import com.nike.order.ShoppingCartDTO;
@@ -88,6 +93,8 @@ public class HomeController {
 	FileUploadService2 fileUploadService2;
 	@Autowired
 	BoardService bservice;
+	Cart_Cookie cartcookie;
+	
 	@Autowired
 	CommentService cservice;
 
@@ -124,6 +131,21 @@ public class HomeController {
 		}
 		return "/sminj/main";
 	}
+	
+		
+	//최근 주문 내역 페이지
+			@RequestMapping("myPage1")
+			public String myPage1(HttpServletRequest request, Model model) {
+					HttpSession mySession = request.getSession();
+					String id = (String) mySession.getAttribute("id");
+					orderservice.myPage1(id);
+					model.addAttribute("Ddto",orderservice.myPage1(id));
+					List<Order_detailsDTO> list = orderservice.myPage1(id);
+					
+					
+					return "product_update/myPage1";					
+			}
+	
 		//남이 나의 리뷰를 볼 때
 		@RequestMapping("reviewsearch")
 		public String reviewsearch(@RequestParam(value="reviewnum", required=false) int reviewnum, Model model) {
@@ -169,10 +191,7 @@ public class HomeController {
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
 			rdto.setReviewNum(Integer.parseInt(reviewnum));
-			rdto.setId("hong");
-			rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
-			System.out.println("====================================================="+rdto.getImage());
 			return "board/reviewform";
 		}
 		
@@ -182,10 +201,8 @@ public class HomeController {
 			String reviewnum = request.getParameter("reviewnum");
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
-//			rdto.setId(id);
-//			rdto.setReviewNum(Integer.parseInt(reviewnum));
-			rdto.setId("hong");
-			rdto.setReviewNum(9);
+			rdto.setId(id);
+			rdto.setReviewNum(Integer.parseInt(reviewnum));
 			reviewUploadService.deletefile(rdto.getImage());
 			reviewservice.reviewdelete(rdto);
 			return "redirect:reviewintro";
@@ -430,8 +447,12 @@ public class HomeController {
 		}
 	
 	@RequestMapping("loginChk")
-	public String loginChk(HttpServletRequest request, MemberInfoDTO dto) {
+	public String loginChk(HttpServletRequest request, HttpServletResponse response , MemberInfoDTO dto) throws IOException {
 		if(memberservice.loginChk(dto)==0) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('아이디 및 비밀번호가 틀렸습니다.');</script>"); 
+			out.flush();
 			return "member/loginPage";
 		}else {
 			HttpSession mySession = request.getSession();
@@ -630,6 +651,16 @@ public class HomeController {
 		orderservice.deliveryChange(Odto);
 		return "redirect:order_care";
 	}
+	@RequestMapping("orderdeliveryChange")
+	public String orderdeliveryChange(OrderDTO Odto,Order_detailsDTO Ddto, 
+			@RequestParam("ordernum") String ordernum,@RequestParam("delivery") String delivery) {
+		System.out.println("-------홈 컨트롤러 실행시작");
+		//orderservice.delivery(Ddto);
+		System.out.println("오더서비스 디테ㅣ");
+		orderservice.deliveryChange(Odto);
+		System.out.println("디테일 dao 주문취소 완료");
+		return "redirect:orderList";
+	}
 	@RequestMapping("orderserch")
 	public String orderserch(Model model,@RequestParam("id") String id) {
 		model.addAttribute("viewAll",orderservice.orderserch(id));
@@ -638,7 +669,7 @@ public class HomeController {
 	/*마이페이지*/
 	@RequestMapping("myPage")
 	public String myPage() {
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*마이페이지 사이드*/
@@ -714,65 +745,168 @@ public class HomeController {
 		return "redirect:account";
 	}
 	
-
+	int i = 0;
+	ArrayList<ShoppingCartDTO> cart = new ArrayList<ShoppingCartDTO>();
+	
+	
 	/*장바구니 DB에 값 저장하기*/
 	@RequestMapping("cartSave")
-	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
+	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model, HttpServletResponse response) throws UnsupportedEncodingException {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		String code = request.getParameter("code");
 		sdto.setId(id);
 		sdto.setCode(code);
 		/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
-		System.out.println("=========================================="+orderservice.checkitem(sdto));
-		if(orderservice.checkitem(sdto)==0) {
-			/*장바구니에 상품명 저장하는 기능*/
-			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
-			/*장바구니에 대표사진 저장하는 기능*/
-			sdto.setImage1(Pservice.image1get(sdto.getCode()));
-			/*장바구니에 가격 저장하는 기능*/
-			sdto.setPrice(Pservice.priceget(sdto.getCode()));
-			/*장바구니 DB에 값을 저장*/
-			orderservice.insertcart(sdto);
-			return "redirect:cart";
-		}else {
-			model.addAttribute("noadd", -1);
-			return "redirect:productdetail?code="+code;
-		}
-	}
-
-	/*장바구니*/
-	@RequestMapping("cart")
-	public String cart(Cart_PagingVO cpvo, ShoppingCartDTO sdto, HttpServletRequest request, Model model,
-			@RequestParam(value="nowPage", required=false)String nowPage,
-			@RequestParam(value="cntPerPage",required=false)String cntPerPage) {
-		HttpSession mySession = request.getSession();
-		String id = (String) mySession.getAttribute("id");
-		int total = orderservice.countcart(id);
-		if(total>0) {
-			if(nowPage == null && cntPerPage == null) {
-				nowPage = "1";
-				cntPerPage = "3";
-			}else if(nowPage == null) {
-				nowPage = "1";
-			}else if(cntPerPage == null) {
-				cntPerPage = "3";
+		if(id!=null) {
+			sdto.setId(id);
+			sdto.setCode(code);
+			/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+			System.out.println("=========================================="+orderservice.checkitem(sdto));
+			if(orderservice.checkitem(sdto)==0) {
+				/*장바구니에 상품명 저장하는 기능*/
+				sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+				/*장바구니에 대표사진 저장하는 기능*/
+				sdto.setImage1(Pservice.image1get(sdto.getCode()));
+				/*장바구니에 가격 저장하는 기능*/
+				sdto.setPrice(Pservice.priceget(sdto.getCode())*sdto.getCount());
+				sdto.setPrice(Pservice.priceget(sdto.getCode()));
+				/*장바구니 DB에 값을 저장*/
+				orderservice.insertcart(sdto);
+				return "redirect:cart";
+			}else {
+				model.addAttribute("noadd", -1);
+				return "redirect:productdetail?code="+code;
 			}
-			cpvo = new Cart_PagingVO(id, total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-			System.out.println("=====================================" + orderservice.cartpaging(cpvo));
-			model.addAttribute("paging", cpvo);
-			/*장바구니 DB에서 회원별 리스트 가져오기*/
-			model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
-			
+		}else {
+//			sdto.setCodename(Pservice.codnameget(sdto.getCode()));
+//			sdto.setImage1(Pservice.image1get(sdto.getCode()));
+//			sdto.setPrice(Pservice.priceget(sdto.getCode()));
+//			String cookievalue = sdto.getCode() + "," + sdto.getCodename() + "," + sdto.getCount() + "," + sdto.getImage1() + "," +
+//					sdto.getOrdersize() + "," + sdto.getPrice();
+//			cartcookie = new Cart_Cookie();
+//			cartcookie.createNewCookie("key" + i, cookievalue, 1, request, response);
+//			System.out.println("====================================================================" + request);
+//			System.out.println("=================================" + i + " : "  + cookievalue);
+//			System.out.println("================================" + cartcookie.getValueList("key"+ i, request));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(0));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(1));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(2));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(3));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(4));
+//			System.out.println("================================" + cartcookie.getValueList("key0", request).get(5));
+//			if(request.getCookies() != null) {
+//				for(int k = 0; k <= i; k++) {
+//					ShoppingCartDTO sdto2 = new ShoppingCartDTO();
+//					sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
+//					sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
+//					sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
+//					sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
+//					sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
+//					sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
+//					//for(int j = 0; j < cartcookie.; j++) {
+//					cart.add(sdto2);
+//					System.out.println("=============================================" + request);
+//					cartcookie = new Cart_Cookie();
+//					if(!cartcookie.isExist("nologin", request)) {
+//						cartcookie.createNewCookie("nologin", cookievalue, 1, request, response);
+//						System.out.println("==========================================aaa" + cartcookie );
+//						System.out.println("==========================================aaa" + cookievalue );
+//					}else {
+//						cartcookie.SetCookie("nologin",  cookievalue,  1,  request, response);
+//						System.out.println("==========================================bbb" + cartcookie );
+//						System.out.println("==========================================bbb" + cookievalue );
+//					}
+//					model.addAttribute("cartcount", cartcookie.getValueList("nologin",  request).size());
+//					int i = 1;
+//					System.out.println("==============================================ccc" + cartcookie.getValueList("nologin", request).get(i));
+//					model.addAttribute("cartlist", cartcookie.getValueList("nologin",  request));
+//				}
+//				}
+//				i++;
+//				System.out.println("============================================================!!!!!!" + i);
+//				model.addAttribute("cartcount", cart.size());
+//				model.addAttribute("cartlist", cart);
+//				for(int z = 0; z< cart.size(); z++) {
+//					System.out.println(cart.get(z).getCode());
+//					System.out.println(cart.get(z).getCodename());
+//					System.out.println(cart.get(z).getCount());
+//					System.out.println(cart.get(z).getImage1());
+//					System.out.println(cart.get(z).getOrdersize());
+//					System.out.println((cart.get(z).getPrice()));
+//				}
+//			}else {
+//				model.addAttribute("cartcount", 0);
+//			}
+//			return "purchase/nologincart";
+			return "redirect:loginPage";
 		}
 		
-		/*장바구니 DB에서 리스트 개수 가져오기*/
-		System.out.println("==========================================" + orderservice.countcart(id));
-		model.addAttribute("cartcount", total);
-		/*장바구니 DB에서 회원별 총 금액 가져오기*/
-		model.addAttribute("totalprice", orderservice.totalprice(id));
-		return "purchase/cart";
 	}
+	
+	/*장바구니*/
+	@RequestMapping("cart")
+	public String cart(Cart_PagingVO cpvo, ShoppingCartDTO sdto, HttpServletRequest request, Model model, HttpServletResponse response,
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage",required=false)String cntPerPage) throws UnsupportedEncodingException {
+		HttpSession mySession = request.getSession();
+		String id = (String) mySession.getAttribute("id");
+		System.out.println("=======================================================================id" + id);
+		if(id!=null) {
+			int total = orderservice.countcart(id);
+			if(total>0) {
+				if(nowPage == null && cntPerPage == null) {
+					nowPage = "1";
+					cntPerPage = "3";
+				}else if(nowPage == null) {
+					nowPage = "1";
+				}else if(cntPerPage == null) {
+					cntPerPage = "3";
+				}
+				cpvo = new Cart_PagingVO(id, total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+				System.out.println("=====================================" + orderservice.cartpaging(cpvo));
+				model.addAttribute("paging", cpvo);
+				/*장바구니 DB에서 회원별 리스트 가져오기*/
+				model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
+				/*장바구니 DB에서 리스트 개수 가져오기*/
+				System.out.println("==========================================" + orderservice.countcart(id));
+				model.addAttribute("cartcount", total);
+				/*장바구니 DB에서 회원별 총 금액 가져오기*/
+				model.addAttribute("totalprice", orderservice.totalprice(id));
+			}else {
+				model.addAttribute("cartcount", total);
+			}
+			return "purchase/cart";
+		}else {
+//			if(request.getCookies() != null) {
+//			for(int k = 0; k <= 3; k++) {
+//				ShoppingCartDTO sdto2 = new ShoppingCartDTO();
+//				sdto2.setCode(cartcookie.getValueList("key"+k, request).get(0));
+//				sdto2.setCodename(cartcookie.getValueList("key"+k, request).get(1));
+//				sdto2.setCount(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(2)));
+//				sdto2.setImage1(cartcookie.getValueList("key"+k, request).get(3));
+//				sdto2.setOrdersize(cartcookie.getValueList("key"+k, request).get(4));
+//				sdto2.setPrice(Integer.parseInt(cartcookie.getValueList("key"+k, request).get(5)));
+//				cart.add(sdto2);
+//			}
+//				model.addAttribute("cartcount", cart.size());
+//				model.addAttribute("cartlist", cart);
+//				for(int z = 0; z< cart.size(); z++) {
+//					System.out.println(cart.get(z).getCode());
+//					System.out.println(cart.get(z).getCodename());
+//					System.out.println(cart.get(z).getCount());
+//					System.out.println(cart.get(z).getImage1());
+//					System.out.println(cart.get(z).getOrdersize());
+//					System.out.println((cart.get(z).getPrice()));
+//				}
+//			}else {
+//				model.addAttribute("cartcount", 0);
+//			}
+//			
+			return "redirect:loginPage";
+		}
+		
+	}	
 	
 	
 	
@@ -790,6 +924,7 @@ public class HomeController {
 		String id = (String) mySession.getAttribute("id");
 		sdto.setId(id);
 		sdto.setCode(request.getParameter("code"));
+		sdto.setPrice(Pservice.priceget(sdto.getCode())*sdto.getCount());
 		System.out.println("==============================================="+sdto.getCode());
 		System.out.println("==============================================="+sdto.getOrdersize());
 		System.out.println("==============================================="+sdto.getCount());
@@ -821,7 +956,8 @@ public class HomeController {
 	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
 			,@Param("ordersize") String ordersize
 			,@Param("count") String count) {
-		if(id!=null)service.searchId(model, id);
+		if(id!=null) {service.searchId(model, id);}
+		else {return "redirect:loginPage";}
 		Pservice.codeSearch(model, code);
 		model.addAttribute("ordersize", ordersize);
 		model.addAttribute("count", count);
@@ -842,7 +978,7 @@ public class HomeController {
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
 		orderservice.productBuy(Odto,Ddto,dto,request);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*구매후 등록*/
@@ -850,7 +986,7 @@ public class HomeController {
 	public String productBuyCart(ShoppingCartDTO sdto,OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
 		orderservice.productBuyCart(Odto,Ddto,dto,request,sdto);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	
@@ -917,7 +1053,7 @@ public class HomeController {
 	}
 	/* 주문내역 및 배송현황 조회 */
 	@RequestMapping("orderList")
-	public String orderView(Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
+	public String orderList(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		List<Order_detailsDTO> orderList = orderservice.orderList(id);
@@ -927,39 +1063,29 @@ public class HomeController {
 	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
 	@RequestMapping("orderView")
 	public String orderView(OrderDTO Odto, Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
-		String ordernum = (String)  request.getParameter("ordernum");
-		System.out.println(ordernum);
+		String ordernum = (String) request.getParameter("ordernum");
 		List<Order_detailsDTO> orderList = orderservice.orderList_num(ordernum);
-		System.out.println(orderList.get(0).getOrdernum());
+		String orderdate = request.getParameter("orderDate");
 		List<OrderDTO> orderView = orderservice.orderView_num(ordernum);
+		model.addAttribute("order",orderList.get(0).getDelivery());
+		model.addAttribute("ordernum", ordernum);
+		model.addAttribute("orderdate", orderdate);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderView", orderView);
 		return "sminj/orderView";
 	}
-	/*	
-	@RequestMapping("orderView")
-	public String orderView() {
-		return "sminj/orderView";
-	}
-*/
-	/* 주문내역 및 배송현황 페이지 - 배송 상태 변경*/
-	@RequestMapping(value="/myPage/myPageOrderDelivery", method=RequestMethod.POST)
-	public String delivery(Order_detailsDTO Ddto) {
-		orderservice.delivery(Ddto);
-		return "redirect:/myPage/myPageOrderDelivery?=" + Ddto.getOrdernum();
-	}
+
 	/*Q&A 게시물 등록*/
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {
 		bservice.qaregister(Qdto);
-		System.out.println("등록 실행");
 		return "myPage/myPage";
 	}
 	/*Q&A 게시물 수정*/
 	@RequestMapping("qaupdate")
 	public String qaupdate(QABoardDTO Qdto) {
 		bservice.qaupdate(Qdto);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*Q&A 게시물 삭제*/
@@ -971,8 +1097,9 @@ public class HomeController {
 	
 	/*Q & A 게시판 작성화면 */
 	@RequestMapping("qnawrite")
-	public String qnaviewPage() {
-		
+	public String qnaviewPage(Model model,HttpServletRequest request) {
+		String code = request.getParameter("code");
+		Pservice.codeSearch(model, code);
 		return "board/QnA_write";
 	}
 	/*상세 페이지에서 Q & A 게시판 보기*/
@@ -1096,6 +1223,7 @@ public class HomeController {
 			String indexnum = Cdto.getIndexnum();
 			Cdto.setIndexnum(indexnum);
 			list = cservice.searchComment(indexnum);
+			//int replysu = cservice.replyint(Cdto);
 			ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 			String strJson = mapper.writeValueAsString(list);
 			return strJson;

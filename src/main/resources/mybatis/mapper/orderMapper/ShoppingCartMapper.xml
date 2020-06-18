@@ -3,6 +3,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.care.mybatis.orderMapper.ShoppingCartMapper">
+	<!-- 회원탈퇴 시 해당 유저 정보 삭제  -->
+	<delete id="suserDelete" parameterType="dto">
+		delete from shoppingcart where id=#{id}
+	</delete>
 	
 	<!--장바구니 DB에 값을 저장-->
 	<insert id="insertcart" parameterType="Sdto" >
@@ -41,7 +45,7 @@
 	
 	<!-- 장바구니 옵션 변경 -->
 	<update id="cartoptionchange" parameterType="Sdto">
-		update shoppingcart set ordersize=#{ordersize}, count=#{count} where id=#{id} and code=#{code}
+		update shoppingcart set ordersize=#{ordersize}, count=#{count}, price=#{price} where id=#{id} and code=#{code}
 	</update>
 	
 	<!-- 페이징 처리 후 장바구니 조회 -->

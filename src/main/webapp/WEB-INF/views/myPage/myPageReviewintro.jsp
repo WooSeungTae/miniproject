@@ -13,7 +13,8 @@
 	}
 	.membertable th,td{
 		border-bottom : 1px solid #d2d2d2;
-		padding: 10px;
+		padding: 20px;
+		padding-right: 35px;
 	}
 	.membertable a{
 		text-decoration: none;
@@ -94,12 +95,12 @@
 					</select>
 				</div>
 				 <table class="membertable" >
-					<tr class="tablehead"><th>번호</th><th>상품 정보</th><th style="width: 500px;">제목</th><th>작성자</th><th>작성일</th></tr>
+					<tr class="tablehead"><th>번호</th><th>상품 정보</th><th style="width: 200px;">제목</th><th>작성자</th><th>작성일</th></tr>
 					<c:choose>
 						<c:when test="${size ne 0}">
 							<c:forEach items="${viewAll }" var="dto">
 							<tr align="center"><td>${dto.reviewnum}</td><td><a href="productdetail?code=${dto.code}">${dto.code}<br>${dto.codename}</a></td>
-							<td><a href="reviewsearch?reviewnum=${dto.reviewnum}">${dto.reviewtitle}</a></td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
+							<td><a href="myreview?reviewnum=${dto.reviewnum}">${dto.reviewtitle}</a></td><td>${dto.name }</td><td>${dto.writeDate}</td></tr>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>

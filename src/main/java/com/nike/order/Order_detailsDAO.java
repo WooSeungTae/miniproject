@@ -23,7 +23,11 @@ public class Order_detailsDAO {
 	}
 	/* 주문내역 및 배송현황 페이지 - 배송 상태 */
 	public void delivery(Order_detailsDTO Ddto) {
+		System.out.println("-------디테일 dao 시작");
+		System.out.println("주문취소내용 : "+Ddto.getDelivery());
+		System.out.println("오더넘버 : "+ Ddto.getOrdernum());
 		sqlSession.update(namespace+".delivery",Ddto);
+		System.out.println("-------디테일 dao 끝");
 	}
 	/* 주문내역 및 배송현황 조회 */
 	public List<Order_detailsDTO> orderList_num(String ordernum) {
@@ -34,5 +38,10 @@ public class Order_detailsDAO {
 	public void sizeDelete(Order_detailsDTO Ddto) {
 		sqlSession.update(namespace+".sizeDelete",Ddto);
 	}
+	//최근 주문 내역 페이지
+		public List<Order_detailsDTO> myPage1(String id) {
+			return sqlSession.selectList(namespace+".myPage1", id);
+		}
+
 
 }

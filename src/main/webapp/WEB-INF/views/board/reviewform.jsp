@@ -181,7 +181,7 @@
 	</header>
 	<section class="wrapper">
 	<div align="center">
-		<h1>상품 리뷰 작성하기</h1>
+		<h1>상품 리뷰</h1>
 		<div style="margin-bottom:20px; height:20px;">
 		</div>
 			<form action="reviewmodify" enctype="multipart/form-data" method="post">

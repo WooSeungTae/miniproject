@@ -93,8 +93,31 @@
 	padding: 15px;
 
 }
+#checkOutButton {
+  background-color: #e9e9e9; /* Green */
+  border: none;
+  color: black;
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight : 900;
+  border-radius: 8px;
+  box-shadow: 5px, 5px,5px,0px;
+}
+
+/*장바구니 글씨 css*/
+#cartcss{
+	text-decoration: none;
+	color: black;
+}
+#cartcss:visited{
+	text-decoration: none;
+	color: black;
+}
 
 </style>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
 	var price = ${totalmoney};
@@ -179,7 +202,7 @@
 			mile=s;
 			document.getElementById("mile").value=mile1;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
-			mile1 = 0;
+			
 		};
 		if(checkDely==1){
 			mile=mile1;
@@ -188,6 +211,7 @@
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
+			alert('선택하신 마일리지는 '+mile+'점으로 총결제 금액에서 차감합니다.')
 		}else{
 			mile=mile1;
 			total=price-mile;
@@ -195,6 +219,7 @@
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
+			alert('선택하신 마일리지는 '+mile+'점으로 총결제 금액에서 차감합니다.')
 		}
 		
 		}
@@ -237,6 +262,26 @@
 		var changeName = firstName + lastName;
 		document.getElementById(imgId).src = changeName;
 		console.log(changeName);
+	}
+	
+	/*주소검색*/
+	function addrsearch(){
+	   new daum.Postcode({
+	       oncomplete: function(data) {
+	    	   document.getElementById("addr").value=data.jibunAddress;
+	    	   console.log(data.jibunAddress);
+	    /*
+               alert(data.userSelectedType) // (J : 지번 , R : 도로명)
+               alert(data.jibunAddress)     // (지번 풀주소 반환)
+              alert(data.sido);            // 시반환(서울특별시)
+              alert(data.sigungu);         // 구반환(은평구) 
+              alert(data.bname);           // 동반환(갈현동)
+              alert(data.postcode);        // 우편번호 반환(6자리)
+              alert(data.zonecode);        // 우편번호 반환(5자리)
+              */
+	       },
+	       //shorthand : false 
+	   }).open();
 	}
 </script>
 
@@ -371,10 +416,8 @@
 					<!-- 배송주소-->
 					<div>
 						배송주소<br>
-						<div style="float: left; width: 80%;">
-							<input type="text" placeholder="예)문래동 강서타워, 선유로82">
-						</div>
-						<div style="float: left; width: 20%;">검색</div>
+						<div style="float: left; width: 100%;">
+							<input type="text" style="width: 30%;" placeholder="주소"> <span id="checkOutButton" onclick='addrsearch()'>주소검색</span></div>
 						<div>
 							<c:if test="${sessionScope.id!=null}"><input style="width: 90%;" id = "addr" name="addr" type="text" value="${searchId.address}" placeholder="나머지 주소 입력"></c:if>
 							<c:if test="${sessionScope.id==null}"><input style="width: 90%;" id = "addr" name="addr" type="text" value="" placeholder="나머지 주소 입력"></c:if>
@@ -416,7 +459,7 @@
 					<div>
 					<c:if test="${sessionScope.id!=null}"><b>보유 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" value="${searchId.mile}"> 점</b><br></c:if>
 					<c:if test="${sessionScope.id==null}"><b>보유 마일리지 &nbsp;&nbsp;<input style="text-align: right;" type="text" value="회원전용"> 점</b><br></c:if>
-					<c:if test="${sessionScope.id!=null}"><b>사용 마일리지 &nbsp;&nbsp;<input id="mile" name="mile" style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" value="0"> 점 </b> <input type="button" value="적용" onclick="mileSet()"></c:if>
+					<c:if test="${sessionScope.id!=null}"><b>사용 마일리지 &nbsp;&nbsp;<input id="mile" name="mile" style="text-align: right;" type="text" placeholder="사용할 마일리지를 적어주세요" value="0"> 점 </b> <input type="button" id='checkOutButton' value="적용" onclick="mileSet()"></c:if>
 					</div>
 					<hr style="width: 100%;">
 					
@@ -435,6 +478,7 @@
 						</fieldset>						 
 					</div>
 					<br>
+					<br> <a href="cart" id="cartcss">장바구니 바로가기</a><br>
 					<br>
 					<!--  결제 클릭 -->
 					<div onclick='submitbuy()' id="buy" class="buy" >
@@ -443,7 +487,6 @@
 										document.write(price.toLocaleString()+' 원 결제');
 									</script>
 					</div>
-					<br> <a href="cart">장바구니로 이동</a><br>
 
 				</section>
 			</div>

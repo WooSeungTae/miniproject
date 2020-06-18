@@ -3,6 +3,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.care.mybatis.orderMapper.orderMapper">
+
+	<!-- 회원탈퇴 시 해당 유저 정보 삭제  (orderInfo table)-->
+	<delete id="ouserDelete" parameterType="dto">
+		delete from orderInfo where id=#{id} 
+	</delete>
+	
+	<!-- 회원탈퇴 시 해당 유저 정보 삭제  (orderDetailsInfo table)-->
+	<delete id="oduserDelete" parameterType="dto">
+		delete from orderDetailsInfo where id=#{id}
+	</delete>
+	
+	<!-- 최근 주문 내역  -->
+	<select id="myPage1" resultType="Ddto" parameterType="String">
+		select * from orderDetailsInfo where id=#{id}
+	</select>
+
 	<!-- orderInfo 테이블에 저장 -->
 	<insert id="buyRegister" parameterType="Odto">
 		insert into orderInfo (name,tel,addr,ordermemo,ordertype,bankname,bank,id,totalprice,ordernum,mile) 
@@ -37,8 +53,8 @@
 		select * from orderInfo where id=#{id}
 	</select>
 	<!-- 주문 확인클릭시 수정 -->
-	<update id="deliveryChange" parameterType="String">
-		update orderInfo set delivery=#{delivery} where orderNum=#{ordernum}
+	<update id="deliveryChange" parameterType="Odto">
+		update orderInfo set delivery='주문취소' where ordernum='Order0615213919'
 	</update>
 
 	<!--
@@ -62,17 +78,17 @@
 	  주문내역 및 배송현황 페이지 결제건 조회 + 주문내역 상세페이지
 	 [주문번호,주문일자,상품코드,상품이름,배송상태:입금중,수량,사이즈,이미지,가격] -->
 	<select id="orderList_num" parameterType="String" resultType="Ddto">
-		select * from orderDetailsInfo where ordernum=#{ordernum}
+		select * from orderDetailsInfo where orderNum=#{ordernum}
 	</select>
 	<!-- 
 	  주문내역 상세페이지 - 주문자 및 결제정보
 	 [주문자이름,전화번호,주소,배송메모,배송타입,은행,계좌,총가격,마일리지] -->
 	<select id="orderView_num" parameterType="String" resultType="Odto">
-		select * from orderInfo where ordernum=#{ordernum}
+		select * from orderInfo where orderNum=#{ordernum}
 	</select>
 	<!-- 주문내역 및 배송현황 페이지 - 배송 상태 변경-->
-	<update id="delivery">
-		update orderDetailsInfo set delivery=#{delivery} where orderNum=#{ordernum}
+	<update id="delivery" parameterType="Ddto" >
+		update orderDetailsInfo set delivery='주문취소' where orderNum=#{ordernum}
 	</update>
 </mapper>
 

@@ -14,11 +14,11 @@
 	</update>
  	<!-- 회원가입 정보 입력 받기 -->
 	<insert id="saveUserInfo" parameterType="dto">
-		insert into memberinfo(id,pwd,name,tel,birth) values(#{id},#{pwd},#{name},#{tel},#{birth})
+		insert into memberinfo(id,pwd,name,address,tel,birth,question,gender,mile,answer) values(#{id},#{pwd},#{name},#{address},#{tel},#{birth},#{question},#{gender},2000,#{answer})
 	</insert>
 	
 	<select id="loginChk" parameterType="dto" resultType="dto">
-		select * from memberinfo where id=#{id}
+		select * from memberinfo where id=#{id} and pwd=#{pwd}
 	</select>
 	
 	<!-- 회원정보 수정 -->
@@ -34,7 +34,10 @@
 	<update id="mileageModify" >
 		update memberInfo set mile=mile-#{mile} where id=#{id}
 	</update>
-
+	<!--  마일리지 적립 -->
+	<update id="mileageBuy" >
+		update memberInfo set mile=mile+(#{totalprice}*0.1) where id=#{id}
+	</update>
 	<!-- 회원정보수정을 위한 회원정보조회 -->
 	<select resultType="dto" id="account" parameterType="String">
 		select * from memberinfo where id=#{id} 

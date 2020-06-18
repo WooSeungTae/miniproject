@@ -50,7 +50,10 @@ public class OrderService {
 //			System.out.println("작은거 확인");
 //			return;
 //		}
-		if(id!=null) {dao.mileageModify(dto);}
+		if(id!=null) {
+			dao.mileageModify(dto);
+			dao.mileageBuy(Odto);
+		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
 		Odao.buyRegister(Odto);
@@ -66,6 +69,7 @@ public class OrderService {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
 		if(id!=null) {dao.mileageModify(dto);
+					dao.mileageBuy(Odto);
 		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);
@@ -143,6 +147,7 @@ public class OrderService {
 	}
 	/*주문 관리 물품 확인, 취소 기능*/
 	public void deliveryChange(OrderDTO Odto) {
+		System.out.println("서비스 실행");
 		Odao.deliveryChange(Odto);
 	}
 	/*주문 관리 물품 하나만 검색해 가져오기*/
@@ -168,11 +173,20 @@ public class OrderService {
 	}
 	/* 주문내역 및 배송현황 페이지 - 배송 상태 */
 	public void delivery(Order_detailsDTO Ddto) {
+		System.out.println("-----오더 서비스 실행시작");
+		System.out.println("오더 서비스 주문취소내용 : "+Ddto.getDelivery());
+		System.out.println("오더 서비스 오더넘버 : "+ Ddto.getOrdernum());
 		Ddao.delivery(Ddto);
+		System.out.println("-----오더 서비스 실행끝");
 	}
 	/*장바구니 관리 물품 일정량만 가져옴(페이징 기능)*/
 	public List<ShoppingCartDTO> cartpaging(Cart_PagingVO cpvo) {
 		return Odao.cartpaing(cpvo);
 	}
+
+	//최근 주문 내역 페이지
+		public List<Order_detailsDTO> myPage1(String id) {
+			return Ddao.myPage1(id);
+		}
 	
 }

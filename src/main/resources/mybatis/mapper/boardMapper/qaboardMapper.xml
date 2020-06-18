@@ -9,7 +9,7 @@
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
 		FROM QABOARD where
-		code=#{code} ORDER BY writeDate
+		code=#{code} ORDER BY writeDate DESC
 		)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -40,9 +40,9 @@
 
 	<!-- Q&A 게시물 등록 -->
 	<insert id="qaregister">
-		insert into qaboard ('qa'||indexnum,id,code,codename,name,titlelist,title,content)
+		insert into qaboard (indexnum,id,code,codename,name,titlelist,title,content)
 		values
-		(indexnumber.nextval,#{id},#{code},#{codename},#{name},#{titlelist},#{title},#{content})
+		('qa'||indexnumber.nextval,#{id},#{code},#{codename},#{name},#{titlelist},#{title},#{content})
 
 	</insert>
 	<!-- Q&A게시물 상세 보기 -->

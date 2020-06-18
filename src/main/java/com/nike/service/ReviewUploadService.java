@@ -13,8 +13,8 @@ public class ReviewUploadService {
 	// 리눅스 기준으로 파일 경로를 작성 ( 루트 경로인 /으로 시작한다. )
 	// 윈도우라면 workspace의 드라이브를 파악하여 JVM이 알아서 처리해준다.
 	// 따라서 workspace가 C드라이브에 있다면 C드라이브에 upload 폴더를 생성해 놓아야 한다.
-	private static final String SAVE_PATH = "C:\\12월취업반정선주\\project_workspace\\miniproject\\src\\main\\webapp\\reviewimage";
-	private static final String SAVE_PATH2 = "C:\\12월취업반정선주\\project_workspace\\miniproject\\src\\main\\webapp";
+	private static final String SAVE_PATH = "D:\\Java\\projectWorkSpace\\miniproject\\src\\main\\webapp\\reviewimage";
+	private static final String SAVE_PATH2 = "D:\\Java\\projectWorkSpace\\miniproject\\src\\main\\webapp";
 	private static final String PREFIX_URL = "reviewimage/";
 	
 	public String restore(MultipartFile multipartFile) {

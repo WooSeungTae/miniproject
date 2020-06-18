@@ -80,7 +80,7 @@
 		SELECT *
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where (gender='남자' or gender='공용') ORDER BY joindate,
+		FROM product where (gender='남자' or gender='공용') ORDER BY joindate DESC,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -89,7 +89,7 @@
 		SELECT * FROM (SELECT
 		ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where (gender='여자' or gender='공용') ORDER BY joindate,
+		FROM product where (gender='여자' or gender='공용') ORDER BY joindate DESC,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -98,7 +98,7 @@
 	<select id="AllListKids" resultType="Pdto">
 		SELECT * FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where gender='키즈' ORDER BY joindate,
+		FROM product where gender='키즈' ORDER BY joindate DESC,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -109,7 +109,7 @@
 			SELECT *
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate,
+		FROM product where (gender='남자'or gender='공용') and category=#{category} ORDER BY joindate DESC,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -119,7 +119,7 @@
 			SELECT *
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where (gender='여자'or gender='공용') and category=#{category} ORDER BY joindate,
+		FROM product where (gender='여자'or gender='공용') and category=#{category} ORDER BY joindate DESC,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -129,7 +129,7 @@
 			SELECT *
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where gender='키즈' and category=#{category} ORDER BY joindate,
+		FROM product where gender='키즈' and category=#{category} ORDER BY joindate DESC,
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -149,7 +149,7 @@
 					SELECT *
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
-		FROM product where upper(codename) like '%'||#{codename}||'%' ORDER BY joindate,
+		FROM product where upper(codename) like '%'||#{codename}||'%' ORDER BY joindate DESC, 
 		codename)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
@@ -191,7 +191,7 @@
 	</select>
 	<!-- 검색어 입력하여 신발 찾기 -->
 	<select id="searchProduct" resultType="int">
-		select count(*) from product where upper(codename) like '%'||#{codename}||'%'
+		select count(*) from product where upper(codename) like '%'||#{codename}||'%' ORDER BY joindate DESC
 	</select>
 
 	<!-- 장바구니에 대표사진 저장하는 기능-->

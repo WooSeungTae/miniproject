@@ -46,7 +46,7 @@
       });
       $(".rightTop_admin_menu ul li:has(ul)")
          .find("a:first")
-         .append("<p style='float:right;margin:-3px'>&#9656;</p>");
+         .append("<p style='float:left;margin:-3px'>&#9656;</p>");
 
       $(".rightTop_admin_menu li>a").click(function(){
          var li = $(this).parent();
@@ -252,7 +252,12 @@
 									<ul>
 										<li style="padding-top: 18px; margin-left: -10px;"><a href="/nike/inventory" style="color:black;">상품관리</a></li>
 										<li style="padding-top: 6px; margin-left: -10px;"><a href="/nike/customer_care" style="color:black;">고객관리</a></li>
-										<li style="padding-top: 6px; margin-left: -10px;"><a href="/nike/board_care" style="color:black;">게시판관리</a></li>
+										<li style="padding-top: 6px; margin-left: -10px;"><a style="color:black;">게시판관리</a>
+											<ul>
+												<li><a href="">Review</a></li>
+												<li><a href="">Q & A</a></li>
+											</ul>
+										</li>
 										<li style="padding-top: 6px; margin-left: -10px;"><a href="/nike/order_care" style="color:black;">주문관리</a></li>
 										<li style="padding-top: 6px; margin-left: -10px;"><a href="/nike/product_management" style="color:black;">상품등록</a></li>
 										<li style="padding-top: 6px; margin-left: -10px;"><a href="/nike/logout" style="color:black;">로그아웃</a></li>
