@@ -10,14 +10,14 @@
 
 /*첫 메인 사진*/
 	.img_main{
-	background:url('image/NikeMain.png');
-	background-size: cover;
-	width: 94%;
-	height: 700px;
-	margin-top: -7px;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 80px;
+		background:url('image/NikeMain.png');
+		background-size: cover;
+		width: 94%;
+		height: 700px;
+		margin-top: -7px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 80px;
 	}
 	
 /*사진 가로정렬 3개*/
@@ -78,8 +78,8 @@
 </style>
 </head>
 <body>
-<c:import url="/header"></c:import>
-	<div style="width: 100%; margin: auto; padding-bottom: 100px; margin-top: 132px;">
+<c:import url="/header"/>
+	<div style="width: 100%; margin: auto; margin-top: 132px;">
 		<div class="img_main"></div>
 		<div class="parent">
 			<div class="first">
@@ -104,12 +104,10 @@
 				</a>
 			</div>
 		</div>
-		<div class="comboImg">
-			<a href="#">
-				<img src="image/comboImg.png">
-			</a>
+		<div align="center">
+			<img src="image/comboImg.png" class="comboImg">
 		</div>
 	</div>
-<c:import url="/footer"></c:import>
+<c:import url="/footer"/>
 </body>
 </html>

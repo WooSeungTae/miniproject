@@ -45,14 +45,14 @@
 		background-color: black; 
 		height: 520px;
 		position:static; 
-		margin-top: 250px;
+		margin-top: 120px;
 	}
 	.footer_border{
-	border-bottom: solid 0.5px #808080;
+		border-bottom: solid 0.5px #808080;
 	}
 	html,body {
-	margin: 0;
-	padding: 0;
+		margin: 0;
+		padding: 0;
 	}
 
 </style>

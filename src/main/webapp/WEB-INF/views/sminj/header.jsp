@@ -291,7 +291,7 @@
 				<div id="header_nav_div">
 					<span class="swoosh_span">
 						<input type="image" class="swoosh_input" src="/nike/image/NikeSwoosh.png" 
-							   onclick="location.href='/nike/main'">
+							   onclick="location.href='/nike/'">
 					</span>
 					<span class="navMenu_span">
 						<ul class="nav_menu">

@@ -19,7 +19,7 @@
 	}
 	.pwdSuccess_center{
 	text-align:center;
-	margin-bottom: -90px;
+	margin-top: 200px;
 	}
 	.pwdSuccess_margin{
 	margin-top: 70px;
@@ -37,7 +37,7 @@
 <body style="width:100%; margin:auto;">
 <header><c:import url="/header"></c:import></header>
 <section>
-	<form action="/nike/main">
+	<form action="/nike/">
 		<div class="pwdSuccess_center">
 			<div class="pwdSuccess_margin">
 				<div>

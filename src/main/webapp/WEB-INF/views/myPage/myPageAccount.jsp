@@ -5,134 +5,113 @@
 <html>
 <head>
 	<style>
-		.wrapper{
-			font-family:"Noto Sans KR", "Malgun Gothic", "MalgunGothic" "Dotum", Helvetica, Arial, sans-serif;
-			color:#111;
-			height:550px;
+		/* 페이지 설정 */
+		.detail_div{
+			width:70%;
+			float:left;
 		}
-		.customer-contents{
-			width:(100% - 265px); margin-top:-24px; margin-left:20px;
-			
+		.wrap{
+			margin-left: 15%;
+			margin-right: 10%;
+			margin-top: 160px;
 		}
-		.title{
-			font-size:23px; color:#111111; font-weight:bold; align:center;
+		.pwd_gap{
+			margin-bottom: -10px;
 		}
-		.uk-grid{
+		.pwd_modify_font{
+			font-size: 11px;
+			font-weight:bold;
+		    color: #5D5D5D;
 		}
-		.uk-width-medium{
-			width:50%;
-		}
-		.uk-form-label{
-			display:block; margin-bottom:8px; font-size:11px;
-		}
-		.input-textfield{
-			width:100%;
-		}
-		.text1{
-			background-color:#eeeeee;
-			color:#a5a5a5;
-			width:550px;
-			border-radius:2px;
-		}
-		.text2{
-			width:550px;
-			border-radius:2px;
-		}
-		.uk-form-row{
+		.pwd_modify_input{
+			width: 400px;
+			height: 35px;
 			margin-top:10px;
+			text-indent:10px;
+			border: 1px solid #e8ebed;
+			background-color: #eeeeee;
+			border-radius: 2px;
+			color: #a5a5ac;
 		}
-		.uk-button{
-			margin-top:20px;
+		.pwd_modify_new{
+			width: 400px;
+			height: 35px;
+			margin-top:10px;
+			font-size:13px;
+			font-weight:bold;
+			text-indent:10px;
+			border: 1px solid #e8ebed;
+			border-radius: 2px;
+			color: #606060;
 		}
-		.submit{
-			height:48px;
-			font-size:15px;
-			padding:16px 50px;
-			color:#fff;
-			background-color:#000000;
-			cursor:pointer;
-			border-radius:2px;
-			width:550px;
+		.pwd_modify_button{
+			background-color: black;
+			border-color: black;
+			color: white;
+			font-size: 16px;
+			width: 400px;
+			height: 45px;
+			border-radius: 1.5px;
 		}
-		.input-form-group{
-			width:550px;
+		.pwd_modify_font{
+			font-size: 11px;
+			font-weight:bold;
+		    color: #5D5D5D;
+		}
+		.member_delete_font{
+			font-size: 13px;
+			font-weight: bold;
 		}
 	</style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>개인정보수정 - 나이키</title>
 </head>
 <body>
-	<header>
-		<c:import url="/header">
-		</c:import>
-	</header>
-	<section class="wrapper">
-		<div style="width: 85%; margin: auto; padding-top: 80px; float:right;">
-		<aside>
-			<c:import url="/aside">
-			</c:import>
-		</aside>
-			<div class="customer-contents" >
-				<h2 class="title">회원정보 수정</h2>	
-					<div>
-						<div class="uk-grid">
-							<div class="uk-width-medium">
-								<div class="dynamic-form">
-									<form action="memberinfoModify" method="post">
-										<div class="uk-form-row">
-											<label class="uk-form-label">아이디</label>
-											<div class="input-textfield">
-												<input class="text1" type="text" id="id" name="id" readonly="readonly" value="${dto.id }">
-											</div>
-										</div>
-										<div class="uk-form-row">
-											<label class="uk-form-label">이름</label>
-											<div class="input-textfield">
-												<input class="text1" type="text" id="name" name="name" readonly="readonly" value="${dto.name }">
-											</div>
-										</div>
-										<div class="uk-form-row">
-											<label class="uk-form-label">주소</label>
-											<div class="input-textfield">
-												<input class="text2" type="text" id="address" name="address" value="${dto.address }">
-											</div>
-										</div>
-										<div class="uk-form-row">
-											<label class="uk-form-label">휴대폰</label>
-											<div class="input-textfield">
-												<input class="text2" type="text" id="tel" name="tel" value="${dto.tel }">
-											</div>
-										</div>
-										<div class="uk-form-row">
-											<div class="input-form-group">
-												<span class="input-checkbox">
-													<input type="checkbox" id="receiveEmail" name="receiveEmail" checked="checked">
-													<span class="label">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다.(선택)</span>
-												</span>
-											</div>
-										</div>
-										<div class="uk-form-row">
-											<div class="input-form-group">
-												<span class="input-checkbox">
-													<input type="checkbox" id="receiveEmail" name="receiveEmail" checked="checked">
-													<span class="label">휴대폰을 통한 상품 및 할인쿠폰 등의 정보 수신에 동의합니다.(선택)</span>
-												</span>
-											</div>
-										</div>
-										<div class="uk-button">
-											<button class="submit" type="submit">수정하기</button>
-										</div>
-									</form>
-								</div>
-							</div>
+<c:import url="/header"/>
+<section>
+	<div class="wrap">
+		<c:import url="/aside"/>
+			<div class="detail_div">
+				<h2>회원정보 수정</h2>	
+					<form action="memberinfoModify" method="post">
+				<!-- 아이디, 이름 -->		
+						<div class="pwd_gap">
+							<label class="pwd_modify_font">아이디</label><br>
+							<input class="pwd_modify_input" type="text" id="id" name="id" readonly="readonly" value="${dto.id }"><br><br>
 						</div>
-					</div>
+						<div class="pwd_gap">
+							<label class="pwd_modify_font">이름</label><br>
+							<input class="pwd_modify_input" type="text" id="name" name="name" readonly="readonly" value="${dto.name }"><br><br>
+						</div>
+				<!-- 수정할 부분 -->
+						<div class="pwd_gap">
+							<label class="pwd_modify_font">주소</label><br>
+								<input class="pwd_modify_new" type="text" id="address" name="address" value="${dto.address }"><br><br>
+						</div>
+						<div class="pwd_gap">
+							<label class="pwd_modify_font">휴대폰</label><br>
+							<input class="pwd_modify_new" type="text" id="tel" name="tel" value="${dto.tel }"><br><br>
+						</div>
+				<!-- 체크박스 -->
+						<div style="margin-top: 10px;">
+							<span class="input-checkbox">
+								<input type="checkbox" id="receiveEmail" name="receiveEmail" checked="checked">
+								<span class="member_delete_font">이메일을 통한 상품 및 이벤트 정보 수신에 동의합니다.(선택)</span>
+							</span>
+						</div>
+						<div style="margin-top: 10px; margin-bottom: 10px;">
+							<span class="input-checkbox">
+								<input type="checkbox" id="receiveEmail" name="receiveEmail" checked="checked">
+								<span class="member_delete_font">휴대폰을 통한 상품 및 할인쿠폰 등의 정보 수신에 동의합니다.(선택)</span>
+							</span>
+						</div><br>
+							<button type="submit" class="pwd_modify_button">수정하기</button>
+					</form>
 				</div>
 			</div>
-		</section>
-		<footer>
-			<c:import url="/footer">
-			</c:import>
-		</footer>
+</section>
+	<div style="float: left; width:100%;">
+		<c:import url="/footer"/>
+	</div>
 </body>
 </html>
