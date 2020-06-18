@@ -53,6 +53,7 @@ import com.nike.board.SearchBoardDTO;
 import com.nike.board.QABoardDTO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
+import com.nike.memberInfo.Mileage_PagingVO;
 import com.nike.order.OrderDTO;
 import com.nike.order.Order_detailsDTO;
 import com.nike.order.Cart_PagingVO;
@@ -701,11 +702,25 @@ public class HomeController {
 	
 	/*留덉씪由ъ� 議고쉶*/
 	@RequestMapping("mileage")
-	public String mileage(Model model, HttpServletRequest request) {
+	public String mileage(Mileage_PagingVO mvo, Model model, HttpServletRequest request,
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage", required=false)String cntPerPage) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("mile", service.mileage(id));
-		model.addAttribute("milelist", service.mileagelist(id));
+		int total = service.mileagelistcount(id);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		System.out.println("=============================================================" + total);
+		mvo = new Mileage_PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", mvo);
+		model.addAttribute("milelist", service.mileagelist(mvo));
 		return "myPage/myPageMileage";
 	}
 	

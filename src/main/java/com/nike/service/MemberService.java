@@ -11,6 +11,7 @@ import com.nike.memberInfo.MemberInfoDAO;
 import com.nike.memberInfo.MemberInfoDTO;
 import com.nike.memberInfo.MemberInfo_PagingVO;
 import com.nike.memberInfo.MileageDTO;
+import com.nike.memberInfo.Mileage_PagingVO;
 @Service
 public class MemberService {
 	@Autowired
@@ -114,7 +115,11 @@ public class MemberService {
 		dao.mileageupdate2(dto);
 	}
 	/*mileage 테이블 정보가져오기*/
-	public List<MileageDTO> mileagelist(String id) {
-		return dao.mileagelist(id);
+	public List<MileageDTO> mileagelist(Mileage_PagingVO mvo) {
+		return dao.mileagelist(mvo);
+	}
+
+	public int mileagelistcount(String id) {
+		return dao.mileagelistcount(id);
 	}
 }

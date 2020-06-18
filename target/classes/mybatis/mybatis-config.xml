@@ -20,6 +20,8 @@
 		<typeAlias type="com.nike.board.SearchBoardDTO" alias="SBdto"/>
 		<typeAlias type="com.nike.order.OrderCare_PagingVO" alias="OCdto"/>
 		<typeAlias type="com.nike.memberInfo.MileageDTO" alias="mdto"/>
+		<typeAlias type="com.nike.memberInfo.Mileage_PagingVO" alias="mvo"/>
+		
 	</typeAliases>
 </configuration>
 

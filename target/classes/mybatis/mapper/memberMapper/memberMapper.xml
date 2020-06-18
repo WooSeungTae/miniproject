@@ -3,6 +3,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.memberMapper.memberMapper">
+	<select id="mileagelistcount" parameterType="String" resultType="Integer">
+		select count(*) from mileage where id=#{id}
+	</select>
+	
+	
 	<!--구매시 마일리지 테이블에 insert-->
 	<insert id="mileagetablebuy" parameterType="Odto">
 		insert into mileage(id,savemileage,savedate,savereason) values(#{id},#{totalprice}*0.1,sysdate,'구매해 주셔서 감사합니다.')
@@ -14,8 +19,17 @@
 	</insert>
 	
 	<!-- mileage 테이블 정보가져오기-->
-	<select id="mileagelist" parameterType="String" resultType="mdto">
-		select * from mileage where id=#{id} order by savedate desc
+	<select id="mileagelist" parameterType="mvo" resultType="mdto">
+		SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+					FROM (
+							SELECT * 
+							FROM mileage 
+							ORDER BY savedate DESC 
+							) A
+					)
+		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
 	<!-- 로그인 마일리지 100점-->

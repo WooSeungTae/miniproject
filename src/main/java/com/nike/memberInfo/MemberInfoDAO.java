@@ -135,8 +135,8 @@ public class MemberInfoDAO {
 		
 	}
 	/*mileage 테이블 정보가져오기*/
-	public List<MileageDTO> mileagelist(String id) {
-		return sqlSession.selectList(namespace+".mileagelist", id);
+	public List<MileageDTO> mileagelist(Mileage_PagingVO mvo) {
+		return sqlSession.selectList(namespace+".mileagelist", mvo);
 	}
 	/*구매시 마일리지 테이블에 insert*/
 	public void mileagetablebuy(OrderDTO odto) {
@@ -147,6 +147,10 @@ public class MemberInfoDAO {
 	public void mileagetablebuy2(OrderDTO odto) {
 		sqlSession.insert(namespace+".mileagetablebuy2", odto);
 		
+	}
+
+	public int mileagelistcount(String id) {
+		return sqlSession.selectOne(namespace+".mileagelistcount", id);
 	}
 
 }

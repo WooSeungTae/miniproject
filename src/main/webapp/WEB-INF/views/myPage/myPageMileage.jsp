@@ -37,7 +37,8 @@
 			width: 150px;
 			height: 135px;
 		}
-	
+		
+		
 		td, th{
 			font-size: 11px;
 		}
@@ -63,6 +64,21 @@
 			color:#848484;
 			margin-top: 5px;
 		}
+		/*페이지 div부분*/
+		.pagingdiv{text-align: center; margin: 10px;}
+		.paging{display: inline-block;}
+		.paging a{
+			color: black;
+			float: left;
+			padding: 8px 16px;
+			text-decoration: none;
+			transition: background-color .3s;
+		}
+		.paging a.active{
+		background-color: black;
+		color: white;
+		}
+		.paging a:hover:not(.active) {background-color: #ddd;}
 	</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -108,6 +124,26 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			</div>
+			<div class="pagingdiv" style="margin-left:-300px;">
+			<div class="paging">		
+				<c:if test="${paging.startPage != 1 }">
+					<a href="mileage?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">이전</a>
+				</c:if>
+				<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+					<c:choose>
+						<c:when test="${p == paging.nowPage }">
+							<a class="active">${p }</a>
+						</c:when>
+						<c:when test="${p != paging.nowPage }">
+							<a href="mileage?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+						</c:when>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${paging.endPage != paging.lastPage}">
+					<a href="mileage?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">다음</a>
+				</c:if>
+			</div>
 			</div>
 		</div>
 	</section>
