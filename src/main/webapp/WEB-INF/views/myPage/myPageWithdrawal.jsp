@@ -42,6 +42,22 @@
 	}
 	
 </style>
+<script type="text/javascript">
+function delete_btn() {
+	  
+	if(!document.memberout.agree.checked){
+		alert("회원 탈퇴 동의를 체크해주세요.")
+		return false;
+	}
+	var con = confirm("정말 탈퇴하시겠습니까?");
+	console.log(con);
+	if(con){
+		fo.submit
+	}else {
+		return false;
+	}
+}
+</script>
 </head>
 <body>
 <header><c:import url="/header"></c:import></header>
@@ -49,7 +65,7 @@
 		<c:import url="/aside"></c:import>
 	<div style="line-height: 170%;">
 		<h2>회원 탈퇴</h2>
-		<form action="/nike/userDelete">
+		<form id="fo" name="memberout" action="/nike/userDelete" onsubmit="return delete_btn()">
 			<div class="member_delete_font">회원탈퇴 사유</div>
 			<div class="member_delete_font2" style="margin-bottom: 10px;">
 				<input type="radio" name="reason" class="radiobtn"> 회원탈퇴 후 재가입을 위해서<br>
@@ -63,7 +79,7 @@
 			<br>
 			<div class="member_delete_font">회원 탈퇴 동의</div>
 			<div class="member_delete_font2">
-				<input type="checkbox"> 회원탈퇴 안내를 모두 확인하였으며 탈퇴에 동의합니다
+				<input type="checkbox" name="agree"> 회원탈퇴 안내를 모두 확인하였으며 탈퇴에 동의합니다
 			</div>
 			<br>
 			<input type="submit" value="탈퇴하기" name="userDelete" class="member_delete_input2">

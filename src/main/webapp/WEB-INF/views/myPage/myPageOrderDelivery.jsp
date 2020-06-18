@@ -54,6 +54,7 @@
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
+
 	function chageSrc(obj) {
 		var imgId = obj.id;
 		var imgName = obj.src;
@@ -66,7 +67,17 @@
 		console.log(changeName);
 	}
 
-
+		$(document).ready(function(){
+		$('.orderCancel').click(function(){
+			alert('확인 버튼을 클릭하면 주문이 취소됩니다.')
+			$('.delivery').val("주문취소");
+		});
+	
+		$('.orderFinish').click(function(){
+			alert('구매확정이 완료되었습니다.')
+			$('.delivery').val("배송완료");
+		});});
+		
 </script>
 <body>
 <c:set var="size" value="${orderList.size()}"/>
@@ -128,7 +139,7 @@
 							<p class="delivery">${orderList.delivery }</p>
 						</td>
 			<!-- 배송상태 변경 위한 버튼 -->		
-							<c:choose>
+						<c:choose>
 								<c:when test="${orderList.delivery eq '입금중' }">
 								<td>
 									<a href="orderdeliveryChange?ordernum=${orderList.ordernum }&delivery=주문취소">
@@ -154,6 +165,15 @@
 								</td>
 								</c:otherwise>
 							</c:choose>
+						<td class="deliveryChange">
+							<form role="form" method="post" class="deliveryForm">
+								<input type="hidden" name="ordernum" value="${orderList.ordernum }">
+								<input type="hidden" name="delivery" class="delivery" value="">
+							
+								<input type="button" class="orderCancel" value="주문취소" name="orderCancel" id="orderCancel"><br><br>
+							    <input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish">
+							</form>
+						</td>
 					</tr>
 					</c:forEach>
 				</tbody>
