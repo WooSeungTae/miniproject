@@ -9,7 +9,7 @@
 	a.INDEXNUM,a.code,a.ID,a.CODENAME,a.NAME,a.TITLE,a.TITLELIST,a.CONTENT,a.WRITEDATE,
 	b.indexcnt from QABOARD a,(select indexnum,count(*) indexcnt from
 	COMMENTTABLE GROUP by indexnum)b where a.INDEXNUM=b.INDEXNUM(+) and
-	code=#{code})c)WHERE RN BETWEEN #{start} AND #{end}
+	code=#{code} ORDER BY writeDate DESC )c)WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 코드별 Q &A 게시물 총갯수 -->

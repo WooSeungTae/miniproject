@@ -62,9 +62,45 @@
 			font-size: 13px;
 			font-weight: bold;
 		}
+		
+		/*주소검색 css*/
+	#checkOutButton {
+  background-color: #e9e9e9; /* Green */
+  border: none;
+  color: black;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight : 300;
+  border-radius: 8px;
+  box-shadow: 5px, 5px,5px,0px;
+}
 	</style>
 <meta charset="UTF-8">
 <title>개인정보수정 - 나이키</title>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+/*주소검색*/
+function addrsearch(){
+   new daum.Postcode({
+       oncomplete: function(data) {
+    	   document.getElementById("address").value=data.jibunAddress;
+    	   console.log(data.jibunAddress);
+    /*
+           alert(data.userSelectedType) // (J : 지번 , R : 도로명)
+           alert(data.jibunAddress)     // (지번 풀주소 반환)
+          alert(data.sido);            // 시반환(서울특별시)
+          alert(data.sigungu);         // 구반환(은평구) 
+          alert(data.bname);           // 동반환(갈현동)
+          alert(data.postcode);        // 우편번호 반환(6자리)
+          alert(data.zonecode);        // 우편번호 반환(5자리)
+          */
+       },
+       //shorthand : false 
+   }).open();
+}
+</script>
 </head>
 <body>
 <c:import url="/header"/>
@@ -84,8 +120,9 @@
 							<input class="pwd_modify_input" type="text" id="name" name="name" readonly="readonly" value="${dto.name }"><br><br>
 						</div>
 				<!-- 수정할 부분 -->
-						<div class="pwd_gap">
+						<div class="pwd_gap">					
 							<label class="pwd_modify_font">주소</label><br>
+								<input class="pwd_modify_new" type="text" placeholder="주소검색" style="width: 310px;"> <span id="checkOutButton" onclick='addrsearch()'>주소검색</span><br>
 								<input class="pwd_modify_new" type="text" id="address" name="address" value="${dto.address }"><br><br>
 						</div>
 						<div class="pwd_gap">
