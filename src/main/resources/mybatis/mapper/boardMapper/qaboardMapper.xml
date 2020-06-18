@@ -9,7 +9,7 @@
 		FROM (SELECT ROWNUM RN, A.*
 		FROM (SELECT *
 		FROM QABOARD where
-		code=#{code} ORDER BY writeDate
+		code=#{code} ORDER BY writeDate DESC
 		)A)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>

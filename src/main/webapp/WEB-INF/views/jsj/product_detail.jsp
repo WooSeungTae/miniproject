@@ -213,7 +213,7 @@
 						"<th style='width: 10%;'><img id='imgreview' src='/nike/"+result[i].image+"'></th>"+
 						"<th class='"+result[i].reviewnum+"' id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' onclick='reviewclick(this)'' >"+result[i].reviewtitle+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
-						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
+						"<th style='width: 10%;'>"+chahgeDate(result[i].writeDate)+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
 						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].reviewnum+result[i].reviewtitle+"qnanike'  colspan='5' style='display:none;'></tr>"
 		       		}
@@ -283,7 +283,7 @@
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th id='"+result[i].indexnum+"' style='width: 60%;' onclick='qna(this.id)'>"+result[i].title+"</th>"+
 						"<th style='width: 10%;'>"+result[i].name+"</th>"+
-						"<th style='width: 10%;'>"+result[i].writeDate+"</th>"+
+						"<th style='width: 10%;'>"+chahgeDate(result[i].writeDate)+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr></tr>"
 		       		}
 		       	}
@@ -412,7 +412,21 @@
    			location.href="/nike/reviewsearch?reviewnum="+obj.className;
    		}
    		
-
+		/*날짜 변환 함수*/
+		function chahgeDate(date){
+			date =  new Date(parseInt(date));
+			year = date.getFullYear();
+			month = date.getMonth();
+			day = date.getDate();
+			hour = date.getHours();
+			minute = date.getMinutes();
+			second = date.getSeconds();
+			strDate = year+"-"+month+"-"+day;
+			return strDate;
+			
+		}
+		
+		
 </script>
 <script type="text/javascript">
 		function buttoncheck(){

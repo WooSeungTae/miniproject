@@ -1079,7 +1079,6 @@ public class HomeController {
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {
 		bservice.qaregister(Qdto);
-		System.out.println("등록 실행");
 		return "redirect:myPage1";
 	}
 	/*Q&A 게시물 수정*/
