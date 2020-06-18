@@ -78,8 +78,17 @@
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 <c:import url="/header"/>
 	<div style="width: 100%; margin: auto; margin-top: 132px;">
+=======
+<c:import url="/header"></c:import>
+	<div style="margin:auto; padding-bottom: 100px; margin-top: 132px;">
+	<video width="95%" style="margin-left: 30px"  muted autoplay loop>
+		<source src="video/mainvideo.mp4" type="video/mp4">
+	</video></div>
+	<div style="width: 100%; margin: auto; padding-bottom: 100px;">
+>>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 		<div class="img_main"></div>
 		<div class="parent">
 			<div class="first">

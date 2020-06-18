@@ -21,9 +21,16 @@ public class ReviewDTO {
 	private int rating4 = 0;
 	private String image = " ";
 	private int rn;
+	private String indexcnt;
 	
 	
 	
+	public String getIndexcnt() {
+		return indexcnt;
+	}
+	public void setIndexcnt(String indexcnt) {
+		this.indexcnt = indexcnt;
+	}
 	public int getRn() {
 		return rn;
 	}

@@ -14,11 +14,21 @@ public class QABoardDTO {
 	private Date writeDate;
 	private Date modifyDate;
 	private String passwd;
+	private String indexcnt;
 	private int hit;
 	private int rn;
 	
 	
 
+
+
+	
+	public String getIndexcnt() {
+		return indexcnt;
+	}
+	public void setIndexcnt(String indexcnt) {
+		this.indexcnt = indexcnt;
+	}
 	public int getRn() {
 		return rn;
 	}

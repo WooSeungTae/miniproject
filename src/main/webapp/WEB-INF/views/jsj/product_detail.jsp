@@ -166,6 +166,18 @@
 	border-bottom: 1px solid #ddd;
 	height: 20px;
 }
+.bordertable1 {
+	margin: auto;
+	width: 80%;
+	min-width: 800px;
+	border-top: 1px solid #ddd;
+	border-collapse: collapse;
+}
+
+.bordertable1 tr {
+	border-bottom: 1px solid #ddd;
+	height: 50px;
+}
 
 /*리뷰타이틀*/
 #boardtitle {
@@ -178,6 +190,22 @@
 	width: 100%;
 	max-width: 80px;
 }
+
+/*페이지 div부분*/
+	.pagingdiv{text-align: center; margin: 10px;}
+	.paging{display: inline-block;}
+	.paging a{
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	}
+	.paging a.active{
+	background-color: black;
+	color: white;
+	}
+	.paging a:hover:not(.active) {background-color: #ddd;}
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
@@ -203,7 +231,8 @@
 			data : form,
 			success : function(result){
 				let html = "<table class='bordertable'>";
-				html += "<tr id='boardtitle'><th>번호</th><th colspan='2'>제목</th><th>작성자</th>"
+				html += "<tr style='border-top: 1px solid white;'><td colspan='5'<b>총"+${totalrv}+" 개의 리뷰가 등록되어있습니다.</b></td></tr><tr></tr>"
+				+"<tr id='boardtitle'><th>번호</th><th colspan='2'>제목</th><th>작성자</th>"
 				+"<th>작성일</th><th style='display: none;'>코드번호</th></tr>"		
 			 	if(result.length == 0){                
 		       		html+="<tr><th colspan='5' style='padding:30px;'>리뷰가 없습니다.</th></tr>"
@@ -211,26 +240,30 @@
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
 						"<th style='width: 10%;'><img id='imgreview' src='/nike/"+result[i].image+"'></th>"+
-						"<th class='"+result[i].reviewnum+"' id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' onclick='reviewclick(this)'' >"+result[i].reviewtitle+"</th>"+
-						"<th style='width: 10%;'>"+result[i].name+"</th>"+
+						"<th class='"+result[i].reviewnum+"' id='"+result[i].reviewnum+result[i].reviewtitle+"' style='width: 60%;' onclick='reviewclick(this)'' >"+result[i].reviewtitle+" "
+						if(result[i].indexcnt!=null){
+							html+="<span style='color:blue'>["+result[i].indexcnt+"]</span></th>"
+						}else{
+							html+="</th>"}
+						html+="<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+chahgeDate(result[i].writeDate)+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr>"+
 						"<tr class='contentqa'><th class='importcontent' id ='"+result[i].reviewnum+result[i].reviewtitle+"qnanike'  colspan='5' style='display:none;'></tr>"
 		       		}
 		       	}
 				html+="</table>"
-				html+="<div style='display:block; text-align:center;'>"
+				html+="<div class='pagingdiv'><div class='paging'>"
 				calcstartendPage(page);
 				if(startPage!=1){
-					html+="<span onclick='RVPaging("+(startPage-1)+")'> 이전 </span>"
+					html+="<span onclick='RVPaging("+(startPage-1)+")'><a> 이전 </a></span>"
 					}
 				for(var k=startPage; k<=lastPage;k++){
-					html+="<span id='"+k+"' onclick='RVPaging(this.id)'> "+ k +" </span>"
+					html+="<span id='"+k+"' onclick='RVPaging(this.id)'><a> "+ k +" </a></span>"
 					}
 				if(lastPage!=endpage){
-					html+="<span onclick='RVPaging("+(lastPage+1)+")'> 다음 </span>"
+					html+="<span onclick='RVPaging("+(lastPage+1)+")'><a> 다음 </a></span>"
 					}
-				html+="</div>"
+				html+="</div></div>"
 				$("#rvtablediv").html(html);
 			},
 		error : function() {
@@ -271,35 +304,42 @@
 			type : "POST",
 			data : form,
 			success : function(result){
-				let html = "<table class='bordertable'>";
-				html += "<tr id='boardtitle'><th>번호</th><th>제목</th><th>작성자</th>"
+				let html = "<table class='bordertable1'>";
+				html +="<tr style='border-top: 1px solid white;'><td colspan='5'<b>총"+${totalqa}+" 개의 리뷰가 등록되어있습니다.</b></td></tr><tr></tr>" 
+				+"<tr id='boardtitle'><th>번호</th><th>제목</th><th>작성자</th>"
 				+"<th>작성일</th><th style='display: none;'>코드번호</th></tr>"	
-				console.log(result.length);
+				
 			 	if(result.length == 0){     
-			 		console.log("0 진입");
-		       		html +="<tr><th colspan='4' style='padding:30px;'>작성하신 Q&A가 없습니다.</th></tr>"
+			 		html +="<tr><th colspan='4' style='padding:30px;'>작성하신 Q&A가 없습니다.</th></tr>"
 		       	}else{
 		       		for(var i=0;i<result.length;i++){
 		       		html+="<tr class='contentqa' id='rvtablebody'><th style='width: 10%;'>"+result[i].rn+"</th>"+
-						"<th id='"+result[i].indexnum+"' style='width: 60%;' onclick='qna(this.id)'>"+result[i].title+"</th>"+
-						"<th style='width: 10%;'>"+result[i].name+"</th>"+
+						"<th id='"+result[i].indexnum+"' style='width: 60%;' onclick='qna(this.id)'>"+result[i].title+" "
+						if(result[i].indexcnt!=null){
+							html+="<span style='color:blue'>["+result[i].indexcnt+"]</span></th>"
+							console.log("진입하였습니다. 널값아님" + result[i].indexcnt);
+						}else{
+							html+="</th>"
+							console.log("진입하였습니다. 널값"+result[i].indexcnt);}
+						
+						html+="<th style='width: 10%;'>"+result[i].name+"</th>"+
 						"<th style='width: 10%;'>"+chahgeDate(result[i].writeDate)+"</th>"+
 						"<th style='display: none;'>"+result[i].code+"</th></tr></tr>"
 		       		}
 		       	}
 				html+="</table>"
-				html+="<div style='display:block; text-align:center;'>"
+				html+="<div class='pagingdiv'><div class='paging'>"
 				calcstartqaendqaPageqa(pageqa);
 				if(startPageqa!=1){
-					html+="<span onclick='QAPaging("+(startPageqa-1)+")'> 이전 </span>"
+					html+="<span onclick='QAPaging("+(startPageqa-1)+")'><a> 이전 </a></span>"
 					}
 				for(var k=startPageqa; k<=lastPageqa;k++){
-					html+="<span id='"+k+"' onclick='QAPaging(this.id)'> "+ k +" </span>"
+					html+="<span id='"+k+"' onclick='QAPaging(this.id)'><a> "+ k +" </a></span>"
 					}
 				if(lastPageqa!=endpageqa){
-					html+="<span onclick='QAPaging("+(lastPageqa+1)+")'> 다음 </span>"
+					html+="<span onclick='QAPaging("+(lastPageqa+1)+")'><a> 다음 </a></span>"
 					}
-				html+="</div>"
+				html+="</div></div>"
 				$("#QAtablediv").html(html);
 			},
 		error : function() {

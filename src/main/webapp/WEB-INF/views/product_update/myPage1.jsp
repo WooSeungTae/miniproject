@@ -108,6 +108,7 @@
 			<col width="110px;">
 			<col width="143px;">
 			<col width="180px;">
+<<<<<<< HEAD
 		</colgroup>
 			<thead style="display: table-header-group; vertical-align: middle; border-color: inherit; background: #eaeaea;">
 				<tr>
@@ -121,16 +122,26 @@
 				</tr>
 			</thead>
 			<c:choose>
+=======
+		</colgroup>		
+		<tbody>
+				<c:choose>
+>>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 				<c:when test="${Ddto.size()!=0 }">
 					<tbody>
 					<c:forEach var="Ddto" items="${Ddto }">
 					<tr>
+<<<<<<< HEAD
 						<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</td>
 						<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></td> 
+=======
+						<td>${Ddto.orderDate}<br>[${Ddto.ordernum }]</a></td>
+						<td><img id="${Ddto.image1}${Ddto.orderDate}" src="/nike/${Ddto.image1}" onerror="this.onerror=null; chageSrc(this)"></a></td> 
+>>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 						<td><h4>${Ddto.codename}<br>size : ${Ddto.ordersize }</h4></td>
 						<td>${Ddto.count }</td>
 						<td><h4>KRW <fmt:formatNumber value="${Ddto.price}" pattern="#,###"/></h4></td>
-						<td>배송완료<br><a href="towritelistall" class="btnSubmit">구매후기</a></td>
+						<td><b>${Ddto.delivery }</b><br><a href="reviewform" class="btnSubmit">구매후기</a></td>
 						<td>-</td>
 					</tr>
 					</c:forEach>
@@ -143,7 +154,12 @@
 						</tr>
 					</tbody>
 				</c:otherwise>
+<<<<<<< HEAD
 			</c:choose>
+=======
+				</c:choose>
+		</tbody>
+>>>>>>> 21fad485ed6e1a763c3734e0bedf0115caec31fa
 	</table>
 	</div>
 	</div>
