@@ -12,11 +12,18 @@ public class CommentDTO {
 	private String writer;
 	private String registerdate;
 	private String id;
+	private String commentcnt;
 	
 	
 	
+	public String getCommentcnt() {
+		return commentcnt;
+	}
+	public void setCommentcnt(String commentcnt) {
+		this.commentcnt = commentcnt;
+	}
 	public String getNumComment() {
-		return numComment;
+		return numComment;		
 	}
 	public void setNumComment(String numComment) {
 		this.numComment = numComment;

@@ -50,14 +50,7 @@ public class OrderDAO {
 	}
 	/*주문 관리 물품 확인, 취소 기능*/
 	public void deliveryChange(OrderDTO Odto) {
-		System.out.println("배송상태 : "+Odto.getDelivery()+"ㅁㄴㅇㄻㄴㅇㄹ");
-		System.out.println("배송번호 : "+Odto.getordernum()+"ㅁㅇㄻㅇㄴㄻㄴㅇㄹ");
-		try {
 		sqlSession.update(namespace+".deliveryChange",Odto);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("나온다!");
 	}
 	/*주문 관리 물품 하나만 검색해 가져오기*/
 	public OrderDTO orderserch(String id) {
@@ -99,6 +92,10 @@ public class OrderDAO {
 	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
 	public List<OrderDTO> orderView_num(String ordernum){
 		return sqlSession.selectList(namespace+".orderView_num",ordernum);
+	}
+	/*주문 취소시에 물품 추가*/
+	public void deliveryCancel(Order_detailsDTO Ddto) {
+		sqlSession.update(namespace+".size_plus",Ddto);
 	}
 
 }

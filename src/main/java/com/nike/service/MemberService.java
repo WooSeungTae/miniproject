@@ -18,6 +18,10 @@ public class MemberService {
 	public void saveUserInfo(MemberInfoDTO dto) {
 		dao.saveUserInfo(dto);
 	}
+	/* 카카오톡 로그인시 회원가입 */
+	public void kakaoUserSave(MemberInfoDTO dto) {
+		dao.kakaoUserSave(dto);
+	}
 
 	public int loginChk(MemberInfoDTO dto) {
 		if(dao.loginChk(dto)==0) {
@@ -53,6 +57,10 @@ public class MemberService {
 				(HttpServletRequest)map.get("request");
 		String id = request.getParameter("id");
 		model.addAttribute("memberlist",dao.memberlist(id));
+	}
+	/*아이디를 토대로 검색*/
+	public MemberInfoDTO memberserch(String id) {
+		return dao.memberlist(id);
 	}
 	/*아이디를 토대로 회원 삭제*/
 	public void memberdelete(String id) {

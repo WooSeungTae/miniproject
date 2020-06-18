@@ -64,6 +64,14 @@
 	    border: solid 0.5px #e8ebed; 
 	}
 </style>
+<script type="text/javascript">
+function delivery() {
+	var con = confirm("정말 주문을 취소하시겠습니까?");
+	if(con){
+		fo.submit();
+	}
+}
+</script>
 <body>
 <c:set var="order" value="${order }"></c:set>
 <c:import url="/header"></c:import>
@@ -217,6 +225,16 @@
 	</div>
 </section>
 </div>
+<form id ="fo" action="orderdeliveryChange">
+<c:forEach items="${orderList }" var="orderList">
+<input type="hidden" name="code" value="${orderList.code }">
+<input type="hidden" name="ordersize" value="${orderList.ordersize }">
+<input type="hidden" name="count" value="${orderList.count }">
+</c:forEach>
+<input type="hidden" name="ordernum" value="${ordernum }">
+<input type="hidden" name="delivery" value="주문취소">
+<input type="submit" value="주문 취소">
+</form>
 <c:import url="/footer"></c:import>
 </body>
 </html>

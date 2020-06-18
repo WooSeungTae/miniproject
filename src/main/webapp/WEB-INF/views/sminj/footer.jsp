@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,10 +59,13 @@
 </style>
 </head>
 <body>
+<c:set var="size" value="${id}"/>
 	<footer style="width:100%; margin: 0;">
 	<div class="all">
 		<div align="center" class="footer_border">
 			<div id="btn1">
+			<c:choose>
+				<c:when test = '${empty id}'>
 				<div style="float: left; margin-right: 100px;">
 					<ul>
 						<li><a href="#" style="color: white; font-size: 13px;">매장안내</a></li>
@@ -69,6 +73,16 @@
 						<li><a href="/nike/memberJoin" style="color: white; font-size: 13px;">회원가입</a></li>
 					</ul>
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div style="float: left; margin-right: 100px;">
+					<ul>
+						<li><a href="#" style="color: white; font-size: 13px;">매장안내</a></li>
+						<li><a href="/nike/logout" style="color: white; font-size: 13px;">로그아웃</a></li>
+					</ul>
+				</div>
+				</c:otherwise>
+			</c:choose>
 				<div style="float: left; margin-right: 100px;">
 					<ul>
 						<li style="color: white; font-size: 13px;">고객센터</li>

@@ -34,4 +34,8 @@ public class CommentDAO {
 		System.out.println("댓글 삭제 번호 : "+Cdto.getNumComment());
 		 sqlSession.delete(namespace+".replyDelete",Cdto);
 	}
+	/*게시글에 댓글 갯수*/
+	public int replyint(CommentDTO Cdto) {
+		return sqlSession.selectOne(namespace+".replyint",Cdto);
+	}
 }

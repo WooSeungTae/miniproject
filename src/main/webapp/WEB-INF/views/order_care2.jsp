@@ -67,8 +67,16 @@
 					<td>${viewAll.addr}</td><td>${viewAll.tel}</td><td>${viewAll.bankname}</td><td>${viewAll.bank}</td>
 					<td>${viewAll.totalprice}</td><td>${viewAll.ordertype }</td><td>${viewAll.ordernum}</td>
 					<td>${viewAll.delivery}</td><td>${viewAll.ordermemo}</td>
-					<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=shipping"><input type="button" value="입금 확인"></a></td>
-					<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=deposit"><input type="button" value="배송 취소"></a></td>
+					<c:choose>
+					<c:when test="${dto.delivery eq '배송중' or dto.delivery eq '입금중'}">
+						<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=shipping"><input type="button" value="입금 확인"></a></td>
+						<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=deposit"><input type="button" value="배송 취소"></a></td>
+					</c:when>
+					<c:otherwise>
+						<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=shipping"><input type="button" value="입금 확인" disabled="disabled"></a></td>
+						<td><a href="deliveryChange?ordernum=${viewAll.ordernum }&delivery=deposit"><input type="button" value="배송 취소" disabled="disabled"></a></td>
+					</c:otherwise>				
+				</c:choose>
 				</tr>
 			</c:when>
 			<c:otherwise>

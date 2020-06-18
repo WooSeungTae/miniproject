@@ -126,6 +126,18 @@ public class HomeController {
 		    if (userInfo.get("email") != null) {
 		    	session.setAttribute("id", userInfo.get("email"));
 		    	session.setAttribute("name", userInfo.get("nickname"));
+		    	if(memberservice.memberserch((String)userInfo.get("email")) == null) {
+			    	MemberInfoDTO dto = new MemberInfoDTO();
+			    	dto.setId((String)userInfo.get("email"));
+			    	dto.setName((String)userInfo.get("nickname"));
+			    	if(userInfo.get("gender").equals("male")) {
+			    		dto.setGender("남자");
+			    	}
+			    	else {
+			    		dto.setGender("여자");
+			    	}
+			    	memberservice.kakaoUserSave(dto);
+		    	}
 		    	session.setAttribute("access_Token", access_Token);
 		    }
 		}
@@ -141,6 +153,7 @@ public class HomeController {
 					orderservice.myPage1(id);
 					model.addAttribute("Ddto",orderservice.myPage1(id));
 					List<Order_detailsDTO> list = orderservice.myPage1(id);
+					
 					
 					return "product_update/myPage1";					
 			}
@@ -243,7 +256,6 @@ public class HomeController {
 				@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
 			String code = pdto.getCode();
 			if(Pservice.codeSearch(model, code) == 1) {
-				System.out.println("등록 실행");
 				if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
 				if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
 				if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
@@ -458,7 +470,7 @@ public class HomeController {
 			mySession.setAttribute("id", dto.getId());
 			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
 			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
-			return "sminj/main";
+			return "redirect:/";
 		}
 	}
 	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
@@ -648,18 +660,17 @@ public class HomeController {
 	@RequestMapping("deliveryChange")
 	public String deliveryChange(OrderDTO Odto) {
 		orderservice.deliveryChange(Odto);
+		orderservice.delivery(Odto);
 		return "redirect:order_care";
 	}
 	@RequestMapping("orderdeliveryChange")
-	public String orderdeliveryChange(OrderDTO Odto,Order_detailsDTO Ddto, 
-			@RequestParam("ordernum") String ordernum,@RequestParam("delivery") String delivery) {
-		System.out.println("-------홈 컨트롤러 실행시작");
-		//orderservice.delivery(Ddto);
-		System.out.println("오더서비스 디테ㅣ");
+	public String orderdeliveryChange(OrderDTO Odto,Order_detailsDTO Ddto) {
 		orderservice.deliveryChange(Odto);
-		System.out.println("디테일 dao 주문취소 완료");
+		orderservice.delivery(Odto);
+		orderservice.deliveryCancel(Ddto);
 		return "redirect:orderList";
 	}
+	
 	@RequestMapping("orderserch")
 	public String orderserch(Model model,@RequestParam("id") String id) {
 		model.addAttribute("viewAll",orderservice.orderserch(id));
@@ -681,14 +692,23 @@ public class HomeController {
 	}
 	/*회원가입*/
 	@RequestMapping("memberJoin")
-	public String memberJoin() {
+	public String memberJoin(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+
+		if(id == null) {
 		return "member/memberJoin";
+		}
+		else return"redirect:/";
 	}
 	
 	/*로그인페이지*/
 	@RequestMapping("loginPage")
-	public String loginPage() {
+	public String loginPage(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		if(id == null) {
 		return "member/loginPage";
+		}
+		else return"redirect:/";
 	}
 	
 	/*비밀번호 찾을때 전화번호 or 아이디로 검색*/
@@ -706,10 +726,6 @@ public class HomeController {
 		return "member/loginPage";
 	}
 	
-	@RequestMapping("TestMainPage")
-	public String TestMainPage() {
-		return "member/TestMainPage";
-	}
 	@RequestMapping("userReset")
 	public String userReset() {
 		return "member/userReset";
@@ -955,7 +971,8 @@ public class HomeController {
 	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
 			,@Param("ordersize") String ordersize
 			,@Param("count") String count) {
-		if(id!=null)service.searchId(model, id);
+		if(id!=null) {service.searchId(model, id);}
+		else {return "redirect:loginPage";}
 		Pservice.codeSearch(model, code);
 		model.addAttribute("ordersize", ordersize);
 		model.addAttribute("count", count);
@@ -976,7 +993,7 @@ public class HomeController {
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
 		orderservice.productBuy(Odto,Ddto,dto,request);
-		return "product_update/myPage1";
+		return "redirect:myPage1";
 	}
 	
 	/*구매후 등록*/
@@ -1005,7 +1022,7 @@ public class HomeController {
 	}
 	@RequestMapping("/main")
 	public String main() {
-		return "sminj/main";
+		return "redirect:/";
 	}
 
 	/* 로그아웃 */
@@ -1015,7 +1032,7 @@ public class HomeController {
 			kakao.kakaoLogout((String)mySession.getAttribute("access_Token"));
 		}
 		memberservice.logout(mySession);
-		return "sminj/main";
+		return "redirect:/";
 	}
 	/* 회원비밀번호 변경 */
 	@RequestMapping("password")
@@ -1077,14 +1094,13 @@ public class HomeController {
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {
 		bservice.qaregister(Qdto);
-		System.out.println("등록 실행");
 		return "myPage/myPage";
 	}
 	/*Q&A 게시물 수정*/
 	@RequestMapping("qaupdate")
 	public String qaupdate(QABoardDTO Qdto) {
 		bservice.qaupdate(Qdto);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*Q&A 게시물 삭제*/
@@ -1096,8 +1112,9 @@ public class HomeController {
 	
 	/*Q & A 게시판 작성화면 */
 	@RequestMapping("qnawrite")
-	public String qnaviewPage() {
-		
+	public String qnaviewPage(Model model,HttpServletRequest request) {
+		String code = request.getParameter("code");
+		Pservice.codeSearch(model, code);
 		return "board/QnA_write";
 	}
 	/*상세 페이지에서 Q & A 게시판 보기*/
@@ -1221,6 +1238,7 @@ public class HomeController {
 			String indexnum = Cdto.getIndexnum();
 			Cdto.setIndexnum(indexnum);
 			list = cservice.searchComment(indexnum);
+			//int replysu = cservice.replyint(Cdto);
 			ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 			String strJson = mapper.writeValueAsString(list);
 			return strJson;

@@ -16,7 +16,10 @@
 	<insert id="saveUserInfo" parameterType="dto">
 		insert into memberinfo(id,pwd,name,address,tel,birth,question,gender,mile,answer) values(#{id},#{pwd},#{name},#{address},#{tel},#{birth},#{question},#{gender},2000,#{answer})
 	</insert>
-	
+	<!-- 카카오톡 로그인시 회원가입 -->
+	<insert id="kakaoUserSave" parameterType="dto">
+		insert into memberinfo(id,name,gender,mile) values(#{id},#{name},#{gender},2000)
+	</insert>
 	<select id="loginChk" parameterType="dto" resultType="dto">
 		select * from memberinfo where id=#{id} and pwd=#{pwd}
 	</select>
@@ -34,7 +37,10 @@
 	<update id="mileageModify" >
 		update memberInfo set mile=mile-#{mile} where id=#{id}
 	</update>
-
+	<!--  마일리지 적립 -->
+	<update id="mileageBuy" >
+		update memberInfo set mile=mile+(#{totalprice}*0.1) where id=#{id}
+	</update>
 	<!-- 회원정보수정을 위한 회원정보조회 -->
 	<select resultType="dto" id="account" parameterType="String">
 		select * from memberinfo where id=#{id} 

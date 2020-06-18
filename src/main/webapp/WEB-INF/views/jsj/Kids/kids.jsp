@@ -5,6 +5,22 @@
 <html>
 <head>
 <style>
+	/*페이지 div부분*/
+.pagingdiv{text-align: center; margin: 10px;}
+.paging{display: inline-block;}
+	.paging a{
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	}
+	.paging a.active{
+	background-color: black;
+	color: white;
+	}
+	.paging a:hover:not(.active) {background-color: #ddd;}
+
 .wrapper {
 	font-family: "Noto Sans KR", "Malgun Gothic", "MalgunGothic", Dotum,
 		Helevtica, Arial, sans-serif;
@@ -303,7 +319,7 @@
 										<div class="ncss-col">
 											<div class="a-product" id = "${AllListKids.code}nk" onmouseover='over(this.id)' onmouseout="overout(this.id)">
 												<div class="a-product-image">
-													<a href="productdetail?code=${AllListKids.code}">
+													<a href="/nike/productdetail?code=${AllListKids.code}">
 														<div class="a-product-image-wrapper">
 															<div class="a-image">
 																<img id="${AllListKids.code }"
@@ -338,7 +354,7 @@
 																<span class="${AllListKids.code }"  id="${AllListKids.code}2kn" class="imgcolorpic" style="display:none ;">
 																	<c:forEach var ="imgcolor" items="${allListKids }">
 																		<c:if test="${imgcolor.codename==AllListKids.codename }">
-																		<a href="productdetail?code=${AllListKids.code }"><img class="${AllListKids.code }" id="${imgcolor.image1 }"
+																		<a href="/nike/productdetail?code=${AllListKids.code }"><img class="${AllListKids.code }" id="${imgcolor.image1 }"
 																	style="width: 50px; margin: auto;"
 																	src="/nike/${imgcolor.image1 }"
 																	onerror="this.onerror=null; chageSrc(this)" onmouseover='imgchange(this)'></a>
@@ -374,26 +390,27 @@
 							</div>
 						</c:otherwise>
 					</c:choose>
-					<div style="display: block; text-align: center;">
+					<div class="pagingdiv">
+					<div class="paging">
 						<c:if test="${paging.startPage != 1 }">
-							<a href="Kids?nowPage=${paging.startPage - 1 }">이전</a>
+							<a href="/nike/Kids?nowPage=${paging.startPage - 1 }">이전</a>
 						</c:if>
 						<c:forEach begin="${paging.startPage }" end="${paging.endPage }"
 							var="p">
 							<c:choose>
 								<c:when test="${p == paging.nowPage }">
-									<b>${p }</b>
+									<a class="active">${p }</a>
 								</c:when>
 								<c:when test="${p != paging.nowPage }">
-									<a href="Kids?nowPage=${p }">${p }</a>
+									<a href="/nike/Kids?nowPage=${p }">${p }</a>
 								</c:when>
 							</c:choose>
 						</c:forEach>
 						<c:if test="${paging.endPage != paging.lastPage}">
 							<a
-								href="Kids?nowPage=${paging.endPage+1 }">다음</a>
+								href="/nike/Kids?nowPage=${paging.endPage+1 }">다음</a>
 						</c:if>
-
+					</div>
 					</div>
 				</div>
 			</article>

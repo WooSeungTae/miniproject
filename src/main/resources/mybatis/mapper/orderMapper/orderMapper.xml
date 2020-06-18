@@ -54,7 +54,7 @@
 	</select>
 	<!-- 주문 확인클릭시 수정 -->
 	<update id="deliveryChange" parameterType="Odto">
-		update orderInfo set delivery='주문취소' where ordernum='Order0615213919'
+		update orderInfo set delivery=#{delivery} where ordernum=#{ordernum}
 	</update>
 
 	<!--
@@ -63,11 +63,16 @@
 	<select id="orderList" parameterType="String" resultType="Ddto">
 		select * from orderDetailsInfo where id=#{id}
 	</select>
+	<!-- 구매 수량 추가 -->
+	<update id="size_plus">
+		update sizetable set size${ordersize}=size${ordersize}+#{count} where code=#{code}
+	</update>
 
 		<!-- 구매 수량 삭제 -->
 	<update id="sizeDelete">
 		update sizetable set size${ordersize}=size${ordersize}-#{count} where code=#{code}
 	</update>
+		
 	<!-- 
 	  주문내역 상세페이지 - 주문자 및 결제정보
 	 [주문자이름,전화번호,주소,배송메모,배송타입,은행,계좌,총가격,마일리지] -->
@@ -87,8 +92,8 @@
 		select * from orderInfo where orderNum=#{ordernum}
 	</select>
 	<!-- 주문내역 및 배송현황 페이지 - 배송 상태 변경-->
-	<update id="delivery" parameterType="Ddto" >
-		update orderDetailsInfo set delivery='주문취소' where orderNum=#{ordernum}
+	<update id="delivery" parameterType="Odto" >
+		update orderDetailsInfo set delivery=#{delivery} where orderNum=#{ordernum}
 	</update>
 </mapper>
 

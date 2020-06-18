@@ -78,7 +78,7 @@
 </style>
 </head>
 <body>
-<c:import url="/header"></c:import>
+<c:import url="/header"/>
 	<div style="width: 100%; margin: auto; padding-bottom: 100px; margin-top: 132px;">
 		<div class="img_main"></div>
 		<div class="parent">
@@ -104,12 +104,10 @@
 				</a>
 			</div>
 		</div>
-		<div class="comboImg">
-			<a href="#">
-				<img src="image/comboImg.png">
-			</a>
+		<div align="center">
+			<img src="image/comboImg.png" class="comboImg">
 		</div>
 	</div>
-<c:import url="/footer"></c:import>
+<c:import url="/footer"/>
 </body>
 </html>
