@@ -37,12 +37,11 @@
 	
 	<!-- 상세페이지  코드검색 리뷰 게시물 조회 -->
 	<select id="rvlist" resultType="Rdto">
-				SELECT *
-		FROM (SELECT ROWNUM RN, A.*
-		FROM (SELECT *
-		FROM review where code=#{code} ORDER BY writeDate
-		)A)
-		WHERE RN BETWEEN #{start} AND #{end}
+	select * from (select rownum rn, c.* from(select
+	a.reviewnum,a.image,a.code,a.ID,a.CODENAME,a.NAME,a.reviewTITLe,a.reviewcontents,a.WRITEDATE,
+	b.indexcnt from review a,(select indexnum,count(*) indexcnt from
+	COMMENTTABLE GROUP by indexnum)b where TO_CHAR(a.reviewnum)=b.INDEXNUM(+) and
+	code=#{code})c)WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	  	<!-- 상세페이지 코드검색 리뷰 게시물 총갯수 -->
   	<select id="rvtotal" resultType="int">

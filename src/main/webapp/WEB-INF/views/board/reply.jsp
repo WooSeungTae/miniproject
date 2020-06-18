@@ -26,7 +26,7 @@
 			type : "POST",
 			data :form,
 			success : function(result){
-				let html = "";
+				let html = "<b>총"+result.length+" 개의 댓글이 등록되어있습니다.</b><br><br>";
 				for(var i=0;i<result.length;i++){
 					html+="<b>작성자 : "+result[i].writer +"&nbsp;&nbsp;&nbsp;&nbsp; </b> 작성일 : "+
 					result[i].registerdate+"<input type='hidden' id = 'idcheck' value=''>"
