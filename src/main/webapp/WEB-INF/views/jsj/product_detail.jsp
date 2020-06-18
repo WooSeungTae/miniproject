@@ -53,8 +53,8 @@
 
 .image-list {
 	display: inline;
-	width: 400px;
-	height: 400px;
+	width: 95%;
+	height: 95%;
 	overflow: 0 hidden;
 	margin-bottom: 10px;
 }
@@ -73,6 +73,7 @@
 	height: 100%;
 	margin: 0 hidden;
 	overflow: 0 hidden;
+	border:#fff;
 }
 
 .info-wrap_product_n {
@@ -133,6 +134,20 @@
 	border: 2px solid #555555;
 }
 
+.button7 {
+	background-color: #BDBDBD;
+	color: white;
+	padding: 16px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+	cursor: pointer;
+	border: 2px solid #BDBDBD;
+}
+
 .directorder {
 	background-color: #000;
 	color: white;
@@ -181,7 +196,98 @@
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-	
+	function start(){
+		var noadd = document.getElementById("noadd");
+		console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+		console.log(noadd.value);
+		if(noadd.value==-1){
+			alert("장바구니에 이미 동일한 아이템이 있습니다!");
+		}
+		if(${sdto.size80==0}){
+			document.getElementById("80").setAttribute("disabled", "disabled");
+			document.getElementById("80").className = "button7"
+		}
+		if(${sdto.size90==0}){
+			document.getElementById("90").setAttribute("disabled", "disabled");
+			document.getElementById("90").className = "button7"
+		}
+		if(${sdto.size100==0}){
+			document.getElementById("100").setAttribute("disabled", "disabled");
+			document.getElementById("100").className = "button7"
+		}
+		if(${sdto.size110==0}){
+			document.getElementById("110").setAttribute("disabled", "disabled");
+			document.getElementById("110").className = "button7"
+		}
+		if(${sdto.size120==0}){
+			document.getElementById("120").setAttribute("disabled", "disabled");
+			document.getElementById("120").className = "button7"
+		}
+		if(${sdto.size130==0}){
+			document.getElementById("130").setAttribute("disabled", "disabled");
+			document.getElementById("130").className = "button7"
+		}
+		if(${sdto.size140==0}){
+			document.getElementById("140").setAttribute("disabled", "disabled");
+			document.getElementById("140").className = "button7"
+		}
+		if(${sdto.size150==0}){
+			document.getElementById("150").setAttribute("disabled", "disabled");
+			document.getElementById("150").className = "button7"
+		}
+		if(${sdto.size160==0}){
+			document.getElementById("160").setAttribute("disabled", "disabled");
+			document.getElementById("160").className = "button7"
+		}
+		if(${sdto.size230==0}){
+			document.getElementById("230").setAttribute("disabled", "disabled");
+			document.getElementById("230").className = "button7"
+		}
+		if(${sdto.size240==0}){
+			document.getElementById("240").setAttribute("disabled", "disabled");
+			document.getElementById("240").className = "button7"
+		}
+		if(${sdto.size250==0}){
+			document.getElementById("250").setAttribute("disabled", "disabled");
+			document.getElementById("250").className = "button7"
+		}
+		if(${sdto.size260==0}){
+			document.getElementById("260").setAttribute("disabled", "disabled");
+			document.getElementById("260").className = "button7"
+		}
+		if(${sdto.size270==0}){
+			document.getElementById("270").setAttribute("disabled", "disabled");
+			document.getElementById("270").className = "button7"
+		}
+		if(${sdto.size280==0}){
+			document.getElementById("280").setAttribute("disabled", "disabled");
+			document.getElementById("280").className = "button7"
+		}
+		if(${sdto.size290==0}){
+			document.getElementById("290").setAttribute("disabled", "disabled");
+			document.getElementById("290").className = "button7"
+		}
+		if(${sdto.size300==0}){
+			document.getElementById("300").setAttribute("disabled", "disabled");
+			document.getElementById("300").className = "button7"
+		}
+		if(${sdto.size310==0}){
+			document.getElementById("310").setAttribute("disabled", "disabled");
+			document.getElementById("130").className = "button7"
+		}
+		if(${sdto.size320==0}){
+			document.getElementById("320").setAttribute("disabled", "disabled");
+			document.getElementById("320").className = "button7"
+		}
+		if(${sdto.size330==0}){
+			document.getElementById("330").setAttribute("disabled", "disabled");
+			document.getElementById("330").className = "button7"
+		}
+		
+	}
+</script>
+<script>
+
 	/* ========= 리뷰 페이징 관련 스크립트 =========*/
 	var page = 1;
 	var cntPerPage = 3;//리뷰 행수 지정
@@ -374,14 +480,7 @@
    		}
 
    		
-		window.onload = function(){
-			var noadd = document.getElementById("noadd");
-			console.log(noadd);
-			if(noadd.value==-1){
-				alert("장바구니에 이미 동일한 아이템이 있습니다!");
-			}
-		}
-
+		
    		
    		/*qa제목클릭*/
 			function qna(clickid){
@@ -410,7 +509,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body onload="RVPaging(1);QAPaging(1)">
+<body onload="start();RVPaging(1);QAPaging(1)">
 	<header>
 		<c:import url="../sminj/header.jsp">
 		</c:import>
@@ -424,53 +523,41 @@
 						<div class="img-detail_product_n">
 							<ul id="product-gallery" class="img-detail-list">
 								<li class="image-list" style="float: left;">
-									<div class="prd-gutter">
 										<img id="${pdto.image1 }" class="product-image"
-											src="${pdto.image1 }" alt="등록된 사진이 없습니다."
-											onerror="this.onerror=null; chageSrc(this)">
-									</div>
+											src="${pdto.image1 }" 
+											onerror="this.style.display='none'" alt=""/>
 								</li>
 								<li class="image-list"
 									style="float: right; margin-right: 100px;">
-									<div class="prd-gutter">
 										<img id="${pdto.image2 }" class="product-image"
-											src="${pdto.image2 }" alt="등록된 사진이 없습니다."
-											onerror="this.onerror=null; chageSrc(this)">
-									</div>
+											src="${pdto.image2 }"
+											onerror="this.style.display='none'" alt=""/>
 								</li>
 							</ul>
 							<ul class="img-detail-list">
 								<li class="image-list" style="float: left;">
-									<div class="prd-gutter">
 										<img id="${pdto.image3 }" class="product-image"
-											src="${pdto.image3 }" alt="등록된 사진이 없습니다."
-											onerror="this.onerror=null; chageSrc(this)">
-									</div>
+											src="${pdto.image3 }"
+											onerror="this.style.display='none'" alt=""/>
 								</li>
 								<li class="image-list"
 									style="float: right; margin-right: 100px;">
-									<div class="prd-gutter">
 										<img id="${pdto.image4 }" class="product-image"
-											src="${pdto.image4 }" alt="등록된 사진이 없습니다."
-											onerror="this.onerror=null; chageSrc(this)">
-									</div>
+											src="${pdto.image4 }"
+											onerror="this.style.display='none'" alt=""/>
 								</li>
 							</ul>
 							<ul class="img-detail-list">
 								<li class="image-list" style="float: left;">
-									<div class="prd-gutter">
 										<img id="${pdto.image5 }" class="product-image"
-											src="${pdto.image5 }" alt="등록된 사진이 없습니다."
-											onerror="this.onerror=null; chageSrc(this)">
-									</div>
+											src="${pdto.image5 }"
+											onerror="this.style.display='none'" alt=""/>
 								</li>
 								<li class="image-list"
 									style="float: right; margin-right: 100px;">
-									<div class="prd-gutter">
 										<img id="${pdto.image6 }" class="product-image"
-											src="${pdto.image6 }" alt="등록된 사진이 없습니다."
-											onerror="this.onerror=null; chageSrc(this)">
-									</div>
+											src="${pdto.image6 }"
+											onerror="this.style.display='none'" alt=""/>
 								</li>
 							</ul>
 						</div>

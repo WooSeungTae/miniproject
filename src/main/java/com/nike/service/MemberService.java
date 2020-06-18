@@ -94,4 +94,13 @@ public class MemberService {
 	public String nameget(String id) {
 		return dao.nameget(id);
 	}
+	/*회원가입 마일리지 2000점*/
+	public void joinmileage(MemberInfoDTO dto) {
+		dao.joinmileage(dto);
+		
+	}
+	/*memberinfo 테이블 마일리지 업데이트*/
+	public void mileageupdate(MemberInfoDTO dto) {
+		dao.mileageupdate(dto);
+	}
 }
