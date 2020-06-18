@@ -67,8 +67,8 @@
 </script>
 </head>
 <body>
-<form action="myPage1">
 <c:import url="/header"></c:import>
+<form action="myPage1">
 	<div style="width: 90%; margin: auto; padding-top: 80px; margin-top: 50px;">
 <c:import url="/aside"></c:import>
 	<!--  마이페이지 상단  -->
