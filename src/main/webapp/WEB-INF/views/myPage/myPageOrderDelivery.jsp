@@ -65,8 +65,21 @@
 		document.getElementById(imgId).src = changeName;
 		console.log(changeName);
 	}
+<<<<<<< HEAD
 
 
+=======
+		$(document).ready(function(){
+		$('.orderCancel').click(function(){
+			alert('확인 버튼을 클릭하면 주문이 취소됩니다.')
+			$('.delivery').val("주문취소");
+		});
+	
+		$('.orderFinish').click(function(){
+			alert('구매확정이 완료되었습니다.')
+			$('.delivery').val("배송완료");
+		});});
+>>>>>>> kimsj
 </script>
 <body>
 <c:set var="size" value="${orderList.size()}"/>
@@ -128,6 +141,7 @@
 							<p class="delivery">${orderList.delivery }</p>
 						</td>
 			<!-- 배송상태 변경 위한 버튼 -->		
+<<<<<<< HEAD
 							<c:choose>
 								<c:when test="${orderList.delivery eq '입금중' }">
 								<td>
@@ -154,6 +168,17 @@
 								</td>
 								</c:otherwise>
 							</c:choose>
+=======
+						<td class="deliveryChange">
+							<form role="form" method="post" class="deliveryForm">
+								<input type="hidden" name="ordernum" value="${orderList.ordernum }">
+								<input type="hidden" name="delivery" class="delivery" value="">
+							
+								<input type="button" class="orderCancel" value="주문취소" name="orderCancel" id="orderCancel"><br><br>
+							    <input type="button" class="orderFinish" value="구매확정" name="orderFinish" id="orderFinish">
+							</form>
+						</td>
+>>>>>>> kimsj
 					</tr>
 					</c:forEach>
 				</tbody>

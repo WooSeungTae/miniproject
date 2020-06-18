@@ -28,7 +28,7 @@
 		<c:import url="/header">
 		</c:import>
 	</header>
-	<section class="wrapper">
+	<section class="wrapper" style="margin-top: 60px;">
 		<aside>
 			<c:import url="/aside">
 			</c:import>
