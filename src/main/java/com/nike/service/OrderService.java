@@ -65,7 +65,11 @@ public class OrderService {
 		orderNum = orderNum + format.format(new Date());
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("id");
-		if(id!=null) {dao.mileageModify(dto);
+		if(id!=null) {
+			dao.mileageModify(dto);
+			//구매시 마일리지 테이블에 insert
+			dao.mileagetablebuy(Odto);
+			dao.mileagetablebuy2(Odto);
 		}
 		Odto.setordernum(orderNum);
 		Ddto.setOrdernum(orderNum);

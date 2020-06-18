@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.nike.order.OrderDTO;
+import com.nike.order.Order_detailsDTO;
 import com.nike.product.ProductDTO;
 
 import java.util.List;
@@ -136,6 +137,16 @@ public class MemberInfoDAO {
 	/*mileage 테이블 정보가져오기*/
 	public List<MileageDTO> mileagelist(String id) {
 		return sqlSession.selectList(namespace+".mileagelist", id);
+	}
+	/*구매시 마일리지 테이블에 insert*/
+	public void mileagetablebuy(OrderDTO odto) {
+		sqlSession.insert(namespace+".mileagetablebuy", odto);
+		
+	}
+	/*구매시 마일리지 테이블에 insert2*/
+	public void mileagetablebuy2(OrderDTO odto) {
+		sqlSession.insert(namespace+".mileagetablebuy2", odto);
+		
 	}
 
 }
