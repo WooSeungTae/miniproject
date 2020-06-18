@@ -154,6 +154,7 @@ public class HomeController {
 					model.addAttribute("Ddto",orderservice.myPage1(id));
 					List<Order_detailsDTO> list = orderservice.myPage1(id);
 					
+					
 					return "product_update/myPage1";					
 			}
 	
@@ -365,7 +366,7 @@ public class HomeController {
 			vo.setSearch((String)session.getAttribute("id"));
 			model.addAttribute("paging",vo);
 			model.addAttribute("viewAll",reviewservice.searchreview(vo));
-			return "myPage/myPageReviewintro";
+			return "redirect:myPage1Reviewintro";
 		}
 		
 		/*마이페이지 QnA*/
@@ -390,7 +391,7 @@ public class HomeController {
 			vo.setSearch((String)session.getAttribute("id"));
 			model.addAttribute("paging",vo);
 			model.addAttribute("viewAll",bservice.searchQnA(vo));
-			return "myPage/mypageQnA";
+			return "redirect:myPage1QnA";
 		}
 		
 		//관리자 상품관리(삭제)
@@ -692,7 +693,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String name = (String) mySession.getAttribute("name");
 		model.addAttribute("name", name);
-		return "myPage/myPageAside";
+		return "redirect:myPage1Aside";
 	}
 	/*회원가입*/
 	@RequestMapping("memberJoin")
@@ -737,7 +738,7 @@ public class HomeController {
 	
 	@RequestMapping("returnable")
 	public String myPageReturn() {
-		return "myPage/myPageReturn";
+		return "redirect:myPage1Return";
 	}
 	
 	/*마일리지 조회*/
@@ -746,7 +747,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("mile", service.mileage(id));
-		return "myPage/myPageMileage";
+		return "redirect:myPage1Mileage";
 	}
 	
 	/*회원정보 수정을 위한 회원정보 조회*/
@@ -755,7 +756,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("dto", service.account(id));
-		return "myPage/myPageAccount";
+		return "redirect:myPage1Account";
 	}
 	/*회원정보 수정*/
 	@RequestMapping("memberinfoModify")
@@ -975,7 +976,8 @@ public class HomeController {
 	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
 			,@Param("ordersize") String ordersize
 			,@Param("count") String count) {
-		if(id!=null)service.searchId(model, id);
+		if(id!=null) {service.searchId(model, id);}
+		else {return "redirect:loginPage";}
 		Pservice.codeSearch(model, code);
 		model.addAttribute("ordersize", ordersize);
 		model.addAttribute("count", count);
@@ -996,7 +998,7 @@ public class HomeController {
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
 		//System.out.println("호출");
 		orderservice.productBuy(Odto,Ddto,dto,request);
-		return "product_update/myPage1";
+		return "redirect:myPage1";
 	}
 	
 	/*구매후 등록*/
@@ -1010,7 +1012,7 @@ public class HomeController {
 	
 	@RequestMapping("towritelistall")
 	public String myPageTowritelistall() {
-		return "myPage/myPageTowritelistall";
+		return "redirect:myPage1Towritelistall";
 	}
 	@RequestMapping("/header")
 	public String header(Model model, HttpServletRequest request, MemberInfoDTO dto) {
@@ -1043,7 +1045,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String pwd = (String)mySession.getAttribute("pwd");
 		model.addAttribute("pwd", pwd);
-		return "myPage/myPagePassword";
+		return "redirect:myPage1Password";
 	}
 	/* 비밀번호 변경완료 페이지(쇼핑계속하기) */
 	@RequestMapping("pwdSuccess")
@@ -1057,7 +1059,7 @@ public class HomeController {
 	/* 회원탈퇴 */
 	@RequestMapping("withdrawal")
 	public String withdrawal() {
-		return "myPage/myPageWithdrawal";
+		return "redirect:myPage1Withdrawal";
 	}
 	/* 회원탈퇴 완료 페이지 */
 	@RequestMapping("userDelete")
@@ -1076,7 +1078,7 @@ public class HomeController {
 		String id = (String) mySession.getAttribute("id");
 		List<Order_detailsDTO> orderList = orderservice.orderList(id);
 		model.addAttribute("orderList", orderList);
-		return "myPage/myPageOrderDelivery";
+		return "redirect:myPage1OrderDelivery";
 	}
 	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
 	@RequestMapping("orderView")
@@ -1097,27 +1099,27 @@ public class HomeController {
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {
 		bservice.qaregister(Qdto);
-		System.out.println("등록 실행");
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	/*Q&A 게시물 수정*/
 	@RequestMapping("qaupdate")
 	public String qaupdate(QABoardDTO Qdto) {
 		bservice.qaupdate(Qdto);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*Q&A 게시물 삭제*/
 	@RequestMapping("qadelete")
 	public String qadelete(QABoardDTO Qdto) {
 		bservice.qadelete(Qdto);
-		return "myPage/myPage";
+		return "redirect:myPage1";
 	}
 	
 	/*Q & A 게시판 작성화면 */
 	@RequestMapping("qnawrite")
-	public String qnaviewPage() {
-		
+	public String qnaviewPage(Model model,HttpServletRequest request) {
+		String code = request.getParameter("code");
+		Pservice.codeSearch(model, code);
 		return "board/QnA_write";
 	}
 	/*상세 페이지에서 Q & A 게시판 보기*/
@@ -1241,6 +1243,7 @@ public class HomeController {
 			String indexnum = Cdto.getIndexnum();
 			Cdto.setIndexnum(indexnum);
 			list = cservice.searchComment(indexnum);
+			//int replysu = cservice.replyint(Cdto);
 			ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 			String strJson = mapper.writeValueAsString(list);
 			return strJson;

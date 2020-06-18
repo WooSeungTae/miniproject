@@ -94,6 +94,7 @@ public class ProductService {
 	public void allListMenCategory(Model model,Product_PagingVO vo) {
 		model.addAttribute("AllListMenCategory", Pdao.allListMenCategoly(vo));
 		model.addAttribute("paging", vo);
+		model.addAttribute("category", vo.getCategory());
 		model.addAttribute("selectcolor", Pdao.selectcolor());
 	}
 	
@@ -101,6 +102,7 @@ public class ProductService {
 	public void allListWomenCategory(Model model,Product_PagingVO vo) {
 		model.addAttribute("AllListWomenCategory", Pdao.allListWomenCategoly(vo));
 		model.addAttribute("paging", vo);
+		model.addAttribute("category", vo.getCategory());
 		model.addAttribute("selectcolor", Pdao.selectcolor());
 	}
 
@@ -110,6 +112,7 @@ public class ProductService {
 	public void allListKidsCategory(Model model,Product_PagingVO vo) {
 		model.addAttribute("AllListKidsCategory", Pdao.allListKidsCategoly(vo));
 		model.addAttribute("paging", vo);
+		model.addAttribute("category", vo.getCategory());
 		model.addAttribute("selectcolor", Pdao.selectcolor());
 	}
 

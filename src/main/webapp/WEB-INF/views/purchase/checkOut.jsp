@@ -105,7 +105,15 @@
   border-radius: 8px;
   box-shadow: 5px, 5px,5px,0px;
 }
-
+/*장바구니 글씨 css*/
+#cartcss{
+	text-decoration: none;
+	color: black;
+}
+#cartcss:visited{
+	text-decoration: none;
+	color: black;
+}
 
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -192,6 +200,7 @@
 			mile=s;
 			document.getElementById("mile").value=mile1;
 			document.getElementById("mileMoney").innerHTML=mile.toLocaleString()+" 원";
+	
 			
 		};
 		if(checkDely==1){
@@ -201,6 +210,7 @@
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
+			alert('선택하신 마일리지는 '+mile+'점으로 총결제 금액에서 차감합니다.')
 		}else{
 			mile=mile1;
 			total=price-mile;
@@ -208,6 +218,7 @@
 			document.getElementById("totalMoney").innerHTML=total.toLocaleString()+" 원";
 			document.getElementById("buy").innerHTML=total.toLocaleString()+" 원 결제";
 			document.getElementById("totalprice").value=total;
+			alert('선택하신 마일리지는 '+mile+'점으로 총결제 금액에서 차감합니다.')
 		}
 		
 		}
@@ -257,8 +268,11 @@
 	function addrsearch(){
 	   new daum.Postcode({
 	       oncomplete: function(data) {
-	    	   document.getElementById("addr").value=data.jibunAddress;
-	    	   console.log(data.jibunAddress);
+	    		if(data.userSelectedType=="R"){ 
+				 document.getElementById("addr").value=data.roadAddress; //도로명 주소
+				}else{
+	    		 document.getElementById("addr").value=data.jibunAddress; //지번 주소
+				}
 	    /*
                alert(data.userSelectedType) // (J : 지번 , R : 도로명)
                alert(data.jibunAddress)     // (지번 풀주소 반환)
@@ -470,6 +484,7 @@
 						</fieldset>						 
 					</div>
 					<br>
+					<br> <a href="cart" id="cartcss">장바구니 바로가기</a><br>
 					<br>
 					<!--  결제 클릭 -->
 					<div onclick='submitbuy()' id="buy" class="buy" >
@@ -478,7 +493,6 @@
 										document.write(price.toLocaleString()+' 원 결제');
 									</script>
 					</div>
-					<br> <a href="cart">장바구니로 이동</a><br>
 					
 
 				</section>

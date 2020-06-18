@@ -77,6 +77,10 @@ public class MemberInfoDAO {
 	public void mileageModify(MemberInfoDTO dto) {
 		sqlSession.update(namespace+".mileageModify",dto);
 	}
+	/*마일리지 적립*/
+	public void mileageBuy(OrderDTO Odto) {
+		sqlSession.update(namespace+".mileageBuy",Odto);
+	}
 	
 
 	/*회원정보 수정을 위한 회원정보 조회*/
