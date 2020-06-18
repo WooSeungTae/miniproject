@@ -202,10 +202,9 @@
 <script type="text/javascript">
 	function start(){
 		var noadd = document.getElementById("noadd").value;
-		console.log(noadd)
 		console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		console.log(noadd);
-		if(noadd==-1){
+		if(${noadd}==-1){
 			alert("장바구니에 이미 동일한 아이템이 있습니다!");
 		}
 		

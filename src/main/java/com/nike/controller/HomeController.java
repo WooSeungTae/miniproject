@@ -762,7 +762,7 @@ public class HomeController {
 				orderservice.insertcart(sdto);
 				return "redirect:cart";
 			}else {
-				model.addAttribute("noadd", "-1");
+				model.addAttribute("noadd", -1);
 				return "redirect:productdetail?code="+code;
 			}
 		}else {
