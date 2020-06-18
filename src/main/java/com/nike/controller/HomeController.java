@@ -91,15 +91,15 @@ public class HomeController {
 	@Autowired
 	CommentService cservice;
 
-	/*파일업로드 경로 servlet-context.xml에 id가 uploadPath인값을 가져온다.*/
+	/*�뙆�씪�뾽濡쒕뱶 寃쎈줈 servlet-context.xml�뿉 id媛� uploadPath�씤媛믪쓣 媛��졇�삩�떎.*/
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
-	/*리뷰파일 업로드 경로*/
+	/*由щ럭�뙆�씪 �뾽濡쒕뱶 寃쎈줈*/
 	@Resource(name="uploadPath2")
 	private String uploadPath2;
 	
-	/*관리자 파일 수정 업로드*/
+	/*愿�由ъ옄 �뙆�씪 �닔�젙 �뾽濡쒕뱶*/
 	@Resource(name="uploadPath3")
 	private String uploadPath3;
 	
@@ -115,7 +115,7 @@ public class HomeController {
 		if(code != null) {
 			String access_Token = kakao.getAccessToken(code);
 		    HashMap<String, Object> userInfo = kakao.getUserInfo(access_Token);
-		    //    클라이언트의 이메일이 존재할 때 세션에 해당 이메일과 토큰 등록
+		    //    �겢�씪�씠�뼵�듃�쓽 �씠硫붿씪�씠 議댁옱�븷 �븣 �꽭�뀡�뿉 �빐�떦 �씠硫붿씪怨� �넗�겙 �벑濡�
 		    if (userInfo.get("email") != null) {
 		    	session.setAttribute("id", userInfo.get("email"));
 		    	session.setAttribute("name", userInfo.get("nickname"));
@@ -124,13 +124,13 @@ public class HomeController {
 		}
 		return "/sminj/main";
 	}
-		//남이 나의 리뷰를 볼 때
+		//�궓�씠 �굹�쓽 由щ럭瑜� 蹂� �븣
 		@RequestMapping("reviewsearch")
 		public String reviewsearch(@RequestParam(value="reviewnum", required=false) int reviewnum, Model model) {
 			model.addAttribute("rdto", reviewservice.reviewsearch(reviewnum));
 			return "/board/review_Search";
 		}
-		//리뷰 등록
+		//由щ럭 �벑濡�
 		@RequestMapping("reviewform")
 		public String review(HttpServletRequest request, Model model) {
 			HttpSession mySession = request.getSession();
@@ -140,13 +140,13 @@ public class HomeController {
 			String codename = request.getParameter("codename");
 			model.addAttribute("id", id);
 			model.addAttribute("name", name);
-			model.addAttribute("code", "CN9600-002");
-			model.addAttribute("codename", "나이키 조이라이드 듀얼 런");
+			model.addAttribute("code", code);
+			model.addAttribute("codename", codename);
 			return "board/review_Register";
 		}
 		//ReviewDTO rdto, HttpServletRequest request,
 		
-		//리뷰 저장
+		//由щ럭 ���옣
 		@RequestMapping(value="reviewsave", method=RequestMethod.POST)
 		public String reviewsave(ReviewDTO rdto, HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file) {
 			if(file.getOriginalFilename()!=null) {
@@ -161,22 +161,22 @@ public class HomeController {
 			
 		}
 		
-		//마이페이지 나의 리뷰 수정하기, 삭제하기 하기 위한 폼
+		//留덉씠�럹�씠吏� �굹�쓽 由щ럭 �닔�젙�븯湲�, �궘�젣�븯湲� �븯湲� �쐞�븳 �뤌
 		@RequestMapping("myreview")
 		public String myreview(HttpServletRequest request, Model model, ReviewDTO rdto) {
 			String reviewnum = request.getParameter("reviewnum");
 			HttpSession mySession = request.getSession();
 			String id = (String) mySession.getAttribute("id");
 			rdto.setId(id);
-			//rdto.setReviewNum(Integer.parseInt(reviewnum));
-			rdto.setId("hong");
-			rdto.setReviewNum(9);
+			rdto.setReviewNum(Integer.parseInt(reviewnum));
+			//rdto.setId("hong");
+			//rdto.setReviewNum(9);
 			model.addAttribute("rdto", reviewservice.reviewitem(rdto));
 			System.out.println("====================================================="+rdto.getImage());
 			return "board/reviewform";
 		}
 		
-		//마이페이지 나의 리뷰 삭제하기
+		//留덉씠�럹�씠吏� �굹�쓽 由щ럭 �궘�젣�븯湲�
 		@RequestMapping("reviewdelete")
 		public String reviewdelete(HttpServletRequest request, ReviewDTO rdto) {
 			String reviewnum = request.getParameter("reviewnum");
@@ -191,7 +191,7 @@ public class HomeController {
 			return "redirect:reviewintro";
 		}
 		
-		//마이페이지 나의 리뷰 수정하기
+		//留덉씠�럹�씠吏� �굹�쓽 由щ럭 �닔�젙�븯湲�
 		@RequestMapping("reviewmodify")
 		public String reviewmodify(HttpServletRequest request, ReviewDTO rdto,  
 				@RequestParam(value="file", required=false) MultipartFile file,
@@ -203,7 +203,7 @@ public class HomeController {
 			rdto.setId(id);
 			if(file.getOriginalFilename()!="") {
 				System.out.println("========================================" + file.getOriginalFilename());
-				System.out.println("=====================================파일있음");
+				System.out.println("=====================================�뙆�씪�엳�쓬");
 				System.out.println("=====================================" + file);
 				System.out.println("===========================beforefile+"+beforefile);
 				String url1 = reviewUploadService.restore(file);
@@ -216,7 +216,7 @@ public class HomeController {
 				return "redirect:reviewintro";
 			}
 		}
-		/*상품 등록*/
+		/*�긽�뭹 �벑濡�*/
 		@RequestMapping("product_input")
 		public String product_input(Product_sizeDTO sizedto, ProductDTO pdto,
 				@RequestParam(value="file1", required=false) MultipartFile file1,
@@ -227,7 +227,7 @@ public class HomeController {
 				@RequestParam(value="file6", required=false) MultipartFile file6, Model model){
 			String code = pdto.getCode();
 			if(Pservice.codeSearch(model, code) == 1) {
-				System.out.println("등록 실행");
+				System.out.println("�벑濡� �떎�뻾");
 				if(pdto.getImage1().equals("image1")) {String url1 = fileUploadService.restore(file1);pdto.setImage1(url1);}
 				if(pdto.getImage2().equals("image2")) {String url2 = fileUploadService.restore(file2);pdto.setImage2(url2);}
 				if(pdto.getImage3().equals("image3")) {String url3 = fileUploadService.restore(file3);pdto.setImage3(url3);}
@@ -240,7 +240,7 @@ public class HomeController {
 			return "redirect:product_management";
 		}
 
-		//관리자 상품관리 - 수정기능
+		//愿�由ъ옄 �긽�뭹愿�由� - �닔�젙湲곕뒫
 		@RequestMapping("productupdate")
 		public String productupdate(Product_sizeDTO sizedto, ProductDTO pdto,
 				@RequestParam(value="file1", required=false) MultipartFile file1,
@@ -303,19 +303,19 @@ public class HomeController {
 			
 		}
 		
-		//관리자 상품관리폼(수정)
+		//愿�由ъ옄 �긽�뭹愿�由ы뤌(�닔�젙)
 		@RequestMapping("productview")
 		public String productview(@RequestParam("code") String code,Model model) {
-			//관리자 상품 목록 수정, 삭제를 위한 조회(상품)
+			//愿�由ъ옄 �긽�뭹 紐⑸줉 �닔�젙, �궘�젣瑜� �쐞�븳 議고쉶(�긽�뭹)
 			ProductDTO pdto = Pservice.productSelect(code);
 			model.addAttribute("pdto", Pservice.productSelect(code));
 			System.out.println("===========================================" + pdto.getImage1());
-			//관리자 상품 목록 수정, 삭제를 위한 조회(사이즈)
+			//愿�由ъ옄 �긽�뭹 紐⑸줉 �닔�젙, �궘�젣瑜� �쐞�븳 議고쉶(�궗�씠利�)
 			model.addAttribute("sdto", Pservice.sizeSelect(code));
 			return "product_update/productViewPage";
 		}
 		
-		//마이페이지 나의 리뷰 보여주기
+		//留덉씠�럹�씠吏� �굹�쓽 由щ럭 蹂댁뿬二쇨린
 		@RequestMapping("reviewintro")
 		public String reviewintro(HttpSession session, Model model,OrderCare_PagingVO vo
 				, @RequestParam(value="nowPage", required=false)String nowPage
@@ -340,7 +340,7 @@ public class HomeController {
 			return "myPage/myPageReviewintro";
 		}
 		
-		/*마이페이지 QnA*/
+		/*留덉씠�럹�씠吏� QnA*/
 		@RequestMapping("mypageQnA")
 		public String myreviewlistall(HttpSession session,Model model,OrderCare_PagingVO vo
 				, @RequestParam(value="nowPage", required=false)String nowPage
@@ -365,7 +365,7 @@ public class HomeController {
 			return "myPage/mypageQnA";
 		}
 		
-		//관리자 상품관리(삭제)
+		//愿�由ъ옄 �긽�뭹愿�由�(�궘�젣)
 		@RequestMapping("productDelete")
 		public String productDelete(@RequestParam("code") String code) {
 			System.out.println(code);
@@ -381,7 +381,7 @@ public class HomeController {
 		}
 		
 		
-		/*상품관리*/
+		/*�긽�뭹愿�由�*/
 		@RequestMapping("inventory")
 		public String inventory(Inventory_PagingVO vo, Model model, HttpSession session
 				, @RequestParam(value="nowPage", required=false)String nowPage
@@ -407,7 +407,7 @@ public class HomeController {
 			}
 			else return"redirect:/";
 		}
-		/*상품 관리 페이지 검색기능*/
+		/*�긽�뭹 愿�由� �럹�씠吏� 寃��깋湲곕뒫*/
 		@RequestMapping("productserch")
 		public String productserch(InventoryCare_PagingVO vo, Model model,SearchBoardDTO searchdto
 				, @RequestParam(value="nowPage", required=false)String nowPage
@@ -438,77 +438,86 @@ public class HomeController {
 			mySession.setAttribute("id", dto.getId());
 			mySession.setAttribute("name", memberservice.nameget(dto.getId()));
 			mySession.setAttribute("pwd", memberservice.beforePwd(dto.getId()));
+			System.out.println("=================================" + dto.getId());
+			memberservice.loginmileage(dto.getId());
+			/*memberinfo 테이블 마일리지 업데이트*/
+			memberservice.mileageupdate2(dto);
 			return "sminj/main";
 		}
 	}
-	@RequestMapping("/saveUserInfo") //회원가입 정보 입력 
+	@RequestMapping("/saveUserInfo") //�쉶�썝媛��엯 �젙蹂� �엯�젰 
 	public String saveUserInfo(MemberInfoDTO dto) {
 		memberservice.saveUserInfo(dto);
+		/*회원가입 마일리지 2000점*/
+		memberservice.joinmileage(dto);
+		/*memberinfo 테이블 마일리지 업데이트*/
+		memberservice.mileageupdate(dto);
 		return "redirect:loginPage";
 	}
 
-	/*세부 상품 조회*/
+	/*�꽭遺� �긽�뭹 議고쉶*/
 	@RequestMapping("/productdetail")
 	public String productdetail(Model model, HttpServletRequest request) {
 		String code = request.getParameter("code");
-		int totalqa = bservice.qatotal(code); //Q&A게시판 코드로 검색했을경우 검색물 총 개수
-		int totalrv = reviewservice.rvtotal(code); //review게시판 코드로 검색했을경우 검색물 총 개수
+		int totalqa = bservice.qatotal(code); //Q&A寃뚯떆�뙋 肄붾뱶濡� 寃��깋�뻽�쓣寃쎌슦 寃��깋臾� 珥� 媛쒖닔
+		int totalrv = reviewservice.rvtotal(code); //review寃뚯떆�뙋 肄붾뱶濡� 寃��깋�뻽�쓣寃쎌슦 寃��깋臾� 珥� 媛쒖닔
 		model.addAttribute("totalqa", totalqa);
 		model.addAttribute("totalrv", totalrv);
 		model.addAttribute("pdto", Pservice.productdetail(request.getParameter("code")));
+		model.addAttribute("sdto", Pservice.sizeSelect(request.getParameter("code")));
 		return "jsj/product_detail";
 	}
 
-	/*남자 신발 전체목록*/
+	/*�궓�옄 �떊諛� �쟾泥대ぉ濡�*/
 	@RequestMapping("Men")
 	public String catalogMen(Product_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.genderAll("남자");
+		int total = Pservice.genderAll("�궓�옄");
 		if (nowPage == null) {nowPage = "1";}
 		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
 		Pservice.allListMen(model,vo);
 		return "jsj/Men/men";
 	}
 	
-	/*여자 신발 전체목록*/
+	/*�뿬�옄 �떊諛� �쟾泥대ぉ濡�*/
 	@RequestMapping("/Women")
 	public String catalogWomen(Product_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.genderAll("여자");
+		int total = Pservice.genderAll("�뿬�옄");
 		if (nowPage == null) {nowPage = "1";}
 		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
 		Pservice.allListWomen(model,vo);
 		return "jsj/Women/women";
 	}
 	
-	/*아동 신발 전체목록*/
+	/*�븘�룞 �떊諛� �쟾泥대ぉ濡�*/
 	@RequestMapping("/Kids")
 	public String catalogKids(Product_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.kisdAll("키즈");
+		int total = Pservice.kisdAll("�궎利�");
 		if (nowPage == null) {nowPage = "1";}
 		vo = new Product_PagingVO(total, Integer.parseInt(nowPage));
 		Pservice.allListKids(model,vo);
 		return "jsj/Kids/kids";
 	}
 	
-	/*남자 신발 카테코리별 전체조회*/
+	/*�궓�옄 �떊諛� 移댄뀒肄붾━蹂� �쟾泥댁“�쉶*/
 	@RequestMapping("Men/category")
 	public String catalogMenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
 				, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.categoryGenderAll("남자", category);
+		int total = Pservice.categoryGenderAll("�궓�옄", category);
 		if (nowPage == null) {nowPage = "1";}
 		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
 		Pservice.allListMenCategory(model,vo);
 		return "jsj/Men/menCategory";
 	}
 
-	/*여자 신발 카테고리별 전체조회*/
+	/*�뿬�옄 �떊諛� 移댄뀒怨좊━蹂� �쟾泥댁“�쉶*/
 	@RequestMapping("/Women/category")
 	public String catalogWomenCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
 			, @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="code", required=false)String code) {
-		int total = Pservice.categoryGenderAll("여자", category);
+		int total = Pservice.categoryGenderAll("�뿬�옄", category);
 		if (nowPage == null) {nowPage = "1";}
 		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
 		Pservice.allListWomenCategory(model,vo);
@@ -516,18 +525,18 @@ public class HomeController {
 	}
 	
 	
-	/*아동 신발 카체고리별 전체조회*/
+	/*�븘�룞 �떊諛� 移댁껜怨좊━蹂� �쟾泥댁“�쉶*/
 	@RequestMapping("/Kids/category")
 	public String catalogKidsCategory(Model model,@RequestParam("category") String category,Product_PagingVO vo
 			, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int total = Pservice.categoryGenderAll("키즈", category);
+		int total = Pservice.categoryGenderAll("�궎利�", category);
 		if (nowPage == null) {nowPage = "1";}
 		vo =  new Product_PagingVO(total,Integer.parseInt(nowPage),category);
 		Pservice.allListKidsCategory(model,vo);
 		return "jsj/Kids/kidsCategory";
 	}
 	
-	/*전체 신발 검색*/
+	/*�쟾泥� �떊諛� 寃��깋*/
 	@RequestMapping("searchCheck")
 	public String catalogMenSearch(Product_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -543,7 +552,7 @@ public class HomeController {
 	
 
 	
-	/*상품 등록 페이지*/
+	/*�긽�뭹 �벑濡� �럹�씠吏�*/
 	@RequestMapping("product_management")
 	public String product_management(HttpSession session) {
 		String id = (String) session.getAttribute("id");
@@ -555,7 +564,7 @@ public class HomeController {
 		}
 		else return"redirect:/";
 	}
-	/*고객관리*/
+	/*怨좉컼愿�由�*/
 	@GetMapping("customer_care")
 	public String customer_care(MemberInfo_PagingVO vo, Model model, HttpSession session
 								, @RequestParam(value="nowPage", required=false)String nowPage
@@ -581,25 +590,25 @@ public class HomeController {
 		}
 		else return"redirect:/";
 	}
-	/*고객관리 페이지 검색기능*/
+	/*怨좉컼愿�由� �럹�씠吏� 寃��깋湲곕뒫*/
 	@RequestMapping("memberserch")
 	public String memberserch(Model model,HttpServletRequest request) {
 		model.addAttribute("request",request);
 		service.memberserchlist(model);
 		return "customer_care2";
 	}
-	/*고객관리 페이지 삭제기능*/
+	/*怨좉컼愿�由� �럹�씠吏� �궘�젣湲곕뒫*/
 	@RequestMapping("memberdelete")
 	public String memberdelete(@RequestParam("id") String id) {
 		service.memberdelete(id);
 		return "redirect:customer_care";
 	}
-	/*게시판관리*/
+	/*寃뚯떆�뙋愿�由�*/
 	@RequestMapping("board_care")
 	public String board_care() {
 		return "board_care";
 	}
-	/*주문관리*/
+	/*二쇰Ц愿�由�*/
 	@RequestMapping("order_care")
 	public String order_care(OrderCare_PagingVO vo, Model model, HttpSession session
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -635,13 +644,13 @@ public class HomeController {
 		model.addAttribute("viewAll",orderservice.orderserch(id));
 		return "order_care2";
 	}
-	/*마이페이지*/
+	/*留덉씠�럹�씠吏�*/
 	@RequestMapping("myPage")
 	public String myPage() {
 		return "myPage/myPage";
 	}
 	
-	/*마이페이지 사이드*/
+	/*留덉씠�럹�씠吏� �궗�씠�뱶*/
 	@RequestMapping("aside")
 	public String aside(Model model, HttpServletRequest request, MemberInfoDTO dto) {
 		HttpSession mySession = request.getSession();
@@ -649,19 +658,19 @@ public class HomeController {
 		model.addAttribute("name", name);
 		return "myPage/myPageAside";
 	}
-	/*회원가입*/
+	/*�쉶�썝媛��엯*/
 	@RequestMapping("memberJoin")
 	public String memberJoin() {
 		return "member/memberJoin";
 	}
 	
-	/*로그인페이지*/
+	/*濡쒓렇�씤�럹�씠吏�*/
 	@RequestMapping("loginPage")
 	public String loginPage() {
 		return "member/loginPage";
 	}
 	
-	/*비밀번호 찾을때 전화번호 or 아이디로 검색*/
+	/*鍮꾨�踰덊샇 李얠쓣�븣 �쟾�솕踰덊샇 or �븘�씠�뵒濡� 寃��깋*/
 	@RequestMapping("userSearch")
 	public String userSearch(Model model, HttpServletRequest request) {
 		String idtel = request.getParameter("idtel");
@@ -669,7 +678,7 @@ public class HomeController {
 		return "member/userUpdate";
 	}
 	
-	/*회원정보 비밀번호 수정*/
+	/*�쉶�썝�젙蹂� 鍮꾨�踰덊샇 �닔�젙*/
 	@RequestMapping("userUpdate")
 	public String userUpdate(MemberInfoDTO dto) {
 		service.pwdUpdate(dto);
@@ -690,16 +699,17 @@ public class HomeController {
 		return "myPage/myPageReturn";
 	}
 	
-	/*마일리지 조회*/
+	/*留덉씪由ъ� 議고쉶*/
 	@RequestMapping("mileage")
 	public String mileage(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("mile", service.mileage(id));
+		model.addAttribute("milelist", service.mileagelist(id));
 		return "myPage/myPageMileage";
 	}
 	
-	/*회원정보 수정을 위한 회원정보 조회*/
+	/*�쉶�썝�젙蹂� �닔�젙�쓣 �쐞�븳 �쉶�썝�젙蹂� 議고쉶*/
 	@RequestMapping("account")
 	public String account(Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -707,7 +717,7 @@ public class HomeController {
 		model.addAttribute("dto", service.account(id));
 		return "myPage/myPageAccount";
 	}
-	/*회원정보 수정*/
+	/*�쉶�썝�젙蹂� �닔�젙*/
 	@RequestMapping("memberinfoModify")
 	public String memberinfoModify(MemberInfoDTO dto, Model model) {
 		service.memberinfoModify(dto, model);
@@ -715,7 +725,7 @@ public class HomeController {
 	}
 	
 
-	/*장바구니 DB에 값 저장하기*/
+	/*�옣諛붽뎄�땲 DB�뿉 媛� ���옣�븯湲�*/
 	@RequestMapping("cartSave")
 	public String cartSave(ShoppingCartDTO sdto, HttpServletRequest request, Model model) {
 		HttpSession mySession = request.getSession();
@@ -724,20 +734,20 @@ public class HomeController {
 			String code = request.getParameter("code");
 			sdto.setId(id);
 			sdto.setCode(code);
-			/*이미 있는 아이템은 더이상 장바구니에 추가 못함*/
+			/*�씠誘� �엳�뒗 �븘�씠�뀥�� �뜑�씠�긽 �옣諛붽뎄�땲�뿉 異붽� 紐삵븿*/
 			System.out.println("=========================================="+orderservice.checkitem(sdto));
 			if(orderservice.checkitem(sdto)==0) {
-				/*장바구니에 상품명 저장하는 기능*/
+				/*�옣諛붽뎄�땲�뿉 �긽�뭹紐� ���옣�븯�뒗 湲곕뒫*/
 				sdto.setCodename(Pservice.codnameget(sdto.getCode()));
-				/*장바구니에 대표사진 저장하는 기능*/
+				/*�옣諛붽뎄�땲�뿉 ���몴�궗吏� ���옣�븯�뒗 湲곕뒫*/
 				sdto.setImage1(Pservice.image1get(sdto.getCode()));
-				/*장바구니에 가격 저장하는 기능*/
-				sdto.setPrice(Pservice.priceget(sdto.getCode()));
-				/*장바구니 DB에 값을 저장*/
+				/*�옣諛붽뎄�땲�뿉 媛�寃� ���옣�븯�뒗 湲곕뒫*/
+				sdto.setPrice(Pservice.priceget(sdto.getCode())*sdto.getCount());
+				/*�옣諛붽뎄�땲 DB�뿉 媛믪쓣 ���옣*/
 				orderservice.insertcart(sdto);
 				return "redirect:cart";
 			}else {
-				model.addAttribute("noadd", -1);
+				model.addAttribute("noadd", "-1");
 				return "redirect:productdetail?code="+code;
 			}
 		}else {
@@ -745,7 +755,7 @@ public class HomeController {
 		}
 	}
 
-	/*장바구니*/
+	/*�옣諛붽뎄�땲*/
 	@RequestMapping("cart")
 	public String cart(Cart_PagingVO cpvo, ShoppingCartDTO sdto, HttpServletRequest request, Model model,
 			@RequestParam(value="nowPage", required=false)String nowPage,
@@ -766,15 +776,15 @@ public class HomeController {
 				cpvo = new Cart_PagingVO(id, total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 				System.out.println("=====================================" + orderservice.cartpaging(cpvo));
 				model.addAttribute("paging", cpvo);
-				/*장바구니 DB에서 회원별 리스트 가져오기*/
+				/*�옣諛붽뎄�땲 DB�뿉�꽌 �쉶�썝蹂� 由ъ뒪�듃 媛��졇�삤湲�*/
 				model.addAttribute("cartlist", orderservice.cartpaging(cpvo));
 				
 			}
 			
-			/*장바구니 DB에서 리스트 개수 가져오기*/
+			/*�옣諛붽뎄�땲 DB�뿉�꽌 由ъ뒪�듃 媛쒖닔 媛��졇�삤湲�*/
 			System.out.println("==========================================" + orderservice.countcart(id));
 			model.addAttribute("cartcount", total);
-			/*장바구니 DB에서 회원별 총 금액 가져오기*/
+			/*�옣諛붽뎄�땲 DB�뿉�꽌 �쉶�썝蹂� 珥� 湲덉븸 媛��졇�삤湲�*/
 			model.addAttribute("totalprice", orderservice.totalprice(id));
 			return "purchase/cart";
 		}else {
@@ -784,27 +794,28 @@ public class HomeController {
 	
 	
 	
-	/*장바구니 옵션창 뜨게 함*/
+	/*�옣諛붽뎄�땲 �샃�뀡李� �쑉寃� �븿*/
 	@RequestMapping("cartoption")
 	public String cartoption(@RequestParam("code") String code, Model model) {
 		model.addAttribute("code", code);
 		return "purchase/cartoption";
 	}
 	
-	/*장바구니 옵션 변경*/
+	/*�옣諛붽뎄�땲 �샃�뀡 蹂�寃�*/
 	@RequestMapping("cartoptionchange")
 	public String cartoptionchange(ShoppingCartDTO sdto, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		sdto.setId(id);
 		sdto.setCode(request.getParameter("code"));
+		sdto.setPrice(Pservice.priceget(sdto.getCode())*sdto.getCount());
 		System.out.println("==============================================="+sdto.getCode());
 		System.out.println("==============================================="+sdto.getOrdersize());
 		System.out.println("==============================================="+sdto.getCount());
 		orderservice.cartoptionchange(sdto);
 		return "redirect:cart";
 	}
-	/*회원별 장바구니에 있는 아이템 전부 삭제*/
+	/*�쉶�썝蹂� �옣諛붽뎄�땲�뿉 �엳�뒗 �븘�씠�뀥 �쟾遺� �궘�젣*/
 	@RequestMapping("cartAlldelete")
 	public String cartAlldelete(HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -813,7 +824,7 @@ public class HomeController {
 		return "redirect:cart";
 	}
 	
-	/*회원별 장바구니에서 x누른 아이템 삭제*/
+	/*�쉶�썝蹂� �옣諛붽뎄�땲�뿉�꽌 x�늻瑜� �븘�씠�뀥 �궘�젣*/
 	@RequestMapping("cartitemdelete")
 	public String cartitemdelete(ShoppingCartDTO sdto, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -824,7 +835,7 @@ public class HomeController {
 		return "redirect:cart";
 	}
 	
-	/*구매*/
+	/*援щℓ*/
 	@RequestMapping("checkoutQuick")
 	public String checkOut(Model model,@SessionAttribute(value="id",required=false) String id, @Param("code") String code
 			,@Param("ordersize") String ordersize
@@ -836,7 +847,7 @@ public class HomeController {
 		return "purchase/checkOut";
 	}
 	
-	/*장바구니에서 구매*/
+	/*�옣諛붽뎄�땲�뿉�꽌 援щℓ*/
 	@RequestMapping("checkoutCart")
 	public String checkoutCart(Model model,@SessionAttribute(value="id",required=false) String id) {
 		if(id!=null) {service.searchId(model, id);}
@@ -845,18 +856,19 @@ public class HomeController {
 		return "purchase/checkOutCart";
 	}
 
-	/*구매후 등록*/
+	/*援щℓ�썑 �벑濡�*/
 	@RequestMapping("productBuy0")
 	public String productBuy(OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
-		//System.out.println("호출");
+		//System.out.println("�샇異�");
 		orderservice.productBuy(Odto,Ddto,dto,request);
+		//memberservice.buymileage(dto);
 		return "myPage/myPage";
 	}
 	
-	/*구매후 등록*/
+	/*援щℓ�썑 �벑濡�*/
 	@RequestMapping("productBuyCart")
 	public String productBuyCart(ShoppingCartDTO sdto,OrderDTO Odto,Order_detailsDTO Ddto,MemberInfoDTO dto,HttpServletRequest request) {
-		//System.out.println("호출");
+		//System.out.println("�샇異�");
 		orderservice.productBuyCart(Odto,Ddto,dto,request,sdto);
 		return "myPage/myPage";
 	}
@@ -882,7 +894,7 @@ public class HomeController {
 		return "sminj/main";
 	}
 
-	/* 로그아웃 */
+	/* 濡쒓렇�븘�썐 */
 	@RequestMapping("logout")
 	public String logout(HttpSession mySession) {
 		if((String)mySession.getAttribute("access_Token") != null) {
@@ -891,7 +903,7 @@ public class HomeController {
 		memberservice.logout(mySession);
 		return "sminj/main";
 	}
-	/* 회원비밀번호 변경 */
+	/* �쉶�썝鍮꾨�踰덊샇 蹂�寃� */
 	@RequestMapping("password")
 	public String password(Model model, HttpServletRequest request, MemberInfoDTO dto) {
 		HttpSession mySession = request.getSession();
@@ -899,7 +911,7 @@ public class HomeController {
 		model.addAttribute("pwd", pwd);
 		return "myPage/myPagePassword";
 	}
-	/* 비밀번호 변경완료 페이지(쇼핑계속하기) */
+	/* 鍮꾨�踰덊샇 蹂�寃쎌셿猷� �럹�씠吏�(�눥�븨怨꾩냽�븯湲�) */
 	@RequestMapping("pwdSuccess")
 	public String pwdSuccess(MemberInfoDTO dto, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -908,12 +920,12 @@ public class HomeController {
 		memberservice.pwdModify(dto);
 		return "sminj/pwd_ModifySuccess";
 	}
-	/* 회원탈퇴 */
+	/* �쉶�썝�깉�눜 */
 	@RequestMapping("withdrawal")
 	public String withdrawal() {
 		return "myPage/myPageWithdrawal";
 	}
-	/* 회원탈퇴 완료 페이지 */
+	/* �쉶�썝�깉�눜 �셿猷� �럹�씠吏� */
 	@RequestMapping("userDelete")
 	public String userDelete(MemberInfoDTO dto, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -923,7 +935,7 @@ public class HomeController {
 		memberservice.logout(mySession);
 		return "sminj/userDelete";
 	}
-	/* 주문내역 및 배송현황 조회 */
+	/* 二쇰Ц�궡�뿭 諛� 諛곗넚�쁽�솴 議고쉶 */
 	@RequestMapping("orderList")
 	public String orderView(Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -932,7 +944,7 @@ public class HomeController {
 		model.addAttribute("orderList", orderList);
 		return "myPage/myPageOrderDelivery";
 	}
-	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
+	/* 二쇰Ц�궡�뿭 �긽�꽭�럹�씠吏� - 二쇰Ц�옄 諛� 寃곗젣�젙蹂� */
 	@RequestMapping("orderView")
 	public String orderView(OrderDTO Odto, Order_detailsDTO Ddto, Model model, HttpServletRequest request) {
 		String ordernum = (String)  request.getParameter("ordernum");
@@ -950,40 +962,40 @@ public class HomeController {
 		return "sminj/orderView";
 	}
 */
-	/* 주문내역 및 배송현황 페이지 - 배송 상태 변경*/
+	/* 二쇰Ц�궡�뿭 諛� 諛곗넚�쁽�솴 �럹�씠吏� - 諛곗넚 �긽�깭 蹂�寃�*/
 	@RequestMapping(value="/myPage/myPageOrderDelivery", method=RequestMethod.POST)
 	public String delivery(Order_detailsDTO Ddto) {
 		orderservice.delivery(Ddto);
 		return "redirect:/myPage/myPageOrderDelivery?=" + Ddto.getOrdernum();
 	}
-	/*Q&A 게시물 등록*/
+	/*Q&A 寃뚯떆臾� �벑濡�*/
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {
 		bservice.qaregister(Qdto);
-		System.out.println("등록 실행");
+		System.out.println("�벑濡� �떎�뻾");
 		return "myPage/myPage";
 	}
-	/*Q&A 게시물 수정*/
+	/*Q&A 寃뚯떆臾� �닔�젙*/
 	@RequestMapping("qaupdate")
 	public String qaupdate(QABoardDTO Qdto) {
 		bservice.qaupdate(Qdto);
 		return "myPage/myPage";
 	}
 	
-	/*Q&A 게시물 삭제*/
+	/*Q&A 寃뚯떆臾� �궘�젣*/
 	@RequestMapping("qadelete")
 	public String qadelete(QABoardDTO Qdto) {
 		bservice.qadelete(Qdto);
 		return "myPage/myPage";
 	}
 	
-	/*Q & A 게시판 작성화면 */
+	/*Q & A 寃뚯떆�뙋 �옉�꽦�솕硫� */
 	@RequestMapping("qnawrite")
 	public String qnaviewPage() {
 		
 		return "board/QnA_write";
 	}
-	/*상세 페이지에서 Q & A 게시판 보기*/
+	/*�긽�꽭 �럹�씠吏��뿉�꽌 Q & A 寃뚯떆�뙋 蹂닿린*/
 	@RequestMapping("qnaview")
 	public String qnaview(Model model,HttpServletRequest request) {
 		String code = request.getParameter("code");
@@ -992,13 +1004,13 @@ public class HomeController {
 		Pservice.codeSearch(model, code);	
 		return "board/QnA_view";
 	}
-	/*상세 페이지에서 리뷰 게시판 보기*/
+	/*�긽�꽭 �럹�씠吏��뿉�꽌 由щ럭 寃뚯떆�뙋 蹂닿린*/
 	@RequestMapping("Review_board")
 	public String Review_board() {
 		return "board/Review_board";
 	}
 	
-	/*Q & A 게시판 전체 보기*/
+	/*Q & A 寃뚯떆�뙋 �쟾泥� 蹂닿린*/
 	@RequestMapping("QnA_board")
 	public String qnaboard(OrderCare_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1017,7 +1029,7 @@ public class HomeController {
 		model.addAttribute("viewAll",bservice.selectqna(vo));
 		return "board/QnA_board";
 	}
-	/*review 게시판 전체 보기*/
+	/*review 寃뚯떆�뙋 �쟾泥� 蹂닿린*/
 	@RequestMapping("review_board")
 	public String review_board(OrderCare_PagingVO vo, Model model
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1037,52 +1049,52 @@ public class HomeController {
 		return "board/review_board";
 	}
 
-	/*review 페이징 ajax*/
+	/*review �럹�씠吏� ajax*/
 	@PostMapping(value= "ajax_RV",produces="application/json; charset=utf8")
 	@ResponseBody
 	public String ajax_RV(Board_PagingVO bdto) throws JsonProcessingException {
 		String code = bdto.getCode();
 		int nowPage = bdto.getNowPage();
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		int total = reviewservice.rvtotal(code); //review게시판 코드로 검색했을경우 검색물 총 개수
+		int total = reviewservice.rvtotal(code); //review寃뚯떆�뙋 肄붾뱶濡� 寃��깋�뻽�쓣寃쎌슦 寃��깋臾� 珥� 媛쒖닔
 		Board_PagingVO voRV = new Board_PagingVO();
-		voRV = new Board_PagingVO(total, nowPage, code); //review게시판 voRV객체 페이징 번호 부여
-		voRV.setCode(code); //review게시판 코드값 세팅
+		voRV = new Board_PagingVO(total, nowPage, code); //review寃뚯떆�뙋 voRV媛앹껜 �럹�씠吏� 踰덊샇 遺��뿬
+		voRV.setCode(code); //review寃뚯떆�뙋 肄붾뱶媛� �꽭�똿
 		list = reviewservice.rvlist(voRV);
 		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 		String strJson = mapper.writeValueAsString(list);
 		return strJson;
 	}
 	
-	/*Q&A 페이징 ajax*/
+	/*Q&A �럹�씠吏� ajax*/
 	@PostMapping(value= "ajax_QA",produces="application/json; charset=utf8")
 	@ResponseBody
 	public String ajax_QA(Board_PagingVO bdto) throws JsonProcessingException {
 		String code = bdto.getCode();
 		int nowPage = bdto.getNowPage();
 		List<QABoardDTO> list = new ArrayList<QABoardDTO>();
-		int total = bservice.qatotal(code); //Q&A게시판 코드로 검색했을경우 검색물 총 개수
+		int total = bservice.qatotal(code); //Q&A寃뚯떆�뙋 肄붾뱶濡� 寃��깋�뻽�쓣寃쎌슦 寃��깋臾� 珥� 媛쒖닔
 		Board_PagingVO voRV = new Board_PagingVO();
-		voRV = new Board_PagingVO(total, nowPage, code); //Q&A게시판 voRV객체 페이징 번호 부여
-		voRV.setCode(code); //Q&A게시판 코드값 세팅
+		voRV = new Board_PagingVO(total, nowPage, code); //Q&A寃뚯떆�뙋 voRV媛앹껜 �럹�씠吏� 踰덊샇 遺��뿬
+		voRV.setCode(code); //Q&A寃뚯떆�뙋 肄붾뱶媛� �꽭�똿
 		list = bservice.qalist(voRV);
 		ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 		String strJson = mapper.writeValueAsString(list);
 		return strJson;
 	}
 	
-	/*reply댓글 보기*/
+	/*reply�뙎湲� 蹂닿린*/
 	@RequestMapping("reply")
 	public String reply(CommentDTO Cdto) {
 		
 		return "board/reply";
 	}
 	
-	/*댓글 등록*/
+	/*�뙎湲� �벑濡�*/
 	@PostMapping(value= "replyregister",produces="application/json; charset=utf8")
 	@ResponseBody
 	public String replyregister(Model model, CommentDTO Cdto) throws JsonProcessingException{
-		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분ss초");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy�뀈 MM�썡dd�씪 HH�떆mm遺꼜s珥�");
 		Date time = new Date(); 
 		String date = format.format(time);
 		String indexnum = Cdto.getIndexnum();
@@ -1096,7 +1108,7 @@ public class HomeController {
 		return strJson;
 	}
 	
-	/*댓글보기*/
+	/*�뙎湲�蹂닿린*/
 	@PostMapping(value= "replyview",produces="application/json; charset=utf8")
 	@ResponseBody
 		public String replyview(CommentDTO Cdto) throws JsonProcessingException {
@@ -1109,13 +1121,13 @@ public class HomeController {
 			return strJson;
 	}
 	
-	/*댓글 수정*/
+	/*�뙎湲� �닔�젙*/
 	@PostMapping(value= "replyUpdate", produces="application/json; charset=utf8")
 	@ResponseBody
 		public String replyUpdate(CommentDTO Cdto) throws JsonProcessingException {
-		System.out.println("댓글내용 : "+Cdto.getContentComment());
-		System.out.println("댓글번호 : "+Cdto.getNumComment());
-		System.out.println("인뎃스넘 : "+Cdto.getIndexnum());
+		System.out.println("�뙎湲��궡�슜 : "+Cdto.getContentComment());
+		System.out.println("�뙎湲�踰덊샇 : "+Cdto.getNumComment());
+		System.out.println("�씤�럠�뒪�꽆 : "+Cdto.getIndexnum());
 		cservice.replyUpdate(Cdto);
 		List<CommentDTO> list = new ArrayList<CommentDTO>();
 		list = cservice.searchComment(Cdto.getIndexnum());
@@ -1126,12 +1138,12 @@ public class HomeController {
 		
 	}
 	
-	/*댓글 삭제*/
+	/*�뙎湲� �궘�젣*/
 	@PostMapping(value= "replyDelete", produces="application/json; charset=utf8")
 	@ResponseBody
 	public String replyDelete(CommentDTO Cdto) throws JsonProcessingException {
-		System.out.println("실행되나??왜안됨?");
-		System.out.println("번호 : " +Cdto.getNumComment());
+		System.out.println("�떎�뻾�릺�굹??�솢�븞�맖?");
+		System.out.println("踰덊샇 : " +Cdto.getNumComment());
 		cservice.replyDelete(Cdto);
 		List<CommentDTO> list = new ArrayList<CommentDTO>();
 		list = cservice.searchComment(Cdto.getIndexnum());
@@ -1144,14 +1156,14 @@ public class HomeController {
 	
 	
 	
-	/*로그인 체크 LogChecking*/
+	/*濡쒓렇�씤 泥댄겕 LogChecking*/
 	@RequestMapping("LogChecking")
 	public String LogChecking() {
 		return "LogChecking";
 	}
 
 
-	/*Q & A게시판 검색*/
+	/*Q & A寃뚯떆�뙋 寃��깋*/
 	@RequestMapping("searchQnA")
 	public String searchQnA(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1172,7 +1184,7 @@ public class HomeController {
 		model.addAttribute("viewAll",bservice.searchQnA(vo));
 		return "board/QnA_board";
 	}
-	/*review게시판 검색*/
+	/*review寃뚯떆�뙋 寃��깋*/
 	@RequestMapping("searchreview")
 	public String searchreview(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1193,7 +1205,7 @@ public class HomeController {
 		model.addAttribute("viewAll",reviewservice.searchreview(vo));
 		return "board/review_board";
 	}
-	/*Q & A게시판 검색 관리자 페이지*/
+	/*Q & A寃뚯떆�뙋 寃��깋 愿�由ъ옄 �럹�씠吏�*/
 	@RequestMapping("searchQnA_care")
 	public String searchQnA_care(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1214,7 +1226,7 @@ public class HomeController {
 		model.addAttribute("viewAll",bservice.searchQnA(vo));
 		return "QnA_board_care";
 	}
-	/*review게시판 검색 관리자 페이지*/
+	/*review寃뚯떆�뙋 寃��깋 愿�由ъ옄 �럹�씠吏�*/
 	@RequestMapping("searchreview_care")
 	public String searchreview_care(Model model,OrderCare_PagingVO vo,SearchBoardDTO searchdto
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1235,7 +1247,7 @@ public class HomeController {
 		model.addAttribute("viewAll",reviewservice.searchreview(vo));
 		return "review_board_care";
 	}
-	/*Q & A 관리자 게시판 전체 보기*/
+	/*Q & A 愿�由ъ옄 寃뚯떆�뙋 �쟾泥� 蹂닿린*/
 	@RequestMapping("QnA_board_care")
 	public String qnaboard_care(OrderCare_PagingVO vo, Model model, HttpSession session
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1264,7 +1276,7 @@ public class HomeController {
 			else return"redirect:/";
 	}
 	
-	/*review 게시판 전체 보기*/
+	/*review 寃뚯떆�뙋 �쟾泥� 蹂닿린*/
 	@RequestMapping("review_board_care")
 	public String review_board_care(OrderCare_PagingVO vo, Model model, HttpSession session
 			, @RequestParam(value="nowPage", required=false)String nowPage
@@ -1290,13 +1302,13 @@ public class HomeController {
 		}
 		else return"redirect:/";
 	}
-	/*Q&A 관리자 페이지 삭제*/
+	/*Q&A 愿�由ъ옄 �럹�씠吏� �궘�젣*/
 	@RequestMapping("QnA_board_care_delete")
 	public String QnA_board_care_delete(@RequestParam("indexnum") String indexnum) {
 		bservice.QnA_board_care_delete(indexnum);
 		return "redirect:QnA_board_care";
 	}
-	/*review 관리자 페이지 삭제*/
+	/*review 愿�由ъ옄 �럹�씠吏� �궘�젣*/
 	@RequestMapping("review_board_care_delete")
 	public String review_board_care_delete(@RequestParam("reviewnum") String reviewnum) {
 		reviewservice.review_board_care_delete(reviewnum);

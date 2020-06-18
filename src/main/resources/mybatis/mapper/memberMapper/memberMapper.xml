@@ -3,7 +3,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.mybatis.memberMapper.memberMapper">
+	<!-- mileage 테이블 정보가져오기-->
+	<select id="mileagelist" parameterType="String">
+		select * from mileage where id=#{id}
+	</select>
 	
+	<!-- 로그인 마일리지 100점-->
+	<insert id="loginmileage" parameterType="String">
+		insert into mileage(id,savemileage,savedate,savereason) values(#{id},2000,sysdate,'로그인을 환영합니다')
+	</insert>
+	<!-- memberinfo 테이블 마일리지 업데이트2-->
+	<update id="udpatemileage2" parameterType="dto">
+		update memberinfo set mile=mile+100 where id=#{id}
+	</update>
+	
+	
+	<!-- 회원가입 마일리지 2000점 -->
+	<insert id="joinmileage" parameterType="dto">
+		insert into mileage(id,savemileage,savedate,savereason) values(#{id},2000,sysdate,'회원가입을 축하합니다')
+	</insert>
+	<!-- memberinfo 테이블 마일리지 업데이트*/-->
+	<update id="udpatemileage" parameterType="dto">
+		update memberinfo set mile=mile+2000 where id=#{id}
+	</update>
 	<!-- ID 혹은 전화번호로 검색-->
 	<select id="searchId" resultType="dto">
 		select * from memberInfo where id=#{id} or tel=#{id}

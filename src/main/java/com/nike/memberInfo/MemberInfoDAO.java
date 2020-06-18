@@ -113,5 +113,29 @@ public class MemberInfoDAO {
 	public String nameget(String id) {
 		return sqlSession.selectOne(namespace+".nameget",id);
 	}
+	/*회원가입 마일리지 2000점*/
+	public void joinmileage(MemberInfoDTO dto) {
+		sqlSession.insert(namespace+".joinmileage", dto);
+		
+	}
+	/*memberinfo 테이블 마일리지 업데이트*/
+	public void mileageupdate(MemberInfoDTO dto) {
+		sqlSession.update(namespace+".udpatemileage", dto);
+		
+	}
+	/*로그인 마일리지 100점*/
+	public void loginmileage(String id) {
+		sqlSession.insert(namespace+".loginmileage", id);
+		
+	}
+	/*memberinfo 테이블 마일리지 업데이트2*/
+	public void mileageupdate2(MemberInfoDTO dto) {
+		sqlSession.update(namespace+".udpatemileage2", dto);
+		
+	}
+	/*mileage 테이블 정보가져오기*/
+	public List<MileageDTO> mileagelist(String id) {
+		return sqlSession.selectList(namespace+"mileagelist", id);
+	}
 
 }
