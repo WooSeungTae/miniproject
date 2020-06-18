@@ -354,7 +354,7 @@ public class HomeController {
 			vo.setSearch((String)session.getAttribute("id"));
 			model.addAttribute("paging",vo);
 			model.addAttribute("viewAll",reviewservice.searchreview(vo));
-			return "redirect:myPage1Reviewintro";
+			return "myPage/myPageReviewintro";
 		}
 		
 		/*마이페이지 QnA*/
@@ -379,7 +379,7 @@ public class HomeController {
 			vo.setSearch((String)session.getAttribute("id"));
 			model.addAttribute("paging",vo);
 			model.addAttribute("viewAll",bservice.searchQnA(vo));
-			return "redirect:myPage1QnA";
+			return "myPage/mypageQnA";
 		}
 		
 		//관리자 상품관리(삭제)
@@ -678,7 +678,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String name = (String) mySession.getAttribute("name");
 		model.addAttribute("name", name);
-		return "redirect:myPage1Aside";
+		return "myPage/myPageAside";
 	}
 	/*회원가입*/
 	@RequestMapping("memberJoin")
@@ -718,7 +718,7 @@ public class HomeController {
 	
 	@RequestMapping("returnable")
 	public String myPageReturn() {
-		return "redirect:myPage1Return";
+		return "myPage/myPageReturn";
 	}
 	
 	/*마일리지 조회*/
@@ -727,7 +727,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("mile", service.mileage(id));
-		return "redirect:myPage1Mileage";
+		return "myPage/myPageMileage";
 	}
 	
 	/*회원정보 수정을 위한 회원정보 조회*/
@@ -736,7 +736,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String id = (String) mySession.getAttribute("id");
 		model.addAttribute("dto", service.account(id));
-		return "redirect:myPage1Account";
+		return "myPage/myPageAccount";
 	}
 	/*회원정보 수정*/
 	@RequestMapping("memberinfoModify")
@@ -992,7 +992,7 @@ public class HomeController {
 	
 	@RequestMapping("towritelistall")
 	public String myPageTowritelistall() {
-		return "redirect:myPage1Towritelistall";
+		return "myPage/myPageTowritelistall";
 	}
 	@RequestMapping("/header")
 	public String header(Model model, HttpServletRequest request, MemberInfoDTO dto) {
@@ -1025,7 +1025,7 @@ public class HomeController {
 		HttpSession mySession = request.getSession();
 		String pwd = (String)mySession.getAttribute("pwd");
 		model.addAttribute("pwd", pwd);
-		return "redirect:myPage1Password";
+		return "myPage/myPagePassword";
 	}
 	/* 비밀번호 변경완료 페이지(쇼핑계속하기) */
 	@RequestMapping("pwdSuccess")
@@ -1039,7 +1039,7 @@ public class HomeController {
 	/* 회원탈퇴 */
 	@RequestMapping("withdrawal")
 	public String withdrawal() {
-		return "redirect:myPage1Withdrawal";
+		return "myPage/myPageWithdrawal";
 	}
 	/* 회원탈퇴 완료 페이지 */
 	@RequestMapping("userDelete")
@@ -1058,7 +1058,7 @@ public class HomeController {
 		String id = (String) mySession.getAttribute("id");
 		List<Order_detailsDTO> orderList = orderservice.orderList(id);
 		model.addAttribute("orderList", orderList);
-		return "redirect:myPage1OrderDelivery";
+		return "myPage/myPageOrderDelivery";
 	}
 	/* 주문내역 상세페이지 - 주문자 및 결제정보 */
 	@RequestMapping("orderView")
@@ -1079,7 +1079,7 @@ public class HomeController {
 	@RequestMapping("qaregister")
 	public String qaregister(QABoardDTO Qdto) {
 		bservice.qaregister(Qdto);
-		return "redirect:myPage1";
+		return "myPage/myPage";
 	}
 	/*Q&A 게시물 수정*/
 	@RequestMapping("qaupdate")
@@ -1092,7 +1092,7 @@ public class HomeController {
 	@RequestMapping("qadelete")
 	public String qadelete(QABoardDTO Qdto) {
 		bservice.qadelete(Qdto);
-		return "redirect:myPage1";
+		return "myPage/myPage";
 	}
 	
 	/*Q & A 게시판 작성화면 */
